@@ -6,15 +6,15 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-logging.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/cos.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/stripes.jar"/>
-	<classpathentry kind="lib" path="C:/0wp/wordpong/lib/appengine-testing.jar"/>
-	<classpathentry kind="lib" path="C:/0wp/wordpong/lib/appengine-api-stubs.jar"/>
+	<classpathentry kind="lib" path="lib/appengine-testing.jar"/>
+	<classpathentry kind="lib" path="lib/appengine-api-stubs.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/stripesstuff-0.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-lang-2.4.jar"/>
-	<classpathentry kind="lib" path="C:/0wp/wordpong/lib/repackaged-appengine-jakarta-jstl-1.1.2.jar"/>
-	<classpathentry kind="lib" path="C:/0wp/wordpong/lib/repackaged-appengine-jakarta-standard-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-jstl-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-standard-1.1.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/junit-4.8.1.jar"/>
-	<classpathentry kind="lib" path="C:/0wp/wordpong/lib/objectify-2.2.3.jar" sourcepath="F:/0wordpong/dev/objectify-2.2.3/src"/>
+	<classpathentry kind="lib" path="lib/objectify-2.2.3.jar" sourcepath="F:/0wordpong/dev/objectify-2.2.3/src"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/appengine-java-sdk-1.4.2"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
