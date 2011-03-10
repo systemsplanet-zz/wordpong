@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
+	version="2.4">
+
+	<context-param>
+		<param-name>
+			javax.servlet.jsp.jstl.fmt.localizationContext
+		</param-name>
+		<param-value>StripesResources</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>
+			com.wordpong.app.listener.AppListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>StripesFilter</filter-name>
+		<filter-class>net.sourceforge.stripes.controller.StripesFilter
+		</filter-class>
+		<init-param>
+			<param-name>LocalePicker.Locales</param-name>
+			<param-value>en,fr</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ActionResolver.Packages
+			</param-name>
+			<!--  Stripes scans this package for actions at startup -->
+			<param-value>
+				com.wordpong.app.action
+		    </param-value>
+		</init-param>
+		<init-param>
+			<param-name>Extensions.Packages</param-name>
+			<param-value>com.wordpong.app.stripes,
+				org.stripesstuff.plugin.security
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>MultipartWrapperFactory.Class
+			</param-name>
+			<param-value>com.wordpong.app.stripes.EmptyMultipartWrapper
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ExceptionHandler.Class</param-name>
+			<param-value>com.wordpong.app.stripes.AppExceptionHandler
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ActionResolver.Class</param-name>
+			<param-value>com.wordpong.app.stripes.AppActionResolver
+			</param-value>
+		</init-param>
+		<init-param>
+			<!-- unauthorized request page -->
+			<param-name>UnauthorizedResolutionURL
+			</param-name>
+			<param-value>/err/unauthorized.jsp
+			</param-value>
+		</init-param>
+
+
+		<init-param>
+			<param-name>SecurityManager.Class</param-name>
+			<!--
+				http://www.stripesframework.org/display/stripes/Security+Interceptor+for+custom+authorization
+			-->
+			<param-value>
+				com.wordpong.app.stripes.AppSecurityManager
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ActionBeanContext.Class
+			</param-name>
+			<param-value>com.wordpong.app.stripes.AppActionBeanContext
+			</param-value>
+		</init-param>
+		<init-param>
+			<!--
+				http://www.devx.com/Java/Article/39199/1954
+				@ValidateNestedProperties({ @Validate(field="id", encrypted=true),
+				}) private Contact contact = new Contact();
+			-->
+			<param-name>Stripes.EncryptionKey</param-name>
+			<param-value>w0rdp0ngpwd#1!@</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Interceptor.Classes</param-name>
+			<param-value>com.wordpong.app.stripes.AuthenticationInterceptor,
+				org.stripesstuff.plugin.security.SecurityInterceptor,
+			</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>StripesFilter</filter-name>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<!-- add jsps for layout support -->
+		<url-pattern>*.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	<!--
+		bulk upload/export
+		http://code.google.com/appengine/docs/python/tools/uploadingdata.html
+	-->
+
+	<servlet>
+		<servlet-name>remoteapi</servlet-name>
+		<servlet-class>com.google.apphosting.utils.remoteapi.RemoteApiServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>remoteapi</servlet-name>
+		<url-pattern>/remote_api</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>remoteapi</web-resource-name>
+			<url-pattern>/remote_api</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+
+	<!-- Warmup Servlet -->
+	<servlet>
+		<servlet-name>_ah_warmup</servlet-name>
+		<servlet-class>com.wordpong.app.listener.AppWarmingServlet
+		</servlet-class>
+	</servlet>
+
+	<!--  Cron Jobs -->
+	<servlet>
+		<servlet-name>cron</servlet-name>
+		<servlet-class>com.wordpong.app.cron.CronServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cron</servlet-name>
+		<url-pattern>/scheduledtask</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>cron</web-resource-name>
+			<url-pattern>/scheduledtask</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+	<!-- Queue Task -->
+	<servlet>
+		<servlet-name>taskenqueue</servlet-name>
+		<servlet-class>com.wordpong.app.tasks.TaskEnqueueServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>taskenqueue</servlet-name>
+		<url-pattern>/testq</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>defaulttask</servlet-name>
+		<servlet-class>com.wordpong.app.tasks.TaskServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>defaulttask</servlet-name>
+		<url-pattern>/_ah/queue/default</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>defaulttaskurl</web-resource-name>
+			<url-pattern>/_ah/queue/default</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<servlet>
+		<servlet-name>sendinvitationtask</servlet-name>
+		<servlet-class>com.wordpong.app.tasks.TaskServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>sendinvitationtask</servlet-name>
+		<url-pattern>/send_invitation_task</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>sendinvitationtaskurl
+			</web-resource-name>
+			<url-pattern>/send_invitation_task</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+
+
+
+
+	<!-- Stripes Config -->
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>net.sourceforge.stripes.controller.DispatcherServlet
+		</servlet-class>
+		<!-- Load this on warmup and startup -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>*.wp</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Fake Admin url to trigger Google SSO -->
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<!--  require google domain admin role -->
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+		<!--  require https -->
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<!--  App Stats -->
+
+	<filter>
+		<filter-name>appstats</filter-name>
+		<filter-class>com.google.appengine.tools.appstats.AppstatsFilter
+		</filter-class>
+		<init-param>
+			<param-name>logMessage</param-name>
+			<param-value>Appstats available: /stats/details?time={ID}
+			</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>appstats</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>appstats</servlet-name>
+		<servlet-class>com.google.appengine.tools.appstats.AppstatsServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>appstats</servlet-name>
+		<url-pattern>/stats/*</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>appstats URLs</web-resource-name>
+			<url-pattern>/stats/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+
+
+
+	<servlet>
+		<servlet-name>loginJsp</servlet-name>
+		<jsp-file>/index.html</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>loginJsp</servlet-name>
+		<url-pattern>/_ah/login_required</url-pattern>
+	</servlet-mapping>
+
+	<!-- Debug -->
+	<servlet>
+		<servlet-name>PrintEnvironmentServlet
+		</servlet-name>
+		<servlet-class>com.wordpong.app.util.servlet.PrintEnvironmentServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PrintEnvironmentServlet
+		</servlet-name>
+		<url-pattern>/admin/debugenv</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- MAIL -->
+	<servlet>
+		<servlet-name>mailreceiver</servlet-name>
+		<servlet-class>com.wordpong.app.msg.MailReceiverServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mailreceiver</servlet-name>
+		<url-pattern>/_ah/mail/*</url-pattern>
+	</servlet-mapping>
+
+	<!--  incomming text messages -->
+	<servlet>
+		<servlet-name>xmppreceiver</servlet-name>
+		<servlet-class>com.wordpong.app.msg.XMPPReceiverServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>xmppreceiver</servlet-name>
+		<url-pattern>/_ah/xmpp/message/chat/
+		</url-pattern>
+	</servlet-mapping>
+
+	<!--  Session clean up -->
+	<servlet>
+		<servlet-name>_ah_sessioncleanup</servlet-name>
+		<servlet-class>
+			com.google.apphosting.utils.servlet.SessionCleanupServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>_ah_sessioncleanup</servlet-name>
+		<url-pattern>/_ah/sessioncleanup</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>session-cleanup</web-resource-name>
+			<url-pattern>/_ah/sessioncleanup</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+
+
+	<!-- Live Prod Intergration Tests using Junit -->
+	<servlet>
+		<servlet-name>KtrWjrServiceServlet</servlet-name>
+		<servlet-class>bufferings.ktr.wjr.server.service.KtrWjrServiceServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>KtrWjrServiceServlet</servlet-name>
+		<url-pattern>/ktrwjr/ktrwjr/ktrwjr.s3gwt
+		</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/ktrwjr/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	
+	<!-- Game URL -->
+	<security-constraint>
+		<web-resource-collection>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<!--  require https on entire site -->
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	
+	<!-- default index pages -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/err/unauthorized.html
+		</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/err/unauthorized.html
+		</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/err/notfound.html</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/err/unavailable.html</location>
+	</error-page>
+
+	<mime-mapping>
+		<extension>xxx</extension>
+		<mime-type>text/plain</mime-type>
+	</mime-mapping>
+
+	<taglib>
+
+	</taglib>
+
+	<session-config>
+		<session-timeout>40</session-timeout>
+	</session-config>
+</web-app>
+

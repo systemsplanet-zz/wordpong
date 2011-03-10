@@ -1,0 +1,71 @@
+/** fonts */
+body {
+  font-size: 8pt;
+  line-height: 1.2;
+}
+
+select,input,button,textarea {
+  font-size: 100%;
+  line-height: 1.2;
+}
+
+table {
+  font-size: 100%;
+  line-height: 1.2;
+}
+
+textarea {
+  font-size: 100%;
+  line-height: 1.2;
+}
+
+table {
+  color: inherit;
+  font-weight: inherit;
+  color: expression(this.parentNode.currentStyle.color);
+  font-weight: expression(this.parentNode.currentStyle.fontWeight);
+}
+
+/* ktr-icon */
+.ktr-icon-empty {
+  background-position: -240px 0;
+}
+
+/* ktr-tests-tree */
+.ktr-tests-tree table {
+  border-collapse: collapse;
+}
+
+.ktr-tests-tree td {
+  padding: 0;
+}
+
+.ktr-tests-tree-item {
+  border: solid 1px transparent;
+}
+
+/* ktr-trace-tree */
+.ktr-trace-tree-item {
+  border: solid 1px transparent;
+}
+
+/* ktr-result-bar */
+.ktr-result-bar-default {
+  border: solid 1px gray;
+  background-color: white;
+}
+
+.ktr-result-bar-fail {
+  border: solid 1px gray;
+  background-color: red;
+}
+
+.ktr-result-bar-notyet {
+  border: solid 1px gray;
+  background-color: mediumblue;
+}
+
+.ktr-result-bar-succeed {
+  border: solid 1px gray;
+  background-color: lime;
+}

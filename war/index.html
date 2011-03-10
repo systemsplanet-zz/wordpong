@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="height=device-height,width=device-width" >
+<title>WordPong</title>
+<link rel="stylesheet" href="/css/jquery.mobile.1.0a3.css" type="text/css">
+<link rel="stylesheet" href="/css/wp.css" type="text/css">
+<script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="/js/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/js/dump.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/dateFormat.js"></script>
+<script type="text/javascript" src="/js/jquery.mobile.1.0a3.js"></script> 
+</head>
+<body>
+<div data-role="page" data-theme="a">
+	<div class="page-content" >
+	</div>
+</div>
+
+<form id="refreshForm" action="/Login.wp" method="post">
+	<input id="initButton" name="view" value="Load App" type="submit" class="process"/>
+</form>
+
+<script type="text/javascript">
+$("input.process").live( "click", function(e) {
+	e.preventDefault();
+	var action = this.form.action + '?_eventName=' + this.name;
+	var params = $(this.form).serialize();
+	var xhr = $.post(action, params, function(data) {
+		if (xhr.getResponseHeader('Stripes-Success') == "OK") {
+			var d = new Date();
+			var footer =  "<br><div id='js-status' class='wp-status'/>" +
+			"<div class='wp-date'>"+ dateFormat(new Date(),"HH:MM:ss mmm dd")+"</div>"+
+			"<pre>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</pre>";
+			var content = $(e).parents('.ui-page-active .page-content:first')
+			content.html(data + footer)
+			$('.ui-page-active [data-role="content"]').page();
+		} else {
+			alert("Session has expired!");
+			window.location.reload(true);
+		}
+	});
+});
+
+$(document).ready(function() {
+	$('#initButton').click();
+});
+</script>
+</body>
+</html>
