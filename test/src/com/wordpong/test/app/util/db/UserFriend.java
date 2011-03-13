@@ -5,14 +5,10 @@ import java.util.ArrayList;
 
 import javax.persistence.Id;
 
-import com.googlecode.objectify.annotation.Indexed;
-import com.googlecode.objectify.annotation.Unindexed;
 
-@Unindexed
 public class UserFriend {
 	private static final long serialVersionUID = 1L;
 
-	@Indexed
 	@Id
 	private Long id;
 

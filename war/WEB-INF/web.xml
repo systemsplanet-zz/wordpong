@@ -4,6 +4,20 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	version="2.4">
+	<context-param>
+		<param-name>slim3.rootPackage</param-name>
+		<param-value>com.wordpong.api</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext
+		</param-name>
+		<param-value>application</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.request.charset
+		</param-name>
+		<param-value>UTF-8</param-value>
+	</context-param>
 
 	<context-param>
 		<param-name>
@@ -29,9 +43,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 			<param-name>ActionResolver.Packages
 			</param-name>
 			<!--  Stripes scans this package for actions at startup -->
-			<param-value>
-				com.wordpong.app.action
-		    </param-value>
+			<param-value>com.wordpong.app.action</param-value>
 		</init-param>
 		<init-param>
 			<param-name>Extensions.Packages</param-name>
@@ -383,8 +395,40 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 			<role-name>admin</role-name>
 		</auth-constraint>
 	</security-constraint>
-	
-	
+
+	<!-- Slim3 for rolling back transactions -->
+	<filter>
+		<filter-name>datastoreFilter</filter-name>
+		<filter-class>org.slim3.datastore.DatastoreFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>datastoreFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>GlobalTransactionServlet
+		</servlet-name>
+		<servlet-class>org.slim3.datastore.GlobalTransactionServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+    <servlet-mapping>
+        <servlet-name>GlobalTransactionServlet</servlet-name>
+        <url-pattern>/slim3/gtx</url-pattern>
+    </servlet-mapping>
+    <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/slim3/gtx</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+
 	<!-- Game URL -->
 	<security-constraint>
 		<web-resource-collection>
@@ -395,7 +439,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
-	
+
 	<!-- default index pages -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

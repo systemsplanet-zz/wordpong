@@ -10,10 +10,11 @@ import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slim3.datastore.Datastore;
 
-import com.googlecode.objectify.Key;
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.ObjectifyService;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Transaction;
+import com.wordpong.api.model.User;
 import com.wordpong.app.util.servlet.HtmlUtils;
 
 /**
@@ -26,7 +27,6 @@ public class FriendsTest {
 
 	@Before
 	public void setUp() throws Exception {
-		ObjectifyService.register(UserFriend.class);
 	}
 
 	@After
@@ -35,11 +35,11 @@ public class FriendsTest {
 
 	@Test
 	public void testCreateBatchGetFriends() {
-		//Objectify ofy = ObjectifyService.beginTransaction();
-		Objectify ofy = ObjectifyService.begin();
-		assertTrue(ofy != null);
+	    
+        Transaction txn = Datastore.beginTransaction();
+		assertTrue(txn != null);
 		UserFriend parent = new UserFriend();
-		Key<UserFriend> parentKey = null;
+		Key parentKey = null;
 		try {
 			assertTrue(parent != null);
 			List<Long> friends = new ArrayList<Long>(MAX_FRIENDS);
@@ -49,7 +49,7 @@ public class FriendsTest {
 				UserFriend u = new UserFriend();
 				u.setName("name" + i);
 				assertTrue(u != null);
-				Key<UserFriend> uk = ofy.put(u);
+				Key uk = Datastore.put(u);
 				assertTrue(uk != null);
 				assertTrue(u.getId() != null);
 				friends.add(u.getId());
@@ -59,22 +59,20 @@ public class FriendsTest {
 
 			// write the parent
 			start = System.currentTimeMillis();
-			parentKey = ofy.put(parent);
+			parentKey = Datastore.put(parent);
 			assertTrue(parentKey != null);
 			assertTrue(parent.getId() != null);
 			log.info("added parent in " + (System.currentTimeMillis() - start)
 					+ " ms");
-			//ofy.getTxn().commit();
+			txn.commit();
 		} finally {
 			//if (ofy.getTxn().isActive())
 			//	  ofy.getTxn().rollback();
 		}
 
-		ofy = ObjectifyService.begin();
-		assertTrue(ofy != null);
 		// read the parent
 		long start = System.currentTimeMillis();
-		UserFriend newParent = ofy.get(parentKey);
+		UserFriend newParent = Datastore.get(UserFriend.class, parentKey);
 		log.info("read parent in " + (System.currentTimeMillis() - start)
 				+ " ms");
 		assertTrue(newParent.getFriends().size() == parent.getFriends().size());
@@ -87,16 +85,16 @@ public class FriendsTest {
 		}
 
 		// Create list of keys to all the friends
-		List<Key<UserFriend>> friendKeys = new ArrayList<Key<UserFriend>>();
+		List<Key> friendKeys = new ArrayList<Key>();
 		for (int i = 0; i < friends.size(); i++) {
 			long id = friends.get(i);
-			Key<UserFriend> k = new Key<UserFriend>(UserFriend.class, id);
+            Key k = Datastore.allocateId(UserFriend.class);
 			friendKeys.add(k);
 		}
 
 		// batch read all friends at once
 		start = System.currentTimeMillis();
-		Map<Key<UserFriend>, UserFriend> newFriends = ofy.get(friendKeys);
+		List<UserFriend> newFriends = Datastore.get(UserFriend.class, friendKeys);
 		log.info("read all friends in " + (System.currentTimeMillis() - start)
 				+ " ms");
 		assertTrue(newFriends != null);

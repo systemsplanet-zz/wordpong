@@ -10,11 +10,12 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/junit-4.8.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-2.2.3.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/ktr-wjr.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/appengine-java-sdk-1.4.2"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-jstl-1.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-standard-1.1.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/slim3-1.0.9.jar"/>
+	<classpathentry kind="lib" path="lib-plugin/slim3-gen-1.0.9.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
