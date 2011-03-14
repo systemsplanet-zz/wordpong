@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<datastore-indexes
-  xmlns="http://appengine.google.com/ns/datastore-indexes/1.0"
-  autoGenerate="false">
-    <datastore-index kind="User" ancestor="false">
-        <property name="email" direction="asc" />
-    </datastore-index>
-</datastore-indexes>

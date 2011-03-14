@@ -1,8 +1,6 @@
 package com.wordpong.api.svc.dao;
 
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import org.slim3.datastore.Datastore;
@@ -11,10 +9,9 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.wordpong.api.meta.UserMeta;
 import com.wordpong.api.model.User;
-import com.wordpong.app.action.RegisterActionBean;
 
-public class DaoUserImpl implements DaoUser {
-    private static final Logger log = Logger.getLogger(RegisterActionBean.class.getName());
+public class DaoUserImpl extends DaoBase<User> implements DaoUser {
+    private static final Logger log = Logger.getLogger(DaoUserImpl.class.getName());
 
     static final String PROP_EMAIL = "email";
 
@@ -32,55 +29,6 @@ public class DaoUserImpl implements DaoUser {
         return u;
     }
 
-    // Key key = u.getKey();
-    public User read(Key key) {
-        User u = Datastore.get(User.class, key);
-        return u;
-    }
-
-    public List<User> readList(List<Key> keys) {
-        List<User> us = Datastore.get(User.class, keys);
-        return us;
-    }
-
-    public Future<List<User>> readListAsync(List<Key> keys) {
-        Future<List<User>> futures = Datastore.getAsync(User.class, keys);
-        return futures;
-    }
-
-    public void update(User u) {
-        Datastore.put(u);
-    }
-
-    // use Key key= future.get() to get the result
-    public Future<Key> updateAsync(User u) {
-        Future<Key> future = Datastore.putAsync(u);
-        return future;
-    }
-
-    public void updateList(List<User> us) {
-        Datastore.put(us);
-    }
-
-    public void delete(Key k) {
-        Datastore.delete(k);
-    }
-
-    // use future.get() to get the result
-    public Future<Void> deleteAsync(Key k) {
-        Future<Void> future = Datastore.deleteAsync(k);
-        return future;
-    }
-
-    public void deleteList(List<Key> ks) {
-        Datastore.delete(ks);
-    }
-
-    // private final DatastoreService ds =
-    // DatastoreServiceFactory.getDatastoreService();
-    // private final Queue delayedWriteQueue = QueueFactory.getDefaultQueue();
-
-    // Encrypts the password if unencrypted
     public User save(User u) throws DaoException {
         if (u == null) {
             throw new DaoException("cant save null user");
@@ -90,9 +38,7 @@ public class DaoUserImpl implements DaoUser {
             // Key key = Datastore.allocateId(User.class);
             // u.setKey(key);
             Key key = Datastore.put(u);
-            //u.setKey(key);
             log.info(action + " user:" + u + " key:" + key);
-            // TODO: if u.id is not set, set it here
         } catch (Exception e) {
             log.warning("unable to save user:" + u);
             throw new DaoException(e.getMessage());
@@ -100,11 +46,6 @@ public class DaoUserImpl implements DaoUser {
         return u;
     }
 
-    // use Key key = future.get(); to get result
-    public Future<Key> saveAsync(User u) throws DaoException {
-        Future<Key> future = Datastore.putAsync(u);
-        return future;
-    }
 
     public User findByEmail(String email) throws DaoException {
         User result = null;// = getByProperty(PROP_EMAIL, email);
@@ -115,9 +56,6 @@ public class DaoUserImpl implements DaoUser {
             // com.google.appengine.api.datastore.PreparedQuery$TooManyResultsException
             throw new DaoException("Err:" + ex.getMessage());
         }
-        /*
-         * result.setPassword(Encrypt.hashSha1("test"));
-         */
         if (result == null) {
             throw new DaoExceptionUserNotFound("email:" + email);
         }
@@ -131,4 +69,11 @@ public class DaoUserImpl implements DaoUser {
         u2Friends.add(u1.getKey());
         Datastore.put(u1, u2);
     }
+
+    //TODO: add methods using delayed writes
+    // private final DatastoreService ds =
+    // DatastoreServiceFactory.getDatastoreService();
+    // private final Queue delayedWriteQueue = QueueFactory.getDefaultQueue();
+
+
 }
