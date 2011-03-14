@@ -7,6 +7,7 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 
+// Provides basic CRUD for a DB class
 public class DaoBase<T> {
     protected Class<T> clazz;
 
