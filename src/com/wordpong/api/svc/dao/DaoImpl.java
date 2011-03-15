@@ -1,4 +1,5 @@
 package com.wordpong.api.svc.dao;
+
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -8,12 +9,12 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 
 // Provides basic CRUD for a DB class
-public class DaoBase<T> {
+public class DaoImpl<T> implements Dao<T> {
     protected Class<T> clazz;
 
     // Magic to get the class that is subclassing this class into clazz
     @SuppressWarnings("unchecked")
-    public DaoBase() {
+    public DaoImpl() {
         clazz = ((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
     }
 

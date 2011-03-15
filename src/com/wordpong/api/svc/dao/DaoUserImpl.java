@@ -10,7 +10,7 @@ import com.google.appengine.api.datastore.Transaction;
 import com.wordpong.api.meta.UserMeta;
 import com.wordpong.api.model.User;
 
-public class DaoUserImpl extends DaoBase<User> implements DaoUser {
+public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
     private static final Logger log = Logger.getLogger(DaoUserImpl.class.getName());
 
     static final String PROP_EMAIL = "email";
