@@ -2,69 +2,216 @@ package com.wordpong.api.svc.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
+/**
+ * 
+ * DAO base class.
+ * TODO: Replace with http://slim3.googlecode.com/svn/trunk/slim3/src/main/java/org/slim3/datastore/DaoBase.java
+ * on slim release 1.0.10
+ * 
+ */
+public class DaoImpl<T> implements Dao<T>{
 
-// Provides basic CRUD for a DB class
-public class DaoImpl<T> implements Dao<T> {
-    protected Class<T> clazz;
+    /**
+     * The model class.
+     */
+    protected Class<T> modelClass;
 
-    // Magic to get the class that is subclassing this class into clazz
+    /**
+     * Constructor.
+     */
     @SuppressWarnings("unchecked")
     public DaoImpl() {
-        clazz = ((Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+        modelClass =
+            ((Class) ((ParameterizedType) getClass().getGenericSuperclass())
+                .getActualTypeArguments()[0]);
     }
 
-    // Key key = u.getKey();
-    public T read(Key key) {
-        T u = Datastore.get(clazz, key);
-        return u;
+    /**
+     * Returns the model class.
+     * 
+     * @return the model class
+     */
+    public Class<T> getModelClass() {
+        return modelClass;
     }
 
-    public List<T> readList(List<Key> keys) {
-        List<T> us = Datastore.get(clazz, keys);
-        return us;
+    /**
+     * Returns a model.
+     * 
+     * @param key
+     *            the key
+     * @return a model
+     */
+    public T get(Key key) {
+        return Datastore.get(modelClass, key);
     }
 
-    public Future<List<T>> readListAsync(List<Key> keys) {
-        Future<List<T>> futures = Datastore.getAsync(clazz, keys);
-        return futures;
+    /**
+     * Returns a model asynchronously.
+     * 
+     * @param key
+     *            the key
+     * @return a model represented as {@link Future}
+     */
+    public Future<T> getAsync(Key key) {
+        return Datastore.getAsync(modelClass, key);
     }
 
-    public void update(T u) {
-        Datastore.put(u);
+    /**
+     * Returns a model. Returns null if no entity is found.
+     * 
+     * @param key
+     *            the key
+     * @return a model
+     */
+    public T getOrNull(Key key) {
+        return Datastore.getOrNull(modelClass, key);
     }
 
-    // use Key key= future.get() to get the result
-    public Future<Key> updateAsync(T u) {
-        Future<Key> future = Datastore.putAsync(u);
-        return future;
+    /**
+     * Returns a model asynchronously.
+     * 
+     * @param key
+     *            the key
+     * @return a model represented as {@link Future}
+     */
+    public Future<T> getOrNullAsync(Key key) {
+        return Datastore.getOrNullAsync(modelClass, key);
     }
 
-    public void updateList(List<T> us) {
-        Datastore.put(us);
+    /**
+     * Returns models.
+     * 
+     * @param keys
+     *            the keys
+     * @return models
+     */
+    public List<T> get(List<Key> keys) {
+        return Datastore.get(modelClass, keys);
     }
 
-    public void delete(Key k) {
-        Datastore.delete(k);
+    /**
+     * Returns models asynchronously.
+     * 
+     * @param keys
+     *            the keys
+     * @return models represented as {@link Future}
+     */
+    public Future<List<T>> getAsync(List<Key> keys) {
+        return Datastore.getAsync(modelClass, keys);
     }
 
-    // use future.get() to get the result
-    public Future<Void> deleteAsync(Key k) {
-        Future<Void> future = Datastore.deleteAsync(k);
-        return future;
+    /**
+     * Returns models as {@link Map}.
+     * 
+     * @param keys
+     *            the keys
+     * @return models
+     */
+    public Map<Key, T> getAsMap(List<Key> keys) {
+        return Datastore.getAsMap(modelClass, keys);
     }
 
-    public void deleteList(List<Key> ks) {
-        Datastore.delete(ks);
+    /**
+     * Returns models asynchronously as {@link Map}.
+     * 
+     * @param keys
+     *            the keys
+     * @return models represented as {@link Future}
+     */
+    public Future<Map<Key, T>> getAsMapAsync(List<Key> keys) {
+        return Datastore.getAsMapAsync(modelClass, keys);
     }
 
-    // use Key key = future.get(); to get result
-    public Future<Key> saveAsync(T u)  {
-        Future<Key> future = Datastore.putAsync(u);
-        return future;
+    /**
+     * Puts the model.
+     * 
+     * @param model
+     *            the model
+     * @return a key
+     */
+    public Key put(T model) {
+        return Datastore.put(model);
+    }
+
+    /**
+     * Puts the model asynchronously.
+     * 
+     * @param model
+     *            the model
+     * @return a key represented as {@link Future}
+     */
+    public Future<Key> putAsync(T model) {
+        return Datastore.putAsync(model);
+    }
+
+    /**
+     * Puts the models.
+     * 
+     * @param models
+     *            the models
+     * @return keys
+     */
+    public List<Key> put(List<T> models) {
+        return Datastore.put(models);
+    }
+
+    /**
+     * Puts the models asynchronously.
+     * 
+     * @param models
+     *            the models
+     * @return keys represented as {@link Future}
+     */
+    public Future<List<Key>> putAsync(List<T> models) {
+        return Datastore.putAsync(models);
+    }
+
+    /**
+     * Deletes a model specified by the key.
+     * 
+     * @param key
+     *            the key
+     */
+    public void delete(Key key) {
+        Datastore.delete(key);
+    }
+
+    /**
+     * Deletes a model specified by the key asynchronously.
+     * 
+     * @param key
+     *            the key
+     * @return {@link Void} represented as {@link Future}
+     */
+    public Future<Void> deleteAsync(Key key) {
+        return Datastore.deleteAsync(key);
+    }
+
+    /**
+     * Deletes models specified by the keys.
+     * 
+     * @param keys
+     *            the keys
+     */
+    public void delete(List<Key> keys) {
+        Datastore.delete(keys);
+    }
+
+    /**
+     * Deletes models specified by the keys asynchronously.
+     * 
+     * @param keys
+     *            the keys
+     * @return {@link Void} represented as {@link Future}
+     */
+    public Future<Void> deleteAsync(List<Key> keys) {
+        return Datastore.deleteAsync(keys);
     }
 }
