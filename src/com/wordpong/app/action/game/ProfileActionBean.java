@@ -30,8 +30,11 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     @Validate(required = true, converter = PasswordTypeConverter.class, maxlength = 20)
     private String password;
 
-    @Validate(required = true, maxlength = 200)
-    private String name;
+    @Validate(required = true, maxlength = 50)
+    private String firstName;
+
+    @Validate(required = true, maxlength = 100)
+    private String lastName;
 
     @Validate(required = true, maxlength = 200)
     private String pictureUrl;
@@ -71,6 +74,7 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         SvcUser svcUser = SvcUserFactory.getUserService();
         if (email != null) {
             try {
+            	//TODO: make sure new email is unique
                 User user = svcUser.findByEmail(email);
             } catch (WPServiceException e) {
                 getContext().getValidationErrors().addGlobalError(new LocalizableError("emailNotFound"));
@@ -99,15 +103,24 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         password = p;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getFirstName() {
+		return firstName;
+	}
 
-    public String getPictureUrl() {
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPictureUrl() {
         return pictureUrl;
     }
 

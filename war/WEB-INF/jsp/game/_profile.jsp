@@ -29,8 +29,14 @@
 	</li>
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
-				<s:label for="name" class="ui-input-text"/>
-				<s:password name="name" tabindex="2" />
+				<s:label for="firstName" class="ui-input-text"/>
+				<s:password name="firstName" tabindex="2" />
+			</div>
+	</li>
+	<li>
+			<div data-role="fieldcontain" style="padding:4px;">
+				<s:label for="lastName" class="ui-input-text"/>
+				<s:password name="lastName" tabindex="2" />
 			</div>
 	</li>
 	<li>

@@ -45,8 +45,13 @@ public class User implements Serializable {
     @Attribute(unindexed = true)
     private String password; // encrypted by PasswordTypeConverter
 
+    @Attribute(unindexed = true)
     private Set<Key> friends = new HashSet<Key>();
 
+    @Attribute(unindexed = true)
+    private String pictureUrl;
+
+    
     @Attribute(persistent = false)
     private List<Role> roles = new ArrayList<Role>();
 
@@ -55,6 +60,7 @@ public class User implements Serializable {
 
     @Attribute(listener = CreationDate.class)
     Date createdAt;
+
 
     public List<Role> getRoles() {
         return roles;
@@ -187,7 +193,15 @@ public class User implements Serializable {
         this.friends = friends;
     }
 
-    /**
+    public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+
+	/**
      * Sets the version.
      * 
      * @param version

@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-12 19:54:56")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-15 13:30:48")
 /** */
 public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.User> {
 
@@ -17,7 +17,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> firstName = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "firstName", "firstName");
 
     /** */
-    public final org.slim3.datastore.CollectionAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> friends = new org.slim3.datastore.CollectionAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "friends", "friends", java.util.Set.class);
+    public final org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> friends = new org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "friends", "friends", java.util.Set.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
@@ -27,6 +27,9 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
 
     /** */
     public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> password = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "password", "password");
+
+    /** */
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> pictureUrl = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "pictureUrl", "pictureUrl");
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, java.util.Date> updatedAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, java.util.Date>(this, "updatedAt", "updatedAt", java.util.Date.class);
@@ -63,6 +66,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         model.setKey(entity.getKey());
         model.setLastName((java.lang.String) entity.getProperty("lastName"));
         model.setPassword((java.lang.String) entity.getProperty("password"));
+        model.setPictureUrl((java.lang.String) entity.getProperty("pictureUrl"));
         model.setUpdatedAt((java.util.Date) entity.getProperty("updatedAt"));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         return model;
@@ -81,9 +85,10 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         entity.setProperty("createdAt", m.getCreatedAt());
         entity.setProperty("email", m.getEmail());
         entity.setUnindexedProperty("firstName", m.getFirstName());
-        entity.setProperty("friends", m.getFriends());
+        entity.setUnindexedProperty("friends", m.getFriends());
         entity.setUnindexedProperty("lastName", m.getLastName());
         entity.setUnindexedProperty("password", m.getPassword());
+        entity.setUnindexedProperty("pictureUrl", m.getPictureUrl());
         entity.setProperty("updatedAt", m.getUpdatedAt());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
@@ -194,6 +199,11 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getPassword());
         }
+        if(m.getPictureUrl() != null){
+            writer.setNextPropertyName("pictureUrl");
+            encoder = new org.slim3.datastore.json.Default();
+            encoder.encode(writer, m.getPictureUrl());
+        }
         if(m.getPreferences() != null){
             writer.setNextPropertyName("preferences");
             encoder = new org.slim3.datastore.json.Default();
@@ -264,6 +274,9 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         reader = rootReader.newObjectReader("password");
         decoder = new org.slim3.datastore.json.Default();
         m.setPassword(decoder.decode(reader, m.getPassword()));
+        reader = rootReader.newObjectReader("pictureUrl");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setPictureUrl(decoder.decode(reader, m.getPictureUrl()));
         reader = rootReader.newObjectReader("preferences");
         decoder = new org.slim3.datastore.json.Default();
         m.setPreferences(decoder.decode(reader, m.getPreferences(), com.wordpong.api.model.Preferences.class));
