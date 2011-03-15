@@ -63,7 +63,7 @@ public class DaoImpl<T> implements Dao<T> {
     }
 
     // use Key key = future.get(); to get result
-    public Future<Key> saveAsync(T u) throws DaoException {
+    public Future<Key> saveAsync(T u)  {
         Future<Key> future = Datastore.putAsync(u);
         return future;
     }

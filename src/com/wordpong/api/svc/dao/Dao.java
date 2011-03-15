@@ -24,6 +24,6 @@ public interface Dao<T> {
 
     public void deleteList(List<Key> ks);
 
-    public Future<Key> saveAsync(T u) throws DaoException;
+    public Future<Key> saveAsync(T u);
 
 }
