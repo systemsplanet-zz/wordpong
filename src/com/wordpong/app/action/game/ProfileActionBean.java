@@ -36,10 +36,17 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     @Validate(required = true, converter = PasswordTypeConverter.class, maxlength = 20)
     private String password;
 
+<<<<<<< HEAD
     @Validate(required = true, maxlength = 100)
     private String firstName;
 
     @Validate(required = true, maxlength = 150)
+=======
+    @Validate(required = true, maxlength = 50)
+    private String firstName;
+
+    @Validate(required = true, maxlength = 100)
+>>>>>>> afcfcfdf0875d23cb30abe87431d5402f15f3e02
     private String lastName;
 
     @Validate(required = true, maxlength = 200)
@@ -111,6 +118,7 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         SvcUser svcUser = SvcUserFactory.getUserService();
         if (email != null) {
             try {
+            	//TODO: make sure new email is unique
                 User user = svcUser.findByEmail(email);
             } catch (WPServiceException e) {
                 getContext().getValidationErrors().addGlobalError(new LocalizableError("emailNotFound"));
@@ -139,6 +147,7 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         password = p;
     }
 
+<<<<<<< HEAD
     public User getUser() {
         return user;
     }
@@ -162,8 +171,26 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+=======
 
-    public String getPictureUrl() {
+    public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+>>>>>>> afcfcfdf0875d23cb30abe87431d5402f15f3e02
+
+	public String getPictureUrl() {
         return pictureUrl;
     }
 

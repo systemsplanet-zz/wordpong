@@ -50,9 +50,17 @@ public class User implements Serializable {
     @Attribute(unindexed = true)
     private String pictureUrl; 
 
+<<<<<<< HEAD
     
+=======
+    @Attribute(unindexed = true)
+>>>>>>> afcfcfdf0875d23cb30abe87431d5402f15f3e02
     private Set<Key> friends = new HashSet<Key>();
 
+    @Attribute(unindexed = true)
+    private String pictureUrl;
+
+    
     @Attribute(persistent = false)
     private List<Role> roles = new ArrayList<Role>();
 
@@ -62,7 +70,11 @@ public class User implements Serializable {
     @Attribute(listener = CreationDate.class)
     Date createdAt;
 
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> afcfcfdf0875d23cb30abe87431d5402f15f3e02
     public List<Role> getRoles() {
         return roles;
     }
@@ -195,6 +207,7 @@ public class User implements Serializable {
     }
 
     public String getPictureUrl() {
+<<<<<<< HEAD
         return pictureUrl;
     }
 
@@ -203,6 +216,16 @@ public class User implements Serializable {
     }
 
     /**
+=======
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+
+	/**
+>>>>>>> afcfcfdf0875d23cb30abe87431d5402f15f3e02
      * Sets the version.
      * 
      * @param version

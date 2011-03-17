@@ -37,7 +37,7 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
             String action = u.getKey() == null ? "Created" : "Updated";
             // Key key = Datastore.allocateId(User.class);
             // u.setKey(key);
-            Key key = Datastore.put(u);
+            Key key = put(u);
             log.info(action + " user:" + u + " key:" + key);
         } catch (Exception e) {
             log.warning("unable to save user:" + u);
@@ -63,11 +63,13 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
     }
 
     public void makeFriends(User u1, User u2) throws DaoException {
+    	Transaction txn = Datastore.beginTransaction();
         Set<Key> u1Friends = u1.getFriends();
         u1Friends.add(u2.getKey());
         Set<Key> u2Friends = u2.getFriends();
         u2Friends.add(u1.getKey());
         Datastore.put(u1, u2);
+        txn.commit();
     }
 
     //TODO: add methods using delayed writes
