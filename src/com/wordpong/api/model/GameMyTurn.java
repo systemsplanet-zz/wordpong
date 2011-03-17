@@ -1,5 +1,8 @@
 package com.wordpong.api.model;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class GameMyTurn extends Game {
 
 	private static final long serialVersionUID = 1L;
@@ -47,5 +50,10 @@ public class GameMyTurn extends Game {
 	public void setAccount(ProfileAccount account) {
 		_account = account;
 	}
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
 }

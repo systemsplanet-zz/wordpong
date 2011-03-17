@@ -3,6 +3,9 @@ package com.wordpong.api.model;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class Role implements Serializable {
 	public static final String ADMIN = "admin";
 	private static final long serialVersionUID = 1L;
@@ -51,8 +54,9 @@ public class Role implements Serializable {
 		return name.hashCode();
 	}
 
-	@Override
-	public String toString() {
-		return name;
-	}
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
+
 }

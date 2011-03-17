@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * Preferences of an account (immutable value object)
  */
@@ -24,7 +27,7 @@ public class Preferences implements Serializable {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param locale
 	 *            the preferred locale (nullable)
 	 * @param timeZone
@@ -45,7 +48,7 @@ public class Preferences implements Serializable {
 
 	/**
 	 * Gets the preferred locale
-	 * 
+	 *
 	 * @return the preferred locale, or <code>null</code> if there is none
 	 */
 	public Locale getLocale() {
@@ -54,7 +57,7 @@ public class Preferences implements Serializable {
 
 	/**
 	 * Gets the preferred time zone
-	 * 
+	 *
 	 * @return the preferred time zone, or <code>null</code> if there is none
 	 */
 	public TimeZone getTimeZone() {
@@ -63,7 +66,7 @@ public class Preferences implements Serializable {
 
 	/**
 	 * Creates a copy of this object with a different locale
-	 * 
+	 *
 	 * @param locale
 	 *            the different locale (nullable)
 	 * @return the copy of this instance, with the given locale
@@ -74,7 +77,7 @@ public class Preferences implements Serializable {
 
 	/**
 	 * Creates a copy of this object with a different time zone
-	 * 
+	 *
 	 * @param timeZone
 	 *            the different time zone (not nullable)
 	 * @return the copy of this instance, with the given time zone
@@ -86,7 +89,7 @@ public class Preferences implements Serializable {
 	/**
 	 * Creates a copy of this object with a different preferences regarding
 	 * password masking
-	 * 
+	 *
 	 * @param passwordsUnmasked
 	 *            the different flag
 	 * @return the copy of this instance, with the given preference
@@ -94,5 +97,9 @@ public class Preferences implements Serializable {
 	public Preferences withPasswordsUnmasked(boolean passwordsUnmasked) {
 		return new Preferences(this.locale, this.timeZone);
 	}
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
 }

@@ -15,6 +15,8 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 @Model(schemaVersion = 1)
 public class User implements Serializable {
@@ -44,7 +46,11 @@ public class User implements Serializable {
 
     @Attribute(unindexed = true)
     private String password; // encrypted by PasswordTypeConverter
+    
+    @Attribute(unindexed = true)
+    private String pictureUrl; 
 
+    
     private Set<Key> friends = new HashSet<Key>();
 
     @Attribute(persistent = false)
@@ -56,6 +62,7 @@ public class User implements Serializable {
     @Attribute(listener = CreationDate.class)
     Date createdAt;
 
+    
     public List<Role> getRoles() {
         return roles;
     }
@@ -187,6 +194,14 @@ public class User implements Serializable {
         this.friends = friends;
     }
 
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
     /**
      * Sets the version.
      * 
@@ -229,6 +244,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("User: %s %s (activated: %s) roles:%s", firstName, lastName, activated, roles);
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

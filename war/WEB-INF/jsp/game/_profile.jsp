@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
-<s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.ProfileActionBean"/>
+<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.ProfileActionBean"/>
 
 <!DOCTYPE html> 
 <html> 
@@ -18,8 +18,8 @@
 <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 	<li data-role="list-divider" > 
 		<a href=""><img src="/i/p/u.png" style="padding-right:20" /></a>
-		<h3>mike@systemsplanet.com</h3> 
-		<p>Mike Lawrence</p> 
+		<h3>${bean.user.email}</h3> 
+		<p>${bean.user.fullName}</p> 
 	</li> 
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
@@ -29,28 +29,34 @@
 	</li>
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
-				<s:label for="name" class="ui-input-text"/>
-				<s:password name="name" tabindex="2" />
+				<s:label for="firstName" class="ui-input-text"/>
+				<s:text name="firstName" tabindex="2" />
+			</div>
+	</li>
+	<li>
+			<div data-role="fieldcontain" style="padding:4px;">
+				<s:label for="lastName" class="ui-input-text"/>
+				<s:text name="lastName" tabindex="2" />
 			</div>
 	</li>
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
 				<s:label for="password" class="ui-input-text"/>
-				<s:password name="password" tabindex="3" />
+				<s:text name="password" tabindex="3" />
 			</div>
 	</li>
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
 				<s:label for="pictureUrl" class="ui-input-text"/>
-				<s:password name="pictureUrl" tabindex="4" />
+				<s:text name="pictureUrl" tabindex="4" />
 			</div>
 	</li>
 </ul>
 <div style="float:left">
-<input data-theme="a" class="process" name="cancel" value="Cancel" type="submit" />
+	<input data-theme="a" class="process" action="cancel" name="cancel" value="Cancel" type="submit" />
 </div>
 <div style="float:right">
-	<input data-theme="a" class="process" name="save" value="Save" type="submit" />
+	<input data-theme="a" class="process" action="save" name="save" value="Save" type="submit" />
 </div>
 
 

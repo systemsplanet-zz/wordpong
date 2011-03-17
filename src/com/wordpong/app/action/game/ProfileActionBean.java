@@ -1,5 +1,7 @@
 package com.wordpong.app.action.game;
 
+import java.util.logging.Logger;
+
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -17,12 +19,16 @@ import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
-import com.wordpong.app.auth.RememberMe;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
 
 public class ProfileActionBean extends BaseActionBean implements ValidationErrorHandler {
+    private static final Logger log = Logger.getLogger(ProfileActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_profile.jsp";
+
+    private SvcUser svcUser;
+
+    private User user;
 
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
@@ -30,27 +36,46 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     @Validate(required = true, converter = PasswordTypeConverter.class, maxlength = 20)
     private String password;
 
-    @Validate(required = true, maxlength = 200)
-    private String name;
+    @Validate(required = true, maxlength = 100)
+    private String firstName;
+
+    @Validate(required = true, maxlength = 150)
+    private String lastName;
 
     @Validate(required = true, maxlength = 200)
     private String pictureUrl;
 
     public ProfileActionBean() {
+        svcUser = SvcUserFactory.getUserService();
     }
 
     @DontValidate
     @DefaultHandler
     public Resolution view() {
         AppActionBeanContext c = getContext();
-        if (email == null) {
-            email = RememberMe.getEmailFromCookie(c.getRequest(), c.getResponse());
-        }
-        if (password == null) {
-            password = RememberMe.getPasswordFromCookie(c.getRequest(), c.getResponse());
-        }
-        if (email != null && password != null) {
-            // return process();
+        if (c != null) {
+            if (user == null) {
+                user = c.getUserFromSession();
+                if (user != null) {
+                    if (firstName == null) {
+                        firstName = user.getFirstName();
+                    }
+                    if (lastName == null) {
+                        lastName = user.getLastName();
+                    }
+                    if (email == null) {
+                        email = user.getEmail();
+                    }
+                    if (password == null) {
+                        password = user.getPassword();
+                    }
+                    if (pictureUrl == null) {
+                        pictureUrl = user.getPictureUrl();
+                    }
+                } else {
+                    // TODO: session expiration? show error popup, redirect home
+                }
+            }
         }
         return new ForwardResolution(VIEW);
     }
@@ -60,7 +85,22 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     public Resolution save() {
         AppActionBeanContext c = getContext();
         if (c != null) {
-            // c.putUserToRequestAndSession(null);
+            try {
+                user = c.getUserFromSession();
+                if (user != null) {
+                    user.setFirstName(firstName);
+                    user.setLastName(lastName);
+                    user.setEmail(email);
+                    user.setPictureUrl(pictureUrl);
+                    // TODO: encrypt user.setPassword(password);
+                    svcUser.save(user);
+                } else {
+                    // TODO: Session expired?
+                }
+
+            } catch (WPServiceException e) {
+                log.warning("unable to save user: " + user);
+            }
         }
         // redirect back here
         return new ForwardResolution(VIEW);
@@ -99,12 +139,28 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         password = p;
     }
 
-    public String getName() {
-        return name;
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPictureUrl() {

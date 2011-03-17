@@ -3,6 +3,9 @@ package com.wordpong.api.model;
 import java.io.Serializable;
 import java.net.URI;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class ProfileAccount implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -51,5 +54,9 @@ public class ProfileAccount implements Serializable {
 	public void setEmail(String email) {
 		_email = email;
 	}
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
 }
