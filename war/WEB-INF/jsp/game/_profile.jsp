@@ -30,21 +30,13 @@
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
 				<s:label for="firstName" class="ui-input-text"/>
-<<<<<<< HEAD
 				<s:text name="firstName" tabindex="2" />
-=======
-				<s:password name="firstName" tabindex="2" />
->>>>>>> afcfcfdf0875d23cb30abe87431d5402f15f3e02
 			</div>
 	</li>
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
 				<s:label for="lastName" class="ui-input-text"/>
-<<<<<<< HEAD
 				<s:text name="lastName" tabindex="2" />
-=======
-				<s:password name="lastName" tabindex="2" />
->>>>>>> afcfcfdf0875d23cb30abe87431d5402f15f3e02
 			</div>
 	</li>
 	<li>
