@@ -10,6 +10,7 @@
 	<tags:logo/>
 </div>
 <div data-role="content" style="padding-top:0px;">
+<s:form  id="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	
     
         <c:set var="group" value=""/>
         <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
@@ -58,13 +59,13 @@
 		<li data-role="list-divider">My Stuff</li> 
 		<li><a href="answers.html">Answers</a></li> 
 		<li><a href="friends.html">Friends</a></li> 
-		<li>
-
-		<s:url beanclass="com.wordpong.app.action.game.ProfileActionBean" event="view" var="profileUrl"/>        		
-		<a href="${profileUrl}">Profile</a>
-		</li> 
+		 	<input data-theme="a" class="process" name="profile" action="profile" value="Profile" type="submit" />
+		<!-- 	<s:url beanclass="com.wordpong.app.action.game.ProfileActionBean" event="view" var="profileUrl"/> -->
+		<!-- <a href="${profileUrl}">Profile</a> -->
 		<li><a href="support.html">Ad-Free WordPong</a></li> 
 	</ul> 
+	
+</s:form>
 	
 </div>
 

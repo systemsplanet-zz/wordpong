@@ -1,18 +1,10 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.ProfileActionBean"/>
-
-<!DOCTYPE html> 
-<html> 
-</head> 
-<body> 
-
-<div data-role="page" id="profilePage" data-theme="a">
-
 <div data-role="content" style="padding-top:0px;">
-    
 <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-   <li data-role="list-divider" >Edit Profile</li> 
+	<li data-role="list-divider" >Edit Profile</li> 
 </ul>
+	<tags:messages/> 
 
 <s:form  id="profileForm" beanclass="com.wordpong.app.action.game.ProfileActionBean" method="post">
 <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
@@ -53,7 +45,7 @@
 	</li>
 </ul>
 <div style="float:left">
-	<input data-theme="a" class="process" action="cancel" name="cancel" value="Cancel" type="submit" />
+	<input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="Back" type="submit" /> 
 </div>
 <div style="float:right">
 	<input data-theme="a" class="process" action="save" name="save" value="Save" type="submit" />
@@ -64,7 +56,3 @@
 	
 	
 </div>
-
-</div> <!--  page -->
-</body>
-</html>

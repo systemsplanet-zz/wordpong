@@ -6,7 +6,9 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
+import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
@@ -24,6 +26,7 @@ import com.wordpong.app.stripes.converter.PasswordTypeConverter;
 
 public class ProfileActionBean extends BaseActionBean implements ValidationErrorHandler {
     private static final Logger log = Logger.getLogger(ProfileActionBean.class.getName());
+    private static final String HOME = "/WEB-INF/jsp/game/index.jsp";
     private static final String VIEW = "/WEB-INF/jsp/game/_profile.jsp";
 
     private SvcUser svcUser;
@@ -50,6 +53,11 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         svcUser = SvcUserFactory.getUserService();
     }
 
+    @DontValidate
+    public Resolution back() {
+        return new RedirectResolution(GameActionBean.class);
+    }
+    
     @DontValidate
     @DefaultHandler
     public Resolution view() {
@@ -95,11 +103,13 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
                     user.setPictureUrl(pictureUrl);
                     // TODO: encrypt user.setPassword(password);
                     svcUser.save(user);
+                    getContext().getValidationErrors().addGlobalError(new LocalizableError("profileUpdated"));                    
                 } else {
                     // TODO: Session expired?
                 }
 
             } catch (WPServiceException e) {
+                getContext().getValidationErrors().addGlobalError(new LocalizableError("unableToSaveProfile"));
                 log.warning("unable to save user: " + user);
             }
         }

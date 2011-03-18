@@ -25,9 +25,19 @@
 </form>
 
 <script type="text/javascript">
+// attach back buttons anywhere they appear
+$('.ui-btn-back').live('tap',function() {
+	  history.back(); return false;
+}).live('click',function() {
+	  history.back(); return false;
+});
+
+
+
 $("input.process").live( "click", function(e) {
 	e.preventDefault();
 	var action = this.form.action + '?_eventName=' + this.name;
+	//alert(action)
 	var params = $(this.form).serialize();
 	var xhr = $.post(action, params, function(data) {
 		if (xhr.getResponseHeader('Stripes-Success') == "OK") {
@@ -36,8 +46,14 @@ $("input.process").live( "click", function(e) {
 			"<div class='wp-date'>"+ dateFormat(new Date(),"HH:MM:ss mmm dd")+"</div>"+
 			"<pre>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</pre>";
 			var content = $(e).parents('.ui-page-active .page-content:first')
+			//alert("content" + content);
 			content.html(data + footer)
 			$('.ui-page-active [data-role="content"]').page();
+
+            //$page.find('.js-rss-feed').empty();
+            //$('#rssTemplate').tmpl(feed).appendTo($page.find('.js-rss-feed'));
+//            $page.find('.ui-page-active [data-role="content"]').page('refresh');
+			
 		} else {
 			alert("Session has expired!");
 			window.location.reload(true);

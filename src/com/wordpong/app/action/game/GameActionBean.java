@@ -6,7 +6,9 @@ import javax.annotation.security.PermitAll;
 
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
 
@@ -46,6 +48,11 @@ public class GameActionBean extends BaseActionBean {
         return new ForwardResolution(VIEW);
     }
     
+    @DontValidate
+    public Resolution profile() {
+        return new RedirectResolution(ProfileActionBean.class);
+    }
+
     public User getUser() {
         return user;
     }
