@@ -25,14 +25,6 @@
 </form>
 
 <script type="text/javascript">
-// attach back buttons anywhere they appear
-$('.ui-btn-back').live('tap',function() {
-	  history.back(); return false;
-}).live('click',function() {
-	  history.back(); return false;
-});
-
-
 
 $("input.process").live( "click", function(e) {
 	e.preventDefault();
@@ -49,11 +41,6 @@ $("input.process").live( "click", function(e) {
 			//alert("content" + content);
 			content.html(data + footer)
 			$('.ui-page-active [data-role="content"]').page();
-
-            //$page.find('.js-rss-feed').empty();
-            //$('#rssTemplate').tmpl(feed).appendTo($page.find('.js-rss-feed'));
-//            $page.find('.ui-page-active [data-role="content"]').page('refresh');
-			
 		} else {
 			alert("Session has expired!");
 			window.location.reload(true);
