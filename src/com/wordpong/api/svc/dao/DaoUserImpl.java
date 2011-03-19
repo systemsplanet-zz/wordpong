@@ -46,7 +46,6 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
         return u;
     }
 
-
     public User findByEmail(String email) throws DaoException {
         User result = null;// = getByProperty(PROP_EMAIL, email);
         UserMeta e = UserMeta.get();
@@ -63,7 +62,7 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
     }
 
     public void makeFriends(User u1, User u2) throws DaoException {
-    	Transaction txn = Datastore.beginTransaction();
+        Transaction txn = Datastore.beginTransaction();
         Set<Key> u1Friends = u1.getFriends();
         u1Friends.add(u2.getKey());
         Set<Key> u2Friends = u2.getFriends();
@@ -72,10 +71,9 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
         txn.commit();
     }
 
-    //TODO: add methods using delayed writes
+    // TODO: add methods using delayed writes
     // private final DatastoreService ds =
     // DatastoreServiceFactory.getDatastoreService();
     // private final Queue delayedWriteQueue = QueueFactory.getDefaultQueue();
-
 
 }

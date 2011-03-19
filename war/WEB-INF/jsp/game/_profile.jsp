@@ -9,7 +9,7 @@
 <s:form  id="profileForm" beanclass="com.wordpong.app.action.game.ProfileActionBean" method="post">
 <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 	<li data-role="list-divider" > 
-		<a href=""><img src="/i/p/u.png" style="padding-right:20" /></a>
+		<a href=""><img src="${bean.user.pictureUrl}" style="padding-right:20" /></a>
 		<h3>${bean.user.email}</h3> 
 		<p>${bean.user.fullName}</p> 
 	</li> 

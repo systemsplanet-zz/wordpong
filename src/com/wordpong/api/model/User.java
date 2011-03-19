@@ -9,14 +9,15 @@ import java.util.Set;
 
 import javax.crypto.SecretKey;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
 
 @Model(schemaVersion = 1)
 public class User implements Serializable {
@@ -24,6 +25,7 @@ public class User implements Serializable {
     public static final String PROP_FIRST_NAME = "firstName";
     public static final String PROP_LAST_NAME = "lastName";
     public static final String PROP_ACTIVATED = "activated";
+    public static final String IMAGE_DEFAULT = "https://wordpong.appspot.com/i/p/u.png";
 
     private static final long serialVersionUID = 1L;
 
@@ -46,13 +48,12 @@ public class User implements Serializable {
 
     @Attribute(unindexed = true)
     private String password; // encrypted by PasswordTypeConverter
-    
+
     @Attribute(unindexed = true)
-    private String pictureUrl; 
+    private String pictureUrl;
 
     private Set<Key> friends = new HashSet<Key>();
 
-    
     @Attribute(persistent = false)
     private List<Role> roles = new ArrayList<Role>();
 
@@ -184,7 +185,6 @@ public class User implements Serializable {
         return firstName + " " + lastName;
     }
 
-
     public Set<Key> getFriends() {
         return friends;
     }
@@ -194,6 +194,9 @@ public class User implements Serializable {
     }
 
     public String getPictureUrl() {
+        if (pictureUrl == null || !ImageUrlTypeConverter.isValidImageURL(pictureUrl)) {
+            pictureUrl = IMAGE_DEFAULT;
+        }
         return pictureUrl;
     }
 
@@ -201,7 +204,7 @@ public class User implements Serializable {
         this.pictureUrl = pictureUrl;
     }
 
-	/**
+    /**
      * Sets the version.
      * 
      * @param version
