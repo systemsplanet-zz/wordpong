@@ -8,7 +8,6 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
@@ -23,10 +22,10 @@ import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
+import com.wordpong.app.util.secure.Encrypt;
 
 public class ProfileActionBean extends BaseActionBean implements ValidationErrorHandler {
     private static final Logger log = Logger.getLogger(ProfileActionBean.class.getName());
-    private static final String HOME = "/WEB-INF/jsp/game/index.jsp";
     private static final String VIEW = "/WEB-INF/jsp/game/_profile.jsp";
 
     private SvcUser svcUser;
@@ -36,9 +35,8 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
 
-    @Validate(required = true, converter = PasswordTypeConverter.class, maxlength = 20)
+    @Validate(required = true, maxlength = 20)
     private String password;
-
 
     @Validate(required = true, maxlength = 50)
     private String firstName;
@@ -57,7 +55,7 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     public Resolution back() {
         return new RedirectResolution(GameActionBean.class);
     }
-    
+
     @DontValidate
     @DefaultHandler
     public Resolution view() {
@@ -101,9 +99,14 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
                     user.setLastName(lastName);
                     user.setEmail(email);
                     user.setPictureUrl(pictureUrl);
-                    // TODO: encrypt user.setPassword(password);
+                    String epwd = Encrypt.hashSha1(password);
+                    if (user.getPassword() != null && user.getPassword().equals(epwd) == false) {
+                        user.setPassword(epwd);
+                        password=epwd;
+                    }
+                    
                     svcUser.save(user);
-                    getContext().getValidationErrors().addGlobalError(new LocalizableError("profileUpdated"));                    
+                    getContext().getValidationErrors().addGlobalError(new LocalizableError("profileUpdated"));
                 } else {
                     // TODO: Session expired?
                 }
@@ -122,7 +125,7 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         SvcUser svcUser = SvcUserFactory.getUserService();
         if (email != null) {
             try {
-            	//TODO: make sure new email is unique
+                // TODO: make sure new email is unique
                 User user = svcUser.findByEmail(email);
             } catch (WPServiceException e) {
                 getContext().getValidationErrors().addGlobalError(new LocalizableError("emailNotFound"));
@@ -159,24 +162,23 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         this.user = user;
     }
 
-
     public String getFirstName() {
-		return firstName;
-	}
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getPictureUrl() {
+    public String getPictureUrl() {
         return pictureUrl;
     }
 
