@@ -34,7 +34,7 @@
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
 				<s:label for="password" class="ui-input-text"/>
-				<s:text name="password" tabindex="3" />
+				<s:password name="password" tabindex="3" value="{$password}" />
 			</div>
 	</li>
 	<li>

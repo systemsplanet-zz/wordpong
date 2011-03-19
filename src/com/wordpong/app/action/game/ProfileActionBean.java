@@ -9,6 +9,7 @@ import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
+import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
@@ -21,7 +22,6 @@ import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
-import com.wordpong.app.stripes.converter.PasswordTypeConverter;
 import com.wordpong.app.util.secure.Encrypt;
 
 public class ProfileActionBean extends BaseActionBean implements ValidationErrorHandler {
@@ -35,16 +35,16 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
 
-    @Validate(required = true, maxlength = 20)
+    @Validate(required = true, maxlength = 20, minlength = 4)
     private String password;
 
-    @Validate(required = true, maxlength = 50)
+    @Validate(required = true, maxlength = 50, minlength = 2)
     private String firstName;
 
-    @Validate(required = true, maxlength = 100)
+    @Validate(required = true, maxlength = 100, minlength = 2)
     private String lastName;
 
-    @Validate(required = true, maxlength = 200)
+    @Validate(required = false, converter = ImageUrlTypeConverter.class, maxlength = 200, minlength = 18)
     private String pictureUrl;
 
     public ProfileActionBean() {
@@ -93,22 +93,24 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
-                user = c.getUserFromSession();
-                if (user != null) {
-                    user.setFirstName(firstName);
-                    user.setLastName(lastName);
-                    user.setEmail(email);
-                    user.setPictureUrl(pictureUrl);
-                    String epwd = Encrypt.hashSha1(password);
-                    if (user.getPassword() != null && user.getPassword().equals(epwd) == false) {
-                        user.setPassword(epwd);
-                        password=epwd;
+                if (c.getValidationErrors().size() == 0) {
+                    user = c.getUserFromSession();
+                    if (user != null) {
+                        user.setFirstName(firstName);
+                        user.setLastName(lastName);
+                        user.setEmail(email);
+                        user.setPictureUrl(pictureUrl);
+                        String epwd = Encrypt.hashSha1(password);
+                        if (user.getPassword() != null && user.getPassword().equals(epwd) == false) {
+                            user.setPassword(epwd);
+                            password = epwd;
+                        }
+
+                        svcUser.save(user);
+                        c.getValidationErrors().addGlobalError(new LocalizableError("profileUpdated"));
+                    } else {
+                        // TODO: Session expired?
                     }
-                    
-                    svcUser.save(user);
-                    getContext().getValidationErrors().addGlobalError(new LocalizableError("profileUpdated"));
-                } else {
-                    // TODO: Session expired?
                 }
 
             } catch (WPServiceException e) {
