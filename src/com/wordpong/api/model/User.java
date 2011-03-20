@@ -20,7 +20,6 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
-import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
 
 @Model(schemaVersion = 1)
 public class User implements Serializable {
