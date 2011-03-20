@@ -14,6 +14,7 @@ import com.wordpong.api.meta.PasswordChangeRequestMeta;
 import com.wordpong.api.meta.UserMeta;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
+import java.util.Random;
 
 public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
     private static final Logger log = Logger.getLogger(DaoUserImpl.class.getName());
@@ -79,7 +80,7 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
 
     public void purgeExpiredPasswordChangeRequests() {
         log.info("purged Change Password Requests running");
-        long TWO_HOURS = 1000L; // TODO: 1000L * 60L * 60L * 2L;
+        long TWO_HOURS = 1000L * 60L * 60L * 2L;
         Date twoHoursAgo = new Date(System.currentTimeMillis() - TWO_HOURS);
         PasswordChangeRequestMeta e = PasswordChangeRequestMeta.get();
         try {
@@ -97,6 +98,30 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
         }
     }
 
+    // write a password change request to the data store
+    public String createPasswordChangeRequest(String email) throws DaoException {
+        Random generator = new Random();
+        long unique = generator.nextLong();
+        unique = Math.abs(unique);
+        PasswordChangeRequest pcr = new PasswordChangeRequest();
+        pcr.setEmail(email);
+        String id = Long.toString(unique);
+        pcr.setRandomId(id);
+        Datastore.put(pcr);
+        log.info("created PasswordChangeRequest:" + pcr);
+        return id;
+    }
+
+    public PasswordChangeRequest getPasswordChangeRequest(String randomId) {
+        PasswordChangeRequest pcr = null;
+        PasswordChangeRequestMeta e = PasswordChangeRequestMeta.get();
+        try {
+            pcr = Datastore.query(e).filter(e.randomId.equal(randomId)).asSingle();
+        } catch (Exception ex) {
+            log.warning("unable to locate Change Password Request code:" + randomId + " err:" + ex.getMessage());
+        }
+        return pcr;
+    }
     // TODO: add methods using delayed writes
     // private final DatastoreService ds =
     // DatastoreServiceFactory.getDatastoreService();

@@ -115,8 +115,8 @@ public class PrintEnvironmentServlet extends HttpServlet {
 				+ escapeHtmlChars(SystemProperty.version.get())
 				+ "</code></td></tr>");
 		out.println("</table>");
-		// TODO: servlet context attributes
-		// TODO: servlet context init parameters
+		// add servlet context attributes
+		// add servlet context init parameters
 
 		out.println("<hr noshade><h2 id=\"env\">"
 				+ "Environment Variables</h2><table>");

@@ -2,7 +2,6 @@ package com.wordpong.app.action;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +22,8 @@ import com.wordpong.app.util.servlet.AjaxUtils;
 import com.wordpong.app.util.servlet.ServletUtil;
 
 public abstract class BaseActionBean implements ActionBean {
-	private static final Logger log = Logger.getLogger(BaseActionBean.class
-			.getName());
+//	private static final Logger log = Logger.getLogger(BaseActionBean.class
+//			.getName());
 
 	private AppActionBeanContext context;
 
@@ -34,12 +33,12 @@ public abstract class BaseActionBean implements ActionBean {
 
 	@Before
 	public void before() {
-		log.fine("Before event");
+		//log.fine("Before event");
 	}
 
 	@After
 	public void after() {
-		log.fine("After event");
+		//log.fine("After event");
 	}
 
 	public AppActionBeanContext getContext() {

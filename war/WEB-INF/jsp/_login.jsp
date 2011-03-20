@@ -28,8 +28,8 @@
 	<p/>
 	<small>
 		<div style="float:left">
-			<s:form  id="loginForm" beanclass="com.wordpong.app.action.ForgotPasswordActionBean" method="post">
-				<input data-theme="a" class="process" value="Forgot Password" type="submit" /> 
+			<s:form  beanclass="com.wordpong.app.action.ForgotPasswordActionBean" method="post">
+				<input data-theme="a" class="process" name="view" value="Forgot Password" type="submit" /> 
 			</s:form>
 		</div>
 		<div style="float:right; margin-top:20px; margin-right:10px;" >

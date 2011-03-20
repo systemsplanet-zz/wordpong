@@ -27,7 +27,7 @@ public class AppExceptionHandler implements ExceptionHandler {
 		String ERR_GENERAL = "/err/app_error.html";
 		String ERR_NOT_FOUND = "/err/notfound.html";
 		String resolution = ERR_GENERAL;
-		// TODO: rollback any transactions?
+		// rollback any transactions here
 		log.warning("exception: " + throwable.getMessage());
 		if (throwable instanceof ActionBeanNotFoundException) {
 			resolution = ERR_NOT_FOUND;

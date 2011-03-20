@@ -15,6 +15,8 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 
 //import com.googlecode.memwords.web.account.CreateAccountActionBean;
 
+import com.wordpong.app.action.ForgotPasswordActionBean;
+import com.wordpong.app.action.ForgotPasswordChangeActionBean;
 import com.wordpong.app.action.LoginActionBean;
 import com.wordpong.app.action.RegisterActionBean;
 import com.wordpong.app.util.servlet.AjaxUtils;
@@ -46,8 +48,8 @@ public class AuthenticationInterceptor implements Interceptor {
     public Resolution intercept(ExecutionContext ctx) throws Exception {
         AppActionBeanContext actionBeanContext = (AppActionBeanContext) ctx.getActionBeanContext();
         actionBeanContext.getUserEncryptedInfo();
-        actionBeanContext.getResponse().setHeader("Stripes-Success", "OK");
         if (isPermittedWithoutLogin(ctx.getActionBean())) {
+            actionBeanContext.getResponse().setHeader("Stripes-Success", "OK");
             return ctx.proceed();
         }
         else if (!actionBeanContext.isAuthenticated()) {
@@ -88,8 +90,10 @@ public class AuthenticationInterceptor implements Interceptor {
         Class<?> actionBeanClass = actionBean.getClass();
         return
         //actionBeanClass.equals(IndexActionBean.class) ||
-               actionBeanClass.equals(LoginActionBean.class)||
-               actionBeanClass.equals(RegisterActionBean.class) 
+        actionBeanClass.equals(ForgotPasswordActionBean.class)||
+        actionBeanClass.equals(ForgotPasswordChangeActionBean.class)||
+        actionBeanClass.equals(LoginActionBean.class)||
+                      actionBeanClass.equals(RegisterActionBean.class) 
                //|| actionBeanClass.equals(CreateAccountActionBean.class)
                //|| actionBeanClass.equals(IntegrationTestsActionBean.class)
                //|| actionBeanClass.equals(ScreenshotsActionBean.class)
