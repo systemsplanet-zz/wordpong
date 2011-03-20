@@ -25,5 +25,16 @@
 		</div>
 		<s:submit name="process" value="Login" class="process"/>
 	</s:form>
-		
+	<p/>
+	<small>
+		<div style="float:left">
+			<s:form  id="loginForm" beanclass="com.wordpong.app.action.ForgotPasswordActionBean" method="post">
+				<input data-theme="a" class="process" value="Forgot Password" type="submit" /> 
+			</s:form>
+		</div>
+		<div style="float:right; margin-top:20px; margin-right:10px;" >
+			<a href="/static/contact.html" data-theme="a">Contact Us</a> 
+		</div>
+	</small>
 </div>
+
