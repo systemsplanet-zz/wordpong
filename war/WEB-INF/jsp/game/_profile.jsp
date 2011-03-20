@@ -8,10 +8,10 @@
 
 <s:form  id="profileForm" beanclass="com.wordpong.app.action.game.ProfileActionBean" method="post">
 <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
-	<li data-role="list-divider" > 
-		<a href=""><img src="${bean.user.pictureUrl}" style="padding-right:20" /></a>
-		<h3>${bean.user.email}</h3> 
-		<p>${bean.user.fullName}</p> 
+	<li data-role="list-divider"> 
+		<img src="${bean.user.pictureUrl}" class="ui-li-icon"/>
+		<p style="padding-left:50px; padding-top:10px">${bean.user.fullName}</p> 
+		<p style="padding-left:50px;">${bean.user.email}</p>
 	</li> 
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
@@ -34,13 +34,14 @@
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
 				<s:label for="password" class="ui-input-text"/>
-				<s:password name="password" tabindex="3" value="{$password}" />
+				<s:text name="password" tabindex="3" value="${bean.password}" />
 			</div>
 	</li>
 	<li>
 			<div data-role="fieldcontain" style="padding:4px;">
-				<s:label for="pictureUrl" class="ui-input-text"/>
-				<s:text name="pictureUrl" tabindex="4" />
+				<s:label for="picture" class="ui-input-text"/>
+				Change your avatar at
+				<a href="http://gravatar.com" rel="external">gravatar.com</a>
 			</div>
 	</li>
 </ul>

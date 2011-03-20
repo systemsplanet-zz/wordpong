@@ -35,7 +35,7 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
 
-    @Validate(required = true, maxlength = 20, minlength = 4)
+    @Validate(required = true, maxlength = 40, minlength = 4)
     private String password;
 
     @Validate(required = true, maxlength = 50, minlength = 2)
@@ -87,34 +87,29 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
         return new ForwardResolution(VIEW);
     }
 
-    @DontValidate
     @HandlesEvent("save")
     public Resolution save() {
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
-                if (c.getValidationErrors().size() == 0) {
-                    user = c.getUserFromSession();
-                    if (user != null) {
-                        user.setFirstName(firstName);
-                        user.setLastName(lastName);
-                        user.setEmail(email);
-                        user.setPictureUrl(pictureUrl);
-                        String epwd = Encrypt.hashSha1(password);
-                        if (user.getPassword() != null && user.getPassword().equals(epwd) == false) {
-                            user.setPassword(epwd);
-                            password = epwd;
-                        }
-
-                        svcUser.save(user);
-                        c.getValidationErrors().addGlobalError(new LocalizableError("profileUpdated"));
-                    } else {
-                        // TODO: Session expired?
+                user = c.getUserFromSession();
+                if (user != null) {
+                    user.setFirstName(firstName);
+                    user.setLastName(lastName);
+                    user.setEmail(email);
+                    user.setPictureUrl(pictureUrl);
+                    String epwd = Encrypt.hashSha1(password);
+                    if (user.getPassword() != null && user.getPassword().equals(epwd) == false) {
+                        user.setPassword(epwd);
+                        password = epwd;
                     }
+                    svcUser.save(user);
+                    c.getValidationErrors().addGlobalError(new LocalizableError("profileUpdated"));
+                } else {
+                    // session expire?
                 }
-
             } catch (WPServiceException e) {
-                getContext().getValidationErrors().addGlobalError(new LocalizableError("unableToSaveProfile"));
+                c.getValidationErrors().addGlobalError(new LocalizableError("unableToSaveProfile"));
                 log.warning("unable to save user: " + user);
             }
         }
@@ -124,13 +119,18 @@ public class ProfileActionBean extends BaseActionBean implements ValidationError
 
     @ValidationMethod
     public void validateUser(ValidationErrors errors) {
-        SvcUser svcUser = SvcUserFactory.getUserService();
-        if (email != null) {
-            try {
-                // TODO: make sure new email is unique
-                User user = svcUser.findByEmail(email);
-            } catch (WPServiceException e) {
-                getContext().getValidationErrors().addGlobalError(new LocalizableError("emailNotFound"));
+        AppActionBeanContext c = getContext();
+        if (c != null) {
+            user = c.getUserFromSession();
+            if (email != null && user != null && !email.equalsIgnoreCase(user.getEmail())) {
+                try {
+                    // make sure new email is unique
+                    SvcUserFactory.getUserService().findByEmail(email);
+                    getContext().getValidationErrors().addGlobalError(new LocalizableError("register.duplicateUser"));
+                } catch (WPServiceException e) {
+                    // if not found, then not problem
+                    log.fine("email not found as expected:" + e.getMessage());
+                }
             }
         }
     }

@@ -52,6 +52,7 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
         try {
             result = Datastore.query(e).filter(e.email.equal(email)).asSingle();
         } catch (Exception ex) {
+            // should never happen!
             // com.google.appengine.api.datastore.PreparedQuery$TooManyResultsException
             throw new DaoException("Err:" + ex.getMessage());
         }
