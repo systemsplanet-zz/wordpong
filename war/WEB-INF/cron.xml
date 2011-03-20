@@ -1,8 +1,8 @@
 <cronentries>
 	<cron>
 		<url>/scheduledtask</url>
-		<description>A scheduled task.</description>
-		<schedule>every day 00:00</schedule>
+		<description>WordPong maintenance job</description>
+		<schedule>every 1 minutes</schedule>
 	</cron>
 	<cron>
 		<url>/_ah/sessioncleanup?clear</url>

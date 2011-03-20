@@ -9,4 +9,5 @@ public interface DaoUser {
 
     void makeFriends(User u1, User u2) throws DaoException;
 
+    void purgeExpiredPasswordChangeRequests();
 }

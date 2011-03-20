@@ -28,4 +28,7 @@ public class SvcUserImpl implements SvcUser {
 		return result;
 	}
 
+    public void purgeExpiredPasswordChangeRequests() {
+        daoUser.purgeExpiredPasswordChangeRequests();
+    }
 }

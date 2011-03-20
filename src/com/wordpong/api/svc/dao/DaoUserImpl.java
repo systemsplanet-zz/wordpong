@@ -1,5 +1,8 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -7,7 +10,9 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.wordpong.api.meta.PasswordChangeRequestMeta;
 import com.wordpong.api.meta.UserMeta;
+import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
 
 public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
@@ -70,6 +75,26 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
         u2Friends.add(u1.getKey());
         Datastore.put(u1, u2);
         txn.commit();
+    }
+
+    public void purgeExpiredPasswordChangeRequests() {
+        log.info("purged Change Password Requests running");
+        long TWO_HOURS = 1000L; // TODO: 1000L * 60L * 60L * 2L;
+        Date twoHoursAgo = new Date(System.currentTimeMillis() - TWO_HOURS);
+        PasswordChangeRequestMeta e = PasswordChangeRequestMeta.get();
+        try {
+            List<PasswordChangeRequest> pcrs = Datastore.query(e).filter(e.createdAt.lessThan(twoHoursAgo)).asList();
+            if (pcrs != null && pcrs.size() > 0) {
+                List<Key> keys = new ArrayList<Key>();
+                for (PasswordChangeRequest pcr : pcrs) {
+                    keys.add(pcr.getKey());
+                }
+                log.info("purging Change Password Requests: " + keys.size());
+                Datastore.delete(keys);
+            }
+        } catch (Exception ex) {
+            log.warning("purged Change Password Requests failed:" + ex.getMessage());
+        }
     }
 
     // TODO: add methods using delayed writes

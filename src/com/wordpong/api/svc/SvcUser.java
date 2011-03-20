@@ -7,4 +7,7 @@ public interface SvcUser {
 	User save(User u) throws WPServiceException;
 
 	User findByEmail(String email) throws WPServiceException;
+
+	void purgeExpiredPasswordChangeRequests();
+
 }
