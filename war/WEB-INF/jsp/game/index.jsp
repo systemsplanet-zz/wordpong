@@ -59,9 +59,7 @@
 		<li data-role="list-divider">My Stuff</li> 
 		<li><a href="answers.html">Answers</a></li> 
 		<li><a href="friends.html">Friends</a></li> 
-		 	<input data-theme="a" class="process" name="profile" action="profile" value="Profile" type="submit" />
-		<!-- 	<s:url beanclass="com.wordpong.app.action.game.ProfileActionBean" event="view" var="profileUrl"/> -->
-		<!-- <a href="${profileUrl}">Profile</a> -->
+		<input data-theme="a" data-icon="gear" class="process" name="profile" action="profile" value="Profile" type="submit" />
 		<li><a href="support.html">Ad-Free WordPong</a></li> 
 	</ul> 
 	

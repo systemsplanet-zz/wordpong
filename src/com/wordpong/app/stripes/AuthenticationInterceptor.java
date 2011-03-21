@@ -61,6 +61,7 @@ public class AuthenticationInterceptor implements Interceptor {
             return new ForwardResolution(LoginActionBean.class);
         }
         else {
+            actionBeanContext.getResponse().setHeader("Stripes-Success", "OK");
             return ctx.proceed();
         }
     }

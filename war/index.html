@@ -31,8 +31,10 @@ $("input.process").live( "click", function(e) {
 	var action = this.form.action + '?_eventName=' + this.name;
 	//alert(action)
 	var params = $(this.form).serialize();
+	$.mobile.pageLoading(); //  show the wait icon
 	var xhr = $.post(action, params, function(data) {
 		if (xhr.getResponseHeader('Stripes-Success') == "OK") {
+			$.mobile.pageLoading(true);//close the wait icon			
 			var d = new Date();
 			var footer =  "<br><div id='js-status' class='wp-status'/>" +
 			"<div class='wp-date'>"+ dateFormat(new Date(),"HH:MM:ss mmm dd")+"</div>"+
@@ -42,7 +44,7 @@ $("input.process").live( "click", function(e) {
 			content.html(data + footer)
 			$('.ui-page-active [data-role="content"]').page();
 		} else {
-			alert("Session has expired!");
+			alert("Login session expired.");
 			window.location.reload(true);
 		}
 	});
