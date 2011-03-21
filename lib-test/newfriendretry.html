@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+        <meta charset="utf-8" />
+        <link rel="favicon" href="/favicon.ico" type="image/x-icon" />
+        <title>WordPong.com - the word game that's a ball to play</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" />
+	<script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.js"></script>
+</head> 
+<body> 
+<div data-role="page" id="newfriend">
+        <div data-role="header" data-theme="a">
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<img class="logolink" src="i/logo.png" alt="WordPong">
+        <div style="float:right" ><p style="height:1px"/><a href="#loggedin.html">Home</a>&nbsp;&nbsp;</div>
+        </div><!-- /header -->
+
+	<div data-role="content" data-theme="b">	
+
+
+<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+ <li  data-role="list-divider" >        
+	<h1>Reinvite Friend</h1>
+ </li>
+</ul>
+<!-- <div style="float:right;"><a href="playcomputer.html"   data-theme="b" >Play Computer</a></div> -->
+
+<form action="newfriendsent.html" method="GET">
+<div data-role="fieldcontain">
+        <label for="textarea">Email address:</label>
+        <textarea cols="40" rows="8" name="textarea" id="textarea">johnmarklawrence@yahoo.com</textarea>
+</div>
+
+<script>
+function inviteCancel(){
+alert("Invitation cancelled.");
+}
+function inviteResend(){
+alert("Invitation resent.");
+}
+</script>
+<div style="float:right">
+<button type="button" data-theme="a" OnClick="javascript:inviteResend();">Resend</button>
+</div>
+<div style="float:right">
+<button type="button" data-theme="a" OnClick="javascript:inviteCancel();">Cancel Invite</button>
+</div>
+
+
+</form>
+
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+</body>
+</html>
