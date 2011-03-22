@@ -23,10 +23,6 @@ import com.google.appengine.api.datastore.Key;
 
 @Model(schemaVersion = 1)
 public class User implements Serializable {
-    public static final String PROP_EMAIL = "email";
-    public static final String PROP_FIRST_NAME = "firstName";
-    public static final String PROP_LAST_NAME = "lastName";
-    public static final String PROP_ACTIVATED = "activated";
     public static final String IMAGE_DEFAULT = "https://wordpong.appspot.com/i/p/u.png";
 
     private static final long serialVersionUID = 1L;
