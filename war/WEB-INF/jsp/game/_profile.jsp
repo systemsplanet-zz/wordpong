@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
-<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.ProfileActionBean"/>
+<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.ProfileEditActionBean"/>
 <div data-role="content" style="padding-top:0px;">
 <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 	<li data-role="list-divider" >Edit Profile</li> 
 </ul>
 <tags:messages/> 
-<s:form id="profileForm" beanclass="com.wordpong.app.action.game.ProfileActionBean" method="post">
+<s:form id="profileForm" beanclass="com.wordpong.app.action.game.ProfileEditActionBean" method="post">
 <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 	<li data-role="list-divider"> 
 		<img src="${bean.user.pictureUrl}" class="ui-li-icon"/>
