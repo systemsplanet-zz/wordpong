@@ -49,8 +49,13 @@ public class GameActionBean extends BaseActionBean {
     }
     
     @DontValidate
-    public Resolution profile() {
-        return new RedirectResolution(ProfileActionBean.class);
+    public Resolution profileEdit() {
+        return new RedirectResolution(ProfileEditActionBean.class);
+    }
+    
+    @DontValidate
+    public Resolution friendList() {
+        return new RedirectResolution(FriendListActionBean.class);
     }
 
     public User getUser() {
