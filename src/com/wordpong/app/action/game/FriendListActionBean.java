@@ -7,7 +7,6 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
-import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
@@ -43,11 +42,11 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
 
     @DontValidate
     public Resolution back() {
-        return new RedirectResolution(GameActionBean.class);
+        return new ForwardResolution(GameActionBean.class);
     }
     @DontValidate
     public Resolution friendInvite() {
-        return new RedirectResolution(FriendInviteActionBean.class);
+        return new ForwardResolution(FriendInviteActionBean.class);
     }
 
     @DontValidate

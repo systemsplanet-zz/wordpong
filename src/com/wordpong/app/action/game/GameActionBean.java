@@ -8,7 +8,6 @@ import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
 
@@ -50,12 +49,12 @@ public class GameActionBean extends BaseActionBean {
     
     @DontValidate
     public Resolution profileEdit() {
-        return new RedirectResolution(ProfileEditActionBean.class);
+        return new ForwardResolution(ProfileEditActionBean.class);
     }
     
     @DontValidate
     public Resolution friendList() {
-        return new RedirectResolution(FriendListActionBean.class);
+        return new ForwardResolution(FriendListActionBean.class);
     }
 
     public User getUser() {

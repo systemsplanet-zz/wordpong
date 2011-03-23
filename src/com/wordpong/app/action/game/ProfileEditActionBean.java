@@ -6,10 +6,8 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
-import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
-import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
@@ -22,6 +20,7 @@ import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
 import com.wordpong.app.util.secure.Encrypt;
 
 public class ProfileEditActionBean extends BaseActionBean implements ValidationErrorHandler {
@@ -53,7 +52,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
 
     @DontValidate
     public Resolution back() {
-        return new RedirectResolution(GameActionBean.class);
+        return new ForwardResolution(GameActionBean.class);
     }
 
     @DontValidate
@@ -113,7 +112,6 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 log.warning("unable to save user: " + user);
             }
         }
-        // redirect back here
         return new ForwardResolution(VIEW);
     }
 

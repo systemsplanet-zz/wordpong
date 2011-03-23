@@ -64,7 +64,6 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
             RememberMe.savePasswordToCookie(c.getRequest(), c.getResponse(), null);
             c.putUserToRequestAndSession(null);
         }
-        // redirect back here
         return new ForwardResolution(VIEW);
     }
 
@@ -89,8 +88,6 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
             if (user != null) {
                 RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), user.getEmail());
                 RememberMe.savePasswordToCookie(c.getRequest(), c.getResponse(), user.getPassword());
-                // redirect back here to login
-                // return new RedirectResolution(LoginActionBean.class);
                 if (c.hasRole(Role.ADMIN)) {
                     resolution = new ForwardResolution(AdminActionBean.class);
                 } else if (c.isAuthenticated()) {

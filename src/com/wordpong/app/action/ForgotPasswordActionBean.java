@@ -6,7 +6,6 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
-import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -38,12 +37,16 @@ public class ForgotPasswordActionBean extends BaseActionBean implements Validati
 
     @DontValidate
     public Resolution back() {
-        return new RedirectResolution(LoginActionBean.class);
+        return new ForwardResolution(LoginActionBean.class);
     }
 
     @DontValidate
     @DefaultHandler
     public Resolution view() {
+        AppActionBeanContext c = getContext();
+        if (c!=null && email == null) {
+        	email = RememberMe.getEmailFromCookie(c.getRequest(), c.getResponse());
+        }
         return new ForwardResolution(VIEW);
     }
 
@@ -56,7 +59,7 @@ public class ForgotPasswordActionBean extends BaseActionBean implements Validati
             MailUtil.sendAdminMail(new EmailMessage("WordPong Password Reset Code", msg, email, email));
             AppActionBeanContext c = getContext();
             RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), email);
-            result = new RedirectResolution(ForgotPasswordChangeActionBean.class);
+            result = new ForwardResolution(ForgotPasswordChangeActionBean.class);
         } catch (Exception e) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("forgotPassword.unableToCreateRequest"));
         }

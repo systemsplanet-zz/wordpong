@@ -6,7 +6,6 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
-import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
@@ -41,7 +40,7 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
 
     @DontValidate
     public Resolution back() {
-        return new RedirectResolution(ForgotPasswordActionBean.class);
+        return new ForwardResolution(ForgotPasswordActionBean.class);
     }
 
     @DontValidate
