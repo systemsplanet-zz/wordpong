@@ -98,7 +98,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     user.setEmail(email);
                     user.setPictureUrl(pictureUrl);
                     String epwd = Encrypt.hashSha1(password);
-                    if (user.getPassword() != null && user.getPassword().equals(epwd) == false) {
+                    if (user.getPassword() != null && user.getPassword().equals(password) == false) {
                         user.setPassword(epwd);
                         password = epwd;
                     }

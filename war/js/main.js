@@ -27,6 +27,7 @@ $.ajaxSetup(
 			}else {
 				alert('Unknow Error.\n'+x.responseText);
 			}
+			window.location.reload(true);
 		}
 	}
 );
