@@ -32,14 +32,20 @@ $("input.process").live( "click", function(e) {
     var xhr = $.post(action, params, function(data) {
         if (xhr.getResponseHeader('Stripes-Success') == "OK") {
             $.mobile.pageLoading(true);//close the wait icon
-            var d = new Date();
-            var footer =  "<br><div style='width:100%'><div id='js-status' class='wp-status'/>" +
-            "<div class='wp-date'>"+ dateFormat(new Date(),"HH:MM:ss mmm dd")+"</div>"+
-            "<pre>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</pre></div>";
             var content = $(e).parents('.ui-page-active .page-content:first')
-            //alert("content" + content);
-            content.html(data + footer)
-            $('.ui-page-active [data-role="content"]').page();
+            //alert("content" + content);           
+            content.html(data)
+            var p= $('.ui-page-active [data-role="content"]')
+            // todo: http://forum.jquery.com/topic/page-level-refresh
+            //  add to cache... transisition, back button support
+            //p.width('96%') // doesnt fill the screen
+            p.page();
+            var d = new Date();
+            var footer =  "<br><div id='js-status' class='wp-status'></div>" +
+            "<div class='wp-date'>"+ dateFormat(new Date(),"HH:MM:ss mmm dd")+"</div>"+
+            "<div style='height:300px'></div>";
+            content.append(footer);
+            //p.page('refresh') // breaks footer online indicator            
         } else {
             alert("Login session expired.");
             window.location.reload(true);

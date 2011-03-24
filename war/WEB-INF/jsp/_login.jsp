@@ -9,7 +9,7 @@
 	<tags:logo/>
 </div>
 
-<div data-role="content" data-theme="a" style="width:90%" >
+<div data-role="content" data-theme="a" >
 	<tags:messages/>
         
 	<s:form  id="loginForm" beanclass="com.wordpong.app.action.LoginActionBean" method="post">
