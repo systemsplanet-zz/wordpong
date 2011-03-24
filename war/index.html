@@ -16,8 +16,11 @@
 <body>
 <div data-role="page" data-theme="a" style="width:100%" >
 <div class="page-content" style="width:100%" >
-<small>&nbsp;&nbsp;<a href="https://wordpong.appspot.com">WordPong</a></small>
+   <small>&nbsp;&nbsp;<a href="https://wordpong.appspot.com">WordPong</a></small>
 </div>
+<br><div id='js-status' class='wp-status'></div>
+<div class='wp-date'></div>
+<div style='height:300px'></div>
 </div>
 <form id="refreshForm" action="/Login.wp" method="post">
 <input id="initButton" name="view" value="Load App" type="submit" class="process"/>
@@ -26,7 +29,6 @@
 $("input.process").live( "click", function(e) {
     e.preventDefault();
     var action = this.form.action + '?_eventName=' + this.name;
-    //alert(action)
     var params = $(this.form).serialize();
     $.mobile.pageLoading(); //  show the wait icon
     var xhr = $.post(action, params, function(data) {
@@ -35,17 +37,14 @@ $("input.process").live( "click", function(e) {
             var content = $(e).parents('.ui-page-active .page-content:first')
             //alert("content" + content);           
             content.html(data)
+            var d = $('.wp-date')
+            d.html(dateFormat(new Date(),"HH:MM:ss mmm dd"))
             var p= $('.ui-page-active [data-role="content"]')
             // todo: http://forum.jquery.com/topic/page-level-refresh
             //  add to cache... transisition, back button support
-            //p.width('96%') // doesnt fill the screen
+            p.width('97%') // Issue 27: doesnt fill the screen 
             p.page();
-            var d = new Date();
-            var footer =  "<br><div id='js-status' class='wp-status'></div>" +
-            "<div class='wp-date'>"+ dateFormat(new Date(),"HH:MM:ss mmm dd")+"</div>"+
-            "<div style='height:300px'></div>";
-            content.append(footer);
-            //p.page('refresh') // breaks footer online indicator            
+            //p.page('refresh') // breaks footer online indicator because ajaxSuccess is never fired
         } else {
             alert("Login session expired.");
             window.location.reload(true);
