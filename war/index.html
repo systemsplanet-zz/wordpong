@@ -15,7 +15,7 @@
 </head>
 <body>
 <div data-role="page" data-theme="a" style="width:100%" >
-<div class="page-content" >
+<div class="page-content" style="width:100%" >
 <small>&nbsp;&nbsp;<a href="https://wordpong.appspot.com">WordPong</a></small>
 </div>
 </div>
@@ -24,30 +24,30 @@
 </form>
 <script type="text/javascript">
 $("input.process").live( "click", function(e) {
-	e.preventDefault();
-	var action = this.form.action + '?_eventName=' + this.name;
-	//alert(action)
-	var params = $(this.form).serialize();
-	$.mobile.pageLoading(); //  show the wait icon
-	var xhr = $.post(action, params, function(data) {
-		if (xhr.getResponseHeader('Stripes-Success') == "OK") {
-			$.mobile.pageLoading(true);//close the wait icon			
-			var d = new Date();
-			var footer =  "<br><div id='js-status' class='wp-status'/>" +
-			"<div class='wp-date'>"+ dateFormat(new Date(),"HH:MM:ss mmm dd")+"</div>"+
-			"<pre>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</pre>";
-			var content = $(e).parents('.ui-page-active .page-content:first')
-			//alert("content" + content);
-			content.html(data + footer)
-			$('.ui-page-active [data-role="content"]').page();
-		} else {
-			alert("Login session expired.");
-			window.location.reload(true);
-		}
-	});
+    e.preventDefault();
+    var action = this.form.action + '?_eventName=' + this.name;
+    //alert(action)
+    var params = $(this.form).serialize();
+    $.mobile.pageLoading(); //  show the wait icon
+    var xhr = $.post(action, params, function(data) {
+        if (xhr.getResponseHeader('Stripes-Success') == "OK") {
+            $.mobile.pageLoading(true);//close the wait icon
+            var d = new Date();
+            var footer =  "<br><div style='width:100%'><div id='js-status' class='wp-status'/>" +
+            "<div class='wp-date'>"+ dateFormat(new Date(),"HH:MM:ss mmm dd")+"</div>"+
+            "<pre>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</pre></div>";
+            var content = $(e).parents('.ui-page-active .page-content:first')
+            //alert("content" + content);
+            content.html(data + footer)
+            $('.ui-page-active [data-role="content"]').page();
+        } else {
+            alert("Login session expired.");
+            window.location.reload(true);
+        }
+    });
 });
 $(document).ready(function() {
-	$('#initButton').click();
+    $('#initButton').click();
 });
 </script>
 </body>
