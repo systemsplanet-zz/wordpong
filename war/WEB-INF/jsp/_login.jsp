@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<div data-role="header"  data-theme="b">
+<div data-role="header"  data-theme="b" style="width:100%">
 	<div class="wp-right-button" >
 	    <s:form  id="loginForm" beanclass="com.wordpong.app.action.RegisterActionBean" method="post">
 			<input name="view" value="Register" type="submit" class="process" style="height:35px"/>
