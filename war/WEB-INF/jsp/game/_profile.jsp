@@ -47,7 +47,7 @@
 	<input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="Back" type="submit" /> 
 </div>
 <div style="float:right">
-	<input data-theme="a" class="process" action="save" name="save" value="Save" type="submit" />
+	<input data-theme="a" class="process" name="save" value="Save" type="submit" />
 </div>
 
 </s:form>	

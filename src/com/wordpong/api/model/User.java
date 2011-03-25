@@ -33,6 +33,7 @@ public class User implements Serializable {
     @Attribute(version = true)
     private Long version;
 
+    @Attribute(unindexed = false)
     private String email;
 
     @Attribute(unindexed = true)

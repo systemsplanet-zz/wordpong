@@ -20,7 +20,7 @@
 </div>
 <br><div id='js-status' class='wp-status'></div>
 <div class='wp-date'></div>
-<div style='height:300px'></div>
+<div style='height:1000px'></div>
 </div>
 <form id="refreshForm" action="/Login.wp" method="post">
 <input id="initButton" name="view" value="Load App" type="submit" class="process"/>
@@ -35,14 +35,14 @@ $("input.process").live( "click", function(e) {
         if (xhr.getResponseHeader('Stripes-Success') == "OK") {
             $.mobile.pageLoading(true);//close the wait icon
             var content = $(e).parents('.ui-page-active .page-content:first')
-            //alert("content" + content);           
+            //alert("content" + content);
             content.html(data)
             var d = $('.wp-date')
             d.html(dateFormat(new Date(),"HH:MM:ss mmm dd"))
             var p= $('.ui-page-active [data-role="content"]')
             // todo: http://forum.jquery.com/topic/page-level-refresh
             //  add to cache... transisition, back button support
-            p.width('97%') // Issue 27: doesnt fill the screen 
+            //p.width('97%') // Issue 27: doesnt fill the screen
             p.page();
             //p.page('refresh') // breaks footer online indicator because ajaxSuccess is never fired
         } else {

@@ -97,18 +97,18 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     user.setLastName(lastName);
                     user.setEmail(email);
                     user.setPictureUrl(pictureUrl);
-                    String epwd = Encrypt.hashSha1(password);
                     if (user.getPassword() != null && user.getPassword().equals(password) == false) {
+                        String epwd = Encrypt.hashSha1(password);
                         user.setPassword(epwd);
                         password = epwd;
                     }
                     svcUser.save(user);
-                    c.getValidationErrors().addGlobalError(new LocalizableError("profileUpdated"));
+                    addGlobalActionError("profileUpdated");
                 } else {
                     // session expire?
                 }
             } catch (WPServiceException e) {
-                c.getValidationErrors().addGlobalError(new LocalizableError("unableToSaveProfile"));
+                addGlobalActionError("unableToSaveProfile");
                 log.warning("unable to save user: " + user);
             }
         }
