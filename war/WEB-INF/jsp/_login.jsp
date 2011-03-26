@@ -37,4 +37,5 @@
 		</div>
 	</small>
 </div>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 

@@ -6,7 +6,6 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
-import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -106,10 +105,10 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
                 user = svcUser.findByEmail(email);
                 if (!user.getPassword().equals(password)) {
                     user = null;
-                    getContext().getValidationErrors().addGlobalError(new LocalizableError("passwordIncorrect"));
+                    addGlobalActionError("passwordIncorrect");
                 }
             } catch (WPServiceException e) {
-                getContext().getValidationErrors().addGlobalError(new LocalizableError("emailNotFound"));
+                addGlobalActionError("emailNotFound");
             }
         }
     }

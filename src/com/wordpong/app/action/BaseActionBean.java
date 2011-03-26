@@ -16,7 +16,6 @@ import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.validation.LocalizableError;
-import net.sourceforge.stripes.validation.SimpleError;
 
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.util.servlet.AjaxUtils;

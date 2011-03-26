@@ -470,7 +470,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	</mime-mapping>
 
 	<taglib>
-
 	</taglib>
 
 	<session-config>

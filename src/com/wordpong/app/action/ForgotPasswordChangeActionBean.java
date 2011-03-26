@@ -7,7 +7,6 @@ import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -46,7 +45,7 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
     @DontValidate
     @DefaultHandler
     public Resolution view() {
-        getContext().getValidationErrors().addGlobalError(new LocalizableError("forgotPassword.emailSent"));
+        addGlobalActionError("forgotPassword.emailSent");
         return new ForwardResolution(VIEW);
     }
 
@@ -57,10 +56,10 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
 
         PasswordChangeRequest pcr = SvcUserFactory.getUserService().getPasswordChangeRequest(code);
         if (pcr == null) {
-            getContext().getValidationErrors().addGlobalError(new LocalizableError("forgotPassword.invalidCode"));
+            addGlobalActionError("forgotPassword.invalidCode");
         } else {
             if (pcr.getEmail() != null && email != null && email.equalsIgnoreCase(pcr.getEmail()) == false) {
-                getContext().getValidationErrors().addGlobalError(new LocalizableError("forgotPassword.invalidCodeEmail"));
+                addGlobalActionError("forgotPassword.invalidCodeEmail");
             } else {
                 // Change the password
                 User user;
@@ -68,10 +67,10 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
                     user = svcUser.findByEmail(email);
                     user.setPassword(password);
                     svcUser.save(user);
-                    getContext().getValidationErrors().addGlobalError(new LocalizableError("forgotPassword.passwordReset"));
+                    addGlobalActionError("forgotPassword.passwordReset");
                     log.info("password reset:" + user);
                 } catch (WPServiceException e) {
-                    getContext().getValidationErrors().addGlobalError(new LocalizableError("forgotPassword.cantUpdateUser"));
+                    addGlobalActionError("forgotPassword.cantUpdateUser");
                 }
             }
         }

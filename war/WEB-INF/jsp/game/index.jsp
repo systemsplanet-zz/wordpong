@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
         <form id="loginForm" action="/Login.wp" method="post">
-<div data-role="header"  data-nobackbtn="true" data-theme="b">
+<div data-role="header"  data-nobackbtn="true" data-theme="b" data-position="fixed">
 	<div class="wp-right-button" >
 		<form id="loginForm" action="/Login.wp" method="post">
 			<input class="process" name="logout" value="Logout" type="submit"  />
@@ -9,7 +9,7 @@
 	</div>
 	<tags:logo/>
 </div>
-<div data-role="content" style="padding-top:0px;">
+<div data-role="content" style="padding-top:0px"  >
 <s:form  id="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
         <c:set var="group" value=""/>
         <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
@@ -57,6 +57,6 @@
 	</ul> 
 	
 </s:form>
-	
-</div>
 
+</div>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>

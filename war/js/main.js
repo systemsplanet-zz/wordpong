@@ -33,9 +33,9 @@ $.ajaxSetup(
 );
  
 $(document).ajaxSuccess(function(e, xhr, settings, exception) {
-    $('#js-status').text('On Line').removeClass('down').addClass('up');
+    $('.wp-status').text('On Line').removeClass('down').addClass('up');
 });
 
 $(document).ajaxError(function(e, xhr, settings, exception) {
-    $('#js-status').text('Off Line').removeClass('up').addClass('down');
+    $('.wp-status').text('Off Line').removeClass('up').addClass('down');
 });

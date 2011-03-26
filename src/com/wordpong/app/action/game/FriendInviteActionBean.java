@@ -7,7 +7,6 @@ import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -55,12 +54,12 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
                     // TODO: parse friends
                     // Add friends
                     // Send emails
-                    c.getValidationErrors().addGlobalError(new LocalizableError("friendsInvited"));
+                    addGlobalActionError("friendsInvited");
                 } else {
                     // session expire?
                 }
             } catch (Exception e) {
-                c.getValidationErrors().addGlobalError(new LocalizableError("unableToInviteFriends"));
+                addGlobalActionError("unableToInviteFriends");
                 log.warning("unable to invite friends");
             }
         }

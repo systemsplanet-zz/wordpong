@@ -7,7 +7,6 @@ import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
-import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -68,7 +67,7 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
                 user = svcUser.save(user);
                 resolution = new ForwardResolution(GameActionBean.class);
             } catch (WPServiceException e) {
-                String reason = "Unable to add user. Please try again.";
+                String reason = "register.unableToAddUser";
                 LogUtil.logException(reason, e);
                 addGlobalActionError(reason);
                 resolution = new ForwardResolution(VIEW);
@@ -83,7 +82,7 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
         try {
             user = svcUser.findByEmail(email);
             log.info("find email:" + email + " returned:" + user);
-            getContext().getValidationErrors().addGlobalError(new LocalizableError("register.duplicateUser"));
+            addGlobalActionError("register.duplicateUser");
         } catch (WPServiceException e) {
             // good if not found
         }

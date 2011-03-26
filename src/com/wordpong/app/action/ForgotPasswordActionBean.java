@@ -8,7 +8,6 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
-import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -45,7 +44,7 @@ public class ForgotPasswordActionBean extends BaseActionBean implements Validati
     public Resolution view() {
         AppActionBeanContext c = getContext();
         if (c!=null && email == null) {
-        	email = RememberMe.getEmailFromCookie(c.getRequest(), c.getResponse());
+            email = RememberMe.getEmailFromCookie(c.getRequest(), c.getResponse());
         }
         return new ForwardResolution(VIEW);
     }
@@ -53,7 +52,7 @@ public class ForgotPasswordActionBean extends BaseActionBean implements Validati
     @HandlesEvent("submit")
     public Resolution submit() {
         Resolution result = new ForwardResolution(VIEW);
-        try { 
+        try {
             String id = svcUser.createPasswordChangeRequest(email);
             String msg = "Use this code to reset your WordPong password: " + id;
             MailUtil.sendAdminMail(new EmailMessage("WordPong Password Reset Code", msg, email, email));
@@ -61,7 +60,7 @@ public class ForgotPasswordActionBean extends BaseActionBean implements Validati
             RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), email);
             result = new ForwardResolution(ForgotPasswordChangeActionBean.class);
         } catch (Exception e) {
-            getContext().getValidationErrors().addGlobalError(new LocalizableError("forgotPassword.unableToCreateRequest"));
+            addGlobalActionError("forgotPassword.unableToCreateRequest");
         }
         return result;
     }
@@ -72,7 +71,7 @@ public class ForgotPasswordActionBean extends BaseActionBean implements Validati
             // make sure email exists
             svcUser.findByEmail(email);
         } catch (WPServiceException e) {
-            getContext().getValidationErrors().addGlobalError(new LocalizableError("forgotPassword.emailNotFound"));
+            addGlobalActionError("forgotPassword.emailNotFound");
             log.fine("email not found:" + e.getMessage());
         }
     }

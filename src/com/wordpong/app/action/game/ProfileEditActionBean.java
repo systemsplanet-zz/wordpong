@@ -8,7 +8,6 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
-import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -124,7 +123,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 try {
                     // make sure new email is unique
                     SvcUserFactory.getUserService().findByEmail(email);
-                    getContext().getValidationErrors().addGlobalError(new LocalizableError("register.duplicateUser"));
+                    addGlobalActionError("register.duplicateUser");
                 } catch (WPServiceException e) {
                     // if not found, then not problem
                     log.fine("email not found as expected:" + e.getMessage());

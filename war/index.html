@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8" />
@@ -14,16 +14,20 @@
 <script type="text/javascript" src="/js/jquery.mobile-1.0a4pre.min.js"></script>
 </head>
 <body>
-<div data-role="page" data-theme="a" style="width:100%" >
-<div class="page-content" style="width:100%" >
-   <small>&nbsp;&nbsp;<a href="https://wordpong.appspot.com">WordPong</a></small>
+<div class="wp-page" data-role="page" data-theme="a" style="width:100%" >
+<div class="page-content">
+   <div class="wp-loading">
+        <a href="https://wordpong.appspot.com">wp</a>
+   </div>
 </div>
-<br><div id='js-status' class='wp-status'></div>
+<br>
+<div class='wp-status'></div>
 <div class='wp-date'></div>
-<div style='height:1000px'></div>
-</div>
-<form id="refreshForm" action="/Login.wp" method="post">
-<input id="initButton" name="view" value="Load App" type="submit" class="process"/>
+<br/>
+<br/>
+<div class='wp-footer'></div>
+<form action="/Login.wp" method="post" style='visibility:hidden'>
+<input id="wp-init-btn" name="view" value="Load App" type="submit" class="process"/>
 </form>
 <script type="text/javascript">
 $("input.process").live( "click", function(e) {
@@ -35,24 +39,27 @@ $("input.process").live( "click", function(e) {
         if (xhr.getResponseHeader('Stripes-Success') == "OK") {
             $.mobile.pageLoading(true);//close the wait icon
             var content = $(e).parents('.ui-page-active .page-content:first')
-            //alert("content" + content);
             content.html(data)
             var d = $('.wp-date')
             d.html(dateFormat(new Date(),"HH:MM:ss mmm dd"))
             var p= $('.ui-page-active [data-role="content"]')
             // todo: http://forum.jquery.com/topic/page-level-refresh
             //  add to cache... transisition, back button support
-            //p.width('97%') // Issue 27: doesnt fill the screen
-            p.page();
-            //p.page('refresh') // breaks footer online indicator because ajaxSuccess is never fired
+            content.width($(".wp-page").outerWidth() - 5);
+            $('.wp-footer').html(wpFooter); 
+            p.page()                       
         } else {
             alert("Login session expired.");
             window.location.reload(true);
         }
     });
 });
+$(window).resize(function() {
+	var content = $('.page-content')
+	content.width($(".wp-page").outerWidth() - 5);
+});
 $(document).ready(function() {
-    $('#initButton').click();
+    $('#wp-init-btn').click();
 });
 </script>
 </body>
