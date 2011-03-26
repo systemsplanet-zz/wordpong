@@ -45,8 +45,8 @@ $("input.process").live( "click", function(e) {
             var p= $('.ui-page-active [data-role="content"]')
             // todo: http://forum.jquery.com/topic/page-level-refresh
             //  add to cache... transisition, back button support
-            content.width($(".wp-page").outerWidth() - 5);
-            $('.wp-footer').html(wpFooter); 
+            $('.wp-footer').html(wpFooter);
+            p.width($(".wp-page").outerWidth() - 30 );  
             p.page()                       
         } else {
             alert("Login session expired.");
@@ -55,8 +55,8 @@ $("input.process").live( "click", function(e) {
     });
 });
 $(window).resize(function() {
-	var content = $('.page-content')
-	content.width($(".wp-page").outerWidth() - 5);
+	var p= $('.ui-page-active [data-role="content"]')
+	p.width($(".wp-page").outerWidth() - 30 ); 
 });
 $(document).ready(function() {
     $('#wp-init-btn').click();

@@ -1,5 +1,4 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
-
 <div data-role="header"  data-theme="b">
 	<div class="wp-right-button" >
 	    <s:form  id="loginForm" beanclass="com.wordpong.app.action.RegisterActionBean" method="post">
