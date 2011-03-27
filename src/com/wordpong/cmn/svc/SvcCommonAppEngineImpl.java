@@ -38,7 +38,10 @@ public class SvcCommonAppEngineImpl implements SvcCommon {
         CapabilitiesService cs = CapabilitiesServiceFactory.getCapabilitiesService();
         CapabilityState state = cs.getStatus(Capability.DATASTORE_WRITE);
         CapabilityStatus status = state.getStatus();
-        log.info("isDatastoreUp:" + status);
-        return status == CapabilityStatus.ENABLED;
+        boolean result = status == CapabilityStatus.ENABLED;
+        if (result == false) {
+            log.warning("Datastore is down");
+        }
+        return result;
     }
 }
