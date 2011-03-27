@@ -12,8 +12,8 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
-import com.wordpong.api.model.Role;
 import com.wordpong.api.model.User;
+import com.wordpong.api.pojo.Role;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.admin.AdminActionBean;

@@ -32,9 +32,9 @@
 
             <li>
                 <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="myTurnList" var="myTurnListUrl">
-                    <s:param name="myTurnId" value="${myTurn.account.id}"/>
+                    <s:param name="myTurnId" value="${myTurn.id}"/>
                 </s:url>
-                <a href="${myTurnListUrl}">${myTurn.account.email}</a>
+                <a href="${myTurnListUrl}">${myTurn.id}</a>
             </li>
 
             <c:if test="${status.last}">

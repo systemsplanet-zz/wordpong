@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.crypto.SecretKey;
 
@@ -20,6 +22,7 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
+import com.wordpong.api.pojo.Role;
 
 @Model(schemaVersion = 1)
 public class User implements Serializable {
@@ -62,6 +65,18 @@ public class User implements Serializable {
     @Attribute(listener = CreationDate.class)
     Date createdAt;
 
+    /**
+     * The preferred locale (nullable)
+     */
+    @Attribute(unindexed = true, lob = true)
+    private Locale locale;
+
+    /**
+     * The preferred time zone (not nullable)
+     */
+    @Attribute(unindexed = true, lob = true)
+    private TimeZone timeZone;
+
     public List<Role> getRoles() {
         return roles;
     }
@@ -71,8 +86,6 @@ public class User implements Serializable {
         return result;
     }
 
-    @Attribute(persistent = false)
-    private Preferences preferences;
     /**
      * The secret key of the account, used to decrypt the information in the
      * account
@@ -148,14 +161,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Preferences getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(Preferences preferences) {
-        this.preferences = preferences;
-    }
-
     public SecretKey getEncryptionKey() {
         return encryptionKey;
     }
@@ -211,6 +216,22 @@ public class User implements Serializable {
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public TimeZone getTimeZone() {
+        return timeZone;
     }
 
     /**

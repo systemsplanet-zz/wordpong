@@ -9,7 +9,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.wordpong.api.model.EmailMessage;
+import com.wordpong.api.pojo.EmailMessage;
 
 public class MailUtil {
     private static final Logger log = Logger.getLogger(MailUtil.class.getName());

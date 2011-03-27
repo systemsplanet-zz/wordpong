@@ -3,53 +3,54 @@ package com.wordpong.api.model;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-public class GameMyTurn extends Game {
+public class GameMyTurn {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public static enum Action {
-		Unknown, InvitationRequest, InviteAccepted, AnswerQuestion
-	}
+    private String id = "123";
 
-	private Action _action = Action.Unknown;
-	private ProfileAccount _account;
+    public static enum Action {
+        Unknown, InvitationRequest, InviteAccepted, AnswerQuestion
+    }
 
-	public Action getAction() {
-		return _action;
-	}
+    private Action _action = Action.Unknown;
 
-	public String getActionString() {
-		String result = "Unknown";
-		if (_action != null) {
-			switch (_action) {
-			case InvitationRequest:
-				result = "Invitation Request";
-				break;
-			case InviteAccepted:
-				result = "Invite Accepted";
-				break;
-			case AnswerQuestion:
-				result = "Answer Question";
-				break;
-			case Unknown:
-				result = "Unknown";
-				break;
-			}
-		}
-		return result;
-	}
+    public Action getAction() {
+        return _action;
+    }
 
-	public void setAction(Action action) {
-		_action = action;
-	}
+    public String getActionString() {
+        String result = "Unknown";
+        if (_action != null) {
+            switch (_action) {
+            case InvitationRequest:
+                result = "Invitation Request";
+                break;
+            case InviteAccepted:
+                result = "Invite Accepted";
+                break;
+            case AnswerQuestion:
+                result = "Answer Question";
+                break;
+            case Unknown:
+                result = "Unknown";
+                break;
+            }
+        }
+        return result;
+    }
 
-	public ProfileAccount getAccount() {
-		return _account;
-	}
+    public void setAction(Action action) {
+        _action = action;
+    }
 
-	public void setAccount(ProfileAccount account) {
-		_account = account;
-	}
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

@@ -14,7 +14,7 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
-import com.wordpong.api.model.EmailMessage;
+import com.wordpong.api.pojo.EmailMessage;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.auth.RememberMe;

@@ -1,4 +1,4 @@
-package com.wordpong.api.model;
+package com.wordpong.api.pojo;
 
 import java.io.Serializable;
 import java.util.List;
