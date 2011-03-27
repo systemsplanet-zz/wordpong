@@ -10,4 +10,6 @@ public interface SvcCommon {
 	boolean isUserAdmin();
 
 	String getLogoutUrl(String baseUrl);
+	
+	boolean isDatastoreUp();
 }

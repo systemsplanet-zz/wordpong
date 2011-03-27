@@ -1,8 +1,10 @@
 package com.wordpong.app.action;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,6 +55,7 @@ public abstract class BaseActionBean implements ActionBean {
         getContext().getValidationErrors().addGlobalError(new LocalizableError(errorMessage));
     }
 
+    // TODO: is SimpleMessage localized?
     public void addGlobalActionMessage(String message) {
         context.getMessages().add(new SimpleMessage(message));
     }
@@ -64,7 +67,27 @@ public abstract class BaseActionBean implements ActionBean {
     protected void setSessionAttribute(String attributeName, Object value) {
         ServletUtil.sessionSet(context.getRequest(), attributeName, value);
     }
+    
+    protected HttpServletRequest getRequest() {
+        return getContext().getRequest();
+    }
 
+    protected HttpServletResponse getResponse() {
+        return getContext().getResponse();
+    }
+
+    protected ServletContext getServletContext() {
+        return getContext().getServletContext();
+    }
+    /**
+     * Returns a java.security.Principal object containing the name of the current
+     * authenticated user. If the user has not been authenticated, the method returns null.
+     * @return
+     */
+    protected Principal getUserPrincipal() {
+        return getContext().getRequest().getUserPrincipal();
+    }
+    
     public Resolution assertAuthenticated() {
         if (getContext().isAuthenticated() == false) {
             if (AjaxUtils.isAjaxRequest(getContext().getRequest())) {

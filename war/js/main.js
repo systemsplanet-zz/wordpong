@@ -12,6 +12,7 @@
 $.ajaxSetup(
 	{	cache:false,
 		error:function(x,e){
+     		$.mobile.pageLoading(true);//close the wait icon
 			if(x.status==0){
 				alert('Network unavailable.');
 			}else if(x.status==403){
@@ -20,6 +21,9 @@ $.ajaxSetup(
 				alert('Requested URL not found.');
 			}else if(x.status==500){
 				alert('Internel Server Error.');
+			}else if(x.status==503){
+				alert('Service Unavailable.');
+				window.location.href = "/err/infrastructure_unavailable.html"
 			}else if(e=='parsererror'){
 				alert('Error.\nParsing JSON Request failed.');
 			}else if(e=='timeout'){
@@ -27,7 +31,9 @@ $.ajaxSetup(
 			}else {
 				alert('Unknow Error.\n'+x.responseText);
 			}
-			window.location.reload(true);
+			if (x.status!=503) {
+				window.location.reload(true);
+			}
 		}
 	}
 );
