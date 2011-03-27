@@ -7,6 +7,7 @@ import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -26,8 +27,8 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
 
     private User user;
 
-    @Validate(required = true, minlength = 4, maxlength = 1000)
-    private String emails;
+    @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
+    private String email;
 
     public FriendInviteActionBean() {
         svcUser = SvcUserFactory.getUserService();
@@ -51,16 +52,16 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
             try {
                 user = c.getUserFromSession();
                 if (user != null) {
-                    // TODO: parse friends
-                    // Add friends
-                    // Send emails
-                    addGlobalActionError("friendsInvited");
+                    // TODO: parse friend
+                    // Add friend
+                    // Send email
+                    addGlobalActionError("friendInvited");
                 } else {
                     // session expire?
                 }
             } catch (Exception e) {
-                addGlobalActionError("unableToInviteFriends");
-                log.warning("unable to invite friends");
+                addGlobalActionError("unableToInviteFriend");
+                log.warning("unable to invite friend");
             }
         }
         // redirect back here
@@ -80,11 +81,11 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
         return new ForwardResolution(VIEW);
     }
 
-    public String getEmails() {
-        return emails;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmails(String e) {
-        emails = e;
+    public void setEmail(String e) {
+        email = e;
     }
 }

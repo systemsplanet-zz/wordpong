@@ -2,15 +2,15 @@
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendInviteActionBean"/>
 <div data-role="content" style="padding-top:0px;">
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
-		<li data-role="list-divider" >Invite Friends to Play WordPong</li> 
+		<li data-role="list-divider" ><s:label for="title"/></li> 
 	</ul>
 	<tags:messages/> 
 	<s:form id="forgotPasswordForm" beanclass="com.wordpong.app.action.game.FriendInviteActionBean" method="post">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 			<li>
 				<div data-role="fieldcontain" style="padding:4px;">
-					<s:label for="emailAddresses" class="ui-input-text"/>
-					<s:textarea  rows="5" name="emailAddresses" tabindex="1"/>
+					<s:label for="emailAddress" class="ui-input-text"/>
+					<s:text  name="emailAddress" id="emailAddress" tabindex="1"/>
 				</div>
 			</li>
 		</ul>
