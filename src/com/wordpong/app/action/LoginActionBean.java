@@ -1,9 +1,12 @@
 package com.wordpong.app.action;
 
+import java.util.Locale;
+
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
+import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
@@ -20,6 +23,7 @@ import com.wordpong.app.action.admin.AdminActionBean;
 import com.wordpong.app.action.game.GameActionBean;
 import com.wordpong.app.auth.RememberMe;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.app.stripes.AppLocalePicker;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
 
 public class LoginActionBean extends BaseActionBean implements ValidationErrorHandler {
@@ -87,10 +91,14 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
             if (user != null) {
                 RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), user.getEmail());
                 RememberMe.savePasswordToCookie(c.getRequest(), c.getResponse(), user.getPassword());
+                Locale l = user.getLocale();
+                if (l != null) {
+                    AppLocalePicker.setPreferredLocale(getRequest(), l);
+                }
                 if (c.hasRole(Role.ADMIN)) {
-                    resolution = new ForwardResolution(AdminActionBean.class);
+                    resolution = new RedirectResolution(AdminActionBean.class);
                 } else if (c.isAuthenticated()) {
-                    resolution = new ForwardResolution(GameActionBean.class);
+                    resolution = new RedirectResolution(GameActionBean.class);
                 }
             }
         }

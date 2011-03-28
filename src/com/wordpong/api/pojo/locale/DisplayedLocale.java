@@ -17,6 +17,9 @@ public final class DisplayedLocale implements Serializable {
     public DisplayedLocale(Locale locale) {
         this.locale = locale;
         this.displayedName = locale.getDisplayName(this.locale);
+        if (displayedName != null && displayedName.length() > 1) {
+            displayedName = displayedName.substring(0, 1).toUpperCase() + displayedName.substring(1);
+        }
     }
 
     public Locale getLocale() {

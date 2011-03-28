@@ -1,10 +1,10 @@
 package com.wordpong.app.stripes;
 
 import java.util.logging.Logger;
-import javax.servlet.jsp.jstl.core.Config;
 
 import javax.crypto.SecretKey;
 import javax.servlet.http.Cookie;
+import javax.servlet.jsp.jstl.core.Config;
 
 import net.sourceforge.stripes.action.ActionBeanContext;
 

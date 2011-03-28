@@ -44,6 +44,20 @@
 			<a href="http://gravatar.com" rel="external">gravatar.com</a>
 		</div>
 	</li>
+	
+	
+	<li>
+        <div data-role="fieldcontain" style="padding:4px;">
+            <s:label for="locale" class="ui-input-text"/>
+            <s:select name="locale" id="locale">
+                <s:option value="">No Locale</s:option>
+                <s:options-collection collection="${bean.supportedLocales}"
+                                      value="locale"
+                                      label="displayedName"
+                                      sort="label"/>
+            </s:select>  
+        </div>
+    </li>  
 </ul>
 <div style="float:left">
 	<input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 

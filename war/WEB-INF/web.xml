@@ -39,6 +39,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 			<param-name>LocalePicker.Locales</param-name>
 			<param-value>en,fr</param-value>
 		</init-param>
+		      <init-param>
+            <param-name>LocalePicker.Class</param-name>
+            <param-value>com.wordpong.app.stripes.AppLocalePicker</param-value>
+        </init-param>
+		
 		<init-param>
 			<param-name>ActionResolver.Packages
 			</param-name>
