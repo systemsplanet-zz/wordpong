@@ -9,6 +9,7 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
+import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
@@ -18,12 +19,12 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.locale.AppLocalePicker;
 import com.wordpong.api.pojo.locale.DisplayedLocale;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.app.stripes.AppLocalePicker;
 import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
 import com.wordpong.app.stripes.converter.LocaleTypeConverter;
 import com.wordpong.app.util.secure.Encrypt;
@@ -121,7 +122,9 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                         user.setPassword(epwd);
                         password = epwd;
                     }
+                    user.setLocale(locale);
                     svcUser.save(user);
+                    c.putUserInfoToRequestAndSession(user);
                     addGlobalActionError("profileEdit.profileUpdated");
                 } else {
                     // session expire?
@@ -131,7 +134,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 log.warning("unable to save user: " + user);
             }
         }
-        return new ForwardResolution(VIEW);
+        return new RedirectResolution(ProfileEditActionBean.class);
     }
 
     @ValidationMethod
