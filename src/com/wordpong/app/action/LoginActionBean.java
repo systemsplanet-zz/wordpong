@@ -105,10 +105,10 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
                 user = svcUser.findByEmail(email);
                 if (!user.getPassword().equals(password)) {
                     user = null;
-                    addGlobalActionError("passwordIncorrect");
+                    addGlobalActionError("login.passwordIncorrect");
                 }
             } catch (WPServiceException e) {
-                addGlobalActionError("emailNotFound");
+                addGlobalActionError("login.emailNotFound");
             }
         }
     }

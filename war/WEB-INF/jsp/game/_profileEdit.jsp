@@ -1,8 +1,10 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
+<fmt:message var="saveLbl" key="save" />
+<fmt:message var="backLbl" key="back" />
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.ProfileEditActionBean"/>
 <div data-role="content" style="padding-top:0px;">
 <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
-	<li data-role="list-divider" >Edit Profile</li> 
+	<li data-role="list-divider" ><s:label for="profileEdit.title"/></li> 
 </ul>
 <tags:messages/> 
 <s:form id="profileForm" beanclass="com.wordpong.app.action.game.ProfileEditActionBean" method="post">
@@ -44,10 +46,10 @@
 	</li>
 </ul>
 <div style="float:left">
-	<input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="Back" type="submit" /> 
+	<input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
 </div>
 <div style="float:right">
-	<input data-theme="a" class="process" name="save" value="Save" type="submit" />
+	<input data-theme="a" class="process" name="save" value="${saveLbl}" type="submit" />
 </div>
 
 </s:form>	

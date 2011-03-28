@@ -51,13 +51,25 @@ public abstract class BaseActionBean implements ActionBean {
         this.context = (AppActionBeanContext) context;
     }
 
+    public String getMsg(String key, Object parameters[]) {
+        LocalizableMessage sm = new LocalizableMessage(key, parameters);
+        String msg = sm.getMessage(context.getLocale());
+        return msg;
+    }
+    
+    public String getMsg(String key) {
+        LocalizableMessage sm = new LocalizableMessage(key);
+        String msg = sm.getMessage(context.getLocale());
+        return msg;
+    }
+
     public void addGlobalActionError(String errorMessage) {
-        getContext().getValidationErrors().addGlobalError(new LocalizableError(errorMessage));
+        context.getValidationErrors().addGlobalError(new LocalizableError(errorMessage));
     }
 
     // TODO: is SimpleMessage localized?
     public void addGlobalActionMessage(String message) {
-        context.getMessages().add(new SimpleMessage(message));
+        context.getMessages().add(new LocalizableError(message));
     }
 
     protected Object getSessionAttribute(String attributeName) {
@@ -67,7 +79,7 @@ public abstract class BaseActionBean implements ActionBean {
     protected void setSessionAttribute(String attributeName, Object value) {
         ServletUtil.sessionSet(context.getRequest(), attributeName, value);
     }
-    
+
     protected HttpServletRequest getRequest() {
         return getContext().getRequest();
     }
@@ -79,15 +91,18 @@ public abstract class BaseActionBean implements ActionBean {
     protected ServletContext getServletContext() {
         return getContext().getServletContext();
     }
+
     /**
-     * Returns a java.security.Principal object containing the name of the current
-     * authenticated user. If the user has not been authenticated, the method returns null.
+     * Returns a java.security.Principal object containing the name of the
+     * current authenticated user. If the user has not been authenticated, the
+     * method returns null.
+     * 
      * @return
      */
     protected Principal getUserPrincipal() {
         return getContext().getRequest().getUserPrincipal();
     }
-    
+
     public Resolution assertAuthenticated() {
         if (getContext().isAuthenticated() == false) {
             if (AjaxUtils.isAjaxRequest(getContext().getRequest())) {

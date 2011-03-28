@@ -1,10 +1,19 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
+<fmt:message var="myTurnLbl" key="game.myTurn" />
+<fmt:message var="theirTurnLbl" key="game.theirTurn" />
+<fmt:message var="myStuffLbl" key="game.myStuff" />
+<fmt:message var="answersLbl" key="game.answers" />
+
+<fmt:message var="logoutLbl" key="logout" />
+<fmt:message var="friendsLbl" key="friends" />
+<fmt:message var="profileLbl" key="profile" />
+
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
         <form id="loginForm" action="/Login.wp" method="post">
 <div data-role="header"  data-nobackbtn="true" data-theme="b" data-position="fixed">
 	<div class="wp-right-button" >
 		<form id="loginForm" action="/Login.wp" method="post">
-			<input class="process" name="logout" value="Logout" type="submit"  />
+			<input class="process" name="logout" value="${logoutLbl}" type="submit"  />
 		</form>
 	</div>
 	<tags:logo/>
@@ -13,7 +22,7 @@
 <s:form  id="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
         <c:set var="group" value=""/>
         <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-            <li data-role="list-divider" >My Turn (${actionBean.user.fullName})</li> 
+            <li data-role="list-divider" >${myTurnLbl} (${actionBean.user.fullName})</li> 
         <c:forEach items="${actionBean.myTurns}" var="myTurn" varStatus="status">
             <c:choose>
                 <c:when test="${group != myTurn.actionString && !status.first}">
@@ -45,14 +54,14 @@
 		</ul>
 	
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
-			<li data-role="list-divider">Their Turn</li> 
+			<li data-role="list-divider">${theirTurnLbl}</li> 
 	</ul>
  
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
-		<li data-role="list-divider">My Stuff</li> 
-		<li><a href="answers.html">Answers</a></li> 
-        <input data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" name="friendList" action="friendList" value="Friends" type="submit" />
-		<input data-theme="a" data-iconpos="right" data-icon="gear" class="process" name="profileEdit" action="profileEdit" value="Profile" type="submit" />
+		<li data-role="list-divider">${myStuffLbl}</li> 
+		<li><a href="answers.html">${answersLbl}</a></li> 
+        <input data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" name="friendList" action="friendList" value="${friendsLbl}" type="submit" />
+		<input data-theme="a" data-iconpos="right" data-icon="gear" class="process" name="profileEdit" action="profileEdit" value="${profileLbl}" type="submit" />
 <!-- 		<li><a href="support.html">Ad-Free WordPong</a></li>  --> 
 	</ul> 
 	

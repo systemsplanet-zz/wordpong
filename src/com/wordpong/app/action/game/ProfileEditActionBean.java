@@ -1,5 +1,8 @@
 package com.wordpong.app.action.game;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -15,16 +18,19 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
+import com.wordpong.api.pojo.locale.AppLocalePicker;
+import com.wordpong.api.pojo.locale.DisplayedLocale;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
+import com.wordpong.app.stripes.converter.LocaleTypeConverter;
 import com.wordpong.app.util.secure.Encrypt;
 
 public class ProfileEditActionBean extends BaseActionBean implements ValidationErrorHandler {
     private static final Logger log = Logger.getLogger(ProfileEditActionBean.class.getName());
-    private static final String VIEW = "/WEB-INF/jsp/game/_profile.jsp";
+    private static final String VIEW = "/WEB-INF/jsp/game/_profileEdit.jsp";
 
     private SvcUser svcUser;
 
@@ -44,6 +50,18 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
 
     @Validate(required = false, converter = ImageUrlTypeConverter.class, maxlength = 200, minlength = 18)
     private String pictureUrl;
+
+    /**
+     * Input field containing the selected locale (<code>null</code> if no
+     * locale selected)
+     */
+    @Validate(converter = LocaleTypeConverter.class)
+    private Locale locale;
+
+    /**
+     * The list of selectable locales
+     */
+    private List<DisplayedLocale> supportedLocales;
 
     public ProfileEditActionBean() {
         svcUser = SvcUserFactory.getUserService();
@@ -77,9 +95,11 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     if (pictureUrl == null) {
                         pictureUrl = user.getPictureUrl();
                     }
+
                 } else {
                     // TODO: session expiration? show error popup, redirect home
                 }
+                loadLocales();
             }
         }
         return new ForwardResolution(VIEW);
@@ -102,12 +122,12 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                         password = epwd;
                     }
                     svcUser.save(user);
-                    addGlobalActionError("profileUpdated");
+                    addGlobalActionError("profileEdit.profileUpdated");
                 } else {
                     // session expire?
                 }
             } catch (WPServiceException e) {
-                addGlobalActionError("unableToSaveProfile");
+                addGlobalActionError("profileEdit.unableToSaveProfile");
                 log.warning("unable to save user: " + user);
             }
         }
@@ -135,6 +155,16 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
     // on errors, only reply with the content, not the entire page
     public Resolution handleValidationErrors(ValidationErrors errors) {
         return new ForwardResolution(VIEW);
+    }
+
+    private void loadLocales() {
+        supportedLocales = new ArrayList<DisplayedLocale>(AppLocalePicker.SUPPORTED_LOCALES.size());
+        for (Locale l : AppLocalePicker.SUPPORTED_LOCALES) {
+            supportedLocales.add(new DisplayedLocale(l));
+        }
+        if (user != null) {
+            this.locale = user.getLocale();
+        }
     }
 
     public String getEmail() {
@@ -184,5 +214,22 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
+
+    public List<DisplayedLocale> getSupportedLocales() {
+        return supportedLocales;
+    }
+
+    public void setSupportedLocales(List<DisplayedLocale> supportedLocales) {
+        this.supportedLocales = supportedLocales;
+    }
+    
 
 }

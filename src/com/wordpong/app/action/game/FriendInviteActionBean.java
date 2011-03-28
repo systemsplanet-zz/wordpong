@@ -55,12 +55,12 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
                     // TODO: parse friend
                     // Add friend
                     // Send email
-                    addGlobalActionError("friendInvited");
+                    addGlobalActionError("friendInvite.friendInvited");
                 } else {
                     // session expire?
                 }
             } catch (Exception e) {
-                addGlobalActionError("unableToInviteFriend");
+                addGlobalActionError("friendInvite.unableToInviteFriend");
                 log.warning("unable to invite friend");
             }
         }

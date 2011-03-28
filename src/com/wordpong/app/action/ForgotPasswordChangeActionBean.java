@@ -45,7 +45,6 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
     @DontValidate
     @DefaultHandler
     public Resolution view() {
-        addGlobalActionError("forgotPassword.emailSent");
         return new ForwardResolution(VIEW);
     }
 
@@ -56,10 +55,10 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
 
         PasswordChangeRequest pcr = SvcUserFactory.getUserService().getPasswordChangeRequest(code);
         if (pcr == null) {
-            addGlobalActionError("forgotPassword.invalidCode");
+            addGlobalActionError("forgotPasswordChange.invalidCode");
         } else {
             if (pcr.getEmail() != null && email != null && email.equalsIgnoreCase(pcr.getEmail()) == false) {
-                addGlobalActionError("forgotPassword.invalidCodeEmail");
+                addGlobalActionError("forgotPasswordChange.invalidCodeEmail");
             } else {
                 // Change the password
                 User user;
@@ -67,10 +66,10 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
                     user = svcUser.findByEmail(email);
                     user.setPassword(password);
                     svcUser.save(user);
-                    addGlobalActionError("forgotPassword.passwordReset");
+                    addGlobalActionError("forgotPasswordChange.passwordReset");
                     log.info("password reset:" + user);
                 } catch (WPServiceException e) {
-                    addGlobalActionError("forgotPassword.cantUpdateUser");
+                    addGlobalActionError("forgotPasswordChange.cantUpdateUser");
                 }
             }
         }
