@@ -9,10 +9,12 @@
 <fmt:message var="loginLbl" key="login" />
 
 <div data-role="header" data-theme="b">
-	<tags:logo/>
+	<center>
+		<tags:logo/>
+	</center>
 </div>
 
-<div data-role="content" data-theme="a">
+<div data-role="content" data-theme="a" style="padding-top:0px;" >
 	<ul data-role="listview" data-inset="true" data-theme="c"
 		data-dividertheme="b">
 		<li data-role="list-divider">${titleLbl}</li>

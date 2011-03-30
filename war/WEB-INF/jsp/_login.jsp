@@ -5,12 +5,24 @@
 <fmt:message var="contactUsLbl" key="contactUs" />
 
 <div data-role="header"  data-theme="b">
-	<div class="wp-right-button" >
+<div style="float:left" >
+    <span style="float:left;margin:12px 0px 0px 12px;" >
+        <tags:logo/>
+	</span>
+    <span class="wp-right-button"  >
 	    <s:form  id="loginForm" beanclass="com.wordpong.app.action.RegisterActionBean" method="post">
-			<input name="view" value="${registerLbl}" type="submit" class="process" style="height:35px"/>
+	        <div style="float:right;margin-right:10px">
+	            <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
+	                <span class="ui-btn-inner ui-btn-corner-all">
+	                    <span class="ui-btn-text">${registerLbl}</span>
+	                    <span class="ui-icon ui-icon-plus ui-icon-shadow"></span>                    
+	                </span>
+	                <input name="view" value="${registerLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
+	            </div> 
+	        </div>
 		</s:form>
-	</div>
-	<tags:logo/>
+	</span>
+<div>
 </div>
 
 <div data-role="content" data-theme="a" >

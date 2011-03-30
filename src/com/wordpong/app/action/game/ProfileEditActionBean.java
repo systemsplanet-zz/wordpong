@@ -134,7 +134,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 log.warning("unable to save user: " + user);
             }
         }
-        return new RedirectResolution(ProfileEditActionBean.class);
+        return new ForwardResolution(ProfileEditActionBean.class);
     }
 
     @ValidationMethod

@@ -2,6 +2,7 @@
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendInviteActionBean"/>
 <fmt:message var="submitLbl" key="submit" />
 <fmt:message var="backLbl" key="back" />
+
 <div data-role="content" style="padding-top:0px;">
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 		<li data-role="list-divider" ><s:label for="friendInvite.title"/></li> 

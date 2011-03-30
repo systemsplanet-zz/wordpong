@@ -9,16 +9,14 @@
 <fmt:message var="profileLbl" key="profile" />
 
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
-        <form id="loginForm" action="/Login.wp" method="post">
-<div data-role="header"  data-nobackbtn="true" data-theme="b" data-position="fixed">
-	<div class="wp-right-button" >
-		<form id="loginForm" action="/Login.wp" method="post">
-			<input class="process" name="logout" value="${logoutLbl}" type="submit"  />
-		</form>
-	</div>
-	<tags:logo/>
+  
+<div data-role="header"  data-nobackbtn="true" data-theme="b" >
+	<center>
+		<tags:logo/>
+	</center>
 </div>
-<div data-role="content" style="padding-top:0px"  >
+
+<div data-role="content" style="padding-top:0px;"  >
 <s:form  id="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
         <c:set var="group" value=""/>
         <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
@@ -64,7 +62,9 @@
 		<input data-theme="a" data-iconpos="right" data-icon="gear" class="process" name="profileEdit" action="profileEdit" value="${profileLbl}" type="submit" />
 <!-- 		<li><a href="support.html">Ad-Free WordPong</a></li>  --> 
 	</ul> 
-	
+</s:form>
+<s:form  beanclass="com.wordpong.app.action.LoginActionBean" method="post">
+   <small> <input name="logout" value="${logoutLbl}" data-icon='arrow-l' class="process"  data-theme="a" type="submit"  /></small>
 </s:form>
 
 </div>

@@ -1,13 +1,13 @@
 /*! WordPong CSS */
-.wp-logo {margin:2px 1px 0px 80px; padding:0; }
-.wp-right-button {float:right; margin:10px 15px 0px 0px; padding:0; }
+.wp-logo { text-align:center; }
+.wp-right-button {float:right; margin:2px 10px; padding:0px;}
 .up {color:green; }
 .down {color:red; }
-.wp-status {float:right; padding:0 15px 10px;font-size:small}
-.wp-date  {float:left; padding:0 0 10px 10px;font-size:small}
-.wp-footer{float:left; padding:0 0 10px 10px;font-size:small;margin-bottom:1000px;}
+.wp-status {float:right; padding:0 25px 10px;font-size:small}
+.wp-date  {float:left; padding:0 0 10px 25px;font-size:small}
+.wp-footer{float:left; padding:0 0 10px 25px;font-size:small;margin-bottom:1000px;}
 .wp-loading{width:100%;font-size:small;padding:20;text-align:center}
-
+.wp-small-text{font-size:60%}
 
 
 

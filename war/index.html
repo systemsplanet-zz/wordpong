@@ -14,13 +14,13 @@
 <script type="text/javascript" src="/js/jquery.mobile-1.0a4pre.min.js"></script>
 </head>
 <body>
+
 <div class="wp-page" data-role="page" data-theme="a" style="width:100%" >
 <div class="page-content">
-   <div class="wp-loading">
-        <a href="https://wordpong.appspot.com">wp</a>
-   </div>
+     <div class="wp-loading">
+	     <a href="https://wordpong.appspot.com">wp</a>
+ 	 </div>
 </div>
-<br>
 <div class='wp-status'></div>
 <div class='wp-date'></div>
 <br/>
@@ -47,7 +47,8 @@ $("input.process").live( "click", function(e) {
             //  add to cache... transisition, back button support
             $('.wp-footer').html(wpFooter);
             p.width($(".wp-page").outerWidth() - 30 );  
-            p.page()                       
+            p.page()
+            $('html, body').animate({scrollTop:0}, 'slow');
         } else {
             alert("Login session expired.");
             window.location.reload(true);
@@ -62,5 +63,6 @@ $(document).ready(function() {
     $('#wp-init-btn').click();
 });
 </script>
+</div>
 </body>
 </html>
