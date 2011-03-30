@@ -13,4 +13,3 @@ echo error %ERRORLEVEL%
 
 :DONE
 
-pause
