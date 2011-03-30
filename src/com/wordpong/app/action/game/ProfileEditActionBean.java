@@ -95,6 +95,9 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     }
                     if (pictureUrl == null) {
                         pictureUrl = user.getPictureUrl();
+                    } 
+                    if (locale == null) {
+                        locale = user.getLocale();
                     }
 
                 } else {
@@ -108,6 +111,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
 
     @HandlesEvent("save")
     public Resolution save() {
+        Resolution result = new RedirectResolution(ProfileEditActionBean.class);
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
@@ -125,17 +129,19 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     user.setLocale(locale);
                     svcUser.save(user);
                     c.putUserInfoToRequestAndSession(user);
-                    addGlobalActionError("profileEdit.profileUpdated");
+                    addGlobalActionMessage("profileEdit.profileUpdated");
                 } else {
                     // session expire?
                 }
             } catch (WPServiceException e) {
                 addGlobalActionError("profileEdit.unableToSaveProfile");
                 log.warning("unable to save user: " + user);
+                // err msgs are lost on redirects, so forward instead
+                result = new ForwardResolution(ProfileEditActionBean.class);
             }
         }
-        return new ForwardResolution(ProfileEditActionBean.class);
-    }
+        return result;
+     }
 
     @ValidationMethod
     public void validateUser(ValidationErrors errors) {
@@ -164,9 +170,6 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
         supportedLocales = new ArrayList<DisplayedLocale>(AppLocalePicker.SUPPORTED_LOCALES.size());
         for (Locale l : AppLocalePicker.SUPPORTED_LOCALES) {
             supportedLocales.add(new DisplayedLocale(l));
-        }
-        if (user != null) {
-            this.locale = user.getLocale();
         }
     }
 
