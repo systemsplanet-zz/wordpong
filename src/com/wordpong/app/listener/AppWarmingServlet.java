@@ -12,7 +12,7 @@ public class AppWarmingServlet extends HttpServlet {
 	private static final Logger log = Logger.getLogger(AppWarmingServlet.class
 			.getName());
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		log.info("WordPong Warmed up");
 	}
