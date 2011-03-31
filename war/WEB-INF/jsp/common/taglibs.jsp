@@ -7,6 +7,10 @@
 %><%@taglib prefix="sec" uri="http://www.stripes-stuff.org/security.tld"
 %><%@taglib uri="/WEB-INF/tags/tld/appversion.tld"  prefix="wp" 
 %><%@taglib tagdir="/WEB-INF/tags" prefix="tags" 
-%><c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+%><c:set var="contextPath" value="${pageContext.request.contextPath}"/><%
+    response.addHeader("Pragma", "no-cache");
+    response.addHeader("Cache-control", "no-cache");
+    response.addHeader("Expires", "-1");
+%>
 <%-- <%@ page isELIgnored="false" %>  --%>
 

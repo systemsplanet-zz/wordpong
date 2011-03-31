@@ -8,6 +8,20 @@
 .wp-footer{float:left; padding:0 0 10px 25px;font-size:small;margin-bottom:1000px;}
 .wp-loading{width:100%;font-size:small;padding:20;text-align:center}
 .wp-small-text{font-size:60%}
+#Stripes Error msgs
+.errors {
+    color: white;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#Stripes Info messages
+.messages {
+    color: white;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
 
 
