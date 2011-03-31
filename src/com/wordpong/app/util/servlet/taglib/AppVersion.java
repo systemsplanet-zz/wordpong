@@ -11,7 +11,7 @@ public class AppVersion implements Tag {
     private PageContext pageContext;
     private Tag parent;
 
-    public AppVersion() {
+    public AppVersion() { 
     }
 
     public int doStartTag() {

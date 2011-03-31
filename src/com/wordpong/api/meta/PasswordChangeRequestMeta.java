@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-27 23:11:12")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-03-31 09:40:38")
 /** */
 public final class PasswordChangeRequestMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.PasswordChangeRequest> {
 

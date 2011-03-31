@@ -17,8 +17,8 @@
 </head>
 <body>
 
-<div class="wp-page" data-role="page" data-theme="a" style="width:100%" >
-<div class="page-content">
+<div id="wp-main-page" class="wp-page" data-role="page" data-theme="a" style="width:100%" >
+<div class="wp-page-content">
      <div class="wp-loading">
 	     <a href="https://wordpong.appspot.com">wp</a>
  	 </div>
@@ -32,23 +32,28 @@
 <input id="wp-init-btn" name="view" value="Load App" type="submit" class="process"/>
 </form>
 <script type="text/javascript">
+
 $("input.process").live( "click", function(e) {
     e.preventDefault();
     var action = this.form.action + '?_eventName=' + this.name;
     var params = $(this.form).serialize();
     $.mobile.pageLoading(); //  show the wait icon
     var xhr = $.post(action, params, function(data) {
-        if (xhr.getResponseHeader('Stripes-Success') == "OK") {
+    	if (xhr.getResponseHeader('Stripes-Success') == "OK") {
             $.mobile.pageLoading(true);//close the wait icon
-            var content = $(e).parents('.ui-page-active .page-content:first')
-            content.html(data)
+            var content = $('.wp-page-content')
+            content.html(data)            
+            // Remove unused jquerymobile cached divs
+            $('div').remove('[data-role="page"]:not(#wp-main-page)')
+            $('div').remove('[data-role="dialog"]')
+
             var d = $('.wp-date')
             d.html(dateFormat(new Date(),"HH:MM:ss mmm dd"))
             var p= $('.ui-page-active [data-role="content"]')
             // todo: http://forum.jquery.com/topic/page-level-refresh
             //  add to cache... transisition, back button support
             $('.wp-footer').html(wpFooter);
-            p.width($(".wp-page").outerWidth() - 30 );  
+            p.width($(".wp-page").outerWidth() - 30 );
             p.page()
             $('html, body').animate({scrollTop:0}, 'slow');
         } else {
@@ -59,7 +64,10 @@ $("input.process").live( "click", function(e) {
 });
 $(window).resize(function() {
 	var p= $('.ui-page-active [data-role="content"]')
-	p.width($(".wp-page").outerWidth() - 30 ); 
+	p.width($(".wp-page").outerWidth() - 30 );
+});
+$(document).bind("mobileinit", function(){
+	//$.mobile.nonHistorySelectors  = '.*';	  
 });
 $(document).ready(function() {
     $('#wp-init-btn').click();
