@@ -35,9 +35,13 @@ public class SvcCommonAppEngineImpl implements SvcCommon {
 
     @Override
     public boolean isDatastoreUp() {
-        CapabilitiesService cs = CapabilitiesServiceFactory.getCapabilitiesService();
-        CapabilityState state = cs.getStatus(Capability.DATASTORE_WRITE);
-        CapabilityStatus status = state.getStatus();
+        CapabilityStatus status = CapabilityStatus.DISABLED;
+        try {
+            CapabilitiesService cs = CapabilitiesServiceFactory.getCapabilitiesService();
+            CapabilityState state = cs.getStatus(Capability.DATASTORE_WRITE);
+            status = state.getStatus();
+        } catch (Throwable t) {
+        }
         boolean result = status == CapabilityStatus.ENABLED;
         if (result == false) {
             log.warning("Datastore is down");

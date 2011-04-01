@@ -25,7 +25,7 @@
 
 	<admin-console>
 		<page name="Appstats" url="/stats" />
-		<page name="WordPong Admin" url="/admin" />
+        <page name="WordPong Admin" url="/admin" />
 	</admin-console>
 
 	<inbound-services>

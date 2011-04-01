@@ -17,6 +17,7 @@ import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.game.GameActionBean;
+import com.wordpong.app.auth.RememberMe;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
 import com.wordpong.cmn.util.debug.LogUtil;
@@ -60,6 +61,7 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
             user.setFirstName(firstName);
             user.setEmail(email);
             user.setPassword(password);
+            RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), email);
             c.putUserToRequestAndSession(user);
             SvcUser svcUser = SvcUserFactory.getUserService();
             try {

@@ -23,6 +23,7 @@ import com.wordpong.api.pojo.locale.DisplayedLocale;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.app.auth.RememberMe;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.AppLocalePicker;
 import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
@@ -88,7 +89,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                         lastName = user.getLastName();
                     }
                     if (email == null) {
-                        email = user.getEmail();
+                        email = user.getEmail();                       
                     }
                     if (password == null) {
                         password = user.getPassword();
@@ -111,7 +112,6 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
 
     @HandlesEvent("save")
     public Resolution save() {
-        Resolution result = new RedirectResolution(ProfileEditActionBean.class);
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
@@ -121,6 +121,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     user.setLastName(lastName);
                     user.setEmail(email);
                     user.setPictureUrl(pictureUrl);
+                    RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), email);
                     if (user.getPassword() != null && user.getPassword().equals(password) == false) {
                         String epwd = Encrypt.hashSha1(password);
                         user.setPassword(epwd);
@@ -137,10 +138,9 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 addGlobalActionError("profileEdit.unableToSaveProfile");
                 log.warning("unable to save user: " + user);
                 // err msgs are lost on redirects, so forward instead
-                result = new ForwardResolution(ProfileEditActionBean.class);
             }
         }
-        return result;
+        return new ForwardResolution(VIEW);
      }
 
     @ValidationMethod

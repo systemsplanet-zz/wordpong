@@ -32,7 +32,10 @@
 <input id="wp-init-btn" name="view" value="Load App" type="submit" class="process"/>
 </form>
 <script type="text/javascript">
-
+// clear password on focus
+$('input:password').live("focus", function(e) {
+	this.value=''
+});
 $("input.process").live( "click", function(e) {
     e.preventDefault();
     var action = this.form.action + '?_eventName=' + this.name;

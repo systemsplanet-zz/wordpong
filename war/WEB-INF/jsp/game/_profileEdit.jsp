@@ -64,6 +64,7 @@
 			<div data-role="fieldcontain" style="padding:4px;">
 				<s:label for="password" class="ui-input-text"/>
 				<s:password name="password" repopulate="true" tabindex="3" />
+				
 			</div>
 		</li>
 		<li>
