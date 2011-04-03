@@ -14,10 +14,12 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
+import com.wordpong.api.pojo.EmailMessage;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.game.GameActionBean;
 import com.wordpong.app.auth.RememberMe;
+import com.wordpong.app.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
 import com.wordpong.cmn.util.debug.LogUtil;
@@ -65,10 +67,12 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
             c.putUserToRequestAndSession(user);
             SvcUser svcUser = SvcUserFactory.getUserService();
             try {
-
                 user = svcUser.save(user);
+                String msg = getMsg("register.email.message", new Object[] { user.getFirstName(), user.getEmail() });
+                String sub = getMsg("register.email.subject", new Object[] { user.getFirstName()});
+                MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));
                 resolution = new ForwardResolution(GameActionBean.class);
-            } catch (WPServiceException e) {
+            } catch (Exception e) {
                 String reason = "register.unableToAddUser";
                 LogUtil.logException(reason, e);
                 addGlobalActionError(reason);
