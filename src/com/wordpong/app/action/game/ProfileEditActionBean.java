@@ -89,14 +89,14 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                         lastName = user.getLastName();
                     }
                     if (email == null) {
-                        email = user.getEmail();                       
+                        email = user.getEmail();
                     }
                     if (password == null) {
                         password = user.getPassword();
                     }
                     if (pictureUrl == null) {
                         pictureUrl = user.getPictureUrl();
-                    } 
+                    }
                     if (locale == null) {
                         locale = user.getLocale();
                     }
@@ -112,6 +112,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
 
     @HandlesEvent("save")
     public Resolution save() {
+        Resolution result = new ForwardResolution(VIEW);
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
@@ -131,6 +132,8 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     svcUser.save(user);
                     c.putUserInfoToRequestAndSession(user);
                     addGlobalActionMessage("profileEdit.profileUpdated");
+                    // force page reload so Locale changes will be immediate
+                    result = new RedirectResolution(ProfileEditActionBean.class);
                 } else {
                     // session expire?
                 }
@@ -140,8 +143,8 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 // err msgs are lost on redirects, so forward instead
             }
         }
-        return new ForwardResolution(VIEW);
-     }
+        return result;
+    }
 
     @ValidationMethod
     public void validateUser(ValidationErrors errors) {
@@ -236,6 +239,5 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
     public void setSupportedLocales(List<DisplayedLocale> supportedLocales) {
         this.supportedLocales = supportedLocales;
     }
-    
 
 }

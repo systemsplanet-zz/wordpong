@@ -15,6 +15,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slim3-1.0.9.jar"/>
 	<classpathentry kind="lib" path="lib-plugin/slim3-gen-1.0.9.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/appengine-java-sdk-1.4.2"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (2)"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

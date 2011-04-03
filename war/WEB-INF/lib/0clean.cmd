@@ -1,7 +1,7 @@
 rem remove unused jars
-rem del appengine-api-1.0-sdk-1.4.2.jar
-rem del appengine-api-labs-1.4.2.jar
-del appengine-jsr107cache-1.4.2.jar
+rem del appengine-api-1.0-sdk-1.4.3.jar
+rem del appengine-api-labs-1.4.3.jar
+del appengine-jsr107cache-1.4.3.jar
 del datanucleus-appengine-1.0.8.final.jar
 del datanucleus-core-1.1.5.jar
 del datanucleus-jpa-1.1.5.jar

@@ -16,7 +16,7 @@ $.ajaxSetup(
 			if(x.status==0){
 				alert('Network unavailable.');
 			}else if(x.status==403){
-				alert('access is denied.');
+				alert('Login expired.');
 			}else if(x.status==404){
 				alert('Requested URL not found.');
 			}else if(x.status==500){

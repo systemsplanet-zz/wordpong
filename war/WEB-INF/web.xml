@@ -482,7 +482,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	</taglib>
 
 	<session-config>
-		<session-timeout>40</session-timeout>
+     	<!-- 1440 min = 24 hours -->
+		<session-timeout>1440</session-timeout>
 	</session-config>
+	
+	
+	<threadsafe>true</threadsafe>
+	
 </web-app>
 
