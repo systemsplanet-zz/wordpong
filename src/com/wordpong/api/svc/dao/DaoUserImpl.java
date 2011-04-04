@@ -19,8 +19,6 @@ import java.util.Random;
 public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
     private static final Logger log = Logger.getLogger(DaoUserImpl.class.getName());
 
-    static final String PROP_EMAIL = "email";
-
     // Create a user with a unique email address inside a transaction
     // since queries are not part of a transaction there is a chance of creating
     // duplicates!
@@ -53,7 +51,7 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
     }
 
     public User findByEmail(String email) throws DaoException {
-        User result = null;// = getByProperty(PROP_EMAIL, email);
+        User result = null;
         UserMeta e = UserMeta.get();
         try {
             result = Datastore.query(e).filter(e.email.equal(email)).asSingle();

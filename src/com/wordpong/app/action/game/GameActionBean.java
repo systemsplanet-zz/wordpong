@@ -11,8 +11,8 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
 
-import com.wordpong.api.model.GameMyTurn;
 import com.wordpong.api.model.User;
+import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;

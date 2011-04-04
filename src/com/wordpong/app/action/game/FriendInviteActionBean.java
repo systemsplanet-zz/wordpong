@@ -1,5 +1,7 @@
 package com.wordpong.app.action.game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -14,9 +16,13 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.model.User;
+import com.wordpong.api.pojo.EmailMessage;
+import com.wordpong.api.svc.SvcFriend;
+import com.wordpong.api.svc.SvcFriendFactory;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.app.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class FriendInviteActionBean extends BaseActionBean implements ValidationErrorHandler {
@@ -45,16 +51,21 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
         return new ForwardResolution(VIEW);
     }
 
-    @HandlesEvent("submit")
-    public Resolution submit() {
+    @HandlesEvent("invite")
+    public Resolution invite() {
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
                 user = c.getUserFromSession();
                 if (user != null) {
-                    // TODO: parse friend
-                    // Add friend
-                    // Send email
+                    String url = "https://wordpong.appspot.com/?register=" + email;
+                    String msg = getMsg("friendInvite.email.message", new Object[] { user.getFullName(), url });
+                    String sub = getMsg("friendInvite.email.subject",new Object[] { user.getFullName()});
+                    List<String> emails = new ArrayList<String>();
+                    emails.add(email);
+                    SvcFriend fs = SvcFriendFactory.getFriendService();
+                    fs.inviteFriends(user, emails);
+                    MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));                   
                     addGlobalActionError("friendInvite.friendInvited");
                 } else {
                     // session expire?

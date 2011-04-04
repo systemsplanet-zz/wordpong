@@ -12,8 +12,8 @@
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 			<li>
 				<div data-role="fieldcontain" style="padding:4px;">
-					<s:label for="emailAddress" class="ui-input-text"/>
-					<s:text  name="emailAddress" id="emailAddress" tabindex="1"/>
+					<s:label for="email" class="ui-input-text"/>
+					<s:text  name="email" id="email" tabindex="1"/>
 				</div>
 			</li>
 		</ul>
@@ -21,7 +21,7 @@
 			<input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
 		</div>
 		<div style="float:right">
-			<input data-theme="a" class="process"  name="submit" value="${submitLbl}" type="submit" />
+			<input data-theme="a" class="process" action="invite" name="invite   " value="${submitLbl}" type="submit" />
 		</div>	
 	</s:form>	
 </div>
