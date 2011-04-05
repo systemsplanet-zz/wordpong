@@ -487,7 +487,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	</session-config>
 	
 	
-	<threadsafe>true</threadsafe>
 	
 </web-app>
 
