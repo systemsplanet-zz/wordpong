@@ -7,7 +7,7 @@ public class GameMyTurn {
 
     private static final long serialVersionUID = 1L;
 
-    private String id = "123";
+    private String id = "unknown";
 
     public static enum Action {
         Unknown, InvitationRequest, InviteAccepted, AnswerQuestion

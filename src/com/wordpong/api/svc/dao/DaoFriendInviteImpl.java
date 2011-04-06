@@ -7,6 +7,7 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.wordpong.api.meta.FriendInviteMeta;
 import com.wordpong.api.model.FriendInvite;
 import com.wordpong.api.model.User;
 
@@ -22,9 +23,22 @@ public class DaoFriendInviteImpl extends DaoImpl<FriendInvite> implements DaoFri
                 fi.setInviteeEmail(email);
                 fi.setInviterKey(user.getKey());
                 Key key = put(fi);
-                log.info("invite email:" + email + " for user:" + user+ " key:"+key);
+                log.info("invite email:" + email + " for user:" + user + " key:" + key);
             }
         }
         txn.commit();
+    }
+
+    @Override
+    public List<FriendInvite> getFriendInvites(User user) throws DaoException {
+        List<FriendInvite> result = null;
+        FriendInviteMeta e = FriendInviteMeta.get();
+        try {
+            result = Datastore.query(e).filter(e.inviterKey.equal(user.getKey())).asList();
+        } catch (Exception ex) {
+            throw new DaoException("Err:" + ex.getMessage());
+        }
+        return result;
+
     }
 }

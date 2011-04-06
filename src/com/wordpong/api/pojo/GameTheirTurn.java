@@ -7,9 +7,11 @@ public class GameTheirTurn {
 
     private static final long serialVersionUID = 1L;
 
-    public enum Action {
+    public static enum Action {
         Unknown, InvitationSent, AnswerQuestionRequestSent
     }
+
+    private Action _action = Action.Unknown;
 
     private String id = "123";
 
@@ -21,9 +23,34 @@ public class GameTheirTurn {
         this.id = id;
     }
 
+    public Action getAction() {
+        return _action;
+    }
+
+    public void setAction(Action action) {
+        this._action = action;
+    }
+
+    public String getActionString() {
+        String result = "Unknown";
+        if (_action != null) {
+            switch (_action) {
+            case InvitationSent:
+                result = "Invitation Sent";
+                break;
+            case AnswerQuestionRequestSent:
+                result = "Answer Question Request Sent";
+                break;
+            case Unknown:
+                result = "Unknown";
+                break;
+            }
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
-
 }

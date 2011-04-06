@@ -16,14 +16,16 @@
 	</center>
 </div>
 
+<%-- MY TURN --%>
+
 <div data-role="content" style="padding-top:0px;"  >
 <s:form  id="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
-        <c:set var="group" value=""/>
-        <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-            <li data-role="list-divider" >${myTurnLbl} (${actionBean.user.fullName})</li> 
-        <c:forEach items="${actionBean.myTurns}" var="myTurn" varStatus="status">
+    <c:set var="group" value=""/>
+    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+        <li data-role="list-divider" >${myTurnLbl} (${actionBean.user.fullName})</li> 
+        <c:forEach items="${actionBean.myTurns}" var="myTurn" varStatus="myStatus">
             <c:choose>
-                <c:when test="${group != myTurn.actionString && !status.first}">
+                <c:when test="${group != myTurn.actionString && !myStatus.first}">
                         </ul>
                     </li>
                 </c:when>
@@ -36,23 +38,53 @@
                         <ul data-theme="c" data-header-theme="c">
                 </c:when>
             </c:choose>
-
             <li>
-                <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="myTurnList" var="myTurnListUrl">
+                <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="myTurnSelect" var="myTurnListUrl">
                     <s:param name="myTurnId" value="${myTurn.id}"/>
                 </s:url>
                 <a href="${myTurnListUrl}">${myTurn.id}</a>
             </li>
 
-            <c:if test="${status.last}">
+            <c:if test="${myStatus.last}">
                         </ul>
                     </li>
             </c:if>
         </c:forEach>
-		</ul>
+	</ul>
+	
+	
+	<%-- THEIR TURN --%>
 	
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
-			<li data-role="list-divider">${theirTurnLbl}</li> 
+		<li data-role="list-divider">${theirTurnLbl}</li> 
+        <c:forEach items="${actionBean.theirTurns}" var="theirTurn" varStatus="theirStatus">
+            <c:choose>
+                <c:when test="${group != theirTurn.actionString && !theirStatus.first}">
+                        </ul>
+                    </li>
+                </c:when>
+            </c:choose>
+            <c:choose>
+                <c:when test="${group != theirTurn.actionString}">
+                    <c:set var="group" value="${theirTurn.actionString}"/>
+                    <%--The li element and account has to be on the same line for nested list in jQuerymobile to render correctly--%>
+                    <li>${group}
+                        <ul data-theme="c" data-header-theme="c">
+                </c:when>
+            </c:choose>
+
+            <li>
+                <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="theirTurnSelect" var="theirTurnListUrl">
+                    <s:param name="theirTurnId" value="${theirTurn.id}"/>
+                </s:url>
+                <a href="${theirTurnListUrl}">${theirTurn.id}</a>
+            </li>
+
+            <c:if test="${theirStatus.last}">
+                        </ul>
+                    </li>
+            </c:if>
+        </c:forEach>
 	</ul>
  
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
