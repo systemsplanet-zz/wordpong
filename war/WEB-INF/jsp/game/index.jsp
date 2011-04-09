@@ -42,8 +42,8 @@
                 <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="myTurnSelect" var="myTurnListUrl">
                     <s:param name="myTurnId" value="${myTurn.id}"/>
                 </s:url>
-                <a href="${myTurnListUrl}">${myTurn.id}</a>
-            </li>
+                   <a href="${myTurnListUrl}">${myTurn.id}</a> 
+\            </li>
 
             <c:if test="${myStatus.last}">
                         </ul>
@@ -58,45 +58,24 @@
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${theirTurnLbl}</li> 
         <c:forEach items="${actionBean.theirTurns}" var="theirTurn" varStatus="theirStatus">
-            <c:choose>
-                <c:when test="${group != theirTurn.actionString && !theirStatus.first}">
-                        </ul>
-                    </li>
-                </c:when>
-            </c:choose>
-            <c:choose>
-                <c:when test="${group != theirTurn.actionString}">
-                    <c:set var="group" value="${theirTurn.actionString}"/>
-                    <%--The li element and account has to be on the same line for nested list in jQuerymobile to render correctly--%>
-                    <li>${group}
-                        <ul data-theme="c" data-header-theme="c">
-                </c:when>
-            </c:choose>
-
-            <li>
                 <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="theirTurnSelect" var="theirTurnListUrl">
                     <s:param name="theirTurnId" value="${theirTurn.id}"/>
                 </s:url>
-                <a href="${theirTurnListUrl}">${theirTurn.id}</a>
-            </li>
-
-            <c:if test="${theirStatus.last}">
-                        </ul>
-                    </li>
-            </c:if>
+                <input data-theme="a" class="process" action="viewInvite" name="viewInvite" value="${theirTurn.actionString} ${theirTurn.id}" type="submit" />
         </c:forEach>
 	</ul>
  
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${myStuffLbl}</li> 
-		<li><a href="answers.html">${answersLbl}</a></li> 
-        <input data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" name="friendList" action="friendList" value="${friendsLbl}" type="submit" />
-		<input data-theme="a" data-iconpos="right" data-icon="gear" class="process" name="profileEdit" action="profileEdit" value="${profileLbl}" type="submit" />
+        <input name="answersList" action="answerList" data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${answersLbl}" type="submit" />
+        <input name="friendList" action="friendList" data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${friendsLbl}" type="submit" />
+		<input name="profileEdit" action="profileEdit" data-theme="a" data-iconpos="right" data-icon="gear" class="process" value="${profileLbl}" type="submit" />
 <!-- 		<li><a href="support.html">Ad-Free WordPong</a></li>  --> 
 	</ul> 
 </s:form>
+<br/>
 <s:form  beanclass="com.wordpong.app.action.LoginActionBean" method="post">
-   <small> <input name="logout" value="${logoutLbl}" data-icon='arrow-l' class="process"  data-theme="a" type="submit"  /></small>
+   <small> <input name="logout" value="${logoutLbl}" data-icon='arrow-l' class="process"  data-theme="c" type="submit"  /></small>
 </s:form>
 
 </div>

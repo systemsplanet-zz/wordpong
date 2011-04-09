@@ -10,6 +10,7 @@ import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
 
@@ -77,7 +78,13 @@ public class GameActionBean extends BaseActionBean {
     public Resolution friendList() {
         return new ForwardResolution(FriendListActionBean.class);
     }
-
+    @DontValidate
+    @HandlesEvent("viewInvite")
+    public Resolution viewInvite() {
+        // todo: save email in session?
+        return new ForwardResolution(FriendInviteCancelActionBean.class);
+    }
+    
     public User getUser() {
         return user;
     }
