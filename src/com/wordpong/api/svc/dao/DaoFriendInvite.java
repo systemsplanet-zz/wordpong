@@ -10,4 +10,7 @@ public interface DaoFriendInvite {
     void inviteFriends(User user, List<String> emails) throws DaoException;;
 
     List<FriendInvite> getFriendInvites(User user) throws DaoException;
+    
+    void cancelInvitation(User user, String email) throws DaoException;
+    
 }

@@ -7,7 +7,7 @@
 <fmt:message var="logoutLbl" key="logout" />
 <fmt:message var="friendsLbl" key="friends" />
 <fmt:message var="profileLbl" key="profile" />
-<fmt:message var="invitedLbl" key="game.inviteTo" />
+<fmt:message var="invitedLbl" key="game.invited" />
 
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
   

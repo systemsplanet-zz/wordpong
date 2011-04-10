@@ -20,8 +20,6 @@ import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.pojo.GameTheirTurn;
 import com.wordpong.api.pojo.GameTheirTurn.Action;
-import com.wordpong.api.svc.SvcFriend;
-import com.wordpong.api.svc.SvcFriendFactory;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
@@ -32,12 +30,10 @@ public class GameActionBean extends BaseActionBean {
     public static final String VIEW = "/WEB-INF/jsp/game/index.jsp";
 
     private SvcGame _svcGame;
-    private SvcFriend _svcFriend;
     private User user;
 
     public GameActionBean() {
         _svcGame = SvcGameFactory.getGameService();
-        _svcFriend=SvcFriendFactory.getFriendService();
     }
 
     // Make sure user is authenticated
@@ -96,7 +92,7 @@ public class GameActionBean extends BaseActionBean {
     public List<GameTheirTurn> getTheirTurns() {
         List<GameTheirTurn> turns = new ArrayList<GameTheirTurn>();
         try {
-            List<FriendInvite> invites = _svcFriend.getFriendInvites(user);
+            List<FriendInvite> invites = _svcGame.getFriendInvites(user);
             if (invites != null) {
                 for (FriendInvite fi : invites) {
                     GameTheirTurn gtt = new GameTheirTurn();

@@ -13,14 +13,12 @@ import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
-import net.sourceforge.stripes.validation.ValidationMethod;
 
+import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.EmailMessage;
-import com.wordpong.api.svc.SvcFriend;
-import com.wordpong.api.svc.SvcFriendFactory;
-import com.wordpong.api.svc.SvcUser;
-import com.wordpong.api.svc.SvcUserFactory;
+import com.wordpong.api.svc.SvcGame;
+import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
@@ -29,15 +27,12 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
     private static final Logger log = Logger.getLogger(FriendInviteCancelActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_friendInviteCancel.jsp";
 
-    private SvcUser svcUser;
-
     private User user;
 
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
 
     public FriendInviteCancelActionBean() {
-        svcUser = SvcUserFactory.getUserService();
     }
 
     @DontValidate
@@ -50,14 +45,26 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
     public Resolution view() {
         return new ForwardResolution(VIEW);
     }
+
     @HandlesEvent("cancelInvite")
     public Resolution cancelInvite() {
-        SvcFriend fs = SvcFriendFactory.getFriendService();
-        // todo: remove from friendinvite from db
-        //fs.cancelInvitation(user);
-        addGlobalActionError("friendInviteCancel.invitedCancelled");
+        AppActionBeanContext c = getContext();
+        if (c != null) {
+            user = c.getUserFromSession();
+            if (user != null) {
+                try {
+                    // remove from friendinvite from db
+                    SvcGame sg = SvcGameFactory.getGameService();
+                    sg.cancelInvitation(user, email);
+                    addGlobalActionError("friendInviteCancel.invitedCancelled");
+                } catch (WPServiceException e) {
+                    addGlobalActionError("friendInviteCancel.unableToCancel");
+                }
+            }
+        }
         return new ForwardResolution(VIEW);
     }
+
     @HandlesEvent("resendInvite")
     public Resolution resendInvite() {
         AppActionBeanContext c = getContext();
@@ -67,10 +74,10 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
                 if (user != null) {
                     String url = "https://wordpong.appspot.com/?register=" + email;
                     String msg = getMsg("friendInvite.email.message", new Object[] { user.getFullName(), url });
-                    String sub = getMsg("friendInvite.email.subject",new Object[] { user.getFullName()});
+                    String sub = getMsg("friendInvite.email.subject", new Object[] { user.getFullName() });
                     List<String> emails = new ArrayList<String>();
                     emails.add(email);
-                    MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));                   
+                    MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));
                     addGlobalActionError("friendInvite.friendInvited");
                 } else {
                     // session expire?
@@ -82,14 +89,6 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
         }
         // redirect back here
         return new ForwardResolution(VIEW);
-    }
-
-    @ValidationMethod
-    public void validateUser(ValidationErrors errors) {
-        AppActionBeanContext c = getContext();
-        if (c != null) {
-            //Todo: validate email list
-        }
     }
 
     // on errors, only reply with the content, not the entire page

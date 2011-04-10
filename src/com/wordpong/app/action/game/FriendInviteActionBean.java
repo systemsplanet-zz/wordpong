@@ -17,10 +17,8 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.EmailMessage;
-import com.wordpong.api.svc.SvcFriend;
-import com.wordpong.api.svc.SvcFriendFactory;
-import com.wordpong.api.svc.SvcUser;
-import com.wordpong.api.svc.SvcUserFactory;
+import com.wordpong.api.svc.SvcGame;
+import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
@@ -29,15 +27,12 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
     private static final Logger log = Logger.getLogger(FriendInviteActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_friendInvite.jsp";
 
-    private SvcUser svcUser;
-
     private User user;
 
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
 
     public FriendInviteActionBean() {
-        svcUser = SvcUserFactory.getUserService();
     }
 
     @DontValidate
@@ -60,12 +55,12 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
                 if (user != null) {
                     String url = "https://wordpong.appspot.com/?register=" + email;
                     String msg = getMsg("friendInvite.email.message", new Object[] { user.getFullName(), url });
-                    String sub = getMsg("friendInvite.email.subject",new Object[] { user.getFullName()});
+                    String sub = getMsg("friendInvite.email.subject", new Object[] { user.getFullName() });
                     List<String> emails = new ArrayList<String>();
                     emails.add(email);
-                    SvcFriend fs = SvcFriendFactory.getFriendService();
-                    fs.inviteFriends(user, emails);
-                    MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));                   
+                    SvcGame sg = SvcGameFactory.getGameService();
+                    sg.inviteFriends(user, emails);
+                    MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));
                     addGlobalActionError("friendInvite.friendInvited");
                 } else {
                     // session expire?
@@ -83,7 +78,7 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
     public void validateUser(ValidationErrors errors) {
         AppActionBeanContext c = getContext();
         if (c != null) {
-            //Todo: validate email list
+            // Todo: validate email list
         }
     }
 

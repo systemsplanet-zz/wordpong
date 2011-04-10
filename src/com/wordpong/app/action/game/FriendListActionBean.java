@@ -17,8 +17,6 @@ import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
-import com.wordpong.api.svc.SvcUser;
-import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
@@ -27,15 +25,13 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
     private static final String VIEW = "/WEB-INF/jsp/game/_friendList.jsp";
 
     private SvcGame _svcGame;
-    private SvcUser svcUser;
-
+    
     private User user;
 
     @Validate(required = true, minlength = 4, maxlength = 50)
     private String emails;
 
     public FriendListActionBean() {
-        svcUser = SvcUserFactory.getUserService();
         _svcGame = SvcGameFactory.getGameService();
     }
 
