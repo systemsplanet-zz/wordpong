@@ -25,7 +25,7 @@
             <input data-theme="a" class="process" action="cancelInvite" name="cancelInvite" value="${cancelInviteLbl}" type="submit" />
         </div>  
         <div style="float:right">
-            <input data-theme="a" class="process" action="resendInvite" name="invite" value="${resendLbl}" type="submit" />
+            <input data-theme="a" class="process" action="resendInvite" name="resendInvite" value="${resendLbl}" type="submit" />
         </div>  
 	</s:form>	
 </div>

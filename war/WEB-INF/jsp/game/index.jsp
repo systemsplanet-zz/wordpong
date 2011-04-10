@@ -7,6 +7,7 @@
 <fmt:message var="logoutLbl" key="logout" />
 <fmt:message var="friendsLbl" key="friends" />
 <fmt:message var="profileLbl" key="profile" />
+<fmt:message var="invitedLbl" key="game.inviteTo" />
 
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
   
@@ -61,15 +62,18 @@
                 <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="theirTurnSelect" var="theirTurnListUrl">
                     <s:param name="theirTurnId" value="${theirTurn.id}"/>
                 </s:url>
-                <input data-theme="a" class="process" action="viewInvite" name="viewInvite" value="${theirTurn.actionString} ${theirTurn.id}" type="submit" />
+                <input onClick="javascript:$('#email').val('${theirTurn.id}');" data-theme="a" class="process" action="viewInvite" name="viewInvite" value="${invitedLbl}: ${theirTurn.id}" type="submit" />
         </c:forEach>
 	</ul>
- 
+    <input id="email" name="email" type="hidden" value=""/>
+    
+     
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${myStuffLbl}</li> 
         <input name="answersList" action="answerList" data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${answersLbl}" type="submit" />
         <input name="friendList" action="friendList" data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${friendsLbl}" type="submit" />
 		<input name="profileEdit" action="profileEdit" data-theme="a" data-iconpos="right" data-icon="gear" class="process" value="${profileLbl}" type="submit" />
+
 <!-- 		<li><a href="support.html">Ad-Free WordPong</a></li>  --> 
 	</ul> 
 </s:form>
