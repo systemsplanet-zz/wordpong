@@ -26,6 +26,9 @@ public abstract class BaseActionBean implements ActionBean {
     // private static final Logger log = Logger.getLogger(BaseActionBean.class
     // .getName());
 
+    public static String SESS_QUERY_STRING = "queryString";  // queryString = register=<email>
+    public static String QUERY_PARAM_REGISTER = "register";  // wordpong.appspot.com?register=<email>
+    
     private AppActionBeanContext context;
 
     public BaseActionBean() {

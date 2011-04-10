@@ -1,5 +1,7 @@
 package com.wordpong.app.action;
 
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -22,11 +24,12 @@ import com.wordpong.app.auth.RememberMe;
 import com.wordpong.app.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
+import com.wordpong.app.util.servlet.ServletUtil;
 import com.wordpong.cmn.util.debug.LogUtil;
 
 public class RegisterActionBean extends BaseActionBean implements ValidationErrorHandler {
     private static final Logger log = Logger.getLogger(RegisterActionBean.class.getName());
-    private static final String VIEW = "/WEB-INF/jsp/_register.jsp";
+    public static final String VIEW = "/WEB-INF/jsp/_register.jsp";
 
     private User user;
 
@@ -48,6 +51,20 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
     @DontValidate
     @DefaultHandler
     public Resolution view() {
+        String qs = (String) getSessionAttribute(SESS_QUERY_STRING);
+        if (qs != null) {
+            Map<String, List<String>> m = ServletUtil.parseQueryString(qs);
+            List<String> rs = m.get(QUERY_PARAM_REGISTER);
+            m.remove(QUERY_PARAM_REGISTER);
+            qs = ServletUtil.mapToQueryString(m);
+            setSessionAttribute(SESS_QUERY_STRING, qs);
+            if (rs != null && rs.size() == 1) {
+                String register = rs.get(0);
+                AppActionBeanContext c = getContext();
+                RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), register);
+                email = register;
+            }
+        }
         return new ForwardResolution(VIEW);
     }
 
@@ -69,7 +86,7 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
             try {
                 user = svcUser.save(user);
                 String msg = getMsg("register.email.message", new Object[] { user.getFirstName(), user.getEmail() });
-                String sub = getMsg("register.email.subject", new Object[] { user.getFirstName()});
+                String sub = getMsg("register.email.subject", new Object[] { user.getFirstName() });
                 MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));
                 resolution = new ForwardResolution(GameActionBean.class);
             } catch (Exception e) {

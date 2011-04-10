@@ -70,7 +70,27 @@ $(document).bind("mobileinit", function(){
 	//$.mobile.nonHistorySelectors  = '.*';	  
 });
 $(document).ready(function() {
-    $('#wp-init-btn').click();
+	// If url contains a query string then redirect to home page without queryString
+	var query = location.search.substring(1); 
+	if (query!=null && query.length > 0) {
+		var data = {queryString: query	};
+		var jqxhr = $.post("Login.wp",data, function() {
+		        //alert("success");
+	            window.location.replace(window.location.protocol+"//"+window.location.host);             
+		    })
+            .success(function() { 
+                //alert("second success"); 
+             })
+		    .complete(function() { 
+			    //alert("complete"); 
+			 })        
+            .error(function() { 
+                //alert("error"); 
+             });
+		;
+	} else {
+       $('#wp-init-btn').click();
+	}
 });
 </script>
 </div>

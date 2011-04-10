@@ -23,7 +23,6 @@ import com.wordpong.api.pojo.GameTheirTurn.Action;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
-import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class GameActionBean extends BaseActionBean {
     private static final Logger log = Logger.getLogger(GameActionBean.class.getName());
@@ -46,22 +45,18 @@ public class GameActionBean extends BaseActionBean {
     @PermitAll
     @DefaultHandler
     public Resolution showMe() {
-        AppActionBeanContext c = getContext();
-        if (c != null) {
-            if (user == null) {
-                user = c.getUserFromSession();
-            }
-        }
         return new ForwardResolution(VIEW);
     }
+
     @DontValidate
     public Resolution theirTurnSelect() {
-        //TODO
+        // TODO
         return new ForwardResolution(ProfileEditActionBean.class);
     }
+
     @DontValidate
     public Resolution myTurnSelect() {
-        //TODO
+        // TODO
         return new ForwardResolution(ProfileEditActionBean.class);
     }
 
@@ -74,13 +69,13 @@ public class GameActionBean extends BaseActionBean {
     public Resolution friendList() {
         return new ForwardResolution(FriendListActionBean.class);
     }
+
     @DontValidate
     @HandlesEvent("viewInvite")
     public Resolution viewInvite() {
-        // todo: save email in session?
         return new ForwardResolution(FriendInviteCancelActionBean.class);
     }
-    
+
     public User getUser() {
         return user;
     }
