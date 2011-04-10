@@ -1,7 +1,9 @@
 package com.wordpong.api.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -31,6 +33,16 @@ public class FriendInvite implements Serializable {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public String getCreatedAtString() {
+        String result = "unknown";
+        if (createdAt != null) {
+            Locale l = Locale.US; // todo: use current user locale
+            SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d yyyy 'at' hh:mm:ss z", l);
+            result = formatter.format(createdAt);
+        }
+        return result;
     }
 
     public void setCreatedAt(Date createdAt) {

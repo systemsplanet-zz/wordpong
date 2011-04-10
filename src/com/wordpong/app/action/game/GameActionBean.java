@@ -98,6 +98,7 @@ public class GameActionBean extends BaseActionBean {
                     GameTheirTurn gtt = new GameTheirTurn();
                     gtt.setId(fi.getInviteeEmail());
                     gtt.setAction(Action.InvitationSent);
+                    gtt.setCreatedAtString(fi.getCreatedAtString());
                     turns.add(gtt);
                 }
             }

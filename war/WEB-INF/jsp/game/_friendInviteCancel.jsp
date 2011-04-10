@@ -12,10 +12,14 @@
 	<s:form id="friendInviteCancelForm" beanclass="com.wordpong.app.action.game.FriendInviteCancelActionBean" method="post">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 			<li>
-				<div data-role="fieldcontain" style="padding:4px;">
-					<s:label for="email" class="ui-input-text"/>
-					<s:text  name="email" id="email" tabindex="1"/>
-				</div>
+                <div data-role="fieldcontain" style="padding:4px;">
+                    <s:label for="email" class="ui-input-text"/>
+                    <s:text  name="email" id="email" tabindex="1"/>
+                </div>
+                <div data-role="fieldcontain" style="padding:4px;">
+                    <s:label for="createdAtString" class="ui-input-text"/>
+                    <s:text  name="createdAtString" id="createdAtString" tabindex="1" readonly="true"/>
+                </div>
 			</li>
 		</ul>
 		<div style="float:left">

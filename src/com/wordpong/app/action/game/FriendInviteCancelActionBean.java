@@ -31,6 +31,7 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
 
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
+    private String createdAtString="??";
 
     public FriendInviteCancelActionBean() {
     }
@@ -103,4 +104,14 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
     public void setEmail(String e) {
         email = e;
     }
+
+    public String getCreatedAtString() {
+        return createdAtString;
+    }
+
+    public void setCreatedAtString(String createdAtString) {
+        this.createdAtString = createdAtString;
+    }
+    
+    
 }

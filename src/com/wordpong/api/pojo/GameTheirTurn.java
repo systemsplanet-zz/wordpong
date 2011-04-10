@@ -13,7 +13,8 @@ public class GameTheirTurn {
 
     private Action _action = Action.Unknown;
 
-    private String id = "123";
+    private String createdAtString = "?";
+    private String id = "?";
 
     public String getId() {
         return id;
@@ -21,6 +22,14 @@ public class GameTheirTurn {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCreatedAtString() {
+        return createdAtString;
+    }
+
+    public void setCreatedAtString(String createdAtString) {
+        this.createdAtString = createdAtString;
     }
 
     public Action getAction() {

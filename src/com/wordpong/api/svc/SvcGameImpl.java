@@ -22,6 +22,7 @@ public class SvcGameImpl implements SvcGame {
         result.add(gmt);
         gmt = new GameMyTurn();
         gmt.setAction(Action.InvitationRequest);
+        //gmt.setCreatedAtString(createdAtString)
         result.add(gmt);
         gmt = new GameMyTurn();
         gmt.setAction(Action.InviteAccepted);

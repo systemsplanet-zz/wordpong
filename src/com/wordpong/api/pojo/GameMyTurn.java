@@ -7,14 +7,15 @@ public class GameMyTurn {
 
     private static final long serialVersionUID = 1L;
 
-    private String id = "unknown";
-
+    private String id = "?";
+    private String createdAtString = "?";
+    
     public static enum Action {
         Unknown, InvitationRequest, InviteAccepted, AnswerQuestion
     }
 
     private Action _action = Action.Unknown;
-
+    
     public Action getAction() {
         return _action;
     }
@@ -50,6 +51,14 @@ public class GameMyTurn {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getCreatedAtString() {
+        return createdAtString;
+    }
+
+    public void setCreatedAtString(String createdAtString) {
+        this.createdAtString = createdAtString;
     }
 
     @Override
