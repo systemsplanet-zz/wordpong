@@ -19,7 +19,7 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.locale.DisplayedLocale;
+import com.wordpong.api.pojo.LocaleDisplay;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
@@ -63,7 +63,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
     /**
      * The list of selectable locales
      */
-    private List<DisplayedLocale> supportedLocales;
+    private List<LocaleDisplay> supportedLocales;
 
     public ProfileEditActionBean() {
         svcUser = SvcUserFactory.getUserService();
@@ -170,9 +170,9 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
     }
 
     private void loadLocales() {
-        supportedLocales = new ArrayList<DisplayedLocale>(AppLocalePicker.SUPPORTED_LOCALES.size());
+        supportedLocales = new ArrayList<LocaleDisplay>(AppLocalePicker.SUPPORTED_LOCALES.size());
         for (Locale l : AppLocalePicker.SUPPORTED_LOCALES) {
-            supportedLocales.add(new DisplayedLocale(l));
+            supportedLocales.add(new LocaleDisplay(l));
         }
     }
 
@@ -232,11 +232,11 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
         this.locale = locale;
     }
 
-    public List<DisplayedLocale> getSupportedLocales() {
+    public List<LocaleDisplay> getSupportedLocales() {
         return supportedLocales;
     }
 
-    public void setSupportedLocales(List<DisplayedLocale> supportedLocales) {
+    public void setSupportedLocales(List<LocaleDisplay> supportedLocales) {
         this.supportedLocales = supportedLocales;
     }
 

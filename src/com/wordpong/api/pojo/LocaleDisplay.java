@@ -1,9 +1,9 @@
-package com.wordpong.api.pojo.locale;
+package com.wordpong.api.pojo;
 
 import java.io.Serializable;
 import java.util.Locale;
 
-public final class DisplayedLocale implements Serializable {
+public final class LocaleDisplay implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -14,7 +14,8 @@ public final class DisplayedLocale implements Serializable {
      */
     private String displayedName;
 
-    public DisplayedLocale(Locale locale) {
+    //upper case 1st char in locale name
+    public LocaleDisplay(Locale locale) {
         this.locale = locale;
         this.displayedName = locale.getDisplayName(this.locale);
         if (displayedName != null && displayedName.length() > 1) {

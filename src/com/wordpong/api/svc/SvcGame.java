@@ -8,6 +8,7 @@ import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.GameMyTurn;
 
 public interface SvcGame {
+
     List<GameMyTurn> getMyTurns();
 
     void setMyTurns(List<GameMyTurn> myTurns);
