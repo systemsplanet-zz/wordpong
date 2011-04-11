@@ -42,7 +42,10 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
 
     private String queryString;
 
+    private SvcUser svcUser;
+
     public LoginActionBean() {
+        svcUser = SvcUserFactory.getUserService();
     }
 
     @DontValidate
@@ -60,7 +63,15 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
             Map<String, List<String>> m = ServletUtil.parseQueryString(qs);
             List<String> rs = m.get(QUERY_PARAM_REGISTER);
             if (rs != null && rs.size() == 1) {
-                return new ForwardResolution(RegisterActionBean.class);
+                String registerUser = rs.get(0);
+                if (registerUser != null) {
+                    try {
+                        svcUser.findByEmail(registerUser);
+                    } catch (WPServiceException e) {
+                        // if new user, switch to registration page
+                        return new ForwardResolution(RegisterActionBean.class);
+                    }
+                }
             }
         }
 
@@ -132,7 +143,6 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
 
     @ValidationMethod
     public void validateUser(ValidationErrors errors) {
-        SvcUser svcUser = SvcUserFactory.getUserService();
         if (email != null) {
             try {
                 user = svcUser.findByEmail(email);

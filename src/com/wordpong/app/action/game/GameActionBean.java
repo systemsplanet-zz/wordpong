@@ -23,6 +23,7 @@ import com.wordpong.api.pojo.GameTheirTurn.Action;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class GameActionBean extends BaseActionBean {
     private static final Logger log = Logger.getLogger(GameActionBean.class.getName());
@@ -45,6 +46,10 @@ public class GameActionBean extends BaseActionBean {
     @PermitAll
     @DefaultHandler
     public Resolution showMe() {
+        AppActionBeanContext c = getContext();
+        if (user == null) {
+            user = c.getUserFromSession();
+        }
         return new ForwardResolution(VIEW);
     }
 

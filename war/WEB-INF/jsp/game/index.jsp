@@ -23,7 +23,7 @@
 <s:form  id="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
     <c:set var="group" value=""/>
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-        <li data-role="list-divider" >${myTurnLbl} (${actionBean.user.fullName})</li> 
+        <li data-role="list-divider" >${myTurnLbl} (${myBean.user.fullName})</li> 
         <c:forEach items="${actionBean.myTurns}" var="myTurn" varStatus="myStatus">
             <c:choose>
                 <c:when test="${group != myTurn.actionString && !myStatus.first}">
