@@ -18,6 +18,7 @@ import com.wordpong.app.action.ForgotPasswordActionBean;
 import com.wordpong.app.action.ForgotPasswordChangeActionBean;
 import com.wordpong.app.action.LoginActionBean;
 import com.wordpong.app.action.RegisterActionBean;
+import com.wordpong.app.action.api.v1.ApiLoginActionBean;
 import com.wordpong.app.util.servlet.AjaxUtils;
 import com.wordpong.cmn.svc.SvcCommonFactory;
 
@@ -104,7 +105,7 @@ public class AuthenticationInterceptor implements Interceptor {
         return
         // actionBeanClass.equals(IndexActionBean.class) ||
         actionBeanClass.equals(ForgotPasswordActionBean.class) || actionBeanClass.equals(ForgotPasswordChangeActionBean.class) || actionBeanClass.equals(LoginActionBean.class)
-                || actionBeanClass.equals(RegisterActionBean.class)
+                || actionBeanClass.equals(RegisterActionBean.class) || actionBeanClass.equals(ApiLoginActionBean.class)
         // || actionBeanClass.equals(CreateAccountActionBean.class)
         // || actionBeanClass.equals(IntegrationTestsActionBean.class)
         // || actionBeanClass.equals(ScreenshotsActionBean.class)

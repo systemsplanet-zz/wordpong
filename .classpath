@@ -14,7 +14,8 @@
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-standard-1.1.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slim3-1.0.9.jar"/>
 	<classpathentry kind="lib" path="lib-plugin/slim3-gen-1.0.9.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (2)"/>
+	<classpathentry kind="lib" path="C:/Users/Justin.CSPRO/Downloads/eclipse-java-helios-SR1-win32/eclipse/plugins/com.google.gwt.eclipse.sdkbundle.2.2.0_2.2.0.v201102111811/gwt-2.2.0/gwt-servlet.jar"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/json-20090211.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
