@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-12 12:57:15")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-12 20:13:41")
 /** */
 public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.User> {
 
@@ -17,7 +17,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> firstName = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "firstName", "firstName");
 
     /** */
-    public final org.slim3.datastore.CollectionAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> friends = new org.slim3.datastore.CollectionAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "friends", "friends", java.util.Set.class);
+    public final org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> friends = new org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "friends", "friends", java.util.Set.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
@@ -27,6 +27,9 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
 
     /** */
     public final org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Locale> locale = new org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Locale>(this, "locale", "locale", java.util.Locale.class);
+
+    /** */
+    public final org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> myTurns = new org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "myTurns", "myTurns", java.util.Set.class);
 
     /** */
     public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> password = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "password", "password");
@@ -73,6 +76,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         model.setLastName((java.lang.String) entity.getProperty("lastName"));
         java.util.Locale _locale = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("locale"));
         model.setLocale(_locale);
+        model.setMyTurns(new java.util.HashSet<com.google.appengine.api.datastore.Key>(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("myTurns"))));
         model.setPassword((java.lang.String) entity.getProperty("password"));
         model.setPictureUrl((java.lang.String) entity.getProperty("pictureUrl"));
         java.util.TimeZone _timeZone = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("timeZone"));
@@ -95,9 +99,10 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         entity.setProperty("createdAt", m.getCreatedAt());
         entity.setProperty("email", m.getEmail());
         entity.setUnindexedProperty("firstName", m.getFirstName());
-        entity.setProperty("friends", m.getFriends());
+        entity.setUnindexedProperty("friends", m.getFriends());
         entity.setUnindexedProperty("lastName", m.getLastName());
         entity.setUnindexedProperty("locale", serializableToBlob(m.getLocale()));
+        entity.setUnindexedProperty("myTurns", m.getMyTurns());
         entity.setUnindexedProperty("password", m.getPassword());
         entity.setUnindexedProperty("pictureUrl", m.getPictureUrl());
         entity.setUnindexedProperty("timeZone", serializableToBlob(m.getTimeZone()));
@@ -211,6 +216,15 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getLocale());
         }
+        if(m.getMyTurns() != null){
+            writer.setNextPropertyName("myTurns");
+            encoder = new org.slim3.datastore.json.Default();
+            writer.beginArray();
+            for(com.google.appengine.api.datastore.Key v : m.getMyTurns()){
+                encoder.encode(writer, v);
+            }
+            writer.endArray();
+        }
         if(m.getPassword() != null){
             writer.setNextPropertyName("password");
             encoder = new org.slim3.datastore.json.Default();
@@ -291,6 +305,24 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         reader = rootReader.newObjectReader("locale");
         decoder = new org.slim3.datastore.json.Default();
         m.setLocale(decoder.decode(reader, m.getLocale(), java.util.Locale.class));
+        reader = rootReader.newObjectReader("myTurns");
+        decoder = new org.slim3.datastore.json.Default();
+        {
+            java.util.HashSet<com.google.appengine.api.datastore.Key> elements = new java.util.HashSet<com.google.appengine.api.datastore.Key>();
+            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("myTurns");
+            if(r != null){
+                reader = r;
+                int n = r.length();
+                for(int i = 0; i < n; i++){
+                    r.setIndex(i);
+                    com.google.appengine.api.datastore.Key v = decoder.decode(reader, (com.google.appengine.api.datastore.Key)null)                    ;
+                    if(v != null){
+                        elements.add(v);
+                    }
+                }
+                m.setMyTurns(elements);
+            }
+        }
         reader = rootReader.newObjectReader("password");
         decoder = new org.slim3.datastore.json.Default();
         m.setPassword(decoder.decode(reader, m.getPassword()));

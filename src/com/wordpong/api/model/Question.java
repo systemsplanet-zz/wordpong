@@ -22,20 +22,28 @@ public class Question implements Serializable {
 
     @Attribute(version = true)
     private Long version;
-    
+
+    @Attribute(listener = ModificationDate.class)
+    Date updatedAt;
+
+    @Attribute(listener = CreationDate.class)
+    Date createdAt;
+
     private Key user;
-    
+
     private List<String> questions;
-    
+
     private String title;
-    
+
     private String description;
-    
-    //0 is private
-    //1 is public
+
+    @Attribute(unindexed = true, lob = true)
+    private Locale locale;
+
+    // 0 is private
+    // 1 is public
     private int visibility;
-    
-    
+
     // 0 is cliches
     // 1 is facts
     // 2 is opinions
@@ -45,124 +53,92 @@ public class Question implements Serializable {
     // 6 is needs
     private int intimacyLevel;
 
-    @Attribute(listener = ModificationDate.class)
-    Date updatedAt;
-    
+    // GETTER/SETTERS
+
     public Key getUser() {
-		return user;
-	}
+        return user;
+    }
 
-	public void setUser(Key user) {
-		this.user = user;
-	}
+    public void setUser(Key user) {
+        this.user = user;
+    }
 
-	public List<String> getQuestions() {
-		return questions;
-	}
+    public List<String> getQuestions() {
+        return questions;
+    }
 
-	public void setQuestions(List<String> questions) {
-		this.questions = questions;
-	}
+    public void setQuestions(List<String> questions) {
+        this.questions = questions;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public int getVisibility() {
-		return visibility;
-	}
+    public int getVisibility() {
+        return visibility;
+    }
 
-	public void setVisibility(int visibility) {
-		this.visibility = visibility;
-	}
+    public void setVisibility(int visibility) {
+        this.visibility = visibility;
+    }
 
-	public int getIntimacyLevel() {
-		return intimacyLevel;
-	}
+    public int getIntimacyLevel() {
+        return intimacyLevel;
+    }
 
-	public void setIntimacyLevel(int intimacyLevel) {
-		this.intimacyLevel = intimacyLevel;
-	}
+    public void setIntimacyLevel(int intimacyLevel) {
+        this.intimacyLevel = intimacyLevel;
+    }
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public Locale getLocale() {
-		return locale;
-	}
+    public Locale getLocale() {
+        return locale;
+    }
 
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
-	@Attribute(listener = CreationDate.class)
-    Date createdAt;
-    
-    /**
-     * The preferred locale (nullable)
-     */
-    @Attribute(unindexed = true, lob = true)
-    private Locale locale;
-
-    /**
-     * Returns the key.
-     *
-     * @return the key
-     */
     public Key getKey() {
         return key;
     }
 
-    /**
-     * Sets the key.
-     *
-     * @param key
-     *            the key
-     */
     public void setKey(Key key) {
         this.key = key;
     }
 
-    /**
-     * Returns the version.
-     *
-     * @return the version
-     */
     public Long getVersion() {
         return version;
     }
 
-    /**
-     * Sets the version.
-     *
-     * @param version
-     *            the version
-     */
     public void setVersion(Long version) {
         this.version = version;
     }

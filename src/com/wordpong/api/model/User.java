@@ -54,7 +54,12 @@ public class User implements Serializable {
     @Attribute(unindexed = true)
     private String pictureUrl;
 
+    @Attribute(unindexed = true)
     private Set<Key> friends = new HashSet<Key>();
+
+    // Points to User (new Friend), Game (my move in a game), or Invite (new invitation to join)
+    @Attribute(unindexed = true)    
+    private Set<Key> myTurns = new HashSet<Key>();
 
     @Attribute(persistent = false)
     private List<Role> roles = new ArrayList<Role>();
@@ -195,6 +200,14 @@ public class User implements Serializable {
 
     public void setFriends(Set<Key> friends) {
         this.friends = friends;
+    }
+
+    public Set<Key> getMyTurns() {
+        return myTurns;
+    }
+
+    public void setMyTurns(Set<Key> myTurns) {
+        this.myTurns = myTurns;
     }
 
     public String getPictureUrl() {
