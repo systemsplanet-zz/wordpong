@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-12 20:13:41")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-12 22:16:51")
 /** */
 public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.User> {
 
@@ -36,6 +36,9 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
 
     /** */
     public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> pictureUrl = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "pictureUrl", "pictureUrl");
+
+    /** */
+    public final org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> theirTurns = new org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "theirTurns", "theirTurns", java.util.Set.class);
 
     /** */
     public final org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.TimeZone> timeZone = new org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.TimeZone>(this, "timeZone", "timeZone", java.util.TimeZone.class);
@@ -79,6 +82,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         model.setMyTurns(new java.util.HashSet<com.google.appengine.api.datastore.Key>(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("myTurns"))));
         model.setPassword((java.lang.String) entity.getProperty("password"));
         model.setPictureUrl((java.lang.String) entity.getProperty("pictureUrl"));
+        model.setTheirTurns(new java.util.HashSet<com.google.appengine.api.datastore.Key>(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("theirTurns"))));
         java.util.TimeZone _timeZone = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("timeZone"));
         model.setTimeZone(_timeZone);
         model.setUpdatedAt((java.util.Date) entity.getProperty("updatedAt"));
@@ -105,6 +109,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         entity.setUnindexedProperty("myTurns", m.getMyTurns());
         entity.setUnindexedProperty("password", m.getPassword());
         entity.setUnindexedProperty("pictureUrl", m.getPictureUrl());
+        entity.setUnindexedProperty("theirTurns", m.getTheirTurns());
         entity.setUnindexedProperty("timeZone", serializableToBlob(m.getTimeZone()));
         entity.setProperty("updatedAt", m.getUpdatedAt());
         entity.setProperty("version", m.getVersion());
@@ -240,6 +245,15 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             encoder = new org.slim3.datastore.json.Default();
             // com.wordpong.api.pojo.Role is not supported.
         }
+        if(m.getTheirTurns() != null){
+            writer.setNextPropertyName("theirTurns");
+            encoder = new org.slim3.datastore.json.Default();
+            writer.beginArray();
+            for(com.google.appengine.api.datastore.Key v : m.getTheirTurns()){
+                encoder.encode(writer, v);
+            }
+            writer.endArray();
+        }
         if(m.getTimeZone() != null){
             writer.setNextPropertyName("timeZone");
             encoder = new org.slim3.datastore.json.Default();
@@ -331,6 +345,24 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         m.setPictureUrl(decoder.decode(reader, m.getPictureUrl()));
         reader = rootReader.newObjectReader("roles");
         decoder = new org.slim3.datastore.json.Default();
+        reader = rootReader.newObjectReader("theirTurns");
+        decoder = new org.slim3.datastore.json.Default();
+        {
+            java.util.HashSet<com.google.appengine.api.datastore.Key> elements = new java.util.HashSet<com.google.appengine.api.datastore.Key>();
+            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("theirTurns");
+            if(r != null){
+                reader = r;
+                int n = r.length();
+                for(int i = 0; i < n; i++){
+                    r.setIndex(i);
+                    com.google.appengine.api.datastore.Key v = decoder.decode(reader, (com.google.appengine.api.datastore.Key)null)                    ;
+                    if(v != null){
+                        elements.add(v);
+                    }
+                }
+                m.setTheirTurns(elements);
+            }
+        }
         reader = rootReader.newObjectReader("timeZone");
         decoder = new org.slim3.datastore.json.Default();
         m.setTimeZone(decoder.decode(reader, m.getTimeZone(), java.util.TimeZone.class));
