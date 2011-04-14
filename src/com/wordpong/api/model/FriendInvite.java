@@ -1,15 +1,17 @@
 package com.wordpong.api.model;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
-
-import com.google.appengine.api.datastore.Key;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
+
+import com.google.appengine.api.datastore.Key;
+import com.wordpong.cmn.util.TimeUtil;
+
+// Sent to a new user of wordpong
+// converted to FriendRequest once they login
 
 @Model(schemaVersion = 1)
 public class FriendInvite implements Serializable {
@@ -28,7 +30,7 @@ public class FriendInvite implements Serializable {
     @Attribute(unindexed = false)
     private String inviteeEmail;
 
-    @Attribute(unindexed = false)
+    @Attribute(unindexed = true)
     private Key inviterKey;
 
     public Date getCreatedAt() {
@@ -36,13 +38,7 @@ public class FriendInvite implements Serializable {
     }
 
     public String getCreatedAtString() {
-        String result = "unknown";
-        if (createdAt != null) {
-            Locale l = Locale.US; // todo: use current user locale
-            SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d yyyy 'at' hh:mm:ss z", l);
-            result = formatter.format(createdAt);
-        }
-        return result;
+        return TimeUtil.getElapsedTimeString(createdAt);
     }
 
     public void setCreatedAt(Date createdAt) {
@@ -65,40 +61,18 @@ public class FriendInvite implements Serializable {
         this.inviterKey = inviterKey;
     }
 
-    /**
-     * Returns the key.
-     * 
-     * @return the key
-     */
     public Key getKey() {
         return key;
     }
 
-    /**
-     * Sets the key.
-     * 
-     * @param key
-     *            the key
-     */
     public void setKey(Key key) {
         this.key = key;
     }
 
-    /**
-     * Returns the version.
-     * 
-     * @return the version
-     */
     public Long getVersion() {
         return version;
     }
 
-    /**
-     * Sets the version.
-     * 
-     * @param version
-     *            the version
-     */
     public void setVersion(Long version) {
         this.version = version;
     }

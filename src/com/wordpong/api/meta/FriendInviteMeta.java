@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-12 12:57:15")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-13 23:00:01")
 /** */
 public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.FriendInvite> {
 
@@ -57,7 +57,7 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
         }
         entity.setProperty("createdAt", m.getCreatedAt());
         entity.setProperty("inviteeEmail", m.getInviteeEmail());
-        entity.setProperty("inviterKey", m.getInviterKey());
+        entity.setUnindexedProperty("inviterKey", m.getInviterKey());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
         return entity;

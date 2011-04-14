@@ -38,8 +38,10 @@ $("input.process").live( "click", function(e) {
     var action = this.form.action + '?_eventName=' + this.name;
     var params = $(this.form).serialize();
     $.mobile.pageLoading(); //  show the wait icon
+	var startTime = new Date();
     var xhr = $.post(action, params, function(data) {
     	if (xhr.getResponseHeader('Stripes-Success') == "OK") {
+			var timeDiff = new Date() - startTime;
             $.mobile.pageLoading(true);//close the wait icon
             var content = $('.wp-page-content')
             content.html(data)            
@@ -48,7 +50,7 @@ $("input.process").live( "click", function(e) {
             $('div').remove('[data-role="dialog"]')
 
             var d = $('.wp-date')
-            d.html(dateFormat(new Date(),"HH:MM:ss mmm dd"))
+            d.html(dateFormat(new Date(),"HH:MM:ss mmm dd")+ " (" + timeDiff + "ms)")
             var p= $('.ui-page-active [data-role="content"]')
             // todo: http://forum.jquery.com/topic/page-level-refresh
             //  add to cache... transisition, back button support
