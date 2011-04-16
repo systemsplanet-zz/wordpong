@@ -18,7 +18,12 @@ public interface SvcGame {
 
     List<FriendInvite> getFriendInvites(User user) throws WPServiceException;
 
-    void cancelInvitation(User user, String email) throws WPServiceException ;
+    void cancelInvitation(User user, String email) throws WPServiceException;
 
     Question saveQuestion(Question u) throws WPServiceException;
+
+    void convertFriendInvitesToFriendRequests(User user) throws WPServiceException;
+
+    // background task
+    void convertAllFriendInvitesToFriendRequests();
 }

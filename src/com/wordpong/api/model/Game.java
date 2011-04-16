@@ -2,6 +2,8 @@ package com.wordpong.api.model;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 
@@ -105,5 +107,9 @@ public class Game implements Serializable {
             return false;
         }
         return true;
+    }
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

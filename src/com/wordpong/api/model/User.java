@@ -57,13 +57,15 @@ public class User implements Serializable {
     @Attribute(unindexed = true)
     private Set<Key> friends = new HashSet<Key>();
 
-    // Points to User (new Friend), Game (my move in a game), or Invite (new invitation to join)
-    //TODO: test a set of mixed key types
-    @Attribute(unindexed = true)    
+    // Points to User (new Friend), Game (my move in a game), or Invite (new
+    // invitation to join)
+    // TODO: test a set of mixed key types
+    @Attribute(unindexed = true)
     private Set<Key> myTurns = new HashSet<Key>();
 
-    // Points to FriendInvite (invitations sent to invite friends), Game (invites to play), 
-    @Attribute(unindexed = true)    
+    // Points to FriendInvite (invitations sent to invite friends), Game
+    // (invites to play),
+    @Attribute(unindexed = true)
     private Set<Key> theirTurns = new HashSet<Key>();
 
     @Attribute(persistent = false)
@@ -209,6 +211,10 @@ public class User implements Serializable {
 
     public Set<Key> getMyTurns() {
         return myTurns;
+    }
+
+    public void addMyTurns(List<Key> turns) {
+        myTurns.addAll(turns);
     }
 
     public void setMyTurns(Set<Key> myTurns) {

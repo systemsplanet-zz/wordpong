@@ -2,14 +2,16 @@ package com.wordpong.api.svc.dao;
 
 import java.util.logging.Logger;
 
+import org.slim3.datastore.DaoBase;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.wordpong.api.meta.QuestionMeta;
 import com.wordpong.api.model.Question;
+import com.wordpong.api.svc.dao.err.DaoException;
 
-public class DaoQuestionImpl extends DaoImpl<Question> implements DaoQuestion {
+public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
 	private static final Logger log = Logger.getLogger(DaoQuestionImpl.class
 			.getName());
 

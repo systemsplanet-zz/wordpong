@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-13 23:00:01")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-16 18:39:04")
 /** */
 public final class FriendRequestMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.FriendRequest> {
 
@@ -8,7 +8,7 @@ public final class FriendRequestMeta extends org.slim3.datastore.ModelMeta<com.w
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendRequest, java.util.Date> createdAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendRequest, java.util.Date>(this, "createdAt", "createdAt", java.util.Date.class);
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendRequest, java.util.Date> invitedAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendRequest, java.util.Date>(this, "invitedAt", "invitedAt", java.util.Date.class);
+    public final org.slim3.datastore.CoreUnindexedAttributeMeta<com.wordpong.api.model.FriendRequest, java.util.Date> invitedAt = new org.slim3.datastore.CoreUnindexedAttributeMeta<com.wordpong.api.model.FriendRequest, java.util.Date>(this, "invitedAt", "invitedAt", java.util.Date.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendRequest, com.google.appengine.api.datastore.Key> inviterKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendRequest, com.google.appengine.api.datastore.Key>(this, "inviterKey", "inviterKey", com.google.appengine.api.datastore.Key.class);
@@ -56,7 +56,7 @@ public final class FriendRequestMeta extends org.slim3.datastore.ModelMeta<com.w
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
         entity.setProperty("createdAt", m.getCreatedAt());
-        entity.setProperty("invitedAt", m.getInvitedAt());
+        entity.setUnindexedProperty("invitedAt", m.getInvitedAt());
         entity.setUnindexedProperty("inviterKey", m.getInviterKey());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);

@@ -1,4 +1,5 @@
-package com.wordpong.api.svc.dao;
+package com.wordpong.api.svc.dao.err;
+
 
 public class DaoExceptionUserNotFound extends DaoException {
 	private static final long serialVersionUID = 1L;

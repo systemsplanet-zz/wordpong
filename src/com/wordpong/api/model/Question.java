@@ -7,6 +7,8 @@ import java.util.Locale;
 
 import com.google.appengine.api.datastore.Key;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
@@ -171,5 +173,9 @@ public class Question implements Serializable {
             return false;
         }
         return true;
+    }
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

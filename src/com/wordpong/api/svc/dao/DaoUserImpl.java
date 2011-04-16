@@ -3,9 +3,11 @@ package com.wordpong.api.svc.dao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import org.slim3.datastore.DaoBase;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
@@ -14,9 +16,10 @@ import com.wordpong.api.meta.PasswordChangeRequestMeta;
 import com.wordpong.api.meta.UserMeta;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
-import java.util.Random;
+import com.wordpong.api.svc.dao.err.DaoException;
+import com.wordpong.api.svc.dao.err.DaoExceptionUserNotFound;
 
-public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
+public class DaoUserImpl extends DaoBase<User> implements DaoUser {
     private static final Logger log = Logger.getLogger(DaoUserImpl.class.getName());
 
     // Create a user with a unique email address inside a transaction
@@ -29,6 +32,7 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
         } catch (DaoExceptionUserNotFound e) {
             u = save(u);
             txn.commit();
+            //catch (ConcurrentModificationException ex)?
         }
         return u;
     }
@@ -51,6 +55,9 @@ public class DaoUserImpl extends DaoImpl<User> implements DaoUser {
     }
 
     public User findByEmail(String email) throws DaoException {
+        if (email == null) {
+            throw new DaoException("cant find by null email");
+        }
         User result = null;
         UserMeta e = UserMeta.get();
         try {

@@ -2,6 +2,7 @@ package com.wordpong.api.svc.dao;
 
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
+import com.wordpong.api.svc.dao.err.DaoException;
 
 public interface DaoUser {
     User save(User u) throws DaoException;

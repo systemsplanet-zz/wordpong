@@ -1,8 +1,10 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.slim3.datastore.DaoBase;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
@@ -10,8 +12,9 @@ import com.google.appengine.api.datastore.Transaction;
 import com.wordpong.api.meta.FriendInviteMeta;
 import com.wordpong.api.model.FriendInvite;
 import com.wordpong.api.model.User;
+import com.wordpong.api.svc.dao.err.DaoException;
 
-public class DaoFriendInviteImpl extends DaoImpl<FriendInvite> implements DaoFriendInvite {
+public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFriendInvite {
     private static final Logger log = Logger.getLogger(DaoFriendInviteImpl.class.getName());
 
     @Override
@@ -30,7 +33,7 @@ public class DaoFriendInviteImpl extends DaoImpl<FriendInvite> implements DaoFri
     }
 
     @Override
-    public List<FriendInvite> getFriendInvites(User user) throws DaoException {
+    public List<FriendInvite> getFriendInvitesByKey(User user) throws DaoException {
         List<FriendInvite> result = null;
         FriendInviteMeta e = FriendInviteMeta.get();
         try {
@@ -39,12 +42,38 @@ public class DaoFriendInviteImpl extends DaoImpl<FriendInvite> implements DaoFri
             throw new DaoException("Err:" + ex.getMessage());
         }
         return result;
+    }
 
+    @Override
+    public List<FriendInvite> getFriendInvitesByEmail(User user) throws DaoException {
+        List<FriendInvite> result = new ArrayList<FriendInvite>();
+        if (user != null && user.getEmail() != null) {
+            FriendInviteMeta e = FriendInviteMeta.get();
+
+            try {
+                result = Datastore.query(e).filter(e.inviteeEmail.equal(user.getEmail())).asList();
+            } catch (Exception ex) {
+                throw new DaoException("Err:" + ex.getMessage());
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<FriendInvite> getAllFriendInvites() throws DaoException {
+        List<FriendInvite> result = null;
+        FriendInviteMeta e = FriendInviteMeta.get();
+        try {
+            result = Datastore.query(e).asList();
+        } catch (Exception ex) {
+            throw new DaoException("Err:" + ex.getMessage());
+        }
+        return result;
     }
 
     @Override
     public void cancelInvitation(User user, String email) throws DaoException {
-        List<FriendInvite> invites = getFriendInvites(user);
+        List<FriendInvite> invites = getFriendInvitesByKey(user);
         if (invites != null) {
             for (FriendInvite i : invites) {
                 if (i.getInviteeEmail() != null && i.getInviteeEmail().equalsIgnoreCase(email)) {
@@ -65,4 +94,5 @@ public class DaoFriendInviteImpl extends DaoImpl<FriendInvite> implements DaoFri
             }
         }
     }
+
 }

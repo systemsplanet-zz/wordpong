@@ -3,6 +3,8 @@ package com.wordpong.api.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
@@ -25,7 +27,7 @@ public class FriendInvite implements Serializable {
     private Long version;
 
     @Attribute(listener = CreationDate.class)
-    Date createdAt;
+    private Date createdAt;
 
     @Attribute(unindexed = false)
     private String inviteeEmail;
@@ -105,5 +107,9 @@ public class FriendInvite implements Serializable {
             return false;
         }
         return true;
+    }
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

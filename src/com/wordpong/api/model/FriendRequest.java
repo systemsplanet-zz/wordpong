@@ -3,6 +3,8 @@ package com.wordpong.api.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
@@ -24,13 +26,22 @@ public class FriendRequest implements Serializable {
     @Attribute(version = true)
     private Long version;
 
+    @Attribute(listener = CreationDate.class)
+    private Date createdAt;
+
     @Attribute(unindexed = true)
     private Key inviterKey;
 
-    Date invitedAt; // copied from FriendInvite
+    @Attribute(unindexed = true)
+    private Date invitedAt; // copied from FriendInvite
 
-    @Attribute(listener = CreationDate.class)
-    Date createdAt;
+    public FriendRequest() {
+    }
+
+    public FriendRequest(FriendInvite fi) {
+        invitedAt = fi.getCreatedAt();
+        inviterKey = fi.getInviterKey();
+    }
 
     public String getCreatedAtString() {
         return TimeUtil.getElapsedTimeString(createdAt);
@@ -113,6 +124,7 @@ public class FriendRequest implements Serializable {
             return false;
         }
         FriendRequest other = (FriendRequest) obj;
+
         if (key == null) {
             if (other.key != null) {
                 return false;
@@ -121,5 +133,9 @@ public class FriendRequest implements Serializable {
             return false;
         }
         return true;
+    }
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

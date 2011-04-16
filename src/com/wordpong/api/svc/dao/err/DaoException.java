@@ -1,4 +1,4 @@
-package com.wordpong.api.svc.dao;
+package com.wordpong.api.svc.dao.err;
 
 public class DaoException extends Exception {
 	  private static final long serialVersionUID = 1L; 
