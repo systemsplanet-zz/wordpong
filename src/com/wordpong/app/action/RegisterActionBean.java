@@ -83,6 +83,7 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
             user.setEmail(email);
             user.setPassword(password);
             RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), email);
+            RememberMe.savePasswordToCookie(c.getRequest(), c.getResponse(), user.getPassword());
             c.putUserToRequestAndSession(user);
             SvcUser svcUser = SvcUserFactory.getUserService();
             try {
