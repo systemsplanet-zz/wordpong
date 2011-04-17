@@ -8,12 +8,14 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
+import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
 import com.wordpong.cmn.util.TimeUtil;
 
-// Sent to a new user of wordpong
-// converted to FriendRequest once they login
+// Sent to a exiting or non-members wordpong to invite them to join
+// updated once user registers with word pong
+// deleted when invite is accepted or denied
 
 @Model(schemaVersion = 1)
 public class FriendInvite implements Serializable {
@@ -29,49 +31,28 @@ public class FriendInvite implements Serializable {
     @Attribute(listener = CreationDate.class)
     private Date createdAt;
 
-    @Attribute(unindexed = false)
-    private String inviteeEmail;
+    @Attribute(listener = ModificationDate.class)
+    Date updatedAt;
+
+    // FROM ENVITER
 
     @Attribute(unindexed = false)
     private Key inviterKey;
 
+    // "FN LN (Email)"
     @Attribute(unindexed = true)
-    private String inviterFirstName;
+    private String inviterDetails;
 
-    @Attribute(unindexed = true)
-    private String inviterLastName;
+    // TO INVITEE
 
-    @Attribute(unindexed = true)
-    private String inviterEmail;
+    @Attribute(unindexed = false)
+    private Key inviteeKey;
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+    // "Email" or "FN LN (Email)"
+    @Attribute(unindexed = false)
+    private String inviteeDetails;
 
-    public String getCreatedAtString() {
-        return TimeUtil.getElapsedTimeString(createdAt);
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getInviteeEmail() {
-        return inviteeEmail;
-    }
-
-    public void setInviteeEmail(String inviteeEmail) {
-        this.inviteeEmail = inviteeEmail;
-    }
-
-    public Key getInviterKey() {
-        return inviterKey;
-    }
-
-    public void setInviterKey(Key inviterKey) {
-        this.inviterKey = inviterKey;
-    }
-
+    // GETTERS/SETTERS
     public Key getKey() {
         return key;
     }
@@ -88,28 +69,60 @@ public class FriendInvite implements Serializable {
         this.version = version;
     }
 
-    public String getInviterFirstName() {
-        return inviterFirstName;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setInviterFirstName(String inviterFirstName) {
-        this.inviterFirstName = inviterFirstName;
+    public String getCreatedAtString() {
+        return TimeUtil.getElapsedTimeString(createdAt);
     }
 
-    public String getInviterLastName() {
-        return inviterLastName;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setInviterLastName(String inviterLastName) {
-        this.inviterLastName = inviterLastName;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
-    public String getInviterEmail() {
-        return inviterEmail;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public void setInviterEmail(String inviterEmail) {
-        this.inviterEmail = inviterEmail;
+    public String getUpdatedAtString() {
+        return TimeUtil.getElapsedTimeString(updatedAt);
+    }
+
+    public Key getInviterKey() {
+        return inviterKey;
+    }
+
+    public void setInviterKey(Key inviterKey) {
+        this.inviterKey = inviterKey;
+    }
+
+    public String getInviterDetails() {
+        return inviterDetails;
+    }
+
+    public void setInviterDetails(String inviterDetails) {
+        this.inviterDetails = inviterDetails;
+    }
+
+    public Key getInviteeKey() {
+        return inviteeKey;
+    }
+
+    public void setInviteeKey(Key inviteeKey) {
+        this.inviteeKey = inviteeKey;
+    }
+
+    public String getInviteeDetails() {
+        return inviteeDetails;
+    }
+
+    public void setInviteeDetails(String inviteeDetails) {
+        this.inviteeDetails = inviteeDetails;
     }
 
     @Override

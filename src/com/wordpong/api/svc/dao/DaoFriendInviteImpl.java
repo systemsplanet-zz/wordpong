@@ -23,11 +23,9 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
         if (user != null && emails != null) {
             for (String email : emails) {
                 FriendInvite fi = new FriendInvite();
-                fi.setInviteeEmail(email);
+                fi.setInviteeDetails(email);
                 fi.setInviterKey(user.getKey());
-                fi.setInviterFirstName(user.getFirstName());
-                fi.setInviterLastName(user.getLastName());
-                fi.setInviterEmail(user.getEmail());
+                fi.setInviterDetails(user.getDetails());
                 Key key = put(fi);
                 log.info("invite email:" + email + " for user:" + user + " key:" + key);
             }
@@ -36,7 +34,7 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     }                                   
 
     @Override
-    public List<FriendInvite> getFriendInvitesByKey(User user) throws DaoException {
+    public List<FriendInvite> getFriendInvitesByInviterKey(User user) throws DaoException {
         List<FriendInvite> result = null;
         FriendInviteMeta e = FriendInviteMeta.get();
         
@@ -51,13 +49,27 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     }
 
     @Override
+    public List<FriendInvite> getFriendInvitesByInviteeKey(User user) throws DaoException {
+        List<FriendInvite> result = null;
+        FriendInviteMeta e = FriendInviteMeta.get();
+        
+        try {
+            Key k = user.getKey();
+            result = Datastore.query(e).filter(e.inviteeKey.equal(k)).asList();
+            
+        } catch (Exception ex) {
+            throw new DaoException("Err:" + ex.getMessage());
+        }
+        return result;
+    }
+
+    @Override
     public List<FriendInvite> getFriendInvitesByEmail(User user) throws DaoException {
         List<FriendInvite> result = new ArrayList<FriendInvite>();
         if (user != null && user.getEmail() != null) {
             FriendInviteMeta e = FriendInviteMeta.get();
-
             try {
-                result = Datastore.query(e).filter(e.inviteeEmail.equal(user.getEmail())).asList();
+                result = Datastore.query(e).filter(e.inviteeDetails.equal(user.getEmail())).asList();
             } catch (Exception ex) {
                 throw new DaoException("Err:" + ex.getMessage());
             }
@@ -79,13 +91,12 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
 
     @Override
     public void cancelInvitation(User user, String email) throws DaoException {
-        List<FriendInvite> invites = getFriendInvitesByKey(user);
+        List<FriendInvite> invites = getFriendInvitesByInviterKey(user);
         if (invites != null) {
             for (FriendInvite i : invites) {
-                if (i.getInviteeEmail() != null && i.getInviteeEmail().equalsIgnoreCase(email)) {
+                if (i.getInviteeDetails() != null && i.getInviteeDetails().equalsIgnoreCase(email)) {
                     Key k = i.getKey();
                     if (k != null) {
-
                         try {
                             delete(k);
                             log.info("invite deleted email:" + email + " from:" + user);

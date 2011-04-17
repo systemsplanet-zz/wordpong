@@ -91,7 +91,7 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
                 String sub = getMsg("register.email.subject", new Object[] { user.getFirstName() });
                 MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));
                 SvcGame sg = SvcGameFactory.getGameService();
-                sg.convertFriendInvitesToFriendRequests(user);
+                sg.updateFriendInvites(user);
                 resolution = new ForwardResolution(GameActionBean.class);
             } catch (Exception e) {
                 String reason = "register.unableToAddUser";

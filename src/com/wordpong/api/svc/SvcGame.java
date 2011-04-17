@@ -7,23 +7,24 @@ import com.wordpong.api.model.FriendInvite;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.GameMyTurn;
+import com.wordpong.api.pojo.GameTheirTurn;
 
 public interface SvcGame {
 
     List<GameMyTurn> getMyTurns(User user);
 
-   // void setMyTurns(List<GameMyTurn> myTurns);
+    public List<GameTheirTurn> getTheirTurns(User user);
 
     void inviteFriends(User user, List<String> emails) throws WPServiceException;
 
-    List<FriendInvite> getFriendInvites(User user) throws WPServiceException;
+    List<FriendInvite> getFriendInvitesByInviterKey(User user) throws WPServiceException;
 
     void cancelInvitation(User user, String email) throws WPServiceException;
 
     Question saveQuestion(Question u) throws WPServiceException;
 
-    void convertFriendInvitesToFriendRequests(User user) throws WPServiceException;
+    void updateFriendInvites(User user) throws WPServiceException;
 
     // background task
-    void convertAllFriendInvitesToFriendRequests();
+    void updateFriendInvites();
 }

@@ -50,6 +50,6 @@ public class CronServlet extends HttpServlet {
         SvcUserFactory.getUserService().purgeExpiredPasswordChangeRequests();
 
         // move any invites to the users myTurn list as requests
-        SvcGameFactory.getGameService().convertAllFriendInvitesToFriendRequests();
+        SvcGameFactory.getGameService().updateFriendInvites();
     }
 }

@@ -139,6 +139,9 @@ public class User implements Serializable {
     }
 
     public void setEmail(String email) {
+        if (email != null) {
+            email = email.trim().toLowerCase();
+        }
         this.email = email;
     }
 
@@ -200,6 +203,9 @@ public class User implements Serializable {
 
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+    public String getDetails() {
+        return firstName + " " + lastName + " ("+ email + ")";
     }
 
     public Set<Key> getFriends() {

@@ -1,8 +1,7 @@
 package com.wordpong.app.action.game;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 import javax.annotation.security.PermitAll;
 
@@ -14,19 +13,16 @@ import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
 
-import com.wordpong.api.err.WPServiceException;
-import com.wordpong.api.model.FriendInvite;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.pojo.GameTheirTurn;
-import com.wordpong.api.pojo.GameTheirTurn.Action;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class GameActionBean extends BaseActionBean {
-    private static final Logger log = Logger.getLogger(GameActionBean.class.getName());
+    //private static final Logger log = Logger.getLogger(GameActionBean.class.getName());
     public static final String VIEW = "/WEB-INF/jsp/game/index.jsp";
 
     private SvcGame _svcGame;
@@ -91,22 +87,8 @@ public class GameActionBean extends BaseActionBean {
     }
 
     public List<GameTheirTurn> getTheirTurns() {
-        List<GameTheirTurn> turns = new ArrayList<GameTheirTurn>();
-        try {
-            List<FriendInvite> invites = _svcGame.getFriendInvites(user);
-            if (invites != null) {
-                for (FriendInvite fi : invites) {
-                    GameTheirTurn gtt = new GameTheirTurn();
-                    gtt.setId(fi.getInviteeEmail());
-                    gtt.setAction(Action.InvitationSent);
-                    gtt.setCreatedAtString(fi.getCreatedAtString());
-                    turns.add(gtt);
-                }
-            }
-        } catch (WPServiceException e) {
-            log.fine("err:" + e.getMessage());
-        }
-        return turns;
+        user = getContext().getUserFromSession();
+        return _svcGame.getTheirTurns(user);
     }
 
 //    public void setMyTurns(List<GameMyTurn> myTurns) {
