@@ -86,7 +86,8 @@ public class GameActionBean extends BaseActionBean {
     }
 
     public List<GameMyTurn> getMyTurns() {
-        return _svcGame.getMyTurns();
+        user = getContext().getUserFromSession();
+        return _svcGame.getMyTurns(user);
     }
 
     public List<GameTheirTurn> getTheirTurns() {
@@ -108,8 +109,8 @@ public class GameActionBean extends BaseActionBean {
         return turns;
     }
 
-    public void setMyTurns(List<GameMyTurn> myTurns) {
-        _svcGame.setMyTurns(myTurns);
-    }
+//    public void setMyTurns(List<GameMyTurn> myTurns) {
+//        _svcGame.setMyTurns(myTurns);
+//    }
 
 }

@@ -6,12 +6,15 @@ import java.util.logging.Logger;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.FriendInvite;
+import com.wordpong.api.model.FriendRequest;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.pojo.GameMyTurn.Action;
 import com.wordpong.api.svc.dao.DaoFriendInvite;
 import com.wordpong.api.svc.dao.DaoFriendInviteFactory;
+import com.wordpong.api.svc.dao.DaoFriendRequest;
+import com.wordpong.api.svc.dao.DaoFriendRequestFactory;
 import com.wordpong.api.svc.dao.DaoFriendUtil;
 import com.wordpong.api.svc.dao.DaoQuestion;
 import com.wordpong.api.svc.dao.DaoQuestionFactory;
@@ -23,26 +26,26 @@ public class SvcGameImpl implements SvcGame {
     private static final Logger log = Logger.getLogger(SvcGameImpl.class.getName());
 
     @Override
-    public List<GameMyTurn> getMyTurns() {
-        // TODO Call backend
+    public List<GameMyTurn> getMyTurns(User user) {
         List<GameMyTurn> result = new ArrayList<GameMyTurn>();
-        GameMyTurn gmt = new GameMyTurn();
-        result.add(gmt);
-        gmt = new GameMyTurn();
-        gmt.setAction(Action.InvitationRequest);
-        // gmt.setCreatedAtString(createdAtString)
-        result.add(gmt);
-        gmt = new GameMyTurn();
-        gmt.setAction(Action.InviteAccepted);
-        result.add(gmt);
+        DaoFriendRequest dfr = DaoFriendRequestFactory.getFriendRequestDao();
+        List<FriendRequest> requests = dfr.getFriendRequestsByKey(user);
+        for (FriendRequest fr : requests) {
+            GameMyTurn gmt = new GameMyTurn();
+            gmt.setAction(Action.InvitationRequest);
+            gmt.setId(fr.getInviterFullName() + "\n" + fr.getInviterEmail());
+            result.add(gmt);
+        }
+//TODO:        gmt.setAction(Action.InviteAccepted);
         return result;
     }
 
-    @Override
-    public void setMyTurns(List<GameMyTurn> myTurns) {
+//    @Override
+   // public void setMyTurns(List<GameMyTurn> myTurns) {
+ //       List<FriendRequest> getFriendRequestsByKey(User user) 
         // TODO call backend
 
-    }
+    //}
 
     public void inviteFriends(User user, List<String> emails) throws WPServiceException {
         DaoFriendInvite f = DaoFriendInviteFactory.getFriendInviteDao();

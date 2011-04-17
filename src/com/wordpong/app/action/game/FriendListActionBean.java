@@ -95,10 +95,11 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
     }
 
     public List<GameMyTurn> getMyTurns() {
-        return _svcGame.getMyTurns();
+        user = getContext().getUserFromSession();
+        return _svcGame.getMyTurns(user);
     }
-    public void setMyTurns(List<GameMyTurn> myTurns) {
-        _svcGame.setMyTurns(myTurns);
-    }
+//    public void setMyTurns(List<GameMyTurn> myTurns) {
+//        _svcGame.setMyTurns(myTurns);
+//    }
 
 }

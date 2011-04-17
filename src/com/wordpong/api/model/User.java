@@ -61,7 +61,8 @@ public class User implements Serializable {
     // invitation to join)
     // TODO: test a set of mixed key types
     @Attribute(unindexed = true)
-    private Set<Key> myTurns = new HashSet<Key>();
+    private List<Key> invitationRequests = new ArrayList<Key>();
+
 
     // Points to FriendInvite (invitations sent to invite friends), Game
     // (invites to play),
@@ -209,16 +210,12 @@ public class User implements Serializable {
         this.friends = friends;
     }
 
-    public Set<Key> getMyTurns() {
-        return myTurns;
+    public List<Key> getInvitationRequests() {
+        return invitationRequests;
     }
 
-    public void addMyTurns(List<Key> turns) {
-        myTurns.addAll(turns);
-    }
-
-    public void setMyTurns(Set<Key> myTurns) {
-        this.myTurns = myTurns;
+    public void setInvitationRequests(List<Key> invitationRequests) {
+        this.invitationRequests = invitationRequests;
     }
 
     public Set<Key> getTheirTurns() {

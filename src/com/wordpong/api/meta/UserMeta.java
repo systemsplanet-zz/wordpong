@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-16 18:38:01")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-16 23:05:58")
 /** */
 public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.User> {
 
@@ -20,6 +20,9 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     public final org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> friends = new org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "friends", "friends", java.util.Set.class);
 
     /** */
+    public final org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.List<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> invitationRequests = new org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.List<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "invitationRequests", "invitationRequests", java.util.List.class);
+
+    /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
 
     /** */
@@ -27,9 +30,6 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
 
     /** */
     public final org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Locale> locale = new org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Locale>(this, "locale", "locale", java.util.Locale.class);
-
-    /** */
-    public final org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> myTurns = new org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "myTurns", "myTurns", java.util.Set.class);
 
     /** */
     public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> password = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "password", "password");
@@ -75,11 +75,11 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         model.setEmail((java.lang.String) entity.getProperty("email"));
         model.setFirstName((java.lang.String) entity.getProperty("firstName"));
         model.setFriends(new java.util.HashSet<com.google.appengine.api.datastore.Key>(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("friends"))));
+        model.setInvitationRequests(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("invitationRequests")));
         model.setKey(entity.getKey());
         model.setLastName((java.lang.String) entity.getProperty("lastName"));
         java.util.Locale _locale = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("locale"));
         model.setLocale(_locale);
-        model.setMyTurns(new java.util.HashSet<com.google.appengine.api.datastore.Key>(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("myTurns"))));
         model.setPassword((java.lang.String) entity.getProperty("password"));
         model.setPictureUrl((java.lang.String) entity.getProperty("pictureUrl"));
         model.setTheirTurns(new java.util.HashSet<com.google.appengine.api.datastore.Key>(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("theirTurns"))));
@@ -104,9 +104,9 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         entity.setProperty("email", m.getEmail());
         entity.setUnindexedProperty("firstName", m.getFirstName());
         entity.setUnindexedProperty("friends", m.getFriends());
+        entity.setUnindexedProperty("invitationRequests", m.getInvitationRequests());
         entity.setUnindexedProperty("lastName", m.getLastName());
         entity.setUnindexedProperty("locale", serializableToBlob(m.getLocale()));
-        entity.setUnindexedProperty("myTurns", m.getMyTurns());
         entity.setUnindexedProperty("password", m.getPassword());
         entity.setUnindexedProperty("pictureUrl", m.getPictureUrl());
         entity.setUnindexedProperty("theirTurns", m.getTheirTurns());
@@ -206,6 +206,15 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             }
             writer.endArray();
         }
+        if(m.getInvitationRequests() != null){
+            writer.setNextPropertyName("invitationRequests");
+            encoder = new org.slim3.datastore.json.Default();
+            writer.beginArray();
+            for(com.google.appengine.api.datastore.Key v : m.getInvitationRequests()){
+                encoder.encode(writer, v);
+            }
+            writer.endArray();
+        }
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
             encoder = new org.slim3.datastore.json.Default();
@@ -220,15 +229,6 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             writer.setNextPropertyName("locale");
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getLocale());
-        }
-        if(m.getMyTurns() != null){
-            writer.setNextPropertyName("myTurns");
-            encoder = new org.slim3.datastore.json.Default();
-            writer.beginArray();
-            for(com.google.appengine.api.datastore.Key v : m.getMyTurns()){
-                encoder.encode(writer, v);
-            }
-            writer.endArray();
         }
         if(m.getPassword() != null){
             writer.setNextPropertyName("password");
@@ -310,20 +310,11 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
                 m.setFriends(elements);
             }
         }
-        reader = rootReader.newObjectReader("key");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setKey(decoder.decode(reader, m.getKey()));
-        reader = rootReader.newObjectReader("lastName");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setLastName(decoder.decode(reader, m.getLastName()));
-        reader = rootReader.newObjectReader("locale");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setLocale(decoder.decode(reader, m.getLocale(), java.util.Locale.class));
-        reader = rootReader.newObjectReader("myTurns");
+        reader = rootReader.newObjectReader("invitationRequests");
         decoder = new org.slim3.datastore.json.Default();
         {
-            java.util.HashSet<com.google.appengine.api.datastore.Key> elements = new java.util.HashSet<com.google.appengine.api.datastore.Key>();
-            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("myTurns");
+            java.util.ArrayList<com.google.appengine.api.datastore.Key> elements = new java.util.ArrayList<com.google.appengine.api.datastore.Key>();
+            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("invitationRequests");
             if(r != null){
                 reader = r;
                 int n = r.length();
@@ -334,9 +325,18 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
                         elements.add(v);
                     }
                 }
-                m.setMyTurns(elements);
+                m.setInvitationRequests(elements);
             }
         }
+        reader = rootReader.newObjectReader("key");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setKey(decoder.decode(reader, m.getKey()));
+        reader = rootReader.newObjectReader("lastName");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setLastName(decoder.decode(reader, m.getLastName()));
+        reader = rootReader.newObjectReader("locale");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setLocale(decoder.decode(reader, m.getLocale(), java.util.Locale.class));
         reader = rootReader.newObjectReader("password");
         decoder = new org.slim3.datastore.json.Default();
         m.setPassword(decoder.decode(reader, m.getPassword()));

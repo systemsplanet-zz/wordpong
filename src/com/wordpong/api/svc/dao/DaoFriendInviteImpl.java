@@ -25,19 +25,25 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
                 FriendInvite fi = new FriendInvite();
                 fi.setInviteeEmail(email);
                 fi.setInviterKey(user.getKey());
+                fi.setInviterFirstName(user.getFirstName());
+                fi.setInviterLastName(user.getLastName());
+                fi.setInviterEmail(user.getEmail());
                 Key key = put(fi);
                 log.info("invite email:" + email + " for user:" + user + " key:" + key);
             }
         }
         txn.commit();
-    }
+    }                                   
 
     @Override
     public List<FriendInvite> getFriendInvitesByKey(User user) throws DaoException {
         List<FriendInvite> result = null;
         FriendInviteMeta e = FriendInviteMeta.get();
+        
         try {
-            result = Datastore.query(e).filter(e.inviterKey.equal(user.getKey())).asList();
+            Key k = user.getKey();
+            result = Datastore.query(e).filter(e.inviterKey.equal(k)).asList();
+            
         } catch (Exception ex) {
             throw new DaoException("Err:" + ex.getMessage());
         }

@@ -33,12 +33,11 @@ public class DaoFriendUtil {
                     // write new friend requests to database
                     List<Key> requestKeys = at.put(fRequests);
                     // add the keys to the users myTurn list
-                    fUser.addMyTurns(requestKeys);
+                    fUser.setInvitationRequests(requestKeys);
                     // write the user to the database
                     at.put(fUser);
                     // remove the source FriendInvites
                     at.delete(fInviteKeys);
-                    log.info("OK");
                     return true;
                 }
 

@@ -33,6 +33,15 @@ public class FriendRequest implements Serializable {
     private Key inviterKey;
 
     @Attribute(unindexed = true)
+    private String inviterFirstName;
+
+    @Attribute(unindexed = true)
+    private String inviterLastName;
+
+    @Attribute(unindexed = true)
+    private String inviterEmail;
+
+    @Attribute(unindexed = true)
     private Date invitedAt; // copied from FriendInvite
 
     public FriendRequest() {
@@ -41,6 +50,9 @@ public class FriendRequest implements Serializable {
     public FriendRequest(FriendInvite fi) {
         invitedAt = fi.getCreatedAt();
         inviterKey = fi.getInviterKey();
+        inviterFirstName = fi.getInviterFirstName();
+        inviterLastName = fi.getInviterLastName();
+        inviterEmail = fi.getInviterEmail();
     }
 
     public String getCreatedAtString() {
@@ -86,6 +98,33 @@ public class FriendRequest implements Serializable {
 
     public void setInviterKey(Key inviterKey) {
         this.inviterKey = inviterKey;
+    }
+
+    public String getInviterFirstName() {
+        return inviterFirstName;
+    }
+    public String getInviterFullName() {
+        return inviterFirstName + " " + inviterLastName;
+    }
+
+    public void setInviterFirstName(String inviterFirstName) {
+        this.inviterFirstName = inviterFirstName;
+    }
+
+    public String getInviterLastName() {
+        return inviterLastName;
+    }
+
+    public void setInviterLastName(String inviterLastName) {
+        this.inviterLastName = inviterLastName;
+    }
+
+    public String getInviterEmail() {
+        return inviterEmail;
+    }
+
+    public void setInviterEmail(String inviterEmail) {
+        this.inviterEmail = inviterEmail;
     }
 
     public Date getInvitedAt() {
@@ -134,6 +173,7 @@ public class FriendRequest implements Serializable {
         }
         return true;
     }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

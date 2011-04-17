@@ -1,5 +1,12 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.List;
 
-public interface DaoFriendRequest {    
+import com.wordpong.api.model.FriendRequest;
+import com.wordpong.api.model.User;
+
+public interface DaoFriendRequest {
+    
+    List<FriendRequest> getFriendRequestsByKey(User user);
+
 }

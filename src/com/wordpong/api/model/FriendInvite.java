@@ -32,8 +32,17 @@ public class FriendInvite implements Serializable {
     @Attribute(unindexed = false)
     private String inviteeEmail;
 
-    @Attribute(unindexed = true)
+    @Attribute(unindexed = false)
     private Key inviterKey;
+
+    @Attribute(unindexed = true)
+    private String inviterFirstName;
+
+    @Attribute(unindexed = true)
+    private String inviterLastName;
+
+    @Attribute(unindexed = true)
+    private String inviterEmail;
 
     public Date getCreatedAt() {
         return createdAt;
@@ -79,6 +88,30 @@ public class FriendInvite implements Serializable {
         this.version = version;
     }
 
+    public String getInviterFirstName() {
+        return inviterFirstName;
+    }
+
+    public void setInviterFirstName(String inviterFirstName) {
+        this.inviterFirstName = inviterFirstName;
+    }
+
+    public String getInviterLastName() {
+        return inviterLastName;
+    }
+
+    public void setInviterLastName(String inviterLastName) {
+        this.inviterLastName = inviterLastName;
+    }
+
+    public String getInviterEmail() {
+        return inviterEmail;
+    }
+
+    public void setInviterEmail(String inviterEmail) {
+        this.inviterEmail = inviterEmail;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -108,6 +141,7 @@ public class FriendInvite implements Serializable {
         }
         return true;
     }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

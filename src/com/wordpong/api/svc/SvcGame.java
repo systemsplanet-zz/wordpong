@@ -10,9 +10,9 @@ import com.wordpong.api.pojo.GameMyTurn;
 
 public interface SvcGame {
 
-    List<GameMyTurn> getMyTurns();
+    List<GameMyTurn> getMyTurns(User user);
 
-    void setMyTurns(List<GameMyTurn> myTurns);
+   // void setMyTurns(List<GameMyTurn> myTurns);
 
     void inviteFriends(User user, List<String> emails) throws WPServiceException;
 
