@@ -31,17 +31,17 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
             }
         }
         txn.commit();
-    }                                   
+    }
 
     @Override
     public List<FriendInvite> getFriendInvitesByInviterKey(User user) throws DaoException {
         List<FriendInvite> result = null;
         FriendInviteMeta e = FriendInviteMeta.get();
-        
+
         try {
             Key k = user.getKey();
             result = Datastore.query(e).filter(e.inviterKey.equal(k)).asList();
-            
+
         } catch (Exception ex) {
             throw new DaoException("Err:" + ex.getMessage());
         }
@@ -52,11 +52,11 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     public List<FriendInvite> getFriendInvitesByInviteeKey(User user) throws DaoException {
         List<FriendInvite> result = null;
         FriendInviteMeta e = FriendInviteMeta.get();
-        
+
         try {
             Key k = user.getKey();
             result = Datastore.query(e).filter(e.inviteeKey.equal(k)).asList();
-            
+
         } catch (Exception ex) {
             throw new DaoException("Err:" + ex.getMessage());
         }
@@ -91,22 +91,25 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
 
     @Override
     public void cancelInvitation(User user, String email) throws DaoException {
-        List<FriendInvite> invites = getFriendInvitesByInviterKey(user);
-        if (invites != null) {
-            for (FriendInvite i : invites) {
-                if (i.getInviteeDetails() != null && i.getInviteeDetails().equalsIgnoreCase(email)) {
-                    Key k = i.getKey();
-                    if (k != null) {
+        if (user != null && email != null) {
+            List<FriendInvite> invites = getFriendInvitesByInviterKey(user);
+            if (invites != null) {
+                for (FriendInvite i : invites) {
+                    Key key = user.getKey();
+                    if (i.getInviterKey().equals(key)) {
                         try {
-                            delete(k);
-                            log.info("invite deleted email:" + email + " from:" + user);
+                            Key k = i.getKey();
+                            if (k != null) {
+                                delete(k);
+                                log.info("cancelInvitation:" + i);
+                            }
                         } catch (Exception ex) {
                             String m = "cancelInvitation failed. email:" + email + " from:" + user + " Err:" + ex.getMessage();
                             log.warning(m);
                             throw new DaoException(m);
                         }
+                        break;
                     }
-                    break;
                 }
             }
         }

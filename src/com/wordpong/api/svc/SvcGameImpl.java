@@ -35,8 +35,9 @@ public class SvcGameImpl implements SvcGame {
             List<FriendInvite> requests = dfr.getFriendInvitesByInviteeKey(user);
             for (FriendInvite fr : requests) {
                 GameMyTurn gmt = new GameMyTurn();
-                gmt.setAction(GameMyTurn.Action.InvitationRequest);
-                gmt.setId(fr.getInviterDetails());
+                gmt.setAction(GameMyTurn.Action.InvitationRequest);                
+                gmt.setId(fr.getInviterEmail());
+                gmt.setDetails(fr.getInviterDetails());
                 result.add(gmt);
             }
         } catch (DaoException e) {
@@ -54,7 +55,8 @@ public class SvcGameImpl implements SvcGame {
             if (invites != null) {
                 for (FriendInvite fi : invites) {
                     GameTheirTurn gtt = new GameTheirTurn();
-                    gtt.setId(fi.getInviteeDetails());
+                    gtt.setId(fi.getInviteeEmail());
+                    gtt.setDetails(fi.getInviteeDetails());
                     gtt.setAction(GameTheirTurn.Action.InvitationSent);
                     gtt.setCreatedAtString(fi.getCreatedAtString());
                     turns.add(gtt);

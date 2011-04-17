@@ -8,7 +8,9 @@ public class GameMyTurn {
     private static final long serialVersionUID = 1L;
 
     private String id = "?";
+    private String details = "?";
     private String createdAtString = "?";
+
     
     public static enum Action {
         Unknown, InvitationRequest, InviteAccepted, AnswerQuestion
@@ -51,6 +53,14 @@ public class GameMyTurn {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public String getCreatedAtString() {

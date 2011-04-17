@@ -15,16 +15,16 @@ public interface SvcGame {
 
     public List<GameTheirTurn> getTheirTurns(User user);
 
+    Question saveQuestion(Question u) throws WPServiceException;
+
     void inviteFriends(User user, List<String> emails) throws WPServiceException;
 
     List<FriendInvite> getFriendInvitesByInviterKey(User user) throws WPServiceException;
 
-    void cancelInvitation(User user, String email) throws WPServiceException;
-
-    Question saveQuestion(Question u) throws WPServiceException;
-
     void updateFriendInvites(User user) throws WPServiceException;
 
-    // background task
-    void updateFriendInvites();
+    void updateFriendInvites();// background task
+
+    void cancelInvitation(User user, String email) throws WPServiceException;
+
 }

@@ -56,10 +56,13 @@ public class Atomic {
             Atomic at = new Atomic(gt);
             Exception err = new Exception("unknown error");
             try {
-                success = p.apply(at);
-                if (success) {
+               boolean okToCommit = p.apply(at);
+                if (okToCommit) {
                     at.commit();
                     success = at.isActive() == false;
+                } else {
+                    gt.rollback();
+                    break;
                 }
             } catch (ConcurrentModificationException e) {
                 err = e;

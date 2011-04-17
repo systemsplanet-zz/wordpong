@@ -15,6 +15,8 @@ public class GameTheirTurn {
 
     private String createdAtString = "?";
     private String id = "?";
+    private String details = "?";
+    
 
     public String getId() {
         return id;
@@ -22,6 +24,14 @@ public class GameTheirTurn {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public String getCreatedAtString() {

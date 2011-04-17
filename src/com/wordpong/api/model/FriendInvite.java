@@ -105,6 +105,20 @@ public class FriendInvite implements Serializable {
         return inviterDetails;
     }
 
+    public String getInviterEmail() {
+        String result = inviterDetails;
+        if (inviterDetails != null) {
+            int s = inviterDetails.indexOf("(");
+            int e = inviterDetails.indexOf(")");
+            if (s != -1 && e != -1) {
+                result = inviterDetails.substring(s+1, e);
+            }
+        } else {
+            result = "?";
+        }
+        return result;
+    }
+
     public void setInviterDetails(String inviterDetails) {
         this.inviterDetails = inviterDetails;
     }
@@ -119,6 +133,19 @@ public class FriendInvite implements Serializable {
 
     public String getInviteeDetails() {
         return inviteeDetails;
+    }
+    public String getInviteeEmail() {
+        String result = inviteeDetails;
+        if (inviteeDetails != null) {
+            int s = inviteeDetails.indexOf("(");
+            int e = inviteeDetails.indexOf(")");
+            if (s != -1 && e != -1) {
+                result = inviteeDetails.substring(s+1, e);
+            }
+        } else {
+            result = "?";
+        }
+        return result;
     }
 
     public void setInviteeDetails(String inviteeDetails) {
