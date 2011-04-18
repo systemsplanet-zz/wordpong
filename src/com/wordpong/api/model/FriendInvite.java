@@ -11,6 +11,7 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.wordpong.cmn.util.TimeUtil;
 
 // Sent to a exiting or non-members wordpong to invite them to join
@@ -52,9 +53,18 @@ public class FriendInvite implements Serializable {
     @Attribute(unindexed = false)
     private String inviteeDetails;
 
+    // STATE
+    @Attribute(unindexed = true)
+    private boolean isIgnored = false;
+
     // GETTERS/SETTERS
     public Key getKey() {
         return key;
+    }
+
+    public String getKeyString() {
+        String k = KeyFactory.keyToString(key);
+        return k;
     }
 
     public void setKey(Key key) {
@@ -111,7 +121,7 @@ public class FriendInvite implements Serializable {
             int s = inviterDetails.indexOf("(");
             int e = inviterDetails.indexOf(")");
             if (s != -1 && e != -1) {
-                result = inviterDetails.substring(s+1, e);
+                result = inviterDetails.substring(s + 1, e);
             }
         } else {
             result = "?";
@@ -137,13 +147,14 @@ public class FriendInvite implements Serializable {
     public String getInviteeDetails() {
         return inviteeDetails;
     }
+
     public String getInviteeEmail() {
         String result = inviteeDetails;
         if (inviteeDetails != null) {
             int s = inviteeDetails.indexOf("(");
             int e = inviteeDetails.indexOf(")");
             if (s != -1 && e != -1) {
-                result = inviteeDetails.substring(s+1, e);
+                result = inviteeDetails.substring(s + 1, e);
             }
         } else {
             result = "?";
@@ -155,7 +166,16 @@ public class FriendInvite implements Serializable {
         if (inviteeDetails != null) {
             inviteeDetails = inviteeDetails.trim().toLowerCase();
         }
-         this.inviteeDetails = inviteeDetails;
+        this.inviteeDetails = inviteeDetails;
+    }
+
+
+    public boolean isIgnored() {
+        return isIgnored;
+    }
+
+    public void setIgnored(boolean isIgnored) {
+        this.isIgnored = isIgnored;
     }
 
     @Override

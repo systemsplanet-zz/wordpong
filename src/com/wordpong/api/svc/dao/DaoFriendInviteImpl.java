@@ -8,11 +8,14 @@ import org.slim3.datastore.DaoBase;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Transaction;
+import com.google.common.base.Predicate;
 import com.wordpong.api.meta.FriendInviteMeta;
 import com.wordpong.api.model.FriendInvite;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.err.DaoException;
+import com.wordpong.api.svc.dao.transact.Atomic;
 
 public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFriendInvite {
     private static final Logger log = Logger.getLogger(DaoFriendInviteImpl.class.getName());
@@ -112,6 +115,38 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
                     }
                 }
             }
+        }
+    }
+
+    public void ignoreInvitation(String keyStr) throws DaoException {
+        if (keyStr == null)
+            throw new DaoException("key cant be null");
+        final Key k = KeyFactory.stringToKey(keyStr);
+        try {
+            final String msg = "ignoreInvitation: keyStr:" + keyStr + " key:" + k;
+            Predicate<Atomic> WORK = new Predicate<Atomic>() {
+                public boolean apply(Atomic at) {
+                    boolean result = false;
+                    try {
+                        FriendInvite fi = get(k);
+                        fi.setIgnored(true);
+                        put(fi);
+                        result = true;
+                    } catch (Exception e) {
+                    }
+                    return result;
+                }
+
+                public String toString() {
+                    return msg;
+                }
+            };
+            int MAX_RETRIES = 5;
+            Atomic.transact(WORK, MAX_RETRIES);
+        } catch (Exception e) {
+            String m = "ignoreInvitation failed. keyStr:" + keyStr + " Err:" + e.getMessage();
+            log.warning(m);
+            throw new DaoException(m);
         }
     }
 

@@ -77,6 +77,12 @@ public class GameActionBean extends BaseActionBean {
         return new ForwardResolution(FriendInviteCancelActionBean.class);
     }
 
+    @DontValidate
+    @HandlesEvent("acceptInvite")
+    public Resolution acceptInvite() {
+        return new ForwardResolution(FriendInviteAcceptActionBean.class);
+    }
+
     public User getUser() {
         return user;
     }

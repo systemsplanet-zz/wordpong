@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-17 21:00:41")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-17 23:08:04")
 /** */
 public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.FriendInvite> {
 
@@ -18,6 +18,9 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key> inviterKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key>(this, "inviterKey", "inviterKey", com.google.appengine.api.datastore.Key.class);
+
+    /** */
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.lang.Boolean> ignored = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.lang.Boolean>(this, "ignored", "ignored", boolean.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
@@ -54,6 +57,7 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
         model.setInviteeKey((com.google.appengine.api.datastore.Key) entity.getProperty("inviteeKey"));
         model.setInviterDetails((java.lang.String) entity.getProperty("inviterDetails"));
         model.setInviterKey((com.google.appengine.api.datastore.Key) entity.getProperty("inviterKey"));
+        model.setIgnored(booleanToPrimitiveBoolean((java.lang.Boolean) entity.getProperty("ignored")));
         model.setKey(entity.getKey());
         model.setUpdatedAt((java.util.Date) entity.getProperty("updatedAt"));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
@@ -74,6 +78,7 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
         entity.setProperty("inviteeKey", m.getInviteeKey());
         entity.setUnindexedProperty("inviterDetails", m.getInviterDetails());
         entity.setProperty("inviterKey", m.getInviterKey());
+        entity.setUnindexedProperty("ignored", m.isIgnored());
         entity.setProperty("updatedAt", m.getUpdatedAt());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
@@ -162,6 +167,9 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getInviterKey());
         }
+        writer.setNextPropertyName("ignored");
+        encoder = new org.slim3.datastore.json.Default();
+        encoder.encode(writer, m.isIgnored());
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
             encoder = new org.slim3.datastore.json.Default();
@@ -200,6 +208,9 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
         reader = rootReader.newObjectReader("inviterKey");
         decoder = new org.slim3.datastore.json.Default();
         m.setInviterKey(decoder.decode(reader, m.getInviterKey()));
+        reader = rootReader.newObjectReader("ignored");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setIgnored(decoder.decode(reader, m.isIgnored()));
         reader = rootReader.newObjectReader("key");
         decoder = new org.slim3.datastore.json.Default();
         m.setKey(decoder.decode(reader, m.getKey()));

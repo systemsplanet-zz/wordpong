@@ -34,11 +34,15 @@ public class SvcGameImpl implements SvcGame {
         try {
             List<FriendInvite> requests = dfr.getFriendInvitesByInviteeKey(user);
             for (FriendInvite fr : requests) {
-                GameMyTurn gmt = new GameMyTurn();
-                gmt.setAction(GameMyTurn.Action.InvitationRequest);                
-                gmt.setId(fr.getInviterEmail());
-                gmt.setDetails(fr.getInviterDetails());
-                result.add(gmt);
+                if (fr.isIgnored() == false) {
+                    GameMyTurn gmt = new GameMyTurn();
+                    gmt.setAction(GameMyTurn.Action.InvitationRequest);
+                    gmt.setId(fr.getInviterEmail());
+                    gmt.setDetails(fr.getInviterDetails());
+                    gmt.setCreatedAtString(fr.getCreatedAtString());
+                    gmt.setKey(fr.getKeyString());
+                    result.add(gmt);
+                }
             }
         } catch (DaoException e) {
             log.warning("getMyTurns err: " + e.getMessage());
@@ -191,5 +195,16 @@ public class SvcGameImpl implements SvcGame {
         } catch (Exception e) {
             log.warning(e.getMessage());
         }
+    }
+
+    @Override
+    public void ignoreInvitation(String keyStr) throws WPServiceException {
+        DaoFriendInvite dfi = DaoFriendInviteFactory.getFriendInviteDao();
+        try {
+            dfi.ignoreInvitation(keyStr);
+        } catch (DaoException e) {
+            throw new WPServiceException(e.getMessage());
+        }
+
     }
 }

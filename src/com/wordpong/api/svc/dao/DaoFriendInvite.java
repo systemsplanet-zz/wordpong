@@ -20,4 +20,6 @@ public interface DaoFriendInvite {
 
     void cancelInvitation(User user, String email) throws DaoException;
 
+    void ignoreInvitation(String keyStr) throws DaoException;
+
 }

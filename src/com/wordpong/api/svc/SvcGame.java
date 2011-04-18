@@ -27,4 +27,6 @@ public interface SvcGame {
 
     void cancelInvitation(User user, String email) throws WPServiceException;
 
+    void ignoreInvitation(String key) throws WPServiceException;
+
 }

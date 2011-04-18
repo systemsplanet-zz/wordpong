@@ -30,7 +30,7 @@
                 <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="myTurnSelect" var="myTurnListUrl">
                     <s:param name="myTurnId" value="${myTurn.id}"/>
                 </s:url>
-                <input onClick="javascript:$('#email').val('${myTurn.id}');$('#createdAtString').val('${myTurn.createdAtString}');" data-theme="a" class="process" action="viewInvite" name="viewInvite" value="${inviteLbl}: ${myTurn.details}" type="submit" />
+                <input onClick="javascript:$('#key').val('${myTurn.key}');$('#email').val('${myTurn.id}');$('#createdAtString').val('${myTurn.createdAtString}');" data-theme="a" class="process"  name="acceptInvite" value="${inviteLbl}: ${myTurn.details} ${myTurn.key}" type="submit" />
         </c:forEach>
         </small>         
 	</ul>
@@ -43,10 +43,11 @@
                 <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="theirTurnSelect" var="theirTurnListUrl">
                     <s:param name="theirTurnId" value="${theirTurn.id}"/>
                 </s:url>
-                <input onClick="javascript:$('#email').val('${theirTurn.id}');$('#createdAtString').val('${theirTurn.createdAtString}');" data-theme="a" class="process" action="viewInvite" name="viewInvite" value="${inviteLbl}: ${theirTurn.details}" type="submit" />
+                <input onClick="javascript:$('#email').val('${theirTurn.id}');$('#createdAtString').val('${theirTurn.createdAtString}');" data-theme="a" class="process"  name="viewInvite" value="${inviteLbl}: ${theirTurn.details}" type="submit" />
         </c:forEach>
         </small>
 	</ul>
+    <input id="key" name="key" type="hidden" value=""/>
     <input id="email" name="email" type="hidden" value=""/>
     <input id="createdAtString" name="createdAtString" type="hidden" value=""/>
     
