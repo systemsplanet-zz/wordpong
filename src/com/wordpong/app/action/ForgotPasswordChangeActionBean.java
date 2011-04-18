@@ -89,15 +89,21 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCode(String c) {
+        if (c != null) {
+            c = c.trim();
+        }
+        this.code = c;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String p) {
+        if (p != null) {
+            p = p.trim();
+        }
+        this.password = p;
     }
 }

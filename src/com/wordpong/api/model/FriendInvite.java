@@ -120,6 +120,9 @@ public class FriendInvite implements Serializable {
     }
 
     public void setInviterDetails(String inviterDetails) {
+        if (inviterDetails != null) {
+            inviterDetails = inviterDetails.trim().toLowerCase();
+        }
         this.inviterDetails = inviterDetails;
     }
 
@@ -149,7 +152,10 @@ public class FriendInvite implements Serializable {
     }
 
     public void setInviteeDetails(String inviteeDetails) {
-        this.inviteeDetails = inviteeDetails;
+        if (inviteeDetails != null) {
+            inviteeDetails = inviteeDetails.trim().toLowerCase();
+        }
+         this.inviteeDetails = inviteeDetails;
     }
 
     @Override

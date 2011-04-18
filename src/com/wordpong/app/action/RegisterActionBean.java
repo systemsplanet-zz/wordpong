@@ -125,16 +125,22 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String fn) {
+        if (fn != null) {
+            fn = fn.trim().toLowerCase();
+        }
+        this.firstName = fn;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String ln) {
+        if (ln != null) {
+            ln = ln.trim().toLowerCase();
+        }
+        this.lastName = ln;
     }
 
     public String getEmail() {
@@ -142,6 +148,9 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
     }
 
     public void setEmail(String e) {
+        if (e != null) {
+            e = e.trim().toLowerCase();
+        }
         this.email = e;
     }
 
@@ -149,7 +158,10 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String p) {
+        if (p != null) {
+            p = p.trim();
+        }
+        this.password = p;
     }
 }

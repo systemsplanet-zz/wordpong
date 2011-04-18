@@ -166,6 +166,9 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
     }
 
     public void setEmail(String e) {
+        if (e != null) {
+            e = e.trim().toLowerCase();
+        }
         email = e;
     }
 
@@ -174,7 +177,10 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
     }
 
     public void setPassword(String p) {
-        password = p;
+        if (p != null) {
+            p = p.trim();
+        }
+         password = p;
     }
 
     public String getQueryString() {

@@ -92,6 +92,9 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
     }
 
     public void setEmail(String e) {
+        if (e != null) {
+            e = e.trim().toLowerCase();
+        }
         email = e;
     }
 }

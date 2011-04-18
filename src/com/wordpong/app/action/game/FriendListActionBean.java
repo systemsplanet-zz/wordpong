@@ -91,6 +91,9 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
     }
 
     public void setEmails(String e) {
+        if (e != null) {
+            e = e.trim().toLowerCase();
+        }
         emails = e;
     }
 

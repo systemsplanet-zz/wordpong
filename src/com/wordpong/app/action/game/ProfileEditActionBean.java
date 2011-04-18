@@ -181,6 +181,9 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
     }
 
     public void setEmail(String e) {
+        if (e != null) {
+            e = e.trim().toLowerCase();
+        }
         email = e;
     }
 
@@ -189,6 +192,9 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
     }
 
     public void setPassword(String p) {
+        if (p != null) {
+            p = p.trim();
+        }
         password = p;
     }
 
@@ -204,24 +210,33 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String fn) {
+        if (fn != null) {
+            fn= fn.trim().toLowerCase();
+        }
+        this.firstName = fn;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String ln) {
+        if (ln != null) {
+            ln= ln.trim().toLowerCase();
+        }
+        this.lastName = ln;
     }
 
     public String getPictureUrl() {
         return pictureUrl;
     }
 
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
+    public void setPictureUrl(String p) {
+        if (p != null) {
+            p= p.trim().toLowerCase();
+        }
+        this.pictureUrl = p;
     }
 
     public Locale getLocale() {

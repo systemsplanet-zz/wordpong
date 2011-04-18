@@ -89,6 +89,9 @@ public class ForgotPasswordActionBean extends BaseActionBean implements Validati
     }
 
     public void setEmail(String e) {
+        if (e != null) {
+            e = e.trim().toLowerCase();
+        }
         email = e;
     }
 }

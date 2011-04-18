@@ -108,7 +108,7 @@ public class User implements Serializable {
 
     /**
      * Returns the key.
-     * 
+     *
      * @return the key
      */
     public Key getKey() {
@@ -117,7 +117,7 @@ public class User implements Serializable {
 
     /**
      * Sets the key.
-     * 
+     *
      * @param key
      *            the key
      */
@@ -127,7 +127,7 @@ public class User implements Serializable {
 
     /**
      * Returns the version.
-     * 
+     *
      * @return the version
      */
     public Long getVersion() {
@@ -138,11 +138,11 @@ public class User implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
-        if (email != null) {
-            email = email.trim().toLowerCase();
+    public void setEmail(String e) {
+        if (e != null) {
+            e = e.trim().toLowerCase();
         }
-        this.email = email;
+        this.email = e;
     }
 
     public String getFirstName() {
@@ -271,7 +271,7 @@ public class User implements Serializable {
 
     /**
      * Sets the version.
-     * 
+     *
      * @param version
      *            the version
      */
