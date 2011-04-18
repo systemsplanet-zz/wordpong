@@ -12,7 +12,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/ktr-wjr.jar"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-jstl-1.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-standard-1.1.2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/slim3-1.0.9.jar" sourcepath="F:/0wordpong/dev/slim3-blank/libsrc/slim3-1.0.6-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/slim3-1.0.9.jar" sourcepath="lib-src/slim3-1.0.6-sources.jar"/>
 	<classpathentry kind="lib" path="lib-plugin/slim3-gen-1.0.9.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
