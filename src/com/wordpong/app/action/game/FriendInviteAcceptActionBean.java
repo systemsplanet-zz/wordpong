@@ -1,5 +1,7 @@
 package com.wordpong.app.action.game;
 
+import java.util.logging.Logger;
+
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -11,12 +13,14 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class FriendInviteAcceptActionBean extends BaseActionBean implements ValidationErrorHandler {
+    private static final Logger log = Logger.getLogger(FriendInviteAcceptActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_friendInviteAccept.jsp";
 
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
@@ -55,23 +59,24 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements Vali
     public Resolution acceptInvite() {
         AppActionBeanContext c = getContext();
         if (c != null) {
-//            try {
-//                user = c.getUserFromSession();
-//                if (user != null) {
-//                    String url = "https://wordpong.appspot.com/?register=" + friend.email;
+            try {
+                User user = c.getUserFromSession();
+                if (user != null) {
+                    //TODO: make friends
+//                    String url = "https://wordpong.appspot.com/" + friend.email;
 //                    String msg = getMsg("friendInviteAccept.email.message", new Object[] { friend.getFullName(), url });
 //                    String sub = getMsg("friendInviteAccept.email.subject", new Object[] { friend.getFullName() });
 //                    List<String> emails = new ArrayList<String>();
 //                    emails.add(friend.email);
 //                    MailUtil.sendAdminMail(new EmailMessage(sub, msg, friend.email, user.getFullName()));
-//                    addGlobalActionError("friendInviteAccept.inviteAccepted");
-//                } else {
-//                    // session expire?
-//                }
-//            } catch (Exception e) {
-//                addGlobalActionError("friendInviteAccept.unableToAccept");
-//                log.warning("unable to invite friend");
-//            }
+                    addGlobalActionError("friendInviteAccept.inviteAccepted");
+                } else {
+                    // session expire?
+                }
+            } catch (Exception e) {
+                addGlobalActionError("friendInviteAccept.unableToAccept");
+                log.warning("unable to accept invite");
+            }
         }
         // redirect back here
         return new ForwardResolution(VIEW);

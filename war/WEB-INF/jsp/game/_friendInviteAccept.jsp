@@ -30,10 +30,8 @@
 	                    <s:text  name="email" id="email" tabindex="1" readonly="true"/>
 	                </div>
 	                <div data-role="fieldcontain" style="padding:4px;">
-	                    <s:label for="createdAtString" class="ui-input-text"/>
-	                    <s:text  name="createdAtString" id="createdAtString" tabindex="2" readonly="true"/>
-                        <s:label for="key" class="ui-input-text"/>
-                        <s:text  name="key" id="key" tabindex="2" readonly="true"/>
+	                    <s:label for="createdAtString" class="ui-input-text"/>  
+  	                    <s:text   name="createdAtString" id="createdAtString" tabindex="2" readonly="true"/> 
 	                </div>
 				</li>
 			</ul>

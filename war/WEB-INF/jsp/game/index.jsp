@@ -30,7 +30,7 @@
                 <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="myTurnSelect" var="myTurnListUrl">
                     <s:param name="myTurnId" value="${myTurn.id}"/>
                 </s:url>
-                <input onClick="javascript:$('#key').val('${myTurn.key}');$('#email').val('${myTurn.id}');$('#createdAtString').val('${myTurn.createdAtString}');" data-theme="a" class="process"  name="acceptInvite" value="${inviteLbl}: ${myTurn.details} ${myTurn.key}" type="submit" />
+                <input onClick="javascript:$('#key').val('${myTurn.key}');$('#email').val('${myTurn.id}');$('#createdAtString').val('${myTurn.createdAtString}');" data-theme="a" class="process"  name="acceptInvite" value="${inviteLbl}: ${myTurn.details}" type="submit" />
         </c:forEach>
         </small>         
 	</ul>
