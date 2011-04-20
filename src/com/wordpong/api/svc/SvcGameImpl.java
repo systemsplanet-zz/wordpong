@@ -130,41 +130,39 @@ public class SvcGameImpl implements SvcGame {
      */
     public void updateFriendInvites(User user) throws WPServiceException {
         if (user != null) {
-            try {
-                final String msg = "updateFriendInvites: user:" + user;
-                final User fUser = user;
-                Predicate<Atomic> WORK = new Predicate<Atomic>() {
-                    public boolean apply(Atomic at) {
-                        boolean result = false;
-                        try {
-                            // get FriendInvites for this user from db
-                            DaoFriendInvite dfi = DaoFriendInviteFactory.getFriendInviteDao();
-                            List<FriendInvite> invites = dfi.getFriendInvitesByEmail(fUser);
-                            final String msg = "updateFriendInvites: user:" + fUser + " invites:" + invites;
-                            log.info(msg);
-                            Key key = fUser.getKey();
-                            String details = fUser.getDetails();
-                            if (invites != null && invites.size() > 0) {
-                                for (FriendInvite invite : invites) {
-                                    invite.setInviteeKey(key);
-                                    invite.setInviteeDetails(details);
-                                }
-                                // write new friend requests to database
-                                at.put(invites);
-                                result = true;
+            final String msg = "updateFriendInvites: user:" + user;
+            final User fUser = user;
+            Predicate<Atomic> WORK = new Predicate<Atomic>() {
+                public boolean apply(Atomic at) {
+                    boolean result = false;
+                    try {
+                        // get FriendInvites for this user from db
+                        DaoFriendInvite dfi = DaoFriendInviteFactory.getFriendInviteDao();
+                        List<FriendInvite> invites = dfi.getFriendInvitesByEmail(fUser);
+                        final String msg = "updateFriendInvites: user:" + fUser + " invites:" + invites;
+                        log.info(msg);
+                        Key key = fUser.getKey();
+                        String details = fUser.getDetails();
+                        if (invites != null && invites.size() > 0) {
+                            for (FriendInvite invite : invites) {
+                                invite.setInviteeKey(key);
+                                invite.setInviteeDetails(details);
                             }
-                        } catch (DaoException e) {
+                            // write new friend requests to database
+                            at.put(invites);
+                            result = true;
                         }
-                        return result;
+                    } catch (DaoException e) {
                     }
+                    return result;
+                }
 
-                    public String toString() {
-                        return msg;
-                    }
-                };
-                // may throw an exception if unable to process atomically
-                int MAX_RETRIES = 5;
-                Atomic.transact(WORK, MAX_RETRIES);
+                public String toString() {
+                    return msg;
+                }
+            };
+            try {
+                Atomic.transact(WORK);
             } catch (Exception e) {
                 throw new WPServiceException(e.getMessage());
             }
@@ -198,13 +196,48 @@ public class SvcGameImpl implements SvcGame {
     }
 
     @Override
-    public void ignoreInvitation(String keyStr) throws WPServiceException {
+    public void ignoreInvitation(String friendInvitekeyStr) throws WPServiceException {
         DaoFriendInvite dfi = DaoFriendInviteFactory.getFriendInviteDao();
         try {
-            dfi.ignoreInvitation(keyStr);
+            dfi.ignoreInvitation(friendInvitekeyStr);
         } catch (DaoException e) {
             throw new WPServiceException(e.getMessage());
         }
 
+    }
+
+    public void makeFriends(final String friendInviteKeyStr) throws WPServiceException {
+        final DaoFriendInvite dfi = DaoFriendInviteFactory.getFriendInviteDao();
+        final DaoUser du = DaoUserFactory.getUserDao();
+        final String msg = "makeFriends friendInviteKeyStr" + friendInviteKeyStr;
+        FriendInvite fi = null;
+        try {
+            fi = dfi.toFriendInvite(friendInviteKeyStr);
+        } catch (DaoException e1) {
+            throw new WPServiceException(e1.getMessage());
+        }
+        final FriendInvite ffi = fi;
+        Predicate<Atomic> WORK = new Predicate<Atomic>() {
+            public boolean apply(Atomic at) {
+                boolean result = false;
+                try {
+                    Key inviteeKey = ffi.getInviteeKey();
+                    Key inviterKey = ffi.getInviterKey();
+                    du.makeFriends(at, inviteeKey, inviterKey);
+                    dfi.removeInvitation(at, ffi);
+                    result = true;
+                } catch (DaoException e) {
+                }
+                return result;
+            }
+            public String toString() {
+                return msg;
+            }
+        };
+        try {
+            Atomic.transact(WORK);
+        } catch (Exception e) {
+            throw new WPServiceException(e.getMessage());
+        }
     }
 }

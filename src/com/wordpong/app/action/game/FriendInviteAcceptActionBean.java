@@ -26,7 +26,7 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements Vali
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
     private String key;
-    private String createdAtString="??";
+    private String createdAtString = "??";
 
     public FriendInviteAcceptActionBean() {
     }
@@ -55,20 +55,25 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements Vali
         return new ForwardResolution(VIEW);
     }
 
-    @HandlesEvent("acceptInvite")
+    @HandlesEvent("acceptInviteConfirm")
     public Resolution acceptInvite() {
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
                 User user = c.getUserFromSession();
                 if (user != null) {
-                    //TODO: make friends
-//                    String url = "https://wordpong.appspot.com/" + friend.email;
-//                    String msg = getMsg("friendInviteAccept.email.message", new Object[] { friend.getFullName(), url });
-//                    String sub = getMsg("friendInviteAccept.email.subject", new Object[] { friend.getFullName() });
-//                    List<String> emails = new ArrayList<String>();
-//                    emails.add(friend.email);
-//                    MailUtil.sendAdminMail(new EmailMessage(sub, msg, friend.email, user.getFullName()));
+                    SvcGame sg = SvcGameFactory.getGameService();
+                    sg.makeFriends(key);
+                    // String url = "https://wordpong.appspot.com/" +
+                    // friend.email;
+                    // String msg = getMsg("friendInviteAccept.email.message",
+                    // new Object[] { friend.getFullName(), url });
+                    // String sub = getMsg("friendInviteAccept.email.subject",
+                    // new Object[] { friend.getFullName() });
+                    // List<String> emails = new ArrayList<String>();
+                    // emails.add(friend.email);
+                    // MailUtil.sendAdminMail(new EmailMessage(sub, msg,
+                    // friend.email, user.getFullName()));
                     addGlobalActionError("friendInviteAccept.inviteAccepted");
                 } else {
                     // session expire?
@@ -112,5 +117,5 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements Vali
 
     public void setCreatedAtString(String createdAtString) {
         this.createdAtString = createdAtString;
-    }    
+    }
 }

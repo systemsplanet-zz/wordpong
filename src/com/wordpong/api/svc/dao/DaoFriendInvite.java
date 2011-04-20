@@ -5,6 +5,7 @@ import java.util.List;
 import com.wordpong.api.model.FriendInvite;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.err.DaoException;
+import com.wordpong.api.svc.dao.transact.Atomic;
 
 public interface DaoFriendInvite {
 
@@ -20,6 +21,9 @@ public interface DaoFriendInvite {
 
     void cancelInvitation(User user, String email) throws DaoException;
 
-    void ignoreInvitation(String keyStr) throws DaoException;
+    void ignoreInvitation(String friendInviteKeyStr) throws DaoException;
 
+    FriendInvite toFriendInvite(String friendInviteKeyStr) throws DaoException;
+
+    void removeInvitation(Atomic at, FriendInvite fi) throws DaoException;
 }

@@ -20,13 +20,14 @@ import com.google.apphosting.api.DeadlineExceededException;
 import com.google.common.base.Predicate;
 
 /**
- * This class wraps the slim3 GlobalTransaction class 
- * to provide support for simple transactional predicates
+ * This class wraps the slim3 GlobalTransaction class to provide support for
+ * simple transactional predicates
  * 
  * @author mlawrence
  * 
  */
 public class Atomic {
+    public final static int MAX_RETRIES = 5;
     private GlobalTransaction gtx;
 
     private Atomic() {
@@ -48,7 +49,11 @@ public class Atomic {
      * @throws Exception
      *             - exception if unable to complete
      */
-    public static void transact(Predicate<Atomic> p, int maxRetries) throws Exception {
+    public static void transact(Predicate<Atomic> p) throws Exception {
+        transact(p, MAX_RETRIES);
+    }
+
+    private static void transact(Predicate<Atomic> p, int maxRetries) throws Exception {
         int retries = maxRetries;
         boolean success = false;
         while (true) {
@@ -56,13 +61,12 @@ public class Atomic {
             Atomic at = new Atomic(gt);
             Exception err = new Exception("unknown error");
             try {
-               boolean okToCommit = p.apply(at);
+                boolean okToCommit = p.apply(at);
                 if (okToCommit) {
                     at.commit();
                     success = at.isActive() == false;
                 } else {
-                    gt.rollback();
-                    break;
+                    throw new Exception("atomic commit aborted");
                 }
             } catch (ConcurrentModificationException e) {
                 err = e;
@@ -82,12 +86,15 @@ public class Atomic {
             } finally {
                 if (at.isActive()) {
                     at.rollback();
-                    success = false;
-                }
+                 }
             }
             if (success == false) {
                 if (retries > 0) {
-                    log.warning("retrying predicate:" + p);
+                    int min = 200;  // min sleep
+                    int max = 2000; // max sleep
+                    int sleep = min + (int) (Math.random() * ((max - min) + 1));
+                    log.warning("sleep: "+sleep + "ms then retrying predicate:" + p );
+                    Thread.sleep(sleep);
                     retries--;
                 } else {
                     throw err;

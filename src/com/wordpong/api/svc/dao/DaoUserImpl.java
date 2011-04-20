@@ -18,6 +18,7 @@ import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.err.DaoException;
 import com.wordpong.api.svc.dao.err.DaoExceptionUserNotFound;
+import com.wordpong.api.svc.dao.transact.Atomic;
 
 public class DaoUserImpl extends DaoBase<User> implements DaoUser {
     private static final Logger log = Logger.getLogger(DaoUserImpl.class.getName());
@@ -32,7 +33,7 @@ public class DaoUserImpl extends DaoBase<User> implements DaoUser {
         } catch (DaoExceptionUserNotFound e) {
             u = save(u);
             txn.commit();
-            //catch (ConcurrentModificationException ex)?
+            // catch (ConcurrentModificationException ex)?
         }
         return u;
     }
@@ -73,14 +74,21 @@ public class DaoUserImpl extends DaoBase<User> implements DaoUser {
         return result;
     }
 
-    public void makeFriends(User u1, User u2) throws DaoException {
-        Transaction txn = Datastore.beginTransaction();
-        Set<Key> u1Friends = u1.getFriends();
-        u1Friends.add(u2.getKey());
-        Set<Key> u2Friends = u2.getFriends();
-        u2Friends.add(u1.getKey());
-        Datastore.put(u1, u2);
-        txn.commit();
+    public void makeFriends(Atomic at, final Key user1, final Key user2) throws DaoException {
+        final String msg = "makeFriends: u1:" + user1 + " u2:" + user2;
+        try {
+            User u1 = at.get(User.class, user1);
+            User u2 = at.get(User.class, user2);
+            Set<Key> u1Friends = u1.getFriends();
+            u1Friends.add(u2.getKey());
+            Set<Key> u2Friends = u2.getFriends();
+            u2Friends.add(u1.getKey());
+            at.put(u1, u2);
+            log.finer(msg);
+        } catch (Exception e) {
+            log.warning(msg + " err:" + e.getMessage());
+            throw new DaoException(e.getMessage());
+        }
     }
 
     public void purgeExpiredPasswordChangeRequests() {

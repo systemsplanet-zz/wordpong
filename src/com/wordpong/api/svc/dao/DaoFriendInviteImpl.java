@@ -118,12 +118,12 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
         }
     }
 
-    public void ignoreInvitation(String keyStr) throws DaoException {
-        if (keyStr == null)
+    public void ignoreInvitation(String friendInviteKeyStr) throws DaoException {
+        if (friendInviteKeyStr == null)
             throw new DaoException("key cant be null");
-        final Key k = KeyFactory.stringToKey(keyStr);
+        final Key k = KeyFactory.stringToKey(friendInviteKeyStr);
         try {
-            final String msg = "ignoreInvitation: keyStr:" + keyStr + " key:" + k;
+            final String msg = "ignoreInvitation: keyStr:" + friendInviteKeyStr + " key:" + k;
             Predicate<Atomic> WORK = new Predicate<Atomic>() {
                 public boolean apply(Atomic at) {
                     boolean result = false;
@@ -141,13 +141,43 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
                     return msg;
                 }
             };
-            int MAX_RETRIES = 5;
-            Atomic.transact(WORK, MAX_RETRIES);
+            Atomic.transact(WORK);
         } catch (Exception e) {
-            String m = "ignoreInvitation failed. keyStr:" + keyStr + " Err:" + e.getMessage();
+            String m = "ignoreInvitation failed. keyStr:" + friendInviteKeyStr + " Err:" + e.getMessage();
             log.warning(m);
             throw new DaoException(m);
         }
     }
 
+    public FriendInvite toFriendInvite(String friendInviteKeyStr) throws DaoException {
+        FriendInvite result = null;
+        try {
+            if (friendInviteKeyStr == null)
+                throw new DaoException("friendInviteKeyStr cant be null");
+            Key k = KeyFactory.stringToKey(friendInviteKeyStr);
+            result = get(k);
+        } catch (Exception e) {
+            String m = "toFriendInvite failed. keyStr:" + friendInviteKeyStr + " Err:" + e.getMessage();
+            log.warning(m);
+            throw new DaoException(m);
+        }
+        return result;
+    }
+
+    @Override
+    public void removeInvitation(Atomic at, FriendInvite fi) throws DaoException {
+        String m = "removeInvitation. FriendInvite:" + fi;
+        try {
+            if (fi != null) {
+                Key k = fi.getKey();
+                if (k != null && k.isComplete()) {
+                    log.fine(m);
+                    at.delete(k);
+                }
+            }
+        } catch (Exception e) {
+            log.warning(m + " Err:" + e.getMessage());
+            throw new DaoException(m);
+        }
+    }
 }

@@ -32,14 +32,15 @@
 	                <div data-role="fieldcontain" style="padding:4px;">
 	                    <s:label for="createdAtString" class="ui-input-text"/>  
   	                    <s:text   name="createdAtString" id="createdAtString" tabindex="2" readonly="true"/> 
+  	                       <s:text   name="key" id="key" tabindex="2" readonly="true"/>
 	                </div>
 				</li>
 			</ul>
 	        <div style="float:right">
-	            <input data-theme="a" class="process" action="ignoreInvite" name="ignoreInvite" value="${ignoreLbl}" type="submit" />
+	            <input data-theme="a" class="process" name="ignoreInvite" value="${ignoreLbl}" type="submit" />
 	        </div>  
 	        <div style="float:right">
-	            <input data-theme="a" class="process" action="acceptInvite" name="acceptInvite" value="${acceptLbl}" type="submit" />
+	            <input data-theme="a" class="process" name="acceptInviteConfirm" value="${acceptLbl}" type="submit" />
 	        </div>  
     </div>
     </s:form>   
