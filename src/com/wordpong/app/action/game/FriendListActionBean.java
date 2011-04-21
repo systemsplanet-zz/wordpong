@@ -14,7 +14,7 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.GameMyTurn;
+import com.wordpong.api.pojo.FriendGames;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
@@ -25,7 +25,7 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
     private static final String VIEW = "/WEB-INF/jsp/game/_friendList.jsp";
 
     private SvcGame _svcGame;
-    
+
     private User user;
 
     @Validate(required = true, minlength = 4, maxlength = 50)
@@ -39,6 +39,7 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
     public Resolution back() {
         return new ForwardResolution(GameActionBean.class);
     }
+
     @DontValidate
     public Resolution friendInvite() {
         return new ForwardResolution(FriendInviteActionBean.class);
@@ -77,7 +78,7 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
     public void validateUser(ValidationErrors errors) {
         AppActionBeanContext c = getContext();
         if (c != null) {
-            //Todo: validate email list
+            // Todo: validate email list
         }
     }
 
@@ -97,12 +98,14 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
         emails = e;
     }
 
-    public List<GameMyTurn> getMyTurns() {
+    public List<FriendGames> getMyFriendGames() {
         user = getContext().getUserFromSession();
-        return _svcGame.getMyTurns(user);
+        List<FriendGames> result = _svcGame.getMyFriendGames(user);
+        return result;
     }
-//    public void setMyTurns(List<GameMyTurn> myTurns) {
-//        _svcGame.setMyTurns(myTurns);
-//    }
+
+    // public void setMyTurns(List<GameMyTurn> myTurns) {
+    // _svcGame.setMyTurns(myTurns);
+    // }
 
 }

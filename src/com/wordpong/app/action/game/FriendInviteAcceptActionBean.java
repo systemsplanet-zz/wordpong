@@ -16,6 +16,8 @@ import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
+import com.wordpong.api.svc.SvcUser;
+import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
@@ -64,6 +66,10 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements Vali
                 if (user != null) {
                     SvcGame sg = SvcGameFactory.getGameService();
                     sg.makeFriends(key);
+                    SvcUser su = SvcUserFactory.getUserService();
+                    // get user with new friend attached
+                    user = su.getByKey(user);
+                    c.putUserToRequestAndSession(user);
                     // String url = "https://wordpong.appspot.com/" +
                     // friend.email;
                     // String msg = getMsg("friendInviteAccept.email.message",

@@ -1,5 +1,7 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.List;
+
 import com.google.appengine.api.datastore.Key;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
@@ -15,8 +17,12 @@ public interface DaoUser {
 
     void purgeExpiredPasswordChangeRequests();
 
-    public String createPasswordChangeRequest(String email) throws DaoException;
+    String createPasswordChangeRequest(String email) throws DaoException;
 
-    public PasswordChangeRequest getPasswordChangeRequest(String randomId);
+    PasswordChangeRequest getPasswordChangeRequest(String randomId);
+
+    List<User> getUsers(List<Key> keys) throws DaoException;
+
+    User getUser(User user) throws DaoException;
 
 }

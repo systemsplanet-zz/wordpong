@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.appengine.api.datastore.Key;
@@ -12,6 +13,7 @@ import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.FriendInvite;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
+import com.wordpong.api.pojo.FriendGames;
 import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.pojo.GameTheirTurn;
 import com.wordpong.api.svc.dao.DaoFriendInvite;
@@ -230,6 +232,7 @@ public class SvcGameImpl implements SvcGame {
                 }
                 return result;
             }
+
             public String toString() {
                 return msg;
             }
@@ -239,5 +242,25 @@ public class SvcGameImpl implements SvcGame {
         } catch (Exception e) {
             throw new WPServiceException(e.getMessage());
         }
+    }
+
+    @Override
+    public List<FriendGames> getMyFriendGames(User u) {
+        DaoUser du = DaoUserFactory.getUserDao();
+        Set<Key> keySet = u.getFriends();
+        List<Key> keyList = new ArrayList<Key>(keySet);
+        List<FriendGames> fgs = new ArrayList<FriendGames>();
+         try {
+            List<User> us = du.getUsers(keyList);
+            for (User usr : us) {
+                FriendGames fg = new FriendGames();
+                fg.setFriend(usr);
+                fgs.add(fg);
+                // TODO: get games
+            }
+        } catch (Exception e) {
+            log.warning("getMyFriendGames: err" + e.getMessage());
+        }
+        return fgs;
     }
 }

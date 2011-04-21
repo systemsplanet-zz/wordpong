@@ -6,6 +6,7 @@ import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.FriendInvite;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
+import com.wordpong.api.pojo.FriendGames;
 import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.pojo.GameTheirTurn;
 
@@ -28,7 +29,8 @@ public interface SvcGame {
     void cancelInvitation(User user, String email) throws WPServiceException;
 
     void ignoreInvitation(String key) throws WPServiceException;
-    
+
     void makeFriends(String friendInviteKeyStr) throws WPServiceException;
 
+    List<FriendGames> getMyFriendGames(User u);
 }

@@ -9,6 +9,8 @@ public interface SvcUser {
 
     User findByEmail(String email) throws WPServiceException;
 
+    User getByKey(User u) throws WPServiceException;
+
     void purgeExpiredPasswordChangeRequests();
 
     public String createPasswordChangeRequest(String email) throws WPServiceException;

@@ -33,46 +33,16 @@
 <div style="clear:both"></div>
 
 <div data-role="content" style="padding-top:0px;">
-    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
-        <li data-role="list-divider" >${myFriendsLbl}</li> 
-    </ul>
-
 	<tags:messages/> 
 	<s:form id="friendListForm" beanclass="com.wordpong.app.action.game.FriendListActionBean" method="post">
-        <c:set var="group" value=""/>
-        <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-            <li data-role="list-divider" ></li> 
-            
-        <!-- TODO: change to friends -->    
-        <c:forEach items="${actionBean.myTurns}" var="myTurn" varStatus="status">
-            <c:choose>
-                <c:when test="${group != myTurn.actionString && !status.first}">
-                        </ul>
-                    </li>
-                </c:when>
-            </c:choose>
-            <c:choose>
-                <c:when test="${group != myTurn.actionString}">
-                    <c:set var="group" value="${myTurn.actionString}"/>
-                    <%--The li element and account has to be on the same line for nested list in jQuerymobile to render correctly--%>
-                    <li>${group}
-                        <ul data-theme="c" data-header-theme="c">
-                </c:when>
-            </c:choose>
-
-            <li>
-                <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="myTurnList" var="myTurnListUrl">
-                    <s:param name="myTurnId" value="${myTurn.id}"/>
-                </s:url>
-                <a href="${myTurnListUrl}">${myTurn.id}</a>
-            </li>
-
-            <c:if test="${status.last}">
-                        </ul>
-                    </li>
-            </c:if>
+    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+        <li data-role="list-divider" >${myFriendsLbl}</li> 
+        <small>            
+        <c:forEach items="${actionBean.myFriendGames}" var="myFriendGames" >
+                <input data-theme="a" class="process"  name="accept" value="chat: ${myFriendGames.friendInfo}" type="submit" />
         </c:forEach>
-        </ul>
+        </small>         
+    </ul>
 
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 

@@ -1,6 +1,5 @@
 package com.wordpong.api.svc;
 
-
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
@@ -46,6 +45,17 @@ public class SvcUserImpl implements SvcUser {
 
     public PasswordChangeRequest getPasswordChangeRequest(String randomId) {
         PasswordChangeRequest result = daoUser.getPasswordChangeRequest(randomId);
+        return result;
+    }
+
+    @Override
+    public User getByKey(User u) throws WPServiceException {
+        User result = null;
+        try {
+            result = daoUser.getUser(u);
+        } catch (DaoException e) {
+            throw new WPServiceException(e.getMessage());
+        }
         return result;
     }
 }

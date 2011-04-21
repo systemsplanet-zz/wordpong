@@ -26,10 +26,7 @@
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${myTurnLbl} (${myBean.user.fullName})</li>              
         <small>
-        <c:forEach items="${actionBean.myTurns}" var="myTurn" varStatus="myStatus">
-                <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="myTurnSelect" var="myTurnListUrl">
-                    <s:param name="myTurnId" value="${myTurn.id}"/>
-                </s:url>
+        <c:forEach items="${actionBean.myTurns}" var="myTurn" >
                 <input onClick="javascript:$('#key').val('${myTurn.key}');$('#email').val('${myTurn.id}');$('#createdAtString').val('${myTurn.createdAtString}');" data-theme="a" class="process"  name="acceptInvite" value="${inviteLbl}: ${myTurn.details}" type="submit" />
         </c:forEach>
         </small>         

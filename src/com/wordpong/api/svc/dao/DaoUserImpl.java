@@ -135,9 +135,29 @@ public class DaoUserImpl extends DaoBase<User> implements DaoUser {
         }
         return pcr;
     }
-    // TODO: add methods using delayed writes
-    // private final DatastoreService ds =
-    // DatastoreServiceFactory.getDatastoreService();
-    // private final Queue delayedWriteQueue = QueueFactory.getDefaultQueue();
 
+    @Override
+    public List<User> getUsers(List<Key> keys) throws DaoException {
+        List<User> result = new ArrayList<User>();
+        try {
+            result = get(keys);
+        } catch (Exception e) {
+            throw new DaoException(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public User getUser(User u) throws DaoException {
+        User result = null;
+        try {
+            if (u != null) {
+                Key key = u.getKey();
+                result = get(key);
+            }
+        } catch (Exception e) {
+            throw new DaoException(e.getMessage());
+        }
+        return result;
+    }
 }
