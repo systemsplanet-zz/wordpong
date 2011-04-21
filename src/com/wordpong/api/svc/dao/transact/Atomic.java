@@ -53,55 +53,38 @@ public class Atomic {
         transact(p, MAX_RETRIES);
     }
 
-    private static void transact(Predicate<Atomic> p, int maxRetries) throws Exception {
-        int retries = maxRetries;
-        boolean success = false;
+    private static void transact(Predicate<Atomic> p, int retries) throws Exception {
         while (true) {
             GlobalTransaction gt = Datastore.beginGlobalTransaction();
             Atomic at = new Atomic(gt);
-            Exception err = new Exception("unknown error");
             try {
                 boolean okToCommit = p.apply(at);
-                if (okToCommit) {
-                    at.commit();
-                    success = at.isActive() == false;
-                } else {
-                    throw new Exception("atomic commit aborted");
+                if (okToCommit == false) {
+                    throw new Exception("commit aborted by caller");
+                }
+                at.commit();
+                if (at.isActive() == false) {
+                    break; // it worked, we're done
                 }
             } catch (ConcurrentModificationException e) {
-                err = e;
                 log.warning("concurrent modification for predicate:" + p + " err:" + e.getMessage());
-                e.printStackTrace();
-                success = false;
-            } catch (DeadlineExceededException e) {
-                err = e;
-                log.warning("timeout processing predicate:" + p + " err:" + e.getMessage());
-                e.printStackTrace();
-                success = false;
+                if (retries <= 0) {
+                    throw e;
+                }
             } catch (Exception e) {
-                err = e;
                 log.warning("unable to process predicate:" + p + " err:" + e.getMessage());
-                e.printStackTrace();
-                success = false;
+                throw e;
             } finally {
                 if (at.isActive()) {
                     at.rollback();
-                 }
-            }
-            if (success == false) {
-                if (retries > 0) {
-                    int min = 200;  // min sleep
-                    int max = 2000; // max sleep
-                    int sleep = min + (int) (Math.random() * ((max - min) + 1));
-                    log.warning("sleep: "+sleep + "ms then retrying predicate:" + p );
-                    Thread.sleep(sleep);
-                    retries--;
-                } else {
-                    throw err;
                 }
-            } else {
-                break;
             }
+            int min = 200;  // min sleep ms
+            int max = 2000; // max sleep ms
+            int sleep = min + (int) (Math.random() * ((max - min) + 1));
+            log.warning("sleep: " + sleep + "ms then retrying predicate:" + p);
+            Thread.sleep(sleep);
+            retries--;
         }
     }
 
