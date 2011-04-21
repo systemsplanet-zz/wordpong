@@ -16,7 +16,6 @@ import org.slim3.datastore.ModelQuery;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
-import com.google.apphosting.api.DeadlineExceededException;
 import com.google.common.base.Predicate;
 
 /**
@@ -82,7 +81,7 @@ public class Atomic {
             int min = 200;  // min sleep ms
             int max = 2000; // max sleep ms
             int sleep = min + (int) (Math.random() * ((max - min) + 1));
-            log.warning("sleep: " + sleep + "ms then retrying predicate:" + p);
+            log.warning("sleep: " + sleep + " ms then retrying predicate:" + p);
             Thread.sleep(sleep);
             retries--;
         }
