@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-18 21:35:13")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-20 22:39:52")
 /** */
 public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.Game> {
 
@@ -9,6 +9,9 @@ public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Game, java.lang.Boolean> completed = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Game, java.lang.Boolean>(this, "completed", "completed", boolean.class);
+
+    /** */
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Game, java.lang.Boolean> ignored = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Game, java.lang.Boolean>(this, "ignored", "ignored", boolean.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Game, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Game, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
@@ -41,6 +44,7 @@ public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         com.wordpong.api.model.Game model = new com.wordpong.api.model.Game();
         model.setAnswers((com.google.appengine.api.datastore.Key) entity.getProperty("answers"));
         model.setCompleted(booleanToPrimitiveBoolean((java.lang.Boolean) entity.getProperty("completed")));
+        model.setIgnored(booleanToPrimitiveBoolean((java.lang.Boolean) entity.getProperty("ignored")));
         model.setKey(entity.getKey());
         model.setQuestions((com.google.appengine.api.datastore.Key) entity.getProperty("questions"));
         model.setUser((com.google.appengine.api.datastore.Key) entity.getProperty("user"));
@@ -59,6 +63,7 @@ public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         }
         entity.setProperty("answers", m.getAnswers());
         entity.setProperty("completed", m.isCompleted());
+        entity.setUnindexedProperty("ignored", m.isIgnored());
         entity.setProperty("questions", m.getQuestions());
         entity.setProperty("user", m.getUser());
         entity.setProperty("version", m.getVersion());
@@ -128,6 +133,9 @@ public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         writer.setNextPropertyName("completed");
         encoder = new org.slim3.datastore.json.Default();
         encoder.encode(writer, m.isCompleted());
+        writer.setNextPropertyName("ignored");
+        encoder = new org.slim3.datastore.json.Default();
+        encoder.encode(writer, m.isIgnored());
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
             encoder = new org.slim3.datastore.json.Default();
@@ -162,6 +170,9 @@ public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         reader = rootReader.newObjectReader("completed");
         decoder = new org.slim3.datastore.json.Default();
         m.setCompleted(decoder.decode(reader, m.isCompleted()));
+        reader = rootReader.newObjectReader("ignored");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setIgnored(decoder.decode(reader, m.isIgnored()));
         reader = rootReader.newObjectReader("key");
         decoder = new org.slim3.datastore.json.Default();
         m.setKey(decoder.decode(reader, m.getKey()));

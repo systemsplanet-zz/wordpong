@@ -1,57 +1,57 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-18 21:35:13")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-20 22:49:01")
 /** */
-public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.FriendInvite> {
+public final class InviteFriendMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.InviteFriend> {
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.util.Date> createdAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.util.Date>(this, "createdAt", "createdAt", java.util.Date.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, java.util.Date> createdAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, java.util.Date>(this, "createdAt", "createdAt", java.util.Date.class);
 
     /** */
-    public final org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.FriendInvite> inviteeDetails = new org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.FriendInvite>(this, "inviteeDetails", "inviteeDetails");
+    public final org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.InviteFriend> inviteeDetails = new org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.InviteFriend>(this, "inviteeDetails", "inviteeDetails");
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key> inviteeKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key>(this, "inviteeKey", "inviteeKey", com.google.appengine.api.datastore.Key.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, com.google.appengine.api.datastore.Key> inviteeKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, com.google.appengine.api.datastore.Key>(this, "inviteeKey", "inviteeKey", com.google.appengine.api.datastore.Key.class);
 
     /** */
-    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.FriendInvite> inviterDetails = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.FriendInvite>(this, "inviterDetails", "inviterDetails");
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.InviteFriend> inviterDetails = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.InviteFriend>(this, "inviterDetails", "inviterDetails");
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key> inviterKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key>(this, "inviterKey", "inviterKey", com.google.appengine.api.datastore.Key.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, com.google.appengine.api.datastore.Key> inviterKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, com.google.appengine.api.datastore.Key>(this, "inviterKey", "inviterKey", com.google.appengine.api.datastore.Key.class);
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.lang.Boolean> ignored = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.lang.Boolean>(this, "ignored", "ignored", boolean.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, java.lang.Boolean> ignored = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, java.lang.Boolean>(this, "ignored", "ignored", boolean.class);
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.util.Date> updatedAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.util.Date>(this, "updatedAt", "updatedAt", java.util.Date.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, java.util.Date> updatedAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, java.util.Date>(this, "updatedAt", "updatedAt", java.util.Date.class);
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.lang.Long> version = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.FriendInvite, java.lang.Long>(this, "version", "version", java.lang.Long.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, java.lang.Long> version = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteFriend, java.lang.Long>(this, "version", "version", java.lang.Long.class);
 
     private static final org.slim3.datastore.CreationDate slim3_createdAtAttributeListener = new org.slim3.datastore.CreationDate();
 
     private static final org.slim3.datastore.ModificationDate slim3_updatedAtAttributeListener = new org.slim3.datastore.ModificationDate();
 
-    private static final FriendInviteMeta slim3_singleton = new FriendInviteMeta();
+    private static final InviteFriendMeta slim3_singleton = new InviteFriendMeta();
 
     /**
      * @return the singleton
      */
-    public static FriendInviteMeta get() {
+    public static InviteFriendMeta get() {
        return slim3_singleton;
     }
 
     /** */
-    public FriendInviteMeta() {
-        super("FriendInvite", com.wordpong.api.model.FriendInvite.class);
+    public InviteFriendMeta() {
+        super("InviteFriend", com.wordpong.api.model.InviteFriend.class);
     }
 
     @Override
-    public com.wordpong.api.model.FriendInvite entityToModel(com.google.appengine.api.datastore.Entity entity) {
-        com.wordpong.api.model.FriendInvite model = new com.wordpong.api.model.FriendInvite();
+    public com.wordpong.api.model.InviteFriend entityToModel(com.google.appengine.api.datastore.Entity entity) {
+        com.wordpong.api.model.InviteFriend model = new com.wordpong.api.model.InviteFriend();
         model.setCreatedAt((java.util.Date) entity.getProperty("createdAt"));
         model.setInviteeDetails((java.lang.String) entity.getProperty("inviteeDetails"));
         model.setInviteeKey((com.google.appengine.api.datastore.Key) entity.getProperty("inviteeKey"));
@@ -66,7 +66,7 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
 
     @Override
     public com.google.appengine.api.datastore.Entity modelToEntity(java.lang.Object model) {
-        com.wordpong.api.model.FriendInvite m = (com.wordpong.api.model.FriendInvite) model;
+        com.wordpong.api.model.InviteFriend m = (com.wordpong.api.model.InviteFriend) model;
         com.google.appengine.api.datastore.Entity entity = null;
         if (m.getKey() != null) {
             entity = new com.google.appengine.api.datastore.Entity(m.getKey());
@@ -87,20 +87,20 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
 
     @Override
     protected com.google.appengine.api.datastore.Key getKey(Object model) {
-        com.wordpong.api.model.FriendInvite m = (com.wordpong.api.model.FriendInvite) model;
+        com.wordpong.api.model.InviteFriend m = (com.wordpong.api.model.InviteFriend) model;
         return m.getKey();
     }
 
     @Override
     protected void setKey(Object model, com.google.appengine.api.datastore.Key key) {
         validateKey(key);
-        com.wordpong.api.model.FriendInvite m = (com.wordpong.api.model.FriendInvite) model;
+        com.wordpong.api.model.InviteFriend m = (com.wordpong.api.model.InviteFriend) model;
         m.setKey(key);
     }
 
     @Override
     protected long getVersion(Object model) {
-        com.wordpong.api.model.FriendInvite m = (com.wordpong.api.model.FriendInvite) model;
+        com.wordpong.api.model.InviteFriend m = (com.wordpong.api.model.InviteFriend) model;
         return m.getVersion() != null ? m.getVersion().longValue() : 0L;
     }
 
@@ -110,14 +110,14 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
 
     @Override
     protected void incrementVersion(Object model) {
-        com.wordpong.api.model.FriendInvite m = (com.wordpong.api.model.FriendInvite) model;
+        com.wordpong.api.model.InviteFriend m = (com.wordpong.api.model.InviteFriend) model;
         long version = m.getVersion() != null ? m.getVersion().longValue() : 0L;
         m.setVersion(Long.valueOf(version + 1L));
     }
 
     @Override
     protected void prePut(Object model) {
-        com.wordpong.api.model.FriendInvite m = (com.wordpong.api.model.FriendInvite) model;
+        com.wordpong.api.model.InviteFriend m = (com.wordpong.api.model.InviteFriend) model;
         m.setCreatedAt(slim3_createdAtAttributeListener.prePut(m.getCreatedAt()));
         m.setUpdatedAt(slim3_updatedAtAttributeListener.prePut(m.getUpdatedAt()));
     }
@@ -139,7 +139,7 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
 
     @Override
     protected void modelToJson(org.slim3.datastore.json.JsonWriter writer, java.lang.Object model, int maxDepth, int currentDepth) {
-        com.wordpong.api.model.FriendInvite m = (com.wordpong.api.model.FriendInvite) model;
+        com.wordpong.api.model.InviteFriend m = (com.wordpong.api.model.InviteFriend) model;
         writer.beginObject();
         org.slim3.datastore.json.JsonCoder encoder = null;
         if(m.getCreatedAt() != null){
@@ -189,8 +189,8 @@ public final class FriendInviteMeta extends org.slim3.datastore.ModelMeta<com.wo
     }
 
     @Override
-    protected com.wordpong.api.model.FriendInvite jsonToModel(org.slim3.datastore.json.JsonRootReader rootReader, int maxDepth, int currentDepth) {
-        com.wordpong.api.model.FriendInvite m = new com.wordpong.api.model.FriendInvite();
+    protected com.wordpong.api.model.InviteFriend jsonToModel(org.slim3.datastore.json.JsonRootReader rootReader, int maxDepth, int currentDepth) {
+        com.wordpong.api.model.InviteFriend m = new com.wordpong.api.model.InviteFriend();
         org.slim3.datastore.json.JsonReader reader = null;
         org.slim3.datastore.json.JsonCoder decoder = null;
         reader = rootReader.newObjectReader("createdAt");

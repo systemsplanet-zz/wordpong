@@ -11,13 +11,13 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Transaction;
 import com.google.common.base.Predicate;
-import com.wordpong.api.meta.FriendInviteMeta;
-import com.wordpong.api.model.FriendInvite;
+import com.wordpong.api.meta.InviteFriendMeta;
+import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.err.DaoException;
 import com.wordpong.api.svc.dao.transact.Atomic;
 
-public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFriendInvite {
+public class DaoFriendInviteImpl extends DaoBase<InviteFriend> implements DaoFriendInvite {
     private static final Logger log = Logger.getLogger(DaoFriendInviteImpl.class.getName());
 
     @Override
@@ -25,7 +25,7 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
         Transaction txn = Datastore.beginTransaction();
         if (user != null && emails != null) {
             for (String email : emails) {
-                FriendInvite fi = new FriendInvite();
+                InviteFriend fi = new InviteFriend();
                 fi.setInviteeDetails(email);
                 fi.setInviterKey(user.getKey());
                 fi.setInviterDetails(user.getDetails());
@@ -37,9 +37,9 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     }
 
     @Override
-    public List<FriendInvite> getFriendInvitesByInviterKey(User user) throws DaoException {
-        List<FriendInvite> result = null;
-        FriendInviteMeta e = FriendInviteMeta.get();
+    public List<InviteFriend> getFriendInvitesByInviterKey(User user) throws DaoException {
+        List<InviteFriend> result = null;
+        InviteFriendMeta e = InviteFriendMeta.get();
 
         try {
             Key k = user.getKey();
@@ -52,9 +52,9 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     }
 
     @Override
-    public List<FriendInvite> getFriendInvitesByInviteeKey(User user) throws DaoException {
-        List<FriendInvite> result = null;
-        FriendInviteMeta e = FriendInviteMeta.get();
+    public List<InviteFriend> getFriendInvitesByInviteeKey(User user) throws DaoException {
+        List<InviteFriend> result = null;
+        InviteFriendMeta e = InviteFriendMeta.get();
 
         try {
             Key k = user.getKey();
@@ -67,10 +67,10 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     }
 
     @Override
-    public List<FriendInvite> getFriendInvitesByEmail(User user) throws DaoException {
-        List<FriendInvite> result = new ArrayList<FriendInvite>();
+    public List<InviteFriend> getFriendInvitesByEmail(User user) throws DaoException {
+        List<InviteFriend> result = new ArrayList<InviteFriend>();
         if (user != null && user.getEmail() != null) {
-            FriendInviteMeta e = FriendInviteMeta.get();
+            InviteFriendMeta e = InviteFriendMeta.get();
             try {
                 result = Datastore.query(e).filter(e.inviteeDetails.equal(user.getEmail())).asList();
             } catch (Exception ex) {
@@ -81,9 +81,9 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     }
 
     @Override
-    public List<FriendInvite> getAllFriendInvites() throws DaoException {
-        List<FriendInvite> result = null;
-        FriendInviteMeta e = FriendInviteMeta.get();
+    public List<InviteFriend> getAllFriendInvites() throws DaoException {
+        List<InviteFriend> result = null;
+        InviteFriendMeta e = InviteFriendMeta.get();
         try {
             result = Datastore.query(e).asList();
         } catch (Exception ex) {
@@ -95,9 +95,9 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     @Override
     public void cancelInvitation(User user, String email) throws DaoException {
         if (user != null && email != null) {
-            List<FriendInvite> invites = getFriendInvitesByInviterKey(user);
+            List<InviteFriend> invites = getFriendInvitesByInviterKey(user);
             if (invites != null) {
-                for (FriendInvite i : invites) {
+                for (InviteFriend i : invites) {
                     Key key = user.getKey();
                     if (i.getInviterKey().equals(key)) {
                         try {
@@ -128,7 +128,7 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
                 public boolean apply(Atomic at) {
                     boolean result = false;
                     try {
-                        FriendInvite fi = get(k);
+                        InviteFriend fi = get(k);
                         fi.setIgnored(true);
                         put(fi);
                         result = true;
@@ -149,8 +149,8 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
         }
     }
 
-    public FriendInvite toFriendInvite(String friendInviteKeyStr) throws DaoException {
-        FriendInvite result = null;
+    public InviteFriend toFriendInvite(String friendInviteKeyStr) throws DaoException {
+        InviteFriend result = null;
         try {
             if (friendInviteKeyStr == null)
                 throw new DaoException("friendInviteKeyStr cant be null");
@@ -165,13 +165,13 @@ public class DaoFriendInviteImpl extends DaoBase<FriendInvite> implements DaoFri
     }
 
     @Override
-    public void removeInvitation(Atomic at, FriendInvite fi) throws DaoException {
-        String m = "removeInvitation. FriendInvite:" + fi;
+    public void removeInvitation(Atomic at, InviteFriend fi) throws DaoException {
+        String m = "removeInvitation. InviteFriend:" + fi;
+        log.fine(m);
         try {
             if (fi != null) {
                 Key k = fi.getKey();
-                if (k != null && k.isComplete()) {
-                    log.fine(m);
+                if (k != null && k.isComplete()) {                    
                     at.delete(k);
                 }
             }

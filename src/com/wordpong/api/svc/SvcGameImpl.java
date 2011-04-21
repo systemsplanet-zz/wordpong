@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 import com.google.appengine.api.datastore.Key;
 import com.google.common.base.Predicate;
 import com.wordpong.api.err.WPServiceException;
-import com.wordpong.api.model.FriendInvite;
+import com.wordpong.api.model.InviteFriend;
+import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.FriendGames;
@@ -34,8 +35,8 @@ public class SvcGameImpl implements SvcGame {
         DaoFriendInvite dfr = DaoFriendInviteFactory.getFriendInviteDao();
 
         try {
-            List<FriendInvite> requests = dfr.getFriendInvitesByInviteeKey(user);
-            for (FriendInvite fr : requests) {
+            List<InviteFriend> requests = dfr.getFriendInvitesByInviteeKey(user);
+            for (InviteFriend fr : requests) {
                 if (fr.isIgnored() == false) {
                     GameMyTurn gmt = new GameMyTurn();
                     gmt.setAction(GameMyTurn.Action.InvitationRequest);
@@ -43,6 +44,18 @@ public class SvcGameImpl implements SvcGame {
                     gmt.setDetails(fr.getInviterDetails());
                     gmt.setCreatedAtString(fr.getCreatedAtString());
                     gmt.setKey(fr.getKeyString());
+                    result.add(gmt);
+                }
+            }
+            List<InviteGame> games = new ArrayList<InviteGame> ();//todo:dfr.getGameInvitesForUser(user);
+            for (InviteGame g : games) {
+                if (g.isIgnored() == false) {
+                    GameMyTurn gmt = new GameMyTurn();
+                    gmt.setAction(GameMyTurn.Action.CreateGame);
+                    gmt.setId(g.getInviterEmail());
+                    gmt.setDetails(g.getInviterDetails());
+                    gmt.setCreatedAtString(g.getCreatedAtString());
+                    gmt.setKey(g.getKeyString());
                     result.add(gmt);
                 }
             }
@@ -57,9 +70,9 @@ public class SvcGameImpl implements SvcGame {
         List<GameTheirTurn> turns = new ArrayList<GameTheirTurn>();
         DaoFriendInvite dfr = DaoFriendInviteFactory.getFriendInviteDao();
         try {
-            List<FriendInvite> invites = dfr.getFriendInvitesByInviterKey(user);
+            List<InviteFriend> invites = dfr.getFriendInvitesByInviterKey(user);
             if (invites != null) {
-                for (FriendInvite fi : invites) {
+                for (InviteFriend fi : invites) {
                     GameTheirTurn gtt = new GameTheirTurn();
                     gtt.setId(fi.getInviteeEmail());
                     gtt.setDetails(fi.getInviteeDetails());
@@ -76,7 +89,7 @@ public class SvcGameImpl implements SvcGame {
 
     // @Override
     // public void setMyTurns(List<GameMyTurn> myTurns) {
-    // List<FriendInvite> getFriendInvitesByKey(User user)
+    // List<InviteFriend> getFriendInvitesByKey(User user)
     // TODO call backend
 
     // }
@@ -91,8 +104,8 @@ public class SvcGameImpl implements SvcGame {
     }
 
     @Override
-    public List<FriendInvite> getFriendInvitesByInviterKey(User user) throws WPServiceException {
-        List<FriendInvite> result = new ArrayList<FriendInvite>();
+    public List<InviteFriend> getFriendInvitesByInviterKey(User user) throws WPServiceException {
+        List<InviteFriend> result = new ArrayList<InviteFriend>();
         DaoFriendInvite f = DaoFriendInviteFactory.getFriendInviteDao();
         try {
             result = f.getFriendInvitesByInviterKey(user);
@@ -126,7 +139,7 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     /*
-     * * Scan the FriendInvitesTable for a user's email. For each FriendInvite
+     * * Scan the FriendInvitesTable for a user's email. For each InviteFriend
      * Try to find an existing user with that email If found, convert replace
      * the email with the key and update details
      */
@@ -140,20 +153,20 @@ public class SvcGameImpl implements SvcGame {
                     try {
                         // get FriendInvites for this user from db
                         DaoFriendInvite dfi = DaoFriendInviteFactory.getFriendInviteDao();
-                        List<FriendInvite> invites = dfi.getFriendInvitesByEmail(fUser);
+                        List<InviteFriend> invites = dfi.getFriendInvitesByEmail(fUser);
                         final String msg = "updateFriendInvites: user:" + fUser + " invites:" + invites;
                         log.info(msg);
                         Key key = fUser.getKey();
                         String details = fUser.getDetails();
                         if (invites != null && invites.size() > 0) {
-                            for (FriendInvite invite : invites) {
+                            for (InviteFriend invite : invites) {
                                 invite.setInviteeKey(key);
                                 invite.setInviteeDetails(details);
                             }
                             // write new friend requests to database
-                            at.put(invites);
-                            result = true;
+                            at.put(invites);                           
                         }
+                        result = true;
                     } catch (DaoException e) {
                     }
                     return result;
@@ -175,11 +188,11 @@ public class SvcGameImpl implements SvcGame {
     public void updateFriendInvites() {
         DaoFriendInvite dfi = DaoFriendInviteFactory.getFriendInviteDao();
         try {
-            List<FriendInvite> invites = dfi.getAllFriendInvites();
+            List<InviteFriend> invites = dfi.getAllFriendInvites();
             Map<String, Boolean> processed = new HashMap<String, Boolean>();
             if (invites != null) {
                 DaoUser du = DaoUserFactory.getUserDao();
-                for (FriendInvite fi : invites) {
+                for (InviteFriend fi : invites) {
                     try {
                         String email = fi.getInviteeDetails();
                         if (processed.containsKey(email) == false) {
@@ -212,13 +225,13 @@ public class SvcGameImpl implements SvcGame {
         final DaoFriendInvite dfi = DaoFriendInviteFactory.getFriendInviteDao();
         final DaoUser du = DaoUserFactory.getUserDao();
         final String msg = "makeFriends friendInviteKeyStr" + friendInviteKeyStr;
-        FriendInvite fi = null;
+        InviteFriend fi = null;
         try {
             fi = dfi.toFriendInvite(friendInviteKeyStr);
         } catch (DaoException e1) {
             throw new WPServiceException(e1.getMessage());
         }
-        final FriendInvite ffi = fi;
+        final InviteFriend ffi = fi;
         Predicate<Atomic> WORK = new Predicate<Atomic>() {
             public boolean apply(Atomic at) {
                 boolean result = false;

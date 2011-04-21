@@ -31,6 +31,17 @@ public class Game implements Serializable {
 
     private boolean completed = false;
 
+    @Attribute(unindexed = true)
+    private boolean isIgnored = false;
+
+    public boolean isIgnored() {
+        return isIgnored;
+    }
+
+    public void setIgnored(boolean isIgnored) {
+        this.isIgnored = isIgnored;
+    }
+
     public Key getKey() {
         return key;
     }

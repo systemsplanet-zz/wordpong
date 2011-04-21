@@ -64,7 +64,7 @@ public class User implements Serializable {
     private List<Key> invitationRequests = new ArrayList<Key>();
 
 
-    // Points to FriendInvite (invitations sent to invite friends), Game
+    // Points to InviteFriend (invitations sent to invite friends), Game
     // (invites to play),
     @Attribute(unindexed = true)
     private Set<Key> theirTurns = new HashSet<Key>();

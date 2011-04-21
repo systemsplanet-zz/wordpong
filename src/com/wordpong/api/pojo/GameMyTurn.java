@@ -14,7 +14,7 @@ public class GameMyTurn {
 
     
     public static enum Action {
-        Unknown, InvitationRequest, InviteAccepted, AnswerQuestion
+        Unknown, InvitationRequest, InviteAccepted, CreateGame
     }
 
     private Action _action = Action.Unknown;
@@ -33,8 +33,8 @@ public class GameMyTurn {
             case InviteAccepted:
                 result = "Invite Accepted";
                 break;
-            case AnswerQuestion:
-                result = "Answer Question";
+            case CreateGame:
+                result = "Create Game";
                 break;
             case Unknown:
                 result = "Unknown";

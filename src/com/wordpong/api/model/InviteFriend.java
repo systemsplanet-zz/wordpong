@@ -14,12 +14,12 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.wordpong.cmn.util.TimeUtil;
 
-// Sent to a exiting or non-members wordpong to invite them to join
+// Sent to a existing or non-members of wordpong to invite them to join
 // updated once user registers with word pong
 // deleted when invite is accepted or denied
 
 @Model(schemaVersion = 1)
-public class FriendInvite implements Serializable {
+public class InviteFriend implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -197,7 +197,7 @@ public class FriendInvite implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        FriendInvite other = (FriendInvite) obj;
+        InviteFriend other = (InviteFriend) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;
