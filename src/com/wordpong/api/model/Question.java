@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import com.google.appengine.api.datastore.Key;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -13,6 +13,8 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
+
+import com.google.appengine.api.datastore.Key;
 
 @Model(schemaVersion = 1)
 public class Question implements Serializable {
@@ -31,13 +33,20 @@ public class Question implements Serializable {
     @Attribute(listener = CreationDate.class)
     Date createdAt;
 
+    @Attribute(unindexed = true)
     private Key user;
 
+    @Attribute(unindexed = true)
     private List<String> questions;
 
+    @Attribute(unindexed = false)
     private String title;
 
+    @Attribute(unindexed = true)
     private String description;
+
+    @Attribute(unindexed = true)
+    Set<String> tags;
 
     @Attribute(unindexed = true, lob = true)
     private Locale locale;
@@ -145,6 +154,17 @@ public class Question implements Serializable {
         this.version = version;
     }
 
+    public Set<String> getTags() {
+        if (tags == null) {
+            tags = new TreeSet<String>();
+        }
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -174,6 +194,7 @@ public class Question implements Serializable {
         }
         return true;
     }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

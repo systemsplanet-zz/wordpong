@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-18 21:35:13")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-24 01:24:18")
 /** */
 public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.Question> {
 
@@ -8,7 +8,7 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Question, java.util.Date> createdAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Question, java.util.Date>(this, "createdAt", "createdAt", java.util.Date.class);
 
     /** */
-    public final org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.Question> description = new org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.Question>(this, "description", "description");
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.Question> description = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.Question>(this, "description", "description");
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Question, java.lang.Integer> intimacyLevel = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Question, java.lang.Integer>(this, "intimacyLevel", "intimacyLevel", int.class);
@@ -20,7 +20,10 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
     public final org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.Question, java.util.Locale> locale = new org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.Question, java.util.Locale>(this, "locale", "locale", java.util.Locale.class);
 
     /** */
-    public final org.slim3.datastore.StringCollectionAttributeMeta<com.wordpong.api.model.Question, java.util.List<java.lang.String>> questions = new org.slim3.datastore.StringCollectionAttributeMeta<com.wordpong.api.model.Question, java.util.List<java.lang.String>>(this, "questions", "questions", java.util.List.class);
+    public final org.slim3.datastore.StringCollectionUnindexedAttributeMeta<com.wordpong.api.model.Question, java.util.List<java.lang.String>> questions = new org.slim3.datastore.StringCollectionUnindexedAttributeMeta<com.wordpong.api.model.Question, java.util.List<java.lang.String>>(this, "questions", "questions", java.util.List.class);
+
+    /** */
+    public final org.slim3.datastore.StringCollectionUnindexedAttributeMeta<com.wordpong.api.model.Question, java.util.Set<java.lang.String>> tags = new org.slim3.datastore.StringCollectionUnindexedAttributeMeta<com.wordpong.api.model.Question, java.util.Set<java.lang.String>>(this, "tags", "tags", java.util.Set.class);
 
     /** */
     public final org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.Question> title = new org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.Question>(this, "title", "title");
@@ -65,6 +68,7 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
         java.util.Locale _locale = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("locale"));
         model.setLocale(_locale);
         model.setQuestions(toList(java.lang.String.class, entity.getProperty("questions")));
+        model.setTags(new java.util.HashSet<java.lang.String>(toList(java.lang.String.class, entity.getProperty("tags"))));
         model.setTitle((java.lang.String) entity.getProperty("title"));
         model.setUpdatedAt((java.util.Date) entity.getProperty("updatedAt"));
         model.setUser((com.google.appengine.api.datastore.Key) entity.getProperty("user"));
@@ -83,13 +87,14 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
         entity.setProperty("createdAt", m.getCreatedAt());
-        entity.setProperty("description", m.getDescription());
+        entity.setUnindexedProperty("description", m.getDescription());
         entity.setProperty("intimacyLevel", m.getIntimacyLevel());
         entity.setUnindexedProperty("locale", serializableToBlob(m.getLocale()));
-        entity.setProperty("questions", m.getQuestions());
+        entity.setUnindexedProperty("questions", m.getQuestions());
+        entity.setUnindexedProperty("tags", m.getTags());
         entity.setProperty("title", m.getTitle());
         entity.setProperty("updatedAt", m.getUpdatedAt());
-        entity.setProperty("user", m.getUser());
+        entity.setUnindexedProperty("user", m.getUser());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("visibility", m.getVisibility());
         entity.setProperty("slim3.schemaVersion", 1);
@@ -185,6 +190,15 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
             }
             writer.endArray();
         }
+        if(m.getTags() != null){
+            writer.setNextPropertyName("tags");
+            encoder = new org.slim3.datastore.json.Default();
+            writer.beginArray();
+            for(java.lang.String v : m.getTags()){
+                encoder.encode(writer, v);
+            }
+            writer.endArray();
+        }
         if(m.getTitle() != null){
             writer.setNextPropertyName("title");
             encoder = new org.slim3.datastore.json.Default();
@@ -247,6 +261,24 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
                     }
                 }
                 m.setQuestions(elements);
+            }
+        }
+        reader = rootReader.newObjectReader("tags");
+        decoder = new org.slim3.datastore.json.Default();
+        {
+            java.util.HashSet<java.lang.String> elements = new java.util.HashSet<java.lang.String>();
+            org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("tags");
+            if(r != null){
+                reader = r;
+                int n = r.length();
+                for(int i = 0; i < n; i++){
+                    r.setIndex(i);
+                    java.lang.String v = decoder.decode(reader, (java.lang.String)null)                    ;
+                    if(v != null){
+                        elements.add(v);
+                    }
+                }
+                m.setTags(elements);
             }
         }
         reader = rootReader.newObjectReader("title");
