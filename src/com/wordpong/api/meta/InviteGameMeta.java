@@ -1,8 +1,14 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-20 22:45:39")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-23 15:32:38")
 /** */
 public final class InviteGameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.InviteGame> {
+
+    /** */
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteGame, com.google.appengine.api.datastore.Key> activePlayerKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteGame, com.google.appengine.api.datastore.Key>(this, "activePlayerKey", "activePlayerKey", com.google.appengine.api.datastore.Key.class);
+
+    /** */
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteGame, com.google.appengine.api.datastore.Key> answersKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteGame, com.google.appengine.api.datastore.Key>(this, "answersKey", "answersKey", com.google.appengine.api.datastore.Key.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteGame, java.util.Date> createdAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.InviteGame, java.util.Date>(this, "createdAt", "createdAt", java.util.Date.class);
@@ -52,6 +58,8 @@ public final class InviteGameMeta extends org.slim3.datastore.ModelMeta<com.word
     @Override
     public com.wordpong.api.model.InviteGame entityToModel(com.google.appengine.api.datastore.Entity entity) {
         com.wordpong.api.model.InviteGame model = new com.wordpong.api.model.InviteGame();
+        model.setActivePlayerKey((com.google.appengine.api.datastore.Key) entity.getProperty("activePlayerKey"));
+        model.setAnswersKey((com.google.appengine.api.datastore.Key) entity.getProperty("answersKey"));
         model.setCreatedAt((java.util.Date) entity.getProperty("createdAt"));
         model.setInviteeDetails((java.lang.String) entity.getProperty("inviteeDetails"));
         model.setInviteeKey((com.google.appengine.api.datastore.Key) entity.getProperty("inviteeKey"));
@@ -73,6 +81,8 @@ public final class InviteGameMeta extends org.slim3.datastore.ModelMeta<com.word
         } else {
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
+        entity.setProperty("activePlayerKey", m.getActivePlayerKey());
+        entity.setProperty("answersKey", m.getAnswersKey());
         entity.setProperty("createdAt", m.getCreatedAt());
         entity.setProperty("inviteeDetails", m.getInviteeDetails());
         entity.setProperty("inviteeKey", m.getInviteeKey());
@@ -142,6 +152,16 @@ public final class InviteGameMeta extends org.slim3.datastore.ModelMeta<com.word
         com.wordpong.api.model.InviteGame m = (com.wordpong.api.model.InviteGame) model;
         writer.beginObject();
         org.slim3.datastore.json.JsonCoder encoder = null;
+        if(m.getActivePlayerKey() != null){
+            writer.setNextPropertyName("activePlayerKey");
+            encoder = new org.slim3.datastore.json.Default();
+            encoder.encode(writer, m.getActivePlayerKey());
+        }
+        if(m.getAnswersKey() != null){
+            writer.setNextPropertyName("answersKey");
+            encoder = new org.slim3.datastore.json.Default();
+            encoder.encode(writer, m.getAnswersKey());
+        }
         if(m.getCreatedAt() != null){
             writer.setNextPropertyName("createdAt");
             encoder = new org.slim3.datastore.json.Default();
@@ -193,6 +213,12 @@ public final class InviteGameMeta extends org.slim3.datastore.ModelMeta<com.word
         com.wordpong.api.model.InviteGame m = new com.wordpong.api.model.InviteGame();
         org.slim3.datastore.json.JsonReader reader = null;
         org.slim3.datastore.json.JsonCoder decoder = null;
+        reader = rootReader.newObjectReader("activePlayerKey");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setActivePlayerKey(decoder.decode(reader, m.getActivePlayerKey()));
+        reader = rootReader.newObjectReader("answersKey");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setAnswersKey(decoder.decode(reader, m.getAnswersKey()));
         reader = rootReader.newObjectReader("createdAt");
         decoder = new org.slim3.datastore.json.Default();
         m.setCreatedAt(decoder.decode(reader, m.getCreatedAt()));

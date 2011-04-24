@@ -17,8 +17,8 @@ import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.err.DaoException;
 import com.wordpong.api.svc.dao.transact.Atomic;
 
-public class DaoFriendInviteImpl extends DaoBase<InviteFriend> implements DaoFriendInvite {
-    private static final Logger log = Logger.getLogger(DaoFriendInviteImpl.class.getName());
+public class DaoInviteFriendImpl extends DaoBase<InviteFriend> implements DaoInviteFriend {
+    private static final Logger log = Logger.getLogger(DaoInviteFriendImpl.class.getName());
 
     @Override
     public void inviteFriends(User user, List<String> emails) throws DaoException {
@@ -149,7 +149,7 @@ public class DaoFriendInviteImpl extends DaoBase<InviteFriend> implements DaoFri
         }
     }
 
-    public InviteFriend toFriendInvite(String friendInviteKeyStr) throws DaoException {
+    public InviteFriend getFriendInvite(String friendInviteKeyStr) throws DaoException {
         InviteFriend result = null;
         try {
             if (friendInviteKeyStr == null)

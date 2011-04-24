@@ -11,6 +11,7 @@ import com.wordpong.api.model.User;
 public class FriendGames {
 
     private User friend;
+    // todo: populate this list as games are completed
     private List<Game> games;
 
     public String getId() {

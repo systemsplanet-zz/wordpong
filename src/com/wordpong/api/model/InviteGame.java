@@ -35,7 +35,15 @@ public class InviteGame implements Serializable {
     @Attribute(listener = ModificationDate.class)
     Date updatedAt;
 
-    // FROM ENVITER
+    // keeps track of whose turn it is
+    @Attribute(unindexed = false)
+    private Key answersKey;
+
+    // keeps track of whose turn it is
+    @Attribute(unindexed = false)
+    private Key activePlayerKey;
+
+    // FROM INVITER
 
     @Attribute(unindexed = false)
     private Key inviterKey;
@@ -101,6 +109,14 @@ public class InviteGame implements Serializable {
 
     public String getUpdatedAtString() {
         return TimeUtil.getElapsedTimeString(updatedAt);
+    }
+
+    public Key getActivePlayerKey() {
+        return activePlayerKey;
+    }
+
+    public void setActivePlayerKey(Key activePlayerKey) {
+        this.activePlayerKey = activePlayerKey;
     }
 
     public Key getInviterKey() {
@@ -175,6 +191,15 @@ public class InviteGame implements Serializable {
 
     public void setIgnored(boolean isIgnored) {
         this.isIgnored = isIgnored;
+    }
+
+
+    public Key getAnswersKey() {
+        return answersKey;
+    }
+
+    public void setAnswersKey(Key answersKey) {
+        this.answersKey = answersKey;
     }
 
     @Override

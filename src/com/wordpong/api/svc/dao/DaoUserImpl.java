@@ -74,21 +74,30 @@ public class DaoUserImpl extends DaoBase<User> implements DaoUser {
         return result;
     }
 
-    public void makeFriends(Atomic at, final Key user1, final Key user2) throws DaoException {
-        final String msg = "makeFriends: u1:" + user1 + " u2:" + user2;
+    public void makeFriends(Atomic at, final User invitee, final User inviter) throws DaoException {
+        final String msg = "makeFriends: invitee:" + invitee + " inviter:" + inviter;
         try {
-            User u1 = at.get(User.class, user1);
-            User u2 = at.get(User.class, user2);
-            Set<Key> u1Friends = u1.getFriends();
-            u1Friends.add(u2.getKey());
-            Set<Key> u2Friends = u2.getFriends();
-            u2Friends.add(u1.getKey());
-            at.put(u1, u2);
+            Set<Key> u1Friends = invitee.getFriends();
+            u1Friends.add(inviter.getKey());
+            Set<Key> u2Friends = inviter.getFriends();
+            u2Friends.add(invitee.getKey());
+            at.put(invitee, inviter);
             log.finer(msg);
         } catch (Exception e) {
             log.warning(msg + " err:" + e.getMessage());
             throw new DaoException(e.getMessage());
         }
+    }
+
+    public User getUser(Key key) throws DaoException {
+        User result = null;
+        try {
+            result = get(key);
+        } catch (Exception e) {
+            log.warning("getUser key:" + key + " err:" + e.getMessage());
+            throw new DaoException(e.getMessage());
+        }
+        return result;
     }
 
     public void purgeExpiredPasswordChangeRequests() {

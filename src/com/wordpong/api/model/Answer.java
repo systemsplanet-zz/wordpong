@@ -20,7 +20,8 @@ public class Answer implements Serializable {
     @Attribute(version = true)
     private Long version;
 
-    private Key user;
+    private Key userKey;
+    private Key questionsKey;
     
     private List<String> answers;
     
@@ -43,14 +44,6 @@ public class Answer implements Serializable {
         this.version = version;
     }
 
-    public Key getUser() {
-        return user;
-    }
-
-    public void setUser(Key user) {
-        this.user = user;
-    }
-
     public List<String> getAnswers() {
         return answers;
     }
@@ -65,6 +58,24 @@ public class Answer implements Serializable {
 
     public void setLocale(Locale locale) {
         this.locale = locale;
+    }
+
+    
+    
+    public Key getUserKey() {
+        return userKey;
+    }
+
+    public void setUserKey(Key userKey) {
+        this.userKey = userKey;
+    }
+
+    public Key getQuestionsKey() {
+        return questionsKey;
+    }
+
+    public void setQuestionsKey(Key questionsKey) {
+        this.questionsKey = questionsKey;
     }
 
     @Override

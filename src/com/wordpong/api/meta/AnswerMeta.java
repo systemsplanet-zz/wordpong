@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-18 21:35:13")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-23 15:31:59")
 /** */
 public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.Answer> {
 
@@ -14,7 +14,10 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
     public final org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.Answer, java.util.Locale> locale = new org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.Answer, java.util.Locale>(this, "locale", "locale", java.util.Locale.class);
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key> user = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key>(this, "user", "user", com.google.appengine.api.datastore.Key.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key> questionsKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key>(this, "questionsKey", "questionsKey", com.google.appengine.api.datastore.Key.class);
+
+    /** */
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key> userKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key>(this, "userKey", "userKey", com.google.appengine.api.datastore.Key.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, java.lang.Long> version = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, java.lang.Long>(this, "version", "version", java.lang.Long.class);
@@ -40,7 +43,8 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
         model.setKey(entity.getKey());
         java.util.Locale _locale = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("locale"));
         model.setLocale(_locale);
-        model.setUser((com.google.appengine.api.datastore.Key) entity.getProperty("user"));
+        model.setQuestionsKey((com.google.appengine.api.datastore.Key) entity.getProperty("questionsKey"));
+        model.setUserKey((com.google.appengine.api.datastore.Key) entity.getProperty("userKey"));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         return model;
     }
@@ -56,7 +60,8 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
         }
         entity.setProperty("answers", m.getAnswers());
         entity.setUnindexedProperty("locale", serializableToBlob(m.getLocale()));
-        entity.setProperty("user", m.getUser());
+        entity.setProperty("questionsKey", m.getQuestionsKey());
+        entity.setProperty("userKey", m.getUserKey());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
         return entity;
@@ -135,10 +140,15 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getLocale());
         }
-        if(m.getUser() != null){
-            writer.setNextPropertyName("user");
+        if(m.getQuestionsKey() != null){
+            writer.setNextPropertyName("questionsKey");
             encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getUser());
+            encoder.encode(writer, m.getQuestionsKey());
+        }
+        if(m.getUserKey() != null){
+            writer.setNextPropertyName("userKey");
+            encoder = new org.slim3.datastore.json.Default();
+            encoder.encode(writer, m.getUserKey());
         }
         if(m.getVersion() != null){
             writer.setNextPropertyName("version");
@@ -177,9 +187,12 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
         reader = rootReader.newObjectReader("locale");
         decoder = new org.slim3.datastore.json.Default();
         m.setLocale(decoder.decode(reader, m.getLocale(), java.util.Locale.class));
-        reader = rootReader.newObjectReader("user");
+        reader = rootReader.newObjectReader("questionsKey");
         decoder = new org.slim3.datastore.json.Default();
-        m.setUser(decoder.decode(reader, m.getUser()));
+        m.setQuestionsKey(decoder.decode(reader, m.getQuestionsKey()));
+        reader = rootReader.newObjectReader("userKey");
+        decoder = new org.slim3.datastore.json.Default();
+        m.setUserKey(decoder.decode(reader, m.getUserKey()));
         reader = rootReader.newObjectReader("version");
         decoder = new org.slim3.datastore.json.Default();
         m.setVersion(decoder.decode(reader, m.getVersion()));

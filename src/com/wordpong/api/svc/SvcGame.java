@@ -14,7 +14,7 @@ public interface SvcGame {
 
     List<GameMyTurn> getMyTurns(User user);
 
-    public List<GameTheirTurn> getTheirTurns(User user);
+    List<GameTheirTurn> getTheirTurns(User user);
 
     Question saveQuestion(Question u) throws WPServiceException;
 

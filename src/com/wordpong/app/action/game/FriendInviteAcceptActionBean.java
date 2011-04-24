@@ -65,11 +65,16 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements Vali
                 User user = c.getUserFromSession();
                 if (user != null) {
                     SvcGame sg = SvcGameFactory.getGameService();
-                    sg.makeFriends(key);
+                    sg.makeFriends(key); // inviteFriendKey
                     SvcUser su = SvcUserFactory.getUserService();
                     // get user with new friend attached
                     user = su.getByKey(user);
                     c.putUserToRequestAndSession(user);
+                    //TODO: add a new InviteGame to both friends
+                    // game wont have a question or answer list
+                    // user must select their answers
+                    
+
                     // String url = "https://wordpong.appspot.com/" +
                     // friend.email;
                     // String msg = getMsg("friendInviteAccept.email.message",

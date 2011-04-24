@@ -13,7 +13,7 @@ public interface DaoUser {
 
     User findByEmail(String email) throws DaoException;
 
-    void makeFriends(Atomic at, Key user1, Key user2) throws DaoException;
+    void makeFriends(Atomic at, User invitee, User inviter) throws DaoException;
 
     void purgeExpiredPasswordChangeRequests();
 
@@ -22,6 +22,8 @@ public interface DaoUser {
     PasswordChangeRequest getPasswordChangeRequest(String randomId);
 
     List<User> getUsers(List<Key> keys) throws DaoException;
+
+    User getUser(Key key) throws DaoException;
 
     User getUser(User user) throws DaoException;
 

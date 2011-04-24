@@ -87,6 +87,8 @@ public class GameActionBean extends BaseActionBean {
         return user;
     }
 
+    // get list of things for me to do, like:
+    // respond to friend/game invites
     public List<GameMyTurn> getMyTurns() {
         user = getContext().getUserFromSession();
         return _svcGame.getMyTurns(user);
@@ -96,9 +98,4 @@ public class GameActionBean extends BaseActionBean {
         user = getContext().getUserFromSession();
         return _svcGame.getTheirTurns(user);
     }
-
-//    public void setMyTurns(List<GameMyTurn> myTurns) {
-//        _svcGame.setMyTurns(myTurns);
-//    }
-
 }
