@@ -44,8 +44,8 @@ public class SvcGameImpl implements SvcGame {
                     GameMyTurn gmt = new GameMyTurn();
                     gmt.setAction(GameMyTurn.Action.InvitationRequest);
                     gmt.setId(fr.getInviterEmail());
-                    String invite = SvcLocale.get("invite");
-                    gmt.setDetails(invite + ":" + fr.getInviterDetails());
+                    String newFriend = SvcLocale.get("newFriend");
+                    gmt.setDetails(newFriend + ": " + fr.getInviterDetails());
                     gmt.setCreatedAtString(fr.getCreatedAtString());
                     gmt.setKey(fr.getKeyString());
                     result.add(gmt);
@@ -61,7 +61,7 @@ public class SvcGameImpl implements SvcGame {
                     gmt.setAction(GameMyTurn.Action.CreateGame);
                     gmt.setId(g.getInviterEmail());
                     String newGame = SvcLocale.get("newGame");
-                    gmt.setDetails(newGame + ":" + g.getInviterDetails());
+                    gmt.setDetails(newGame + ": " + g.getInviterDetails());
                     gmt.setCreatedAtString(g.getCreatedAtString());
                     gmt.setKey(g.getKeyString());
                     result.add(gmt);
@@ -83,7 +83,8 @@ public class SvcGameImpl implements SvcGame {
                 for (InviteFriend fi : invites) {
                     GameTheirTurn gtt = new GameTheirTurn();
                     gtt.setId(fi.getInviteeEmail());
-                    gtt.setDetails(fi.getInviteeDetails());
+                    String newFriend = SvcLocale.get("newFriend");
+                    gtt.setDetails(newFriend + ": " + fi.getInviteeDetails());
                     gtt.setAction(GameTheirTurn.Action.InvitationSent);
                     gtt.setCreatedAtString(fi.getCreatedAtString());
                     turns.add(gtt);
