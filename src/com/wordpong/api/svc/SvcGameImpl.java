@@ -27,6 +27,7 @@ import com.wordpong.api.svc.dao.DaoUser;
 import com.wordpong.api.svc.dao.DaoUserFactory;
 import com.wordpong.api.svc.dao.err.DaoException;
 import com.wordpong.api.svc.dao.transact.Atomic;
+import com.wordpong.api.svc.util.SvcLocale;
 
 public class SvcGameImpl implements SvcGame {
     private static final Logger log = Logger.getLogger(SvcGameImpl.class.getName());
@@ -43,13 +44,14 @@ public class SvcGameImpl implements SvcGame {
                     GameMyTurn gmt = new GameMyTurn();
                     gmt.setAction(GameMyTurn.Action.InvitationRequest);
                     gmt.setId(fr.getInviterEmail());
-                    gmt.setDetails(fr.getInviterDetails());
+                    String invite = SvcLocale.get("invite");
+                    gmt.setDetails(invite + ":" + fr.getInviterDetails());
                     gmt.setCreatedAtString(fr.getCreatedAtString());
                     gmt.setKey(fr.getKeyString());
                     result.add(gmt);
                 }
             }
-            
+
             // get the games where it's my turn
             DaoInviteGame dig = DaoInviteGameFactory.getInviteGameDao();
             List<InviteGame> games = dig.getGameActivePlayerByInviteeKey(user);
@@ -58,7 +60,8 @@ public class SvcGameImpl implements SvcGame {
                     GameMyTurn gmt = new GameMyTurn();
                     gmt.setAction(GameMyTurn.Action.CreateGame);
                     gmt.setId(g.getInviterEmail());
-                    gmt.setDetails("New Game:" + g.getInviterDetails());
+                    String newGame = SvcLocale.get("newGame");
+                    gmt.setDetails(newGame + ":" + g.getInviterDetails());
                     gmt.setCreatedAtString(g.getCreatedAtString());
                     gmt.setKey(g.getKeyString());
                     result.add(gmt);

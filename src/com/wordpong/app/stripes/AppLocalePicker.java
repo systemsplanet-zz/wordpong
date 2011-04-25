@@ -5,12 +5,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import net.sourceforge.stripes.config.Configuration;
+import net.sourceforge.stripes.controller.StripesFilter;
 import net.sourceforge.stripes.localization.DefaultLocalePicker;
+
+import com.wordpong.api.svc.util.SvcLocale;
 
 /**
  * The locale picker usd by MemWords. Rather than using a list of locales and
@@ -21,6 +27,7 @@ import net.sourceforge.stripes.localization.DefaultLocalePicker;
  */
 
 public class AppLocalePicker extends DefaultLocalePicker {
+    private static final Logger log = Logger.getLogger(AppLocalePicker.class.getName());
 
 	/**
 	 * The hard-coded, read-only list of supported locales
@@ -56,19 +63,27 @@ public class AppLocalePicker extends DefaultLocalePicker {
 
 	@Override
 	public Locale pickLocale(HttpServletRequest request) {
-		Locale result = null;
+		Locale locale = null;
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			Locale preferredLocale = (Locale) session
 					.getAttribute(SESSION_LOCALE);
 			if (preferredLocale != null) {
-				result = preferredLocale;
+				locale = preferredLocale;
 			}
 		}
-		if (result == null) {
-			result = super.pickLocale(request);
+		if (locale == null) {
+			locale = super.pickLocale(request);
 		}
-		return result;
+		// configure all services for the current locale
+        try {
+            ResourceBundle bundle = StripesFilter.getConfiguration().getLocalizationBundleFactory().getErrorMessageBundle(locale);
+            String encoding = request.getCharacterEncoding();
+            SvcLocale.initServiceThread(locale, bundle, encoding);
+        } catch (MissingResourceException mre) {
+            log.warning("could not find the error messages resource bundle. " + "Check that you have a StripesResources.properties in your classpath");
+        }
+		return locale;
 	}
 
 	/**

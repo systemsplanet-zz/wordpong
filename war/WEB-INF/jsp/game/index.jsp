@@ -7,7 +7,6 @@
 <fmt:message var="logoutLbl" key="logout" />
 <fmt:message var="friendsLbl" key="friends" />
 <fmt:message var="profileLbl" key="profile" />
-<fmt:message var="inviteLbl" key="invite" />
 
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
   
@@ -27,7 +26,7 @@
         <li data-role="list-divider" >${myTurnLbl} (${myBean.user.fullName})</li>              
         <small>
         <c:forEach items="${actionBean.myTurns}" var="myTurn" >
-                <input onClick="javascript:$('#key').val('${myTurn.key}');$('#email').val('${myTurn.id}');$('#createdAtString').val('${myTurn.createdAtString}');" data-theme="a" class="process"  name="acceptInvite" value="${inviteLbl}: ${myTurn.details}" type="submit" />
+                <input onClick="javascript:$('#key').val('${myTurn.key}');$('#email').val('${myTurn.id}');$('#createdAtString').val('${myTurn.createdAtString}');" data-theme="a" class="process"  name="acceptInvite" value="${myTurn.details}" type="submit" />
         </c:forEach>
         </small>         
 	</ul>
