@@ -295,4 +295,14 @@ public class SvcGameImpl implements SvcGame {
         }
         return fgs;
     }
+
+    public void seedQuestions(User user) throws WPServiceException {
+        DaoQuestion f = DaoQuestionFactory.getQuestionDao();
+        try {
+            f.seedQuestions(user);
+        } catch (DaoException e) {
+            throw new WPServiceException("seedQuestions err: " + e.getMessage());
+        }
+    }
+
 }

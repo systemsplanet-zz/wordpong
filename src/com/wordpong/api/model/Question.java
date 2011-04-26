@@ -3,7 +3,6 @@ package com.wordpong.api.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -48,11 +47,13 @@ public class Question implements Serializable {
     @Attribute(unindexed = true)
     Set<String> tags;
 
-    @Attribute(unindexed = true, lob = true)
-    private Locale locale;
+    // eg pt_BR, en_US
+    @Attribute(unindexed = true)
+    private String locale;
 
     // 0 is private
     // 1 is public
+    @Attribute(unindexed = false)
     private int visibility;
 
     // 0 is cliches
@@ -62,6 +63,7 @@ public class Question implements Serializable {
     // 4 is feelings
     // 5 is fears/failures/weaknesses
     // 6 is needs
+    @Attribute(unindexed = false)
     private int intimacyLevel;
 
     // GETTER/SETTERS
@@ -130,11 +132,11 @@ public class Question implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Locale getLocale() {
+    public String getLocale() {
         return locale;
     }
 
-    public void setLocale(Locale locale) {
+    public void setLocale(String locale) {
         this.locale = locale;
     }
 

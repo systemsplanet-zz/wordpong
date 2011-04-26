@@ -39,11 +39,18 @@ log.info("Admin run by user:"+ session.getAttribute("com.wordpong.session.user")
         <s:url beanclass="com.wordpong.app.action.admin.AdminActionBean" event="logout" var="logoutUrl"/>
 	<a href="${logoutUrl}" rel="external">Logout WordPong</a>
 --%>	
-	<s:form  beanclass="com.wordpong.app.action.admin.AdminActionBean" method="post">
-		<input name="logout" value="Logout WordPong" type="submit" class="process" style="height:20px"/>
-	</s:form>
+
+
+
+
+    <s:form  beanclass="com.wordpong.app.action.admin.AdminActionBean" method="post">
+        <input name="seedQuestions" value="Seed Questions" type="submit" class="process" style="height:20px"/>
+    </s:form>
+    <s:form  beanclass="com.wordpong.app.action.admin.AdminActionBean" method="post">
+        <input name="logout" value="Logout WordPong" type="submit" class="process" style="height:20px"/>
+    </s:form>
 	
-	<br>
-	<a href="${actionBean.logoutUrl}" rel="external">Logout Google</a></br>
-	<br>			
+    <br>
+    <a href="${actionBean.logoutUrl}" rel="external">Logout Google</a></br>
+    <br>            
 </div>

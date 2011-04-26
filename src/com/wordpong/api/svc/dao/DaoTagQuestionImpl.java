@@ -34,10 +34,10 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
                         Set<String> oldTags = q.getTags();
                         q.setTags(newTags);
                         // Update question
-                        at.put(Question.class, q);
+                        at.put(q);
                         HashSet<String> tagsToAdd = (HashSet<String>) ((HashSet<String>) newTags).clone();
                         tagsToAdd.removeAll(oldTags);
-                        
+
                         // add or update new tags
                         for (String tag : tagsToAdd) {
                             // find if existing
@@ -54,9 +54,9 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
                                 keys.add(q.getKey());
                                 tq.setKeys(keys);
                             }
-                            at.put(TagQuestion.class, tq);
+                            at.put(tq);
                         }
-                        
+
                         // remove old tags
                         Set<String> tagsToRemove = oldTags;
                         tagsToRemove.removeAll(newTags);
@@ -93,8 +93,8 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             TagQuestion tq = Datastore.query(e).filter(e.tag.equal(tag)).asSingle();
             if (tq != null && tq.getKeys() != null) {
                 List<Key> keys = tq.getKeys();
-                //todo: limit to 1000 max at a time
-                List<Question> qs = dq.get(keys); 
+                // todo: limit to 1000 max at a time
+                List<Question> qs = dq.get(keys);
                 result.addAll(qs);
             }
         }
