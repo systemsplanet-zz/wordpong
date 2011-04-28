@@ -70,6 +70,10 @@ public class GameActionBean extends BaseActionBean {
     public Resolution friendList() {
         return new ForwardResolution(FriendListActionBean.class);
     }
+    @DontValidate
+    public Resolution answerList() {
+        return new ForwardResolution(AnswerListActionBean.class);
+    }
 
     @DontValidate
     @HandlesEvent("viewInvite")

@@ -45,7 +45,7 @@ public class Question implements Serializable {
     private String description;
 
     @Attribute(unindexed = true)
-    Set<String> tags;
+    Set<String> tags = new TreeSet<String>();
 
     // eg pt_BR, en_US
     @Attribute(unindexed = true)

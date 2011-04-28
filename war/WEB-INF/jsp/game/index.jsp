@@ -50,9 +50,9 @@
      
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${myStuffLbl}</li> 
-        <input name="answersList" action="answerList" data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${answersLbl}" type="submit" />
-        <input name="friendList" action="friendList" data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${friendsLbl}" type="submit" />
-		<input name="profileEdit" action="profileEdit" data-theme="a" data-iconpos="right" data-icon="gear" class="process" value="${profileLbl}" type="submit" />
+        <input name="answerList"  data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${answersLbl}" type="submit" />
+        <input name="friendList"  data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${friendsLbl}" type="submit" />
+		<input name="profileEdit"  data-theme="a" data-iconpos="right" data-icon="gear" class="process" value="${profileLbl}" type="submit" />
 
 <!-- 		<li><a href="support.html">Ad-Free WordPong</a></li>  --> 
 	</ul> 

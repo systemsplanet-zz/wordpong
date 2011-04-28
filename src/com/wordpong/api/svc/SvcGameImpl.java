@@ -23,6 +23,8 @@ import com.wordpong.api.svc.dao.DaoInviteGame;
 import com.wordpong.api.svc.dao.DaoInviteGameFactory;
 import com.wordpong.api.svc.dao.DaoQuestion;
 import com.wordpong.api.svc.dao.DaoQuestionFactory;
+import com.wordpong.api.svc.dao.DaoTagQuestion;
+import com.wordpong.api.svc.dao.DaoTagQuestionFactory;
 import com.wordpong.api.svc.dao.DaoUser;
 import com.wordpong.api.svc.dao.DaoUserFactory;
 import com.wordpong.api.svc.dao.err.DaoException;
@@ -297,7 +299,7 @@ public class SvcGameImpl implements SvcGame {
     }
 
     public void seedQuestions(User user) throws WPServiceException {
-        DaoQuestion f = DaoQuestionFactory.getQuestionDao();
+        DaoTagQuestion f = DaoTagQuestionFactory.getTagQuestionDao();
         try {
             f.seedQuestions(user);
         } catch (DaoException e) {
