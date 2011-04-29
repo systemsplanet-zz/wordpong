@@ -68,9 +68,13 @@ $(window).resize(function() {
 	var p= $('.ui-page-active [data-role="content"]')
 	p.width($(".wp-page").outerWidth() - 30 );
 });
+
 $(document).bind("mobileinit", function(){
-	//$.mobile.nonHistorySelectors  = '.*';	  
+    $.extend($.mobile, {
+        loadingMessage: 'Ponging...'
+    });
 });
+
 $(document).ready(function() {
 	// If url contains a query string then redirect to home page without queryString
 	var query = location.search.substring(1); 
