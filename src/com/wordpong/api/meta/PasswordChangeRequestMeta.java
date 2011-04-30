@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-23 23:44:10")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-30 08:02:21")
 /** */
 public final class PasswordChangeRequestMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.PasswordChangeRequest> {
 
@@ -8,7 +8,7 @@ public final class PasswordChangeRequestMeta extends org.slim3.datastore.ModelMe
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.PasswordChangeRequest, java.util.Date> createdAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.PasswordChangeRequest, java.util.Date>(this, "createdAt", "createdAt", java.util.Date.class);
 
     /** */
-    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.PasswordChangeRequest> email = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.PasswordChangeRequest>(this, "email", "email");
+    public final org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.PasswordChangeRequest> email = new org.slim3.datastore.StringAttributeMeta<com.wordpong.api.model.PasswordChangeRequest>(this, "email", "email");
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.PasswordChangeRequest, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.PasswordChangeRequest, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
@@ -52,7 +52,7 @@ public final class PasswordChangeRequestMeta extends org.slim3.datastore.ModelMe
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
         entity.setProperty("createdAt", m.getCreatedAt());
-        entity.setUnindexedProperty("email", m.getEmail());
+        entity.setProperty("email", m.getEmail());
         entity.setProperty("randomId", m.getRandomId());
         entity.setProperty("slim3.schemaVersion", 1);
         return entity;

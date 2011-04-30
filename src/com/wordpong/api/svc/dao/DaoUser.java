@@ -19,7 +19,7 @@ public interface DaoUser {
 
     String createPasswordChangeRequest(String email) throws DaoException;
 
-    PasswordChangeRequest getPasswordChangeRequest(String randomId);
+    PasswordChangeRequest getPasswordChangeRequest(String randomId, String email);
 
     List<User> getUsers(List<Key> keys) throws DaoException;
 

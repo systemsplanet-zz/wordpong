@@ -43,8 +43,8 @@ public class SvcUserImpl implements SvcUser {
         return result;
     }
 
-    public PasswordChangeRequest getPasswordChangeRequest(String randomId) {
-        PasswordChangeRequest result = daoUser.getPasswordChangeRequest(randomId);
+    public PasswordChangeRequest getPasswordChangeRequest(String randomId, String email) {
+        PasswordChangeRequest result = daoUser.getPasswordChangeRequest(randomId, email);
         return result;
     }
 

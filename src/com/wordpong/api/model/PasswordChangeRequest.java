@@ -21,9 +21,10 @@ public class PasswordChangeRequest implements Serializable{
     @Attribute(listener = CreationDate.class)
     Date createdAt;
 
-    @Attribute(unindexed = true)
+    @Attribute(unindexed = false)
     private String email;
     
+    @Attribute(unindexed = false)
     private String randomId;
 
     public Key getKey() {

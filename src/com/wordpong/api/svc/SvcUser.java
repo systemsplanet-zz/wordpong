@@ -15,5 +15,5 @@ public interface SvcUser {
 
     public String createPasswordChangeRequest(String email) throws WPServiceException;
 
-    public PasswordChangeRequest getPasswordChangeRequest(String randomId);
+    public PasswordChangeRequest getPasswordChangeRequest(String randomId, String email);
 }

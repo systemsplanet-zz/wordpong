@@ -134,13 +134,13 @@ public class DaoUserImpl extends DaoBase<User> implements DaoUser {
         return id;
     }
 
-    public PasswordChangeRequest getPasswordChangeRequest(String randomId) {
+    public PasswordChangeRequest getPasswordChangeRequest(String randomId, String email) {
         PasswordChangeRequest pcr = null;
         PasswordChangeRequestMeta e = PasswordChangeRequestMeta.get();
         try {
-            pcr = Datastore.query(e).filter(e.randomId.equal(randomId)).asSingle();
+            pcr = Datastore.query(e).filter(e.randomId.equal(randomId)).filter(e.email.equal(email)).asSingle();
         } catch (Exception ex) {
-            log.warning("unable to locate Change Password Request code:" + randomId + " err:" + ex.getMessage());
+            log.warning("unable to locate Change Password Request code:" + randomId + " email:" + email + " err:" + ex.getMessage());
         }
         return pcr;
     }

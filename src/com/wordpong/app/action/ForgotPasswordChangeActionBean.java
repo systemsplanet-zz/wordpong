@@ -52,8 +52,7 @@ public class ForgotPasswordChangeActionBean extends BaseActionBean implements Va
     public Resolution submit() {
         AppActionBeanContext c = getContext();
         String email = RememberMe.getEmailFromCookie(c.getRequest(), c.getResponse());
-
-        PasswordChangeRequest pcr = SvcUserFactory.getUserService().getPasswordChangeRequest(code);
+        PasswordChangeRequest pcr = SvcUserFactory.getUserService().getPasswordChangeRequest(code, email);
         if (pcr == null) {
             addGlobalActionError("forgotPasswordChange.invalidCode");
         } else {
