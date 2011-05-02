@@ -32,9 +32,9 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             Set<String> tags = new TreeSet<String>();
             Question q = null;
             q = new Question();
-            q.setDescription("intimacy level 0");
-            q.setIntimacyLevel(0);
-            q.setLocale("en_US");
+            q.setDescription("private facts - Favorite Colors");
+            q.setIntimacyLevel(Question.INTIMACY_CLICHES);
+            q.setLocale(Question.LOCALE_EN_US);
             qs.clear();
             qs.add("Eye Color?");
             qs.add("Hair Color?");
@@ -47,12 +47,15 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             tags.add("colors");
             q.setTitle("Favorite Colors");
             q.setUser(u.getKey());
-            q.setVisibility(0);
+            q.setVisibility(Question.VISIBILITY_PRIVATE);
             setTags(q, tags);
+            
+            
+            
             q = new Question();
-            q.setDescription("intimacy level 1");
-            q.setIntimacyLevel(1);
-            q.setLocale("en_US");
+            q.setDescription("public facts - Favorite Dates");
+            q.setIntimacyLevel(Question.INTIMACY_FACTS);
+            q.setLocale(Question.LOCALE_EN_US);
             qs.clear();
             qs.add("Birth Date?");
             qs.add("Hire Date?");
@@ -65,8 +68,30 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             tags.add("dates");
             q.setTitle("Favorite Dates");
             q.setUser(u.getKey());
-            q.setVisibility(1);
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
             setTags(q, tags);
+
+
+            
+            q = new Question();
+            q.setDescription("public facts - Favorite Places");
+            q.setIntimacyLevel(Question.INTIMACY_FACTS);
+            q.setLocale(Question.LOCALE_EN_US);
+            qs.clear();
+            qs.add("Birth Place?");
+            qs.add("High School Location?");
+            qs.add("Work Place?");
+            qs.add("Marriage Place?");
+            q.setQuestions(qs);
+            tags.clear();
+            tags.add("favorites");
+            tags.add("personal");
+            tags.add("places");
+            q.setTitle("Favorite Places");
+            q.setUser(u.getKey());
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
+            setTags(q, tags);
+
             log.info("seedQuestions: user:" + u);
         } catch (Exception e) {
             log.warning("seedQuestions err:" + e.getMessage());
@@ -154,13 +179,15 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
         final TagQuestionMeta e = TagQuestionMeta.get();
         final DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
         List<Question> result = new ArrayList<Question>();
-        for (String tag : tags) {
-            TagQuestion tq = Datastore.query(e).filter(e.tag.equal(tag)).asSingle();
-            if (tq != null && tq.getKeys() != null) {
-                List<Key> keys = tq.getKeys();
-                // todo: limit to 1000 max at a time
-                List<Question> qs = dq.get(keys);
-                result.addAll(qs);
+        if (tags != null && tags.size() > 0) {
+            for (String tag : tags) {
+                TagQuestion tq = Datastore.query(e).filter(e.tag.equal(tag)).asSingle();
+                if (tq != null && tq.getKeys() != null) {
+                    List<Key> keys = tq.getKeys();
+                    // todo: limit to 1000 max at a time
+                    List<Question> qs = dq.get(keys);
+                    result.addAll(qs);
+                }
             }
         }
         return result;

@@ -35,5 +35,7 @@ public interface SvcGame {
     List<FriendGames> getMyFriendGames(User u);
 
     void seedQuestions(User user) throws WPServiceException;
-
+    
+    List<Question> getQuestionsPublic() throws WPServiceException;
+    
 }

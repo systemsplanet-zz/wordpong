@@ -14,11 +14,26 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @Model(schemaVersion = 1)
 public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static final int VISIBILITY_PUBLIC = 1;
+    public static final int VISIBILITY_PRIVATE = 0;
+
+    public static final int INTIMACY_CLICHES = 0;
+    public static final int INTIMACY_FACTS = 1;
+    public static final int INTIMACY_OPINIONS = 2;
+    public static final int INTIMACY_HOPES = 3;
+    public static final int INTIMACY_FEELINGS = 4;
+    public static final int INTIMACY_FEARS = 5;
+    public static final int INTIMACY_NEEDS = 6;
+
+    public static final String LOCALE_PT_BR = "pt_BR";
+    public static final String LOCALE_EN_US = "en_US";
 
     @Attribute(primaryKey = true)
     private Key key;
@@ -138,6 +153,11 @@ public class Question implements Serializable {
 
     public void setLocale(String locale) {
         this.locale = locale;
+    }
+
+    public String getKeyString() {
+        String k = KeyFactory.keyToString(key);
+        return k;
     }
 
     public Key getKey() {

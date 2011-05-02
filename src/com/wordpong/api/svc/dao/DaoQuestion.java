@@ -10,5 +10,7 @@ public interface DaoQuestion {
     Question save(Question u) throws DaoException;
 
     List<Question> get(List<Key> keys);
-    
+
+    List<Question> getPublic() throws DaoException;
+
 }

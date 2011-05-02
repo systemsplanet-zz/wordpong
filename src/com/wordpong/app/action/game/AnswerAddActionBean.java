@@ -13,6 +13,8 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
+import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.QuestionView;
 import com.wordpong.api.svc.SvcGame;
@@ -57,19 +59,24 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
     }
 
     public List<QuestionView> getQuestionList() {
-        user = getContext().getUserFromSession();
-        log.info("user:" + user + " svc:" + _svcGame);
-
+        // user = getContext().getUserFromSession();
         List<QuestionView> result = new ArrayList<QuestionView>();
-        QuestionView a = new QuestionView();
-        a.setId("id1");
-        a.setQuestionInfo("Favorites: Colors");
-        result.add(a);
-        a = new QuestionView();
-        a.setId("id2");
-        a.setQuestionInfo("Favorites: Dates");
-        result.add(a);
-        // TODO populate using _svcGame
+        List<Question> qs;
+        try {
+            qs = _svcGame.getQuestionsPublic();
+            if (qs != null && qs.size() > 0) {
+                for (Question q : qs) {
+                    QuestionView a = new QuestionView();
+                    String ks = q.getKeyString();
+                    a.setId(ks);
+                    String d = q.getDescription();
+                    a.setQuestionInfo(d);
+                    result.add(a);
+                }
+            }
+        } catch (WPServiceException e) {
+            log.warning("getQuestionList user:" + user + " err:" + e);
+        }
         return result;
     }
 

@@ -16,6 +16,6 @@ public interface DaoTagQuestion {
     List<Question> getQuestions(Set<String> tags) throws DaoException;
 
     // insert some questions in the db for testing
-    void seedQuestions(User user)throws DaoException;
+    void seedQuestions(User user) throws DaoException;
 
 }

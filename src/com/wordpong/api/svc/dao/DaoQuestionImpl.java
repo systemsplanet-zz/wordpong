@@ -1,5 +1,6 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.slim3.datastore.DaoBase;
@@ -57,6 +58,19 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         }
         if (result == null) {
             throw new DaoException("email:" + email);
+        }
+        return result;
+    }
+
+    public List<Question> getPublic() throws DaoException {
+        List<Question> result = null;
+        QuestionMeta e = QuestionMeta.get();
+        try {
+            result = Datastore.query(e).filter(e.visibility.equal(Question.VISIBILITY_PUBLIC)).asList();
+        } catch (Exception ex) {
+            // should never happen!
+            // com.google.appengine.api.datastore.PreparedQuery$TooManyResultsException
+            throw new DaoException("Err:" + ex.getMessage());
         }
         return result;
     }

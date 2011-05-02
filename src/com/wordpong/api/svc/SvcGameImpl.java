@@ -307,4 +307,16 @@ public class SvcGameImpl implements SvcGame {
         }
     }
 
+    @Override
+    public List<Question> getQuestionsPublic() throws WPServiceException {
+        List<Question> result = null;
+        DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+        try {
+            result = dq.getPublic();
+        } catch (DaoException e) {
+            throw new WPServiceException("getQuestionsPublic err: " + e.getMessage());
+        }
+        return result;
+    }
+
 }
