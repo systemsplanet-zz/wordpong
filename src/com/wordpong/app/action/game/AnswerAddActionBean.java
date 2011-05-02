@@ -22,7 +22,7 @@ import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class AnswerAddActionBean extends BaseActionBean implements ValidationErrorHandler {
     private static final Logger log = Logger.getLogger(AnswerAddActionBean.class.getName());
-    private static final String VIEW = "/WEB-INF/jsp/game/_questionList.jsp";
+    private static final String VIEW = "/WEB-INF/jsp/game/_answerAdd.jsp";
 
     private SvcGame _svcGame;
 
@@ -37,13 +37,11 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
         return new RedirectResolution(AnswerListActionBean.class);
     }
 
-
     @DontValidate
     @DefaultHandler
     public Resolution view() {
         return new ForwardResolution(VIEW);
     }
-
 
     @ValidationMethod
     public void validateUser(ValidationErrors errors) {
@@ -58,10 +56,10 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
         return new ForwardResolution(VIEW);
     }
 
-
     public List<QuestionView> getQuestionList() {
         user = getContext().getUserFromSession();
-        
+        log.info("user:" + user + " svc:" + _svcGame);
+
         List<QuestionView> result = new ArrayList<QuestionView>();
         QuestionView a = new QuestionView();
         a.setId("id1");
@@ -71,7 +69,7 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
         a.setId("id2");
         a.setQuestionInfo("Favorites: Dates");
         result.add(a);
-            //TODO populate using _svcGame
+        // TODO populate using _svcGame
         return result;
     }
 

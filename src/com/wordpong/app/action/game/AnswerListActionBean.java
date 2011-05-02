@@ -8,9 +8,7 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
-import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
@@ -29,7 +27,6 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
     private SvcGame _svcGame;
 
     private User user;
-
 
     public AnswerListActionBean() {
         _svcGame = SvcGameFactory.getGameService();
@@ -79,7 +76,7 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
     public void validateUser(ValidationErrors errors) {
         AppActionBeanContext c = getContext();
         if (c != null) {
-            // Todo: validate email list
+            // TODO: validate 
         }
     }
 
@@ -88,10 +85,9 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
         return new ForwardResolution(VIEW);
     }
 
-
     public List<AnswerView> getMyAnswerList() {
         user = getContext().getUserFromSession();
-
+        log.info("user:" + user + " svc:" + _svcGame);
         List<AnswerView> result = new ArrayList<AnswerView>();
         AnswerView a = new AnswerView();
         a.setId("id1");
