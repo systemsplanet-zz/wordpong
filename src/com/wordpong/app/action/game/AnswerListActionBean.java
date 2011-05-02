@@ -8,6 +8,7 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
+import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
@@ -29,8 +30,6 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
 
     private User user;
 
-    @Validate(required = true, minlength = 4, maxlength = 50)
-    private String emails;
 
     public AnswerListActionBean() {
         _svcGame = SvcGameFactory.getGameService();
@@ -41,15 +40,20 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
         return new ForwardResolution(GameActionBean.class);
     }
 
-
     @DontValidate
     @DefaultHandler
     public Resolution view() {
         return new ForwardResolution(VIEW);
     }
 
+    @HandlesEvent("addAnswer")
+    public Resolution addAnswer() {
+        return new ForwardResolution(AnswerAddActionBean.class);
+    }
+
     @HandlesEvent("submit")
     public Resolution submit() {
+
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
@@ -84,20 +88,10 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
         return new ForwardResolution(VIEW);
     }
 
-    public String getEmails() {
-        return emails;
-    }
-
-    public void setEmails(String e) {
-        if (e != null) {
-            e = e.trim().toLowerCase();
-        }
-        emails = e;
-    }
 
     public List<AnswerView> getMyAnswerList() {
         user = getContext().getUserFromSession();
-        
+
         List<AnswerView> result = new ArrayList<AnswerView>();
         AnswerView a = new AnswerView();
         a.setId("id1");
@@ -107,7 +101,7 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
         a.setId("id2");
         a.setAnswerInfo("Favorite Dates");
         result.add(a);
-            //TODO populate using _svcGame
+        // TODO populate using _svcGame
         return result;
     }
 
