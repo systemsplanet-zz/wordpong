@@ -1,10 +1,10 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.AnswerAddActionBean"/>
 <fmt:message var="backLbl" key="back" />
-<fmt:message var="selectQuestionLbl" key="questionList.selectQuestion" />
+<fmt:message var="selectQuestionLbl" key="answerAdd.selectQuestion" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
-<form id="questionListForm" action="/game/AnswerAdd.wp" method="post">
+<form id="answerAddFormHead" action="/game/AnswerAdd.wp" method="post">
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
@@ -23,13 +23,13 @@
 
 <div data-role="content" style="padding-top:0px;">
 	<tags:messages/> 
-	<s:form id="questionListForm" beanclass="com.wordpong.app.action.game.AnswerAddActionBean" method="post">
+	<s:form id="answerAddForm" beanclass="com.wordpong.app.action.game.AnswerAddActionBean" method="post">
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${selectQuestionLbl}</li> 
         <small>            
 
         <c:forEach items="${actionBean.questionList}" var="questionList" >
-                <input data-theme="a" class="process"  name="accept" value="${questionList.questionInfo}" type="submit" />
+                <input data-theme="a" class="process"  name="editAnswer" value="${questionList.questionInfo}" type="submit" />
         </c:forEach>
         
         </small>         
