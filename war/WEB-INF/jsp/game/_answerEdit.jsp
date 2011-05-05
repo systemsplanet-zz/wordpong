@@ -22,16 +22,20 @@
 <div style="clear:both"></div>
 
 <div data-role="content" style="padding-top:0px;">
-	<tags:messages/> 
 	<s:form id="answerEditForm" beanclass="com.wordpong.app.action.game.AnswerEditActionBean" method="post">
 	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 	        <li data-role="list-divider" >${enterAnswersLbl}</li> 
+        </ul>
+        <tags:messages/> 
+        <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 	        <small>            
-	 	       <c:forEach items="${actionBean.questionList}" var="i" >
+	 	       <c:forEach items="${actionBean.questionList}" var="i"  varStatus="s">
+	 	       <li>
 		          <div data-role="fieldcontain" style="padding:4px;">
-		              <s:label for="${i.question}" class="ui-input-text"/>  
-		              <s:text  name="${i.question}" id="${i.question}"/> 
-		          </div>		                
+		              <s:label for="fields[${s.index}]" class="ui-input-text">${i.question}</s:label>		              
+		              <sdyn:text name="fields[${s.index}]" id="fields[${s.index}]" maxlength="100" type="text" class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-a"/>
+		          </div>
+		       </li>		                
 		       </c:forEach>
 	        </small>         
 	    </ul>
