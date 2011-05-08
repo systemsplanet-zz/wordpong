@@ -7,30 +7,15 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class QuestionEdit {
 
-    private String questionKeyString;
- 
     private List<String> questions;
- 
- 
+
     public List<String> getQuestions() {
         return questions;
     }
 
-
     public void setQuestions(List<String> questions) {
         this.questions = questions;
     }
-
-
-    public String getQuestionKeyString() {
-        return questionKeyString;
-    }
-
-
-    public void setQuestionKeyString(String questionKeyString) {
-        this.questionKeyString = questionKeyString;
-    }
-
 
     @Override
     public String toString() {

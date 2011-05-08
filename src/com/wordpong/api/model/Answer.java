@@ -79,7 +79,9 @@ public class Answer implements Serializable {
     }
 
     public void setQuestionKeyString(String questionsKeyString) {
-        questionKey = KeyFactory.stringToKey(questionsKeyString);
+        if (questionsKeyString != null) {
+            questionKey = KeyFactory.stringToKey(questionsKeyString);
+        }
     }
 
     @Override

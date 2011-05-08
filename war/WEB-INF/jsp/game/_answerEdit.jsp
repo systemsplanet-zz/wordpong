@@ -37,7 +37,7 @@
 		          </div>
 		       </li>		                
 		       </c:forEach>
-		       <input id="questionKeyString" name="questionKeyString" type="hidden" value="${actionBean.questionEdit.questionKeyString}"/>
+		       <input id="questionKeyString" name="questionKeyString" type="hidden" value="${actionBean.questionKeyString}"/>
 		       
 	        </small>         
 	    </ul>

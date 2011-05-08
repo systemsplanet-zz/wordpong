@@ -29,14 +29,16 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
 
     private SvcGame _svcGame;
     private String questionKeyString;
-
-    // private User user;
-    private List<String> answers = new ArrayList<String>(100);
+    private QuestionEdit questionEdit;
+    private List<String> questions;
+    private int questionsSize = 0;
+    private List<String> answers = new ArrayList<String>();
 
     public AnswerEditActionBean() {
         _svcGame = SvcGameFactory.getGameService();
-        for (int i = 0; i < 100; i++) {
-            answers.add(null);
+        getQuestionEdit();
+        for (int i = 0; i < questionsSize; i++) {
+            answers.add("");
         }
     }
 
@@ -65,26 +67,26 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
     }
 
     public QuestionEdit getQuestionEdit() {
-        // todo read questionKeyString question
-        // create a QuestionEdit
-        QuestionEdit result = new QuestionEdit();
-        result.setQuestionKeyString(questionKeyString);
-        List<String> qs = new ArrayList<String>();
-        qs.add("Please enter your Eye Color and be specific as possible");
-        qs.add("Hair Color");
-        qs.add("Skin Color");
-        qs.add("Car Color");
-        result.setQuestions(qs);
-        return result;
+        if (questionEdit == null) {
+            // todo read questionKeyString question
+            // create a QuestionEdit
+            questionEdit = new QuestionEdit();
+            questions = new ArrayList<String>();
+            questions.add("Please enter your Eye Color and be specific as possible");
+            questions.add("Hair Color");
+            questions.add("Skin Color");
+            questions.add("Car Color");
+            questionsSize = questions.size();
+            questionEdit.setQuestions(questions);
+        }
+        return questionEdit;
     }
 
     @HandlesEvent("save")
     public Resolution save() {
-
-        QuestionEdit qe = getQuestionEdit();
-        List<String> qs = qe.getQuestions();
+        getQuestionEdit();
         boolean allAnswered = true;
-        for (int i = 0; i < qs.size(); i++) {
+        for (int i = 0; i < questionsSize; i++) {
             if (answers.get(i) == null || answers.get(i).trim().length() == 0) {
                 allAnswered = false;
                 break;
