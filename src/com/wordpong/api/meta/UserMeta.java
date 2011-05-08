@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-08 11:26:01")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-08 17:44:25")
 /** */
 public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.User> {
 
@@ -29,7 +29,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> lastName = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "lastName", "lastName");
 
     /** */
-    public final org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Locale> locale = new org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Locale>(this, "locale", "locale", java.util.Locale.class);
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> localeString = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "localeString", "localeString");
 
     /** */
     public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> password = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "password", "password");
@@ -41,7 +41,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     public final org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key> theirTurns = new org.slim3.datastore.CollectionUnindexedAttributeMeta<com.wordpong.api.model.User, java.util.Set<com.google.appengine.api.datastore.Key>, com.google.appengine.api.datastore.Key>(this, "theirTurns", "theirTurns", java.util.Set.class);
 
     /** */
-    public final org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.TimeZone> timeZone = new org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.User, java.util.TimeZone>(this, "timeZone", "timeZone", java.util.TimeZone.class);
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User> timeZoneString = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.User>(this, "timeZoneString", "timeZoneString");
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, java.util.Date> updatedAt = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.User, java.util.Date>(this, "updatedAt", "updatedAt", java.util.Date.class);
@@ -78,13 +78,11 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         model.setInvitationRequests(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("invitationRequests")));
         model.setKey(entity.getKey());
         model.setLastName((java.lang.String) entity.getProperty("lastName"));
-        java.util.Locale _locale = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("locale"));
-        model.setLocale(_locale);
+        model.setLocaleString((java.lang.String) entity.getProperty("localeString"));
         model.setPassword((java.lang.String) entity.getProperty("password"));
         model.setPictureUrl((java.lang.String) entity.getProperty("pictureUrl"));
         model.setTheirTurns(new java.util.HashSet<com.google.appengine.api.datastore.Key>(toList(com.google.appengine.api.datastore.Key.class, entity.getProperty("theirTurns"))));
-        java.util.TimeZone _timeZone = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("timeZone"));
-        model.setTimeZone(_timeZone);
+        model.setTimeZoneString((java.lang.String) entity.getProperty("timeZoneString"));
         model.setUpdatedAt((java.util.Date) entity.getProperty("updatedAt"));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         return model;
@@ -106,11 +104,11 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         entity.setUnindexedProperty("friends", m.getFriends());
         entity.setUnindexedProperty("invitationRequests", m.getInvitationRequests());
         entity.setUnindexedProperty("lastName", m.getLastName());
-        entity.setUnindexedProperty("locale", serializableToBlob(m.getLocale()));
+        entity.setUnindexedProperty("localeString", m.getLocaleString());
         entity.setUnindexedProperty("password", m.getPassword());
         entity.setUnindexedProperty("pictureUrl", m.getPictureUrl());
         entity.setUnindexedProperty("theirTurns", m.getTheirTurns());
-        entity.setUnindexedProperty("timeZone", serializableToBlob(m.getTimeZone()));
+        entity.setUnindexedProperty("timeZoneString", m.getTimeZoneString());
         entity.setProperty("updatedAt", m.getUpdatedAt());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
@@ -225,10 +223,10 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getLastName());
         }
-        if(m.getLocale() != null){
-            writer.setNextPropertyName("locale");
+        if(m.getLocaleString() != null){
+            writer.setNextPropertyName("localeString");
             encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getLocale());
+            encoder.encode(writer, m.getLocaleString());
         }
         if(m.getPassword() != null){
             writer.setNextPropertyName("password");
@@ -254,10 +252,10 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             }
             writer.endArray();
         }
-        if(m.getTimeZone() != null){
-            writer.setNextPropertyName("timeZone");
+        if(m.getTimeZoneString() != null){
+            writer.setNextPropertyName("timeZoneString");
             encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getTimeZone());
+            encoder.encode(writer, m.getTimeZoneString());
         }
         if(m.getUpdatedAt() != null){
             writer.setNextPropertyName("updatedAt");
@@ -334,9 +332,9 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
         reader = rootReader.newObjectReader("lastName");
         decoder = new org.slim3.datastore.json.Default();
         m.setLastName(decoder.decode(reader, m.getLastName()));
-        reader = rootReader.newObjectReader("locale");
+        reader = rootReader.newObjectReader("localeString");
         decoder = new org.slim3.datastore.json.Default();
-        m.setLocale(decoder.decode(reader, m.getLocale(), java.util.Locale.class));
+        m.setLocaleString(decoder.decode(reader, m.getLocaleString()));
         reader = rootReader.newObjectReader("password");
         decoder = new org.slim3.datastore.json.Default();
         m.setPassword(decoder.decode(reader, m.getPassword()));
@@ -363,9 +361,9 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
                 m.setTheirTurns(elements);
             }
         }
-        reader = rootReader.newObjectReader("timeZone");
+        reader = rootReader.newObjectReader("timeZoneString");
         decoder = new org.slim3.datastore.json.Default();
-        m.setTimeZone(decoder.decode(reader, m.getTimeZone(), java.util.TimeZone.class));
+        m.setTimeZoneString(decoder.decode(reader, m.getTimeZoneString()));
         reader = rootReader.newObjectReader("updatedAt");
         decoder = new org.slim3.datastore.json.Default();
         m.setUpdatedAt(decoder.decode(reader, m.getUpdatedAt()));

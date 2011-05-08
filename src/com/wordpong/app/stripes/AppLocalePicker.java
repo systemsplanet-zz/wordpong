@@ -46,8 +46,8 @@ public class AppLocalePicker extends DefaultLocalePicker {
 
 	static {
 		List<Locale> locales = new ArrayList<Locale>();
-		locales.add(Locale.ENGLISH);
-		locales.add(Locale.FRENCH);
+		locales.add(Locale.US);
+		locales.add(Locale.FRANCE);
 
 		SUPPORTED_LOCALES = Collections.unmodifiableList(locales);
 

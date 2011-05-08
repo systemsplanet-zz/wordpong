@@ -27,6 +27,7 @@ import com.wordpong.api.pojo.Role;
 @Model(schemaVersion = 1)
 public class User implements Serializable {
     public static final String IMAGE_DEFAULT = "https://wordpong.appspot.com/i/p/u.png";
+    public static final String DEFAULT_TIMEZONE = "EST";
 
     private static final long serialVersionUID = 1L;
 
@@ -80,14 +81,14 @@ public class User implements Serializable {
     /**
      * The preferred locale (nullable)
      */
-    @Attribute(unindexed = true, lob = true)
-    private Locale locale;
+    @Attribute(unindexed = true)
+    private String localeString = Locale.US.toString();
 
     /**
      * The preferred time zone (not nullable)
      */
-    @Attribute(unindexed = true, lob = true)
-    private TimeZone timeZone;
+    @Attribute(unindexed = true)
+    private String timeZoneString;
 
     public List<Role> getRoles() {
         return roles;
@@ -254,29 +255,59 @@ public class User implements Serializable {
     }
 
     public void setLocale(Locale locale) {
-        this.locale = locale;
-    }
-
-    public void setTimeZone(TimeZone timeZone) {
-        this.timeZone = timeZone;
+        localeString = locale.toString();
     }
 
     public Locale getLocale() {
-        return locale;
-    }
-
-    public String getLocaleString() {
-        String result = "??_??";
-        if (locale == null) {
-            result = Locale.US.toString();
+        Locale result;
+        if (localeString != null && localeString.indexOf("_") != -1) {
+            String[] ls = localeString.split("_");
+            result = new Locale(ls[0], ls[1]);
         } else {
-            result = locale.toString();
+            result = Locale.US;
         }
         return result;
     }
 
+    public String getLocaleString() {
+        if (localeString == null) {
+            localeString = Locale.US.toString();
+        }
+        return localeString;
+    }
+
+    public void setLocaleString(String localeString) {
+        this.localeString = localeString;
+    }
+
+    public void setTimeZoneString(String timeZone) {
+        if (timeZone == null) {
+            timeZone = DEFAULT_TIMEZONE;
+        }
+        timeZoneString = timeZone;
+    }
+
+    public String getTimeZoneString() {
+        if (timeZoneString == null) {
+            timeZoneString = DEFAULT_TIMEZONE;
+        }
+        return timeZoneString;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        if (timeZone != null) {
+            timeZoneString = timeZone.getID();
+        }
+        if (timeZoneString == null) {
+            timeZoneString = DEFAULT_TIMEZONE;
+        }
+    }
+
     public TimeZone getTimeZone() {
-        return timeZone;
+        if (timeZoneString == null) {
+            timeZoneString = DEFAULT_TIMEZONE;
+        }
+        return TimeZone.getTimeZone(timeZoneString);
     }
 
     /**
