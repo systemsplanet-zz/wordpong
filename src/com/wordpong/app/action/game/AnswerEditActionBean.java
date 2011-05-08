@@ -25,14 +25,15 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
     private static final String VIEW = "/WEB-INF/jsp/game/_answerEdit.jsp";
 
     private SvcGame _svcGame;
+    private String questionKeyString;
 
     // private User user;
-    private List<String> fields = new ArrayList<String>(100);
+    private List<String> answers = new ArrayList<String>(100);
 
     public AnswerEditActionBean() {
         _svcGame = SvcGameFactory.getGameService();
         for (int i = 0; i < 100; i++) {
-            fields.add(null);
+            answers.add(null);
         }
     }
 
@@ -60,47 +61,59 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
         return new ForwardResolution(VIEW);
     }
 
-    public List<QuestionEdit> getQuestionList() {
-        List<QuestionEdit> result = new ArrayList<QuestionEdit>();
-        QuestionEdit a = new QuestionEdit();
-        a.setQuestion("Please enter your Eye Color and be specific as possible");
-        result.add(a);
-        a = new QuestionEdit();
-        a.setQuestion("Hair Color");
-        result.add(a);
-        a = new QuestionEdit();
-        a.setQuestion("Skin Color");
-        result.add(a);
-        a = new QuestionEdit();
-        a.setQuestion("Car Color");
-        result.add(a);
+    public QuestionEdit getQuestionEdit() {
+        // todo read questionKeyString question
+        // create a QuestionEdit
+        QuestionEdit result = new QuestionEdit();
+        result.setQuestionKeyString(questionKeyString);
+        List<String> qs = new ArrayList<String>();
+        qs.add("Please enter your Eye Color and be specific as possible");
+        qs.add("Hair Color");
+        qs.add("Skin Color");
+        qs.add("Car Color");
+        result.setQuestions(qs);
         return result;
     }
 
     @HandlesEvent("save")
     public Resolution save() {
-        List<QuestionEdit> qs = getQuestionList();
+        
+        QuestionEdit qe = getQuestionEdit();
+        List<String> qs = qe.getQuestions();
         boolean allAnswered = true;
         for (int i = 0; i < qs.size(); i++) {
-            if (fields.get(i) == null || fields.get(i).trim().length() == 0) {
+            if (answers.get(i) == null || answers.get(i).trim().length() == 0) {
                 allAnswered = false;
                 break;
             }
         }
         if (allAnswered) {
+            // todo call svc_game to persist answers
+            // create a answer object
+            // point it to questionKeyString
+            // persist to db
             addGlobalActionError("answerEdit.answersUpdated");
+            log.info("updated answers:"+answers);
         } else {
             addGlobalActionError("answerEdit.pleaseAnswerAllQuestions");
         }
         return new ForwardResolution(VIEW);
     }
 
-    public List<String> getFields() {
-        return fields;
+    public List<String> getAnswers() {
+        return answers;
     }
 
-    public void setFields(List<String> fields) {
-        this.fields = fields;
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
+    public String getQuestionKeyString() {
+        return questionKeyString;
+    }
+
+    public void setQuestionKeyString(String questionKeyString) {
+        this.questionKeyString = questionKeyString;
     }
 
 }

@@ -1,20 +1,36 @@
 package com.wordpong.api.pojo;
 
+import java.util.List;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 public class QuestionEdit {
 
-    private String question;
-
+    private String questionKeyString;
  
-    public String getQuestion() {
-        return question;
+    private List<String> questions;
+ 
+ 
+    public List<String> getQuestions() {
+        return questions;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+
+    public void setQuestions(List<String> questions) {
+        this.questions = questions;
     }
+
+
+    public String getQuestionKeyString() {
+        return questionKeyString;
+    }
+
+
+    public void setQuestionKeyString(String questionKeyString) {
+        this.questionKeyString = questionKeyString;
+    }
+
 
     @Override
     public String toString() {

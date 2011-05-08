@@ -69,7 +69,7 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
                 for (Question q : qs) {
                     QuestionView a = new QuestionView();
                     String ks = q.getKeyString();
-                    a.setId(ks);
+                    a.setQuestionKeyString(ks);
                     String d = q.getDescription();
                     a.setQuestionInfo(d);
                     result.add(a);
@@ -84,5 +84,6 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
     public Resolution editAnswer() {
         return new ForwardResolution(AnswerEditActionBean.class);
     }
+
 
 }

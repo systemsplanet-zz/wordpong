@@ -5,15 +5,15 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class QuestionView {
 
-    private String id;
+    private String questionKeyString;
     private String questionInfo;
 
-    public String getId() {
-        return id;
+    public String getQuestionKeyString() {
+        return questionKeyString;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setQuestionKeyString(String ks) {
+        this.questionKeyString = ks;
     }
 
     public String getQuestionInfo() {

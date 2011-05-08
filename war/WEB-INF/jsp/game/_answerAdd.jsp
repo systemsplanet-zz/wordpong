@@ -29,11 +29,12 @@
         <small>            
 
         <c:forEach items="${actionBean.questionList}" var="questionList" >
-                <input data-theme="a" class="process"  name="editAnswer" value="${questionList.questionInfo}" type="submit" />
+                <input onClick="javascript:$('#questionKeyString').val('${questionList.questionKeyString}');" data-theme="a" class="process"  name="editAnswer" value="${questionList.questionInfo}" type="submit" />
         </c:forEach>
         
         </small>         
     </ul>
+    <input id="questionKeyString" name="questionKeyString" type="hidden" value=""/>
 
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
