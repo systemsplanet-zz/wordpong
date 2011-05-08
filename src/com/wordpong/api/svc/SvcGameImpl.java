@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import com.google.appengine.api.datastore.Key;
 import com.google.common.base.Predicate;
 import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.Question;
@@ -17,6 +18,8 @@ import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.FriendGames;
 import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.pojo.GameTheirTurn;
+import com.wordpong.api.svc.dao.DaoAnswer;
+import com.wordpong.api.svc.dao.DaoAnswerFactory;
 import com.wordpong.api.svc.dao.DaoInviteFriend;
 import com.wordpong.api.svc.dao.DaoInviteFriendFactory;
 import com.wordpong.api.svc.dao.DaoInviteGame;
@@ -319,4 +322,17 @@ public class SvcGameImpl implements SvcGame {
         return result;
     }
 
+    @Override
+    public Answer saveAnswer(Answer a) throws WPServiceException {
+        Answer result = null;
+        DaoAnswer f = DaoAnswerFactory.getAnswerDao();
+        try {
+            result = f.save(a);
+        } catch (DaoException e) {
+            throw new WPServiceException("saveAnswer err: " + e.getMessage());
+        }
+        return result;
+    }
+    
+    
 }

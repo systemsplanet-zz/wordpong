@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-08 09:43:45")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-08 11:14:12")
 /** */
 public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.Question> {
 
@@ -17,7 +17,7 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Question, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Question, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
 
     /** */
-    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.Question> locale = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.Question>(this, "locale", "locale");
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.Question> localeString = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.Question>(this, "localeString", "localeString");
 
     /** */
     public final org.slim3.datastore.StringCollectionUnindexedAttributeMeta<com.wordpong.api.model.Question, java.util.List<java.lang.String>> questions = new org.slim3.datastore.StringCollectionUnindexedAttributeMeta<com.wordpong.api.model.Question, java.util.List<java.lang.String>>(this, "questions", "questions", java.util.List.class);
@@ -65,7 +65,7 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
         model.setDescription((java.lang.String) entity.getProperty("description"));
         model.setIntimacyLevel(longToPrimitiveInt((java.lang.Long) entity.getProperty("intimacyLevel")));
         model.setKey(entity.getKey());
-        model.setLocale((java.lang.String) entity.getProperty("locale"));
+        model.setLocaleString((java.lang.String) entity.getProperty("localeString"));
         model.setQuestions(toList(java.lang.String.class, entity.getProperty("questions")));
         model.setTags(new java.util.HashSet<java.lang.String>(toList(java.lang.String.class, entity.getProperty("tags"))));
         model.setTitle((java.lang.String) entity.getProperty("title"));
@@ -88,7 +88,7 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
         entity.setProperty("createdAt", m.getCreatedAt());
         entity.setUnindexedProperty("description", m.getDescription());
         entity.setProperty("intimacyLevel", m.getIntimacyLevel());
-        entity.setUnindexedProperty("locale", m.getLocale());
+        entity.setUnindexedProperty("localeString", m.getLocaleString());
         entity.setUnindexedProperty("questions", m.getQuestions());
         entity.setUnindexedProperty("tags", m.getTags());
         entity.setProperty("title", m.getTitle());
@@ -175,10 +175,10 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getKey());
         }
-        if(m.getLocale() != null){
-            writer.setNextPropertyName("locale");
+        if(m.getLocaleString() != null){
+            writer.setNextPropertyName("localeString");
             encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getLocale());
+            encoder.encode(writer, m.getLocaleString());
         }
         if(m.getQuestions() != null){
             writer.setNextPropertyName("questions");
@@ -241,9 +241,9 @@ public final class QuestionMeta extends org.slim3.datastore.ModelMeta<com.wordpo
         reader = rootReader.newObjectReader("key");
         decoder = new org.slim3.datastore.json.Default();
         m.setKey(decoder.decode(reader, m.getKey()));
-        reader = rootReader.newObjectReader("locale");
+        reader = rootReader.newObjectReader("localeString");
         decoder = new org.slim3.datastore.json.Default();
-        m.setLocale(decoder.decode(reader, m.getLocale()));
+        m.setLocaleString(decoder.decode(reader, m.getLocaleString()));
         reader = rootReader.newObjectReader("questions");
         decoder = new org.slim3.datastore.json.Default();
         {

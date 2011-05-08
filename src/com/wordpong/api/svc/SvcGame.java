@@ -3,6 +3,7 @@ package com.wordpong.api.svc;
 import java.util.List;
 
 import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
@@ -17,6 +18,8 @@ public interface SvcGame {
     List<GameTheirTurn> getTheirTurns(User user);
 
     Question saveQuestion(Question u) throws WPServiceException;
+
+    Answer saveAnswer(Answer u) throws WPServiceException;
 
     void inviteFriends(User user, List<String> emails) throws WPServiceException;
 
@@ -35,7 +38,7 @@ public interface SvcGame {
     List<FriendGames> getMyFriendGames(User u);
 
     void seedQuestions(User user) throws WPServiceException;
-    
+
     List<Question> getQuestionsPublic() throws WPServiceException;
-    
+
 }

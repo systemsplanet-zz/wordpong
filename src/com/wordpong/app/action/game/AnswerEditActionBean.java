@@ -14,6 +14,9 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
+import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Answer;
+import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.QuestionEdit;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
@@ -77,7 +80,7 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
 
     @HandlesEvent("save")
     public Resolution save() {
-        
+
         QuestionEdit qe = getQuestionEdit();
         List<String> qs = qe.getQuestions();
         boolean allAnswered = true;
@@ -92,8 +95,20 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
             // create a answer object
             // point it to questionKeyString
             // persist to db
-            addGlobalActionError("answerEdit.answersUpdated");
-            log.info("updated answers:"+answers);
+            Answer a = new Answer();
+            User u = getContext().getUserFromSession();
+            a.setQuestionKeyString(questionKeyString);
+            a.setAnswers(answers);
+            a.setUserKey(u.getKey());
+            a.setLocaleString(u.getLocaleString());
+            try {
+                _svcGame.saveAnswer(a);
+                addGlobalActionError("answerEdit.answersUpdated");
+                log.info("updated answers:" + answers);
+            } catch (WPServiceException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } else {
             addGlobalActionError("answerEdit.pleaseAnswerAllQuestions");
         }

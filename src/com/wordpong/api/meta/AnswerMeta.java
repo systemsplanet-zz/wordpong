@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-04-23 23:44:10")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-08 11:28:41")
 /** */
 public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.Answer> {
 
@@ -11,10 +11,10 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key> key = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key>(this, "__key__", "key", com.google.appengine.api.datastore.Key.class);
 
     /** */
-    public final org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.Answer, java.util.Locale> locale = new org.slim3.datastore.UnindexedAttributeMeta<com.wordpong.api.model.Answer, java.util.Locale>(this, "locale", "locale", java.util.Locale.class);
+    public final org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.Answer> localeString = new org.slim3.datastore.StringUnindexedAttributeMeta<com.wordpong.api.model.Answer>(this, "localeString", "localeString");
 
     /** */
-    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key> questionsKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key>(this, "questionsKey", "questionsKey", com.google.appengine.api.datastore.Key.class);
+    public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key> questionKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key>(this, "questionKey", "questionKey", com.google.appengine.api.datastore.Key.class);
 
     /** */
     public final org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key> userKey = new org.slim3.datastore.CoreAttributeMeta<com.wordpong.api.model.Answer, com.google.appengine.api.datastore.Key>(this, "userKey", "userKey", com.google.appengine.api.datastore.Key.class);
@@ -41,9 +41,8 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
         com.wordpong.api.model.Answer model = new com.wordpong.api.model.Answer();
         model.setAnswers(toList(java.lang.String.class, entity.getProperty("answers")));
         model.setKey(entity.getKey());
-        java.util.Locale _locale = blobToSerializable((com.google.appengine.api.datastore.Blob) entity.getProperty("locale"));
-        model.setLocale(_locale);
-        model.setQuestionsKey((com.google.appengine.api.datastore.Key) entity.getProperty("questionsKey"));
+        model.setLocaleString((java.lang.String) entity.getProperty("localeString"));
+        model.setQuestionKey((com.google.appengine.api.datastore.Key) entity.getProperty("questionKey"));
         model.setUserKey((com.google.appengine.api.datastore.Key) entity.getProperty("userKey"));
         model.setVersion((java.lang.Long) entity.getProperty("version"));
         return model;
@@ -59,8 +58,8 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
             entity = new com.google.appengine.api.datastore.Entity(kind);
         }
         entity.setProperty("answers", m.getAnswers());
-        entity.setUnindexedProperty("locale", serializableToBlob(m.getLocale()));
-        entity.setProperty("questionsKey", m.getQuestionsKey());
+        entity.setUnindexedProperty("localeString", m.getLocaleString());
+        entity.setProperty("questionKey", m.getQuestionKey());
         entity.setProperty("userKey", m.getUserKey());
         entity.setProperty("version", m.getVersion());
         entity.setProperty("slim3.schemaVersion", 1);
@@ -135,15 +134,15 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
             encoder = new org.slim3.datastore.json.Default();
             encoder.encode(writer, m.getKey());
         }
-        if(m.getLocale() != null){
-            writer.setNextPropertyName("locale");
+        if(m.getLocaleString() != null){
+            writer.setNextPropertyName("localeString");
             encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getLocale());
+            encoder.encode(writer, m.getLocaleString());
         }
-        if(m.getQuestionsKey() != null){
-            writer.setNextPropertyName("questionsKey");
+        if(m.getQuestionKey() != null){
+            writer.setNextPropertyName("questionKey");
             encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getQuestionsKey());
+            encoder.encode(writer, m.getQuestionKey());
         }
         if(m.getUserKey() != null){
             writer.setNextPropertyName("userKey");
@@ -184,12 +183,12 @@ public final class AnswerMeta extends org.slim3.datastore.ModelMeta<com.wordpong
         reader = rootReader.newObjectReader("key");
         decoder = new org.slim3.datastore.json.Default();
         m.setKey(decoder.decode(reader, m.getKey()));
-        reader = rootReader.newObjectReader("locale");
+        reader = rootReader.newObjectReader("localeString");
         decoder = new org.slim3.datastore.json.Default();
-        m.setLocale(decoder.decode(reader, m.getLocale(), java.util.Locale.class));
-        reader = rootReader.newObjectReader("questionsKey");
+        m.setLocaleString(decoder.decode(reader, m.getLocaleString()));
+        reader = rootReader.newObjectReader("questionKey");
         decoder = new org.slim3.datastore.json.Default();
-        m.setQuestionsKey(decoder.decode(reader, m.getQuestionsKey()));
+        m.setQuestionKey(decoder.decode(reader, m.getQuestionKey()));
         reader = rootReader.newObjectReader("userKey");
         decoder = new org.slim3.datastore.json.Default();
         m.setUserKey(decoder.decode(reader, m.getUserKey()));

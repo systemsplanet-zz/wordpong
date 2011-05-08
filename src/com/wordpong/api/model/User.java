@@ -63,7 +63,6 @@ public class User implements Serializable {
     @Attribute(unindexed = true)
     private List<Key> invitationRequests = new ArrayList<Key>();
 
-
     // Points to InviteFriend (invitations sent to invite friends), Game
     // (invites to play),
     @Attribute(unindexed = true)
@@ -108,7 +107,7 @@ public class User implements Serializable {
 
     /**
      * Returns the key.
-     *
+     * 
      * @return the key
      */
     public Key getKey() {
@@ -117,7 +116,7 @@ public class User implements Serializable {
 
     /**
      * Sets the key.
-     *
+     * 
      * @param key
      *            the key
      */
@@ -127,7 +126,7 @@ public class User implements Serializable {
 
     /**
      * Returns the version.
-     *
+     * 
      * @return the version
      */
     public Long getVersion() {
@@ -204,8 +203,9 @@ public class User implements Serializable {
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
     public String getDetails() {
-        return firstName + " " + lastName + " ("+ email + ")";
+        return firstName + " " + lastName + " (" + email + ")";
     }
 
     public Set<Key> getFriends() {
@@ -265,13 +265,23 @@ public class User implements Serializable {
         return locale;
     }
 
+    public String getLocaleString() {
+        String result = "??_??";
+        if (locale == null) {
+            result = Locale.US.toString();
+        } else {
+            result = locale.toString();
+        }
+        return result;
+    }
+
     public TimeZone getTimeZone() {
         return timeZone;
     }
 
     /**
      * Sets the version.
-     *
+     * 
      * @param version
      *            the version
      */

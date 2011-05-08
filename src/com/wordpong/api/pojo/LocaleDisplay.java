@@ -5,6 +5,10 @@ import java.util.Locale;
 
 public final class LocaleDisplay implements Serializable {
 
+    public static final String LOCALE_PT_BR = "pt_BR";
+    public static final String LOCALE_EN_US = Locale.US.toString(); //"en_US";
+    public static final String LOCALE_FR_FR = Locale.FRANCE.toString(); // fr_FR
+    
     private static final long serialVersionUID = 1L;
 
     private Locale locale;

@@ -17,6 +17,7 @@ import com.wordpong.api.meta.TagQuestionMeta;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.TagQuestion;
 import com.wordpong.api.model.User;
+import com.wordpong.api.pojo.LocaleDisplay;
 import com.wordpong.api.svc.dao.err.DaoException;
 import com.wordpong.api.svc.dao.transact.Atomic;
 
@@ -34,7 +35,7 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             q = new Question();
             q.setDescription("private facts - Favorite Colors");
             q.setIntimacyLevel(Question.INTIMACY_CLICHES);
-            q.setLocale(Question.LOCALE_EN_US);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
             qs.clear();
             qs.add("Eye Color?");
             qs.add("Hair Color?");
@@ -55,7 +56,7 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             q = new Question();
             q.setDescription("public facts - Favorite Dates");
             q.setIntimacyLevel(Question.INTIMACY_FACTS);
-            q.setLocale(Question.LOCALE_EN_US);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
             qs.clear();
             qs.add("Birth Date?");
             qs.add("Hire Date?");
@@ -76,7 +77,7 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             q = new Question();
             q.setDescription("public facts - Favorite Places");
             q.setIntimacyLevel(Question.INTIMACY_FACTS);
-            q.setLocale(Question.LOCALE_EN_US);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
             qs.clear();
             qs.add("Birth Place?");
             qs.add("High School Location?");

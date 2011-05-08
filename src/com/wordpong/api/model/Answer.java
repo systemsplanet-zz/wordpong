@@ -2,12 +2,14 @@ package com.wordpong.api.model;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Locale;
 
-import com.google.appengine.api.datastore.Key;
-
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
+
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @Model(schemaVersion = 1)
 public class Answer implements Serializable {
@@ -21,13 +23,13 @@ public class Answer implements Serializable {
     private Long version;
 
     private Key userKey;
-    private Key questionsKey;
-    
+    private Key questionKey;
+
     private List<String> answers;
-    
-    @Attribute(unindexed = true, lob = true)
-    private Locale locale;
-      
+
+    @Attribute(unindexed = true)
+    private String localeString;
+
     public Key getKey() {
         return key;
     }
@@ -52,16 +54,14 @@ public class Answer implements Serializable {
         this.answers = answers;
     }
 
-    public Locale getLocale() {
-        return locale;
+    public String getLocaleString() {
+        return localeString;
     }
 
-    public void setLocale(Locale locale) {
-        this.locale = locale;
+    public void setLocaleString(String locale) {
+        this.localeString = locale;
     }
 
-    
-    
     public Key getUserKey() {
         return userKey;
     }
@@ -70,12 +70,16 @@ public class Answer implements Serializable {
         this.userKey = userKey;
     }
 
-    public Key getQuestionsKey() {
-        return questionsKey;
+    public Key getQuestionKey() {
+        return questionKey;
     }
 
-    public void setQuestionsKey(Key questionsKey) {
-        this.questionsKey = questionsKey;
+    public void setQuestionKey(Key questionsKey) {
+        this.questionKey = questionsKey;
+    }
+
+    public void setQuestionKeyString(String questionsKeyString) {
+        questionKey = KeyFactory.stringToKey(questionsKeyString);
     }
 
     @Override
@@ -106,5 +110,10 @@ public class Answer implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

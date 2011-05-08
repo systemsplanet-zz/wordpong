@@ -32,9 +32,6 @@ public class Question implements Serializable {
     public static final int INTIMACY_FEARS = 5;
     public static final int INTIMACY_NEEDS = 6;
 
-    public static final String LOCALE_PT_BR = "pt_BR";
-    public static final String LOCALE_EN_US = "en_US";
-
     @Attribute(primaryKey = true)
     private Key key;
 
@@ -64,7 +61,7 @@ public class Question implements Serializable {
 
     // eg pt_BR, en_US
     @Attribute(unindexed = true)
-    private String locale;
+    private String localeString;
 
     // 0 is private
     // 1 is public
@@ -147,12 +144,12 @@ public class Question implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public String getLocale() {
-        return locale;
+    public String getLocaleString() {
+        return localeString;
     }
 
-    public void setLocale(String locale) {
-        this.locale = locale;
+    public void setLocaleString(String locale) {
+        this.localeString = locale;
     }
 
     public String getKeyString() {
@@ -167,7 +164,6 @@ public class Question implements Serializable {
     public void setKey(Key key) {
         this.key = key;
     }
-    
 
     public Long getVersion() {
         return version;
