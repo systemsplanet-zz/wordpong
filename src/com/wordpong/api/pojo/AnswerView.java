@@ -6,7 +6,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class AnswerView {
 
     private String id;
-    private String answerInfo;
+    private String questionDescription;
 
     public String getId() {
         return id;
@@ -16,12 +16,12 @@ public class AnswerView {
         this.id = id;
     }
 
-    public String getAnswerInfo() {
-        return answerInfo;
+    public String getQuestionDescription() {
+        return questionDescription;
     }
 
-    public void setAnswerInfo(String answerInfo) {
-        this.answerInfo = answerInfo;
+    public void setQuestionDescription(String questionDescription) {
+        this.questionDescription = questionDescription;
     }
 
     @Override

@@ -13,6 +13,8 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
+import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.AnswerView;
 import com.wordpong.api.svc.SvcGame;
@@ -76,7 +78,7 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
     public void validateUser(ValidationErrors errors) {
         AppActionBeanContext c = getContext();
         if (c != null) {
-            // TODO: validate 
+            // TODO: validate
         }
     }
 
@@ -86,17 +88,25 @@ public class AnswerListActionBean extends BaseActionBean implements ValidationEr
     }
 
     public List<AnswerView> getMyAnswerList() {
+        List<AnswerView> result = new ArrayList<AnswerView>();
         user = getContext().getUserFromSession();
         log.info("user:" + user + " svc:" + _svcGame);
-        List<AnswerView> result = new ArrayList<AnswerView>();
-        AnswerView a = new AnswerView();
-        a.setId("id1");
-        a.setAnswerInfo("Favorite Colors");
-        result.add(a);
-        a = new AnswerView();
-        a.setId("id2");
-        a.setAnswerInfo("Favorite Dates");
-        result.add(a);
+        try {
+            // get the list of answers for this user
+            List<Answer> as = _svcGame.getAnswers(user);
+            if (as != null) {
+                for (Answer a : as) {
+                    AnswerView av = new AnswerView();
+                    av.setId(a.getKeyString());
+                    av.setQuestionDescription(a.getQuestionDescription());
+                    //TODO: dont add if already answered
+                    result.add(av);
+                }
+            }
+        } catch (WPServiceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         // TODO populate using _svcGame
         return result;
     }

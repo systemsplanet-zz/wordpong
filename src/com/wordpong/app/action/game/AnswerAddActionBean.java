@@ -71,7 +71,7 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
                     String ks = q.getKeyString();
                     a.setQuestionKeyString(ks);
                     String d = q.getDescription();
-                    a.setQuestionInfo(d);
+                    a.setQuestionDescription(d);
                     result.add(a);
                 }
             }

@@ -23,7 +23,11 @@ public class Answer implements Serializable {
     private Long version;
 
     private Key userKey;
+
     private Key questionKey;
+
+    @Attribute(unindexed = true)
+    private String questionDescription; // copied from question.description
 
     private List<String> answers;
 
@@ -36,6 +40,11 @@ public class Answer implements Serializable {
 
     public void setKey(Key key) {
         this.key = key;
+    }
+
+    public String getKeyString() {
+        String k = KeyFactory.keyToString(key);
+        return k;
     }
 
     public Long getVersion() {
@@ -82,6 +91,14 @@ public class Answer implements Serializable {
         if (questionsKeyString != null) {
             questionKey = KeyFactory.stringToKey(questionsKeyString);
         }
+    }
+
+    public String getQuestionDescription() {
+        return questionDescription;
+    }
+
+    public void setQuestionDescription(String questionDescription) {
+        this.questionDescription = questionDescription;
     }
 
     @Override

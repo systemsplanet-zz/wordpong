@@ -17,10 +17,6 @@ public interface SvcGame {
 
     List<GameTheirTurn> getTheirTurns(User user);
 
-    Question saveQuestion(Question u) throws WPServiceException;
-
-    Answer saveAnswer(Answer u) throws WPServiceException;
-
     void inviteFriends(User user, List<String> emails) throws WPServiceException;
 
     List<InviteFriend> getFriendInvitesByInviterKey(User user) throws WPServiceException;
@@ -39,6 +35,12 @@ public interface SvcGame {
 
     void seedQuestions(User user) throws WPServiceException;
 
+    Question saveQuestion(Question u) throws WPServiceException;
+
     List<Question> getQuestionsPublic() throws WPServiceException;
+
+    Answer saveAnswer(Answer u) throws WPServiceException;
+    
+    List<Answer> getAnswers(User u) throws WPServiceException;
 
 }

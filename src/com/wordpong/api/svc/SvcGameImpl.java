@@ -333,6 +333,18 @@ public class SvcGameImpl implements SvcGame {
         }
         return result;
     }
+
+    @Override
+    public List<Answer> getAnswers(User u) throws WPServiceException {
+        List<Answer> result = null;
+        DaoAnswer f = DaoAnswerFactory.getAnswerDao();
+        try {
+            result = f.getAnswers(u);
+        } catch (DaoException e) {
+            throw new WPServiceException("getAnswers err: " + e.getMessage());
+        }
+        return result;
+    }
     
     
 }

@@ -29,6 +29,7 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
 
     private SvcGame _svcGame;
     private String questionKeyString;
+    private String questionDescription;
     private QuestionEdit questionEdit;
     private List<String> questions;
     private int questionsSize = 0;
@@ -101,6 +102,7 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
             User u = getContext().getUserFromSession();
             a.setQuestionKeyString(questionKeyString);
             a.setAnswers(answers);
+            a.setQuestionDescription(questionDescription);
             a.setUserKey(u.getKey());
             a.setLocaleString(u.getLocaleString());
             try {
@@ -131,6 +133,14 @@ public class AnswerEditActionBean extends BaseActionBean implements ValidationEr
 
     public void setQuestionKeyString(String questionKeyString) {
         this.questionKeyString = questionKeyString;
+    }
+
+    public String getQuestionDescription() {
+        return questionDescription;
+    }
+
+    public void setQuestionDescription(String questionDescription) {
+        this.questionDescription = questionDescription;
     }
 
 }

@@ -40,7 +40,7 @@
         <small>            
 
         <c:forEach items="${actionBean.myAnswerList}" var="myAnswerList" >
-                <input data-theme="a" class="process"  name="accept" value="${myAnswerList.answerInfo}" type="submit" />
+                <input data-theme="a" class="process"  name="accept" value="${myAnswerList.questionDescription}" type="submit" />
         </c:forEach>
         
         </small>         

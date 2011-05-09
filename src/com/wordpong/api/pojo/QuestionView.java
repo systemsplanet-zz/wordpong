@@ -6,7 +6,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class QuestionView {
 
     private String questionKeyString;
-    private String questionInfo;
+    private String questionDescription;
 
     public String getQuestionKeyString() {
         return questionKeyString;
@@ -16,12 +16,12 @@ public class QuestionView {
         this.questionKeyString = ks;
     }
 
-    public String getQuestionInfo() {
-        return questionInfo;
+    public String getQuestionDescription() {
+        return questionDescription;
     }
 
-    public void setQuestionInfo(String questionInfo) {
-        this.questionInfo = questionInfo;
+    public void setQuestionDescription(String questionDescription) {
+        this.questionDescription = questionDescription;
     }
 
     @Override
