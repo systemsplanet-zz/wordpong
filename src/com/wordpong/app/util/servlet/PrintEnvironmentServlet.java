@@ -55,7 +55,7 @@ public class PrintEnvironmentServlet extends HttpServlet {
 		doGet(req, resp);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes" })
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("text/html");
