@@ -14,7 +14,7 @@
 
 	<queue>
 		<name>slim3-gtx-queue</name>
-		<rate>10/s</rate>
+		<rate>500/s</rate>
 		<bucket-size>10</bucket-size>
 	</queue>
 </queue-entries>

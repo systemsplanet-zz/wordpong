@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-10 21:59:38")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-14 19:54:48")
 /** */
 public final class PasswordChangeRequestMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.PasswordChangeRequest> {
 
@@ -109,26 +109,22 @@ public final class PasswordChangeRequestMeta extends org.slim3.datastore.ModelMe
     protected void modelToJson(org.slim3.datastore.json.JsonWriter writer, java.lang.Object model, int maxDepth, int currentDepth) {
         com.wordpong.api.model.PasswordChangeRequest m = (com.wordpong.api.model.PasswordChangeRequest) model;
         writer.beginObject();
-        org.slim3.datastore.json.JsonCoder encoder = null;
+        org.slim3.datastore.json.Default encoder0 = new org.slim3.datastore.json.Default();
         if(m.getCreatedAt() != null){
             writer.setNextPropertyName("createdAt");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getCreatedAt());
+            encoder0.encode(writer, m.getCreatedAt());
         }
         if(m.getEmail() != null){
             writer.setNextPropertyName("email");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getEmail());
+            encoder0.encode(writer, m.getEmail());
         }
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getKey());
+            encoder0.encode(writer, m.getKey());
         }
         if(m.getRandomId() != null){
             writer.setNextPropertyName("randomId");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getRandomId());
+            encoder0.encode(writer, m.getRandomId());
         }
         writer.endObject();
     }
@@ -137,19 +133,15 @@ public final class PasswordChangeRequestMeta extends org.slim3.datastore.ModelMe
     protected com.wordpong.api.model.PasswordChangeRequest jsonToModel(org.slim3.datastore.json.JsonRootReader rootReader, int maxDepth, int currentDepth) {
         com.wordpong.api.model.PasswordChangeRequest m = new com.wordpong.api.model.PasswordChangeRequest();
         org.slim3.datastore.json.JsonReader reader = null;
-        org.slim3.datastore.json.JsonCoder decoder = null;
+        org.slim3.datastore.json.Default decoder0 = new org.slim3.datastore.json.Default();
         reader = rootReader.newObjectReader("createdAt");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setCreatedAt(decoder.decode(reader, m.getCreatedAt()));
+        m.setCreatedAt(decoder0.decode(reader, m.getCreatedAt()));
         reader = rootReader.newObjectReader("email");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setEmail(decoder.decode(reader, m.getEmail()));
+        m.setEmail(decoder0.decode(reader, m.getEmail()));
         reader = rootReader.newObjectReader("key");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setKey(decoder.decode(reader, m.getKey()));
+        m.setKey(decoder0.decode(reader, m.getKey()));
         reader = rootReader.newObjectReader("randomId");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setRandomId(decoder.decode(reader, m.getRandomId()));
+        m.setRandomId(decoder0.decode(reader, m.getRandomId()));
         return m;
     }
 }

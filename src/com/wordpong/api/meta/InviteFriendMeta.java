@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-10 21:59:38")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-14 19:54:48")
 /** */
 public final class InviteFriendMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.InviteFriend> {
 
@@ -141,49 +141,40 @@ public final class InviteFriendMeta extends org.slim3.datastore.ModelMeta<com.wo
     protected void modelToJson(org.slim3.datastore.json.JsonWriter writer, java.lang.Object model, int maxDepth, int currentDepth) {
         com.wordpong.api.model.InviteFriend m = (com.wordpong.api.model.InviteFriend) model;
         writer.beginObject();
-        org.slim3.datastore.json.JsonCoder encoder = null;
+        org.slim3.datastore.json.Default encoder0 = new org.slim3.datastore.json.Default();
         if(m.getCreatedAt() != null){
             writer.setNextPropertyName("createdAt");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getCreatedAt());
+            encoder0.encode(writer, m.getCreatedAt());
         }
         if(m.getInviteeDetails() != null){
             writer.setNextPropertyName("inviteeDetails");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getInviteeDetails());
+            encoder0.encode(writer, m.getInviteeDetails());
         }
         if(m.getInviteeKey() != null){
             writer.setNextPropertyName("inviteeKey");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getInviteeKey());
+            encoder0.encode(writer, m.getInviteeKey());
         }
         if(m.getInviterDetails() != null){
             writer.setNextPropertyName("inviterDetails");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getInviterDetails());
+            encoder0.encode(writer, m.getInviterDetails());
         }
         if(m.getInviterKey() != null){
             writer.setNextPropertyName("inviterKey");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getInviterKey());
+            encoder0.encode(writer, m.getInviterKey());
         }
         writer.setNextPropertyName("ignored");
-        encoder = new org.slim3.datastore.json.Default();
-        encoder.encode(writer, m.isIgnored());
+        encoder0.encode(writer, m.isIgnored());
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getKey());
+            encoder0.encode(writer, m.getKey());
         }
         if(m.getUpdatedAt() != null){
             writer.setNextPropertyName("updatedAt");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getUpdatedAt());
+            encoder0.encode(writer, m.getUpdatedAt());
         }
         if(m.getVersion() != null){
             writer.setNextPropertyName("version");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getVersion());
+            encoder0.encode(writer, m.getVersion());
         }
         writer.endObject();
     }
@@ -192,34 +183,25 @@ public final class InviteFriendMeta extends org.slim3.datastore.ModelMeta<com.wo
     protected com.wordpong.api.model.InviteFriend jsonToModel(org.slim3.datastore.json.JsonRootReader rootReader, int maxDepth, int currentDepth) {
         com.wordpong.api.model.InviteFriend m = new com.wordpong.api.model.InviteFriend();
         org.slim3.datastore.json.JsonReader reader = null;
-        org.slim3.datastore.json.JsonCoder decoder = null;
+        org.slim3.datastore.json.Default decoder0 = new org.slim3.datastore.json.Default();
         reader = rootReader.newObjectReader("createdAt");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setCreatedAt(decoder.decode(reader, m.getCreatedAt()));
+        m.setCreatedAt(decoder0.decode(reader, m.getCreatedAt()));
         reader = rootReader.newObjectReader("inviteeDetails");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setInviteeDetails(decoder.decode(reader, m.getInviteeDetails()));
+        m.setInviteeDetails(decoder0.decode(reader, m.getInviteeDetails()));
         reader = rootReader.newObjectReader("inviteeKey");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setInviteeKey(decoder.decode(reader, m.getInviteeKey()));
+        m.setInviteeKey(decoder0.decode(reader, m.getInviteeKey()));
         reader = rootReader.newObjectReader("inviterDetails");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setInviterDetails(decoder.decode(reader, m.getInviterDetails()));
+        m.setInviterDetails(decoder0.decode(reader, m.getInviterDetails()));
         reader = rootReader.newObjectReader("inviterKey");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setInviterKey(decoder.decode(reader, m.getInviterKey()));
+        m.setInviterKey(decoder0.decode(reader, m.getInviterKey()));
         reader = rootReader.newObjectReader("ignored");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setIgnored(decoder.decode(reader, m.isIgnored()));
+        m.setIgnored(decoder0.decode(reader, m.isIgnored()));
         reader = rootReader.newObjectReader("key");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setKey(decoder.decode(reader, m.getKey()));
+        m.setKey(decoder0.decode(reader, m.getKey()));
         reader = rootReader.newObjectReader("updatedAt");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setUpdatedAt(decoder.decode(reader, m.getUpdatedAt()));
+        m.setUpdatedAt(decoder0.decode(reader, m.getUpdatedAt()));
         reader = rootReader.newObjectReader("version");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setVersion(decoder.decode(reader, m.getVersion()));
+        m.setVersion(decoder0.decode(reader, m.getVersion()));
         return m;
     }
 }

@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-10 21:59:38")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-14 19:54:48")
 /** */
 public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.Game> {
 
@@ -124,37 +124,30 @@ public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     protected void modelToJson(org.slim3.datastore.json.JsonWriter writer, java.lang.Object model, int maxDepth, int currentDepth) {
         com.wordpong.api.model.Game m = (com.wordpong.api.model.Game) model;
         writer.beginObject();
-        org.slim3.datastore.json.JsonCoder encoder = null;
+        org.slim3.datastore.json.Default encoder0 = new org.slim3.datastore.json.Default();
         if(m.getAnswers() != null){
             writer.setNextPropertyName("answers");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getAnswers());
+            encoder0.encode(writer, m.getAnswers());
         }
         writer.setNextPropertyName("completed");
-        encoder = new org.slim3.datastore.json.Default();
-        encoder.encode(writer, m.isCompleted());
+        encoder0.encode(writer, m.isCompleted());
         writer.setNextPropertyName("ignored");
-        encoder = new org.slim3.datastore.json.Default();
-        encoder.encode(writer, m.isIgnored());
+        encoder0.encode(writer, m.isIgnored());
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getKey());
+            encoder0.encode(writer, m.getKey());
         }
         if(m.getQuestions() != null){
             writer.setNextPropertyName("questions");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getQuestions());
+            encoder0.encode(writer, m.getQuestions());
         }
         if(m.getUser() != null){
             writer.setNextPropertyName("user");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getUser());
+            encoder0.encode(writer, m.getUser());
         }
         if(m.getVersion() != null){
             writer.setNextPropertyName("version");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getVersion());
+            encoder0.encode(writer, m.getVersion());
         }
         writer.endObject();
     }
@@ -163,28 +156,21 @@ public final class GameMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     protected com.wordpong.api.model.Game jsonToModel(org.slim3.datastore.json.JsonRootReader rootReader, int maxDepth, int currentDepth) {
         com.wordpong.api.model.Game m = new com.wordpong.api.model.Game();
         org.slim3.datastore.json.JsonReader reader = null;
-        org.slim3.datastore.json.JsonCoder decoder = null;
+        org.slim3.datastore.json.Default decoder0 = new org.slim3.datastore.json.Default();
         reader = rootReader.newObjectReader("answers");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setAnswers(decoder.decode(reader, m.getAnswers()));
+        m.setAnswers(decoder0.decode(reader, m.getAnswers()));
         reader = rootReader.newObjectReader("completed");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setCompleted(decoder.decode(reader, m.isCompleted()));
+        m.setCompleted(decoder0.decode(reader, m.isCompleted()));
         reader = rootReader.newObjectReader("ignored");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setIgnored(decoder.decode(reader, m.isIgnored()));
+        m.setIgnored(decoder0.decode(reader, m.isIgnored()));
         reader = rootReader.newObjectReader("key");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setKey(decoder.decode(reader, m.getKey()));
+        m.setKey(decoder0.decode(reader, m.getKey()));
         reader = rootReader.newObjectReader("questions");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setQuestions(decoder.decode(reader, m.getQuestions()));
+        m.setQuestions(decoder0.decode(reader, m.getQuestions()));
         reader = rootReader.newObjectReader("user");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setUser(decoder.decode(reader, m.getUser()));
+        m.setUser(decoder0.decode(reader, m.getUser()));
         reader = rootReader.newObjectReader("version");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setVersion(decoder.decode(reader, m.getVersion()));
+        m.setVersion(decoder0.decode(reader, m.getVersion()));
         return m;
     }
 }

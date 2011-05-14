@@ -9,15 +9,15 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/junit-4.8.1.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/ktr-wjr.jar"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-jstl-1.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/repackaged-appengine-jakarta-standard-1.1.2.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/slim3-1.0.9.jar" sourcepath="lib-src/slim3-1.0.9-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib-plugin/slim3-gen-1.0.9.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/json-20090211.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/joda-time-1.6.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guava-r09.jar"/>
+	<classpathentry kind="lib" path="lib-plugin/slim3-gen-1.0.11.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/ktrwjr.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/slim3-1.0.11.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (1)"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

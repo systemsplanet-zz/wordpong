@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-10 21:59:38")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-14 19:54:48")
 /** */
 public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.User> {
 
@@ -171,101 +171,84 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     protected void modelToJson(org.slim3.datastore.json.JsonWriter writer, java.lang.Object model, int maxDepth, int currentDepth) {
         com.wordpong.api.model.User m = (com.wordpong.api.model.User) model;
         writer.beginObject();
-        org.slim3.datastore.json.JsonCoder encoder = null;
+        org.slim3.datastore.json.Default encoder0 = new org.slim3.datastore.json.Default();
         writer.setNextPropertyName("activated");
-        encoder = new org.slim3.datastore.json.Default();
-        encoder.encode(writer, m.isActivated());
+        encoder0.encode(writer, m.isActivated());
         if(m.getCreatedAt() != null){
             writer.setNextPropertyName("createdAt");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getCreatedAt());
+            encoder0.encode(writer, m.getCreatedAt());
         }
         if(m.getEmail() != null){
             writer.setNextPropertyName("email");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getEmail());
+            encoder0.encode(writer, m.getEmail());
         }
         if(m.getEncryptionKey() != null){
             writer.setNextPropertyName("encryptionKey");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getEncryptionKey());
+            encoder0.encode(writer, m.getEncryptionKey());
         }
         if(m.getFirstName() != null){
             writer.setNextPropertyName("firstName");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getFirstName());
+            encoder0.encode(writer, m.getFirstName());
         }
         if(m.getFriends() != null){
             writer.setNextPropertyName("friends");
-            encoder = new org.slim3.datastore.json.Default();
             writer.beginArray();
             for(com.google.appengine.api.datastore.Key v : m.getFriends()){
-                encoder.encode(writer, v);
+                encoder0.encode(writer, v);
             }
             writer.endArray();
         }
         if(m.getInvitationRequests() != null){
             writer.setNextPropertyName("invitationRequests");
-            encoder = new org.slim3.datastore.json.Default();
             writer.beginArray();
             for(com.google.appengine.api.datastore.Key v : m.getInvitationRequests()){
-                encoder.encode(writer, v);
+                encoder0.encode(writer, v);
             }
             writer.endArray();
         }
         if(m.getKey() != null){
             writer.setNextPropertyName("key");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getKey());
+            encoder0.encode(writer, m.getKey());
         }
         if(m.getLastName() != null){
             writer.setNextPropertyName("lastName");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getLastName());
+            encoder0.encode(writer, m.getLastName());
         }
         if(m.getLocaleString() != null){
             writer.setNextPropertyName("localeString");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getLocaleString());
+            encoder0.encode(writer, m.getLocaleString());
         }
         if(m.getPassword() != null){
             writer.setNextPropertyName("password");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getPassword());
+            encoder0.encode(writer, m.getPassword());
         }
         if(m.getPictureUrl() != null){
             writer.setNextPropertyName("pictureUrl");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getPictureUrl());
+            encoder0.encode(writer, m.getPictureUrl());
         }
         if(m.getRoles() != null){
             writer.setNextPropertyName("roles");
-            encoder = new org.slim3.datastore.json.Default();
             // com.wordpong.api.pojo.Role is not supported.
         }
         if(m.getTheirTurns() != null){
             writer.setNextPropertyName("theirTurns");
-            encoder = new org.slim3.datastore.json.Default();
             writer.beginArray();
             for(com.google.appengine.api.datastore.Key v : m.getTheirTurns()){
-                encoder.encode(writer, v);
+                encoder0.encode(writer, v);
             }
             writer.endArray();
         }
         if(m.getTimeZoneString() != null){
             writer.setNextPropertyName("timeZoneString");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getTimeZoneString());
+            encoder0.encode(writer, m.getTimeZoneString());
         }
         if(m.getUpdatedAt() != null){
             writer.setNextPropertyName("updatedAt");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getUpdatedAt());
+            encoder0.encode(writer, m.getUpdatedAt());
         }
         if(m.getVersion() != null){
             writer.setNextPropertyName("version");
-            encoder = new org.slim3.datastore.json.Default();
-            encoder.encode(writer, m.getVersion());
+            encoder0.encode(writer, m.getVersion());
         }
         writer.endObject();
     }
@@ -274,24 +257,18 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
     protected com.wordpong.api.model.User jsonToModel(org.slim3.datastore.json.JsonRootReader rootReader, int maxDepth, int currentDepth) {
         com.wordpong.api.model.User m = new com.wordpong.api.model.User();
         org.slim3.datastore.json.JsonReader reader = null;
-        org.slim3.datastore.json.JsonCoder decoder = null;
+        org.slim3.datastore.json.Default decoder0 = new org.slim3.datastore.json.Default();
         reader = rootReader.newObjectReader("activated");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setActivated(decoder.decode(reader, m.isActivated()));
+        m.setActivated(decoder0.decode(reader, m.isActivated()));
         reader = rootReader.newObjectReader("createdAt");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setCreatedAt(decoder.decode(reader, m.getCreatedAt()));
+        m.setCreatedAt(decoder0.decode(reader, m.getCreatedAt()));
         reader = rootReader.newObjectReader("email");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setEmail(decoder.decode(reader, m.getEmail()));
+        m.setEmail(decoder0.decode(reader, m.getEmail()));
         reader = rootReader.newObjectReader("encryptionKey");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setEncryptionKey(decoder.decode(reader, m.getEncryptionKey(), javax.crypto.SecretKey.class));
+        m.setEncryptionKey(decoder0.decode(reader, m.getEncryptionKey(), javax.crypto.SecretKey.class));
         reader = rootReader.newObjectReader("firstName");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setFirstName(decoder.decode(reader, m.getFirstName()));
+        m.setFirstName(decoder0.decode(reader, m.getFirstName()));
         reader = rootReader.newObjectReader("friends");
-        decoder = new org.slim3.datastore.json.Default();
         {
             java.util.HashSet<com.google.appengine.api.datastore.Key> elements = new java.util.HashSet<com.google.appengine.api.datastore.Key>();
             org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("friends");
@@ -300,7 +277,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
                 int n = r.length();
                 for(int i = 0; i < n; i++){
                     r.setIndex(i);
-                    com.google.appengine.api.datastore.Key v = decoder.decode(reader, (com.google.appengine.api.datastore.Key)null)                    ;
+                    com.google.appengine.api.datastore.Key v = decoder0.decode(reader, (com.google.appengine.api.datastore.Key)null)                    ;
                     if(v != null){
                         elements.add(v);
                     }
@@ -309,7 +286,6 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             }
         }
         reader = rootReader.newObjectReader("invitationRequests");
-        decoder = new org.slim3.datastore.json.Default();
         {
             java.util.ArrayList<com.google.appengine.api.datastore.Key> elements = new java.util.ArrayList<com.google.appengine.api.datastore.Key>();
             org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("invitationRequests");
@@ -318,7 +294,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
                 int n = r.length();
                 for(int i = 0; i < n; i++){
                     r.setIndex(i);
-                    com.google.appengine.api.datastore.Key v = decoder.decode(reader, (com.google.appengine.api.datastore.Key)null)                    ;
+                    com.google.appengine.api.datastore.Key v = decoder0.decode(reader, (com.google.appengine.api.datastore.Key)null)                    ;
                     if(v != null){
                         elements.add(v);
                     }
@@ -327,24 +303,17 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             }
         }
         reader = rootReader.newObjectReader("key");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setKey(decoder.decode(reader, m.getKey()));
+        m.setKey(decoder0.decode(reader, m.getKey()));
         reader = rootReader.newObjectReader("lastName");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setLastName(decoder.decode(reader, m.getLastName()));
+        m.setLastName(decoder0.decode(reader, m.getLastName()));
         reader = rootReader.newObjectReader("localeString");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setLocaleString(decoder.decode(reader, m.getLocaleString()));
+        m.setLocaleString(decoder0.decode(reader, m.getLocaleString()));
         reader = rootReader.newObjectReader("password");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setPassword(decoder.decode(reader, m.getPassword()));
+        m.setPassword(decoder0.decode(reader, m.getPassword()));
         reader = rootReader.newObjectReader("pictureUrl");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setPictureUrl(decoder.decode(reader, m.getPictureUrl()));
+        m.setPictureUrl(decoder0.decode(reader, m.getPictureUrl()));
         reader = rootReader.newObjectReader("roles");
-        decoder = new org.slim3.datastore.json.Default();
         reader = rootReader.newObjectReader("theirTurns");
-        decoder = new org.slim3.datastore.json.Default();
         {
             java.util.HashSet<com.google.appengine.api.datastore.Key> elements = new java.util.HashSet<com.google.appengine.api.datastore.Key>();
             org.slim3.datastore.json.JsonArrayReader r = rootReader.newArrayReader("theirTurns");
@@ -353,7 +322,7 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
                 int n = r.length();
                 for(int i = 0; i < n; i++){
                     r.setIndex(i);
-                    com.google.appengine.api.datastore.Key v = decoder.decode(reader, (com.google.appengine.api.datastore.Key)null)                    ;
+                    com.google.appengine.api.datastore.Key v = decoder0.decode(reader, (com.google.appengine.api.datastore.Key)null)                    ;
                     if(v != null){
                         elements.add(v);
                     }
@@ -362,14 +331,11 @@ public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.a
             }
         }
         reader = rootReader.newObjectReader("timeZoneString");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setTimeZoneString(decoder.decode(reader, m.getTimeZoneString()));
+        m.setTimeZoneString(decoder0.decode(reader, m.getTimeZoneString()));
         reader = rootReader.newObjectReader("updatedAt");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setUpdatedAt(decoder.decode(reader, m.getUpdatedAt()));
+        m.setUpdatedAt(decoder0.decode(reader, m.getUpdatedAt()));
         reader = rootReader.newObjectReader("version");
-        decoder = new org.slim3.datastore.json.Default();
-        m.setVersion(decoder.decode(reader, m.getVersion()));
+        m.setVersion(decoder0.decode(reader, m.getVersion()));
         return m;
     }
 }
