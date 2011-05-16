@@ -56,7 +56,10 @@ $("input.process").live( "click", function(e) {
             //  add to cache... transisition, back button support
             $('.wp-footer').html(wpFooter);
             p.width($(".wp-page").outerWidth() - 30 );
-            p.page()
+            try {
+               p.page()
+            } catch (e) {
+            }
             $('html, body').animate({scrollTop:0}, 'slow');
         } else {
             alert("Login session expired.");
