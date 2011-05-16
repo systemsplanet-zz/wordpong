@@ -67,6 +67,7 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
             qs = _svcGame.getQuestionsPublic();
             if (qs != null && qs.size() > 0) {
                 for (Question q : qs) {
+                	//TODO: dont show one that already the user has already answered
                     QuestionView a = new QuestionView();
                     String ks = q.getKeyString();
                     a.setQuestionKeyString(ks);
@@ -82,7 +83,7 @@ public class AnswerAddActionBean extends BaseActionBean implements ValidationErr
     }
     @HandlesEvent("editAnswer")
     public Resolution editAnswer() {
-        return new ForwardResolution(AnswerEditActionBean.class);
+        return new ForwardResolution(AnswerAddEditActionBean.class);
     }
 
 

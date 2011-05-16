@@ -35,17 +35,16 @@
 <div data-role="content" style="padding-top:0px;">
 	<tags:messages/> 
 	<s:form id="answerListForm" beanclass="com.wordpong.app.action.game.AnswerListActionBean" method="post">
-    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-        <li data-role="list-divider" >${myAnswersLbl}</li> 
-        <small>            
-
-        <c:forEach items="${actionBean.myAnswerList}" var="myAnswerList" >
-                <input data-theme="a" class="process"  name="accept" value="${myAnswerList.questionDescription}" type="submit" />
-        </c:forEach>
-        
-        </small>         
-    </ul>
-
+	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+	        <li data-role="list-divider" >${myAnswersLbl}</li> 
+	        <small>            
+		        <c:forEach items="${actionBean.answers}" var="answers" >
+		           <input onClick="javascript:$('#answerKeyString').val('${answers.keyString}');$('#questionDescription').val('${answers.questionDescription}');" data-theme="a" class="process"  name="editAnswers" value="${answers.questionDescription}" type="submit" />
+		        </c:forEach>
+	        </small>         
+	        <input id="answerKeyString" name="answerKeyString" type="hidden" value=""/>
+	        <input id="questionDescription" name="questionDescription" type="hidden" value=""/>
+	    </ul>
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
         </div>

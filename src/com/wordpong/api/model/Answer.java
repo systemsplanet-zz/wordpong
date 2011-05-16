@@ -79,6 +79,11 @@ public class Answer implements Serializable {
         this.userKey = userKey;
     }
 
+    public String getQuestionKeyString() {
+        String k = KeyFactory.keyToString(questionKey);
+        return k;
+    }
+    
     public Key getQuestionKey() {
         return questionKey;
     }

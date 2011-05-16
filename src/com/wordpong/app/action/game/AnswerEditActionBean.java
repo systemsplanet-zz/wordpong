@@ -16,131 +16,143 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
-import com.wordpong.api.model.User;
+import com.wordpong.api.model.Question;
 import com.wordpong.api.pojo.QuestionEdit;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
-public class AnswerEditActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(AnswerEditActionBean.class.getName());
-    private static final String VIEW = "/WEB-INF/jsp/game/_answerEdit.jsp";
+public class AnswerEditActionBean extends BaseActionBean implements
+		ValidationErrorHandler {
+	private static final Logger log = Logger
+			.getLogger(AnswerEditActionBean.class.getName());
+	private static final String VIEW = "/WEB-INF/jsp/game/_answerEdit.jsp";
 
-    private SvcGame _svcGame;
-    private String questionKeyString;
-    private String questionDescription;
-    private QuestionEdit questionEdit;
-    private List<String> questions;
-    private int questionsSize = 0;
-    private List<String> answers = new ArrayList<String>();
+	private SvcGame _svcGame;
+	// when the user selects answers to edit these are populated
+	private String answerKeyString;
+	private String questionDescription;
+	private Answer answer;
+	private List<String> answers = new ArrayList<String>();
 
-    public AnswerEditActionBean() {
-        _svcGame = SvcGameFactory.getGameService();
-        getQuestionEdit();
-        for (int i = 0; i < questionsSize; i++) {
-            answers.add("");
-        }
-    }
+	private QuestionEdit questionEdit = new QuestionEdit();
+	private List<String> questions;
+	private int questionsSize = 0;
 
-    @DontValidate
-    public Resolution back() {
-        return new RedirectResolution(AnswerAddActionBean.class);
-    }
+	public AnswerEditActionBean() {
+		_svcGame = SvcGameFactory.getGameService();
+	}
 
-    @DontValidate
-    @DefaultHandler
-    public Resolution view() {
-        return new ForwardResolution(VIEW);
-    }
+	@DontValidate
+	public Resolution back() {
+		return new RedirectResolution(AnswerListActionBean.class);
+	}
 
-    @ValidationMethod
-    public void validateUser(ValidationErrors errors) {
-        AppActionBeanContext c = getContext();
-        if (c != null) {
-            // Todo: validate email list
-        }
-    }
+	private void loadAnswer() {
+		if (answer == null) {
+			try {
+				answer = _svcGame.getAnswer(answerKeyString);
+				if (answer != null) {
+					Question q = _svcGame.getQuestion(answer
+							.getQuestionKeyString());
+					questions = q.getQuestions();
+					if (questions != null) {
+						questionsSize = questions.size();
+						questionEdit.setQuestions(questions);
+					}
+					if (answers.size()==0) {
+						List<String> as = answer.getAnswers();
+						answers.addAll(as);
+					}
+				}
+			} catch (WPServiceException e) {
+				log.warning("unable to get answer:" + e.getMessage());
+			}
+		}
 
-    // on errors, only reply with the content, not the entire page
-    public Resolution handleValidationErrors(ValidationErrors errors) {
-        return new ForwardResolution(VIEW);
-    }
+	}
 
-    public QuestionEdit getQuestionEdit() {
-        if (questionEdit == null) {
-            // todo read questionKeyString question
-            // create a QuestionEdit
-            questionEdit = new QuestionEdit();
-            questions = new ArrayList<String>();
-            questions.add("Please enter your Eye Color and be specific as possible");
-            questions.add("Hair Color");
-            questions.add("Skin Color");
-            questions.add("Car Color");
-            questionsSize = questions.size();
-            questionEdit.setQuestions(questions);
-        }
-        return questionEdit;
-    }
+	@DontValidate
+	@DefaultHandler
+	public Resolution view() {
+		loadAnswer();
+		getQuestionEdit();
 
-    @HandlesEvent("save")
-    public Resolution save() {
-        getQuestionEdit();
-        boolean allAnswered = true;
-        for (int i = 0; i < questionsSize; i++) {
-            if (answers.get(i) == null || answers.get(i).trim().length() == 0) {
-                allAnswered = false;
-                break;
-            }
-        }
-        if (allAnswered) {
-            // todo call svc_game to persist answers
-            // create a answer object
-            // point it to questionKeyString
-            // persist to db
-            Answer a = new Answer();
-            User u = getContext().getUserFromSession();
-            a.setQuestionKeyString(questionKeyString);
-            a.setAnswers(answers);
-            a.setQuestionDescription(questionDescription);
-            a.setUserKey(u.getKey());
-            a.setLocaleString(u.getLocaleString());
-            try {
-                _svcGame.saveAnswer(a);
-                addGlobalActionError("answerEdit.answersUpdated");
-                log.info("updated answers:" + answers);
-            } catch (WPServiceException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } else {
-            addGlobalActionError("answerEdit.pleaseAnswerAllQuestions");
-        }
-        return new ForwardResolution(VIEW);
-    }
+		// TODO: read the questions/answers if not loaded
+		log.info("answerKeyString:" + answerKeyString + " desc:"
+				+ questionDescription);
+		return new ForwardResolution(VIEW);
+	}
 
-    public List<String> getAnswers() {
-        return answers;
-    }
+	@ValidationMethod
+	public void validateUser(ValidationErrors errors) {
+		AppActionBeanContext c = getContext();
+		if (c != null) {
+			// Todo: validate email list
+		}
+	}
 
-    public void setAnswers(List<String> answers) {
-        this.answers = answers;
-    }
+	// on errors, only reply with the content, not the entire page
+	public Resolution handleValidationErrors(ValidationErrors errors) {
+		return new ForwardResolution(VIEW);
+	}
 
-    public String getQuestionKeyString() {
-        return questionKeyString;
-    }
+	@HandlesEvent("save")
+	public Resolution save() {
+		try {
+			loadAnswer();
+			if (answer != null) {
+				answer.setAnswers(answers);
+				
+				boolean allAnswered = true;
+				for (int i = 0; i < questionsSize; i++) {
+					if (answers.get(i) == null
+							|| answers.get(i).trim().length() == 0) {
+						allAnswered = false;
+						break;
+					}
+				}
+				if (allAnswered && answer != null) {
+					_svcGame.saveAnswer(answer);
+					addGlobalActionError("answerEdit.answersUpdated");
+					log.info("updated answers:" + answer);
+				} else {
+					addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
+				}
+			}
+		} catch (WPServiceException e) {
+			addGlobalActionError("answerEdit.unableToSaveAnswers");
+		}
+		return new ForwardResolution(VIEW);
+	}
 
-    public void setQuestionKeyString(String questionKeyString) {
-        this.questionKeyString = questionKeyString;
-    }
+	public QuestionEdit getQuestionEdit() {
+		return questionEdit;
+	}
 
-    public String getQuestionDescription() {
-        return questionDescription;
-    }
+	public String getQuestionDescription() {
+		return questionDescription;
+	}
 
-    public void setQuestionDescription(String questionDescription) {
-        this.questionDescription = questionDescription;
-    }
+	public void setQuestionDescription(String questionDescription) {
+		this.questionDescription = questionDescription;
+	}
+
+	public String getAnswerKeyString() {
+		return answerKeyString;
+	}
+
+	public void setAnswerKeyString(String answerKeyString) {
+		this.answerKeyString = answerKeyString;
+	}
+
+	public List<String> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<String> answers) {
+		this.answers = answers;
+	}
 
 }

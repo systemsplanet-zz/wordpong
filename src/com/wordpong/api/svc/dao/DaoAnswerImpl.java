@@ -7,6 +7,7 @@ import org.slim3.datastore.DaoBase;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.wordpong.api.meta.AnswerMeta;
 import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.User;
@@ -44,5 +45,12 @@ public class DaoAnswerImpl extends DaoBase<Answer> implements DaoAnswer {
         }
         return result;
     }
+
+	@Override
+	public Answer getAnswer(String answerKeyStr) throws DaoException {
+        Key k = KeyFactory.stringToKey(answerKeyStr);
+		Answer result = get(k);
+		return result;
+	}
 
 }

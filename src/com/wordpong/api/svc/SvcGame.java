@@ -13,34 +13,40 @@ import com.wordpong.api.pojo.GameTheirTurn;
 
 public interface SvcGame {
 
-    List<GameMyTurn> getMyTurns(User user);
+	List<GameMyTurn> getMyTurns(User user);
 
-    List<GameTheirTurn> getTheirTurns(User user);
+	List<GameTheirTurn> getTheirTurns(User user);
 
-    void inviteFriends(User user, List<String> emails) throws WPServiceException;
+	void inviteFriends(User user, List<String> emails)
+			throws WPServiceException;
 
-    List<InviteFriend> getFriendInvitesByInviterKey(User user) throws WPServiceException;
+	List<InviteFriend> getFriendInvitesByInviterKey(User user)
+			throws WPServiceException;
 
-    void updateFriendInvites(User user) throws WPServiceException;
+	void updateFriendInvites(User user) throws WPServiceException;
 
-    void updateFriendInvites();// background task
+	void updateFriendInvites();// background task
 
-    void cancelInvitation(User user, String email) throws WPServiceException;
+	void cancelInvitation(User user, String email) throws WPServiceException;
 
-    void ignoreInvitation(String key) throws WPServiceException;
+	void ignoreInvitation(String key) throws WPServiceException;
 
-    void makeFriends(String friendInviteKeyStr) throws WPServiceException;
+	void makeFriends(String friendInviteKeyStr) throws WPServiceException;
 
-    List<FriendGames> getMyFriendGames(User u);
+	List<FriendGames> getMyFriendGames(User u);
 
-    void seedQuestions(User user) throws WPServiceException;
+	void seedQuestions(User user) throws WPServiceException;
 
-    Question saveQuestion(Question u) throws WPServiceException;
+	Question saveQuestion(Question u) throws WPServiceException;
 
-    List<Question> getQuestionsPublic() throws WPServiceException;
+	Question getQuestion(String questionKey) throws WPServiceException;
 
-    Answer saveAnswer(Answer u) throws WPServiceException;
-    
-    List<Answer> getAnswers(User u) throws WPServiceException;
+	List<Question> getQuestionsPublic() throws WPServiceException;
+
+	Answer saveAnswer(Answer u) throws WPServiceException;
+
+	List<Answer> getAnswers(User u) throws WPServiceException;
+
+	Answer getAnswer(String answerKey) throws WPServiceException;
 
 }

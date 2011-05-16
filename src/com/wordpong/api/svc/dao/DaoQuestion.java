@@ -7,10 +7,12 @@ import com.wordpong.api.model.Question;
 import com.wordpong.api.svc.dao.err.DaoException;
 
 public interface DaoQuestion {
-    Question save(Question u) throws DaoException;
+	Question save(Question u) throws DaoException;
 
-    List<Question> get(List<Key> keys);
+	List<Question> get(List<Key> keys);
 
-    List<Question> getPublic() throws DaoException;
+	List<Question> getPublic() throws DaoException;
+
+	Question getQuestion(String questionKeyStr) throws DaoException;
 
 }

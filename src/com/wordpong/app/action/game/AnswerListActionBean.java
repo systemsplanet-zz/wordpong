@@ -1,6 +1,7 @@
 package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,103 +17,114 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.AnswerView;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
-public class AnswerListActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(AnswerListActionBean.class.getName());
-    private static final String VIEW = "/WEB-INF/jsp/game/_answerList.jsp";
+public class AnswerListActionBean extends BaseActionBean implements
+		ValidationErrorHandler {
+	private static final Logger log = Logger
+			.getLogger(AnswerListActionBean.class.getName());
+	private static final String VIEW = "/WEB-INF/jsp/game/_answerList.jsp";
 
-    private SvcGame _svcGame;
+	private SvcGame _svcGame;
 
-    private User user;
+	private User user;
 
-    public AnswerListActionBean() {
-        _svcGame = SvcGameFactory.getGameService();
-    }
+	// when the user selects answers to edit these are populated
+	private String answerKeyString;
+	private String questionDescription;
 
-    @DontValidate
-    public Resolution back() {
-        return new ForwardResolution(GameActionBean.class);
-    }
+	public AnswerListActionBean() {
+		_svcGame = SvcGameFactory.getGameService();
+	}
 
-    @DontValidate
-    @DefaultHandler
-    public Resolution view() {
-        return new ForwardResolution(VIEW);
-    }
+	@DontValidate
+	public Resolution back() {
+		return new ForwardResolution(GameActionBean.class);
+	}
 
-    @HandlesEvent("addAnswer")
-    public Resolution addAnswer() {
-        return new ForwardResolution(AnswerAddActionBean.class);
-    }
+	@DontValidate
+	@DefaultHandler
+	public Resolution view() {
+		return new ForwardResolution(VIEW);
+	}
 
-    @HandlesEvent("submit")
-    public Resolution submit() {
+	@HandlesEvent("addAnswer")
+	public Resolution addAnswer() {
+		return new ForwardResolution(AnswerAddActionBean.class);
+	}
 
-        AppActionBeanContext c = getContext();
-        if (c != null) {
-            try {
-                user = c.getUserFromSession();
-                if (user != null) {
-                    // TODO: parse answers
-                    // Add answers
-                    // Send emails
-                    addGlobalActionError("answersInvited");
-                } else {
-                    // session expire?
-                }
-            } catch (Exception e) {
-                addGlobalActionError("unableToInviteAnswers");
-                log.warning("unable to invite answers");
-            }
-        }
-        // redirect back here
-        return new ForwardResolution(VIEW);
-    }
+	@HandlesEvent("editAnswers")
+	public Resolution editAnswers() {
+		Resolution resolution = new ForwardResolution(VIEW);
+		AppActionBeanContext c = getContext();
+		if (c != null) {
+			try {
+				user = c.getUserFromSession();
+				if (user != null) {
+					log.info("edit answer key:" + answerKeyString + " quest:"
+							+ questionDescription);
+					resolution = new ForwardResolution(
+							AnswerEditActionBean.class);
+				} else {
+					// session expire?
+				}
+			} catch (Exception e) {
+				addGlobalActionError("unableToEditAnswers");
+				log.warning("unable to edit answers");
+			}
+		}
+		// redirect back here
+		return resolution;
+	}
 
-    @ValidationMethod
-    public void validateUser(ValidationErrors errors) {
-        AppActionBeanContext c = getContext();
-        if (c != null) {
-            // TODO: validate
-        }
-    }
+	@ValidationMethod
+	public void validateUser(ValidationErrors errors) {
+		AppActionBeanContext c = getContext();
+		if (c != null) {
+			// TODO: validate
+		}
+	}
 
-    // on errors, only reply with the content, not the entire page
-    public Resolution handleValidationErrors(ValidationErrors errors) {
-        return new ForwardResolution(VIEW);
-    }
+	// on errors, only reply with the content, not the entire page
+	public Resolution handleValidationErrors(ValidationErrors errors) {
+		return new ForwardResolution(VIEW);
+	}
 
-    public List<AnswerView> getMyAnswerList() {
-        List<AnswerView> result = new ArrayList<AnswerView>();
-        user = getContext().getUserFromSession();
-        log.info("user:" + user + " svc:" + _svcGame);
-        try {
-            // get the list of answers for this user
-            List<Answer> as = _svcGame.getAnswers(user);
-            if (as != null) {
-                for (Answer a : as) {
-                    AnswerView av = new AnswerView();
-                    av.setId(a.getKeyString());
-                    av.setQuestionDescription(a.getQuestionDescription());
-                    //TODO: dont add if already answered
-                    result.add(av);
-                }
-            }
-        } catch (WPServiceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        // TODO populate using _svcGame
-        return result;
-    }
+	public List<Answer> getAnswers() {
+		List<Answer> result = new ArrayList<Answer>();
+		user = getContext().getUserFromSession();
+		log.info("user:" + user + " svc:" + _svcGame);
+		try {
+			// get the list of answers for this user
+			result = _svcGame.getAnswers(user);
+		} catch (WPServiceException e) {
+			log.warning("getAnswers err:" + e.getMessage());
+		}
+		// TODO populate using _svcGame
+		return result;
+	}
 
-    // public void setMyTurns(List<GameMyTurn> myTurns) {
-    // _svcGame.setMyTurns(myTurns);
-    // }
+	public String getAnswerKeyString() {
+		return answerKeyString;
+	}
+
+	public void setAnswerKeyString(String answerKeyString) {
+		this.answerKeyString = answerKeyString;
+	}
+
+	public String getQuestionDescription() {
+		return questionDescription;
+	}
+
+	public void setQuestionDescription(String questionDescription) {
+		this.questionDescription = questionDescription;
+	}
+
+	// public void setMyTurns(List<GameMyTurn> myTurns) {
+	// _svcGame.setMyTurns(myTurns);
+	// }
 
 }
