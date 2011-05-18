@@ -98,7 +98,7 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		getQuestionEdit();
 		boolean allAnswered = true;
 		for (int i = 0; i < questionsSize; i++) {
-			if (answers.get(i) == null || answers.get(i).trim().length() == 0) {
+			if (answers.size() < questionsSize || answers.get(i) == null || answers.get(i).trim().length() == 0) {
 				allAnswered = false;
 				break;
 			}

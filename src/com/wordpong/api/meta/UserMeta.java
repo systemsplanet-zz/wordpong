@@ -1,6 +1,6 @@
 package com.wordpong.api.meta;
 
-//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-15 17:03:28")
+//@javax.annotation.Generated(value = { "slim3-gen", "@VERSION@" }, date = "2011-05-17 20:12:33")
 /** */
 public final class UserMeta extends org.slim3.datastore.ModelMeta<com.wordpong.api.model.User> {
 

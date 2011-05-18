@@ -61,7 +61,7 @@ public class AnswerEditActionBean extends BaseActionBean implements
 						questionsSize = questions.size();
 						questionEdit.setQuestions(questions);
 					}
-					if (answers.size()==0) {
+					if (answers.size() == 0) {
 						List<String> as = answer.getAnswers();
 						answers.addAll(as);
 					}
@@ -104,10 +104,11 @@ public class AnswerEditActionBean extends BaseActionBean implements
 			loadAnswer();
 			if (answer != null) {
 				answer.setAnswers(answers);
-				
+
 				boolean allAnswered = true;
 				for (int i = 0; i < questionsSize; i++) {
-					if (answers.get(i) == null
+					if (answers.size() < questionsSize
+							|| answers.get(i) == null
 							|| answers.get(i).trim().length() == 0) {
 						allAnswered = false;
 						break;
