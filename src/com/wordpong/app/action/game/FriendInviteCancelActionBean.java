@@ -56,7 +56,7 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
                 try {
                     // remove from friendinvite from db
                     SvcGame sg = SvcGameFactory.getGameService();
-                    sg.cancelInvitation(user, email);
+                    sg.cancelFriendInvitation(user, email);
                     addGlobalActionError("friendInviteCancel.invitedCancelled");
                 } catch (WPServiceException e) {
                     addGlobalActionError("friendInviteCancel.unableToCancel");

@@ -134,7 +134,7 @@ public class SvcGameImpl implements SvcGame {
 	}
 
 	@Override
-	public void cancelInvitation(User user, String email)
+	public void cancelFriendInvitation(User user, String email)
 			throws WPServiceException {
 		DaoInviteFriend f = DaoInviteFriendFactory.getFriendInviteDao();
 		try {
@@ -234,7 +234,7 @@ public class SvcGameImpl implements SvcGame {
 	}
 
 	@Override
-	public void ignoreInvitation(String friendInvitekeyStr)
+	public void ignoreFriendInvitation(String friendInvitekeyStr)
 			throws WPServiceException {
 		DaoInviteFriend dfi = DaoInviteFriendFactory.getFriendInviteDao();
 		try {
@@ -242,8 +242,19 @@ public class SvcGameImpl implements SvcGame {
 		} catch (DaoException e) {
 			throw new WPServiceException(e.getMessage());
 		}
-
 	}
+
+	@Override
+	public void ignoreGameInvitation(String friendInvitekeyStr)
+			throws WPServiceException {
+		DaoInviteGame dig = DaoInviteGameFactory.getInviteGameDao();
+		try {
+			dig.ignoreInvitation(friendInvitekeyStr);
+		} catch (DaoException e) {
+			throw new WPServiceException(e.getMessage());
+		}
+	}
+
 
 	// Add each user to each others friend list
 	// Create a new game for each user

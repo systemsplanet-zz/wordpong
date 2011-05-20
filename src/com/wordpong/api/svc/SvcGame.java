@@ -27,9 +27,12 @@ public interface SvcGame {
 
 	void updateFriendInvites();// background task
 
-	void cancelInvitation(User user, String email) throws WPServiceException;
+	void cancelFriendInvitation(User user, String email)
+			throws WPServiceException;
 
-	void ignoreInvitation(String key) throws WPServiceException;
+	void ignoreFriendInvitation(String key) throws WPServiceException;
+
+	void ignoreGameInvitation(String key) throws WPServiceException;
 
 	void makeFriends(String friendInviteKeyStr) throws WPServiceException;
 

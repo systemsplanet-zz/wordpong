@@ -49,7 +49,7 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements Vali
         try {
             // hide friendinvite from invitee
             SvcGame sg = SvcGameFactory.getGameService();
-            sg.ignoreInvitation(key);
+            sg.ignoreFriendInvitation(key);
             addGlobalActionError("friendInviteAccept.inviteIgnored");
         } catch (WPServiceException e) {
             addGlobalActionError("friendInviteAccept.unableToIgnore");
