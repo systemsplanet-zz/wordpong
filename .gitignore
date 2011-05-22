@@ -1,4 +1,8 @@
+src/com/wordpong/api/meta/*
+war/WEB-INF/classes/*
 war/WEB-INF/classes/**/*
+war/WEB-INF/classes/StripesResources.properties
+war/WEB-INF/classes/StripesResources_fr.properties
 war/WEB-INF/lib/jsr107cache-1.1.jar
 war/WEB-INF/lib/datanucleus-appengine-1.0.8.final.jar
 war/WEB-INF/lib/datanucleus-core-1.1.5.jar
