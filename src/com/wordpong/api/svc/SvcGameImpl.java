@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 
-import com.google.appengine.api.datastore.Key;
 import com.google.common.base.Predicate;
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
@@ -179,12 +177,9 @@ public class SvcGameImpl implements SvcGame {
 						final String msg = "updateFriendInvites: user:" + fUser
 								+ " invites:" + invites;
 						log.info(msg);
-						Key key = fUser.getKey();
-						String details = fUser.getDetails();
 						if (invites != null && invites.size() > 0) {
 							for (InviteFriend invite : invites) {
-								invite.setInviteeKey(key);
-								invite.setInviteeDetails(details);
+								invite.setInvitee(fUser);
 							}
 							// write new friend requests to database
 							at.put(invites);
@@ -309,11 +304,9 @@ public class SvcGameImpl implements SvcGame {
 	@Override
 	public List<FriendGames> getMyFriendGames(User u) {
 		DaoUser du = DaoUserFactory.getUserDao();
-		Set<Key> keySet = u.getFriends();
-		List<Key> keyList = new ArrayList<Key>(keySet);
 		List<FriendGames> fgs = new ArrayList<FriendGames>();
 		try {
-			List<User> us = du.getUsers(keyList);
+			List<User> us = du.getFriends(u);
 			for (User usr : us) {
 				FriendGames fg = new FriendGames();
 				fg.setFriend(usr);

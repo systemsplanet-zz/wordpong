@@ -169,4 +169,12 @@ public class DaoUserImpl extends DaoBase<User> implements DaoUser {
         }
         return result;
     }
+
+	@Override
+	public List<User> getFriends(User u) throws DaoException {
+		Set<Key> keySet = u.getFriends();
+		List<Key> keyList = new ArrayList<Key>(keySet);
+		List<User> us = getUsers(keyList);
+		return us;
+	}
 }
