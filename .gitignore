@@ -20,4 +20,5 @@ war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar
 war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar
 war/WEB-INF/lib/jdo2-api-2.3-eb.jar
 war/WEB-INF/lib/appengine-jsr107cache-1.4.3.jar
+war/WEB-INF/appengine-generated
 .settings
