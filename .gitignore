@@ -1,4 +1,13 @@
-src/com/wordpong/api/meta/*
+src/com/wordpong/api/meta
+src/com/wordpong/api/meta/AnswerMeta.java
+src/com/wordpong/api/meta/GameMeta.java
+src/com/wordpong/api/meta/InviteFriendMeta.java
+src/com/wordpong/api/meta/InviteGameMeta.java
+src/com/wordpong/api/meta/PasswordChangeRequestMeta.java
+src/com/wordpong/api/meta/QuestionMeta.java
+src/com/wordpong/api/meta/TagQuestionMeta.java
+src/com/wordpong/api/meta/UserMeta.java
+war/WEB-INF/classes
 war/WEB-INF/classes/*
 war/WEB-INF/classes/**/*
 war/WEB-INF/classes/StripesResources.properties
