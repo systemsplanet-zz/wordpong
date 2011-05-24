@@ -1,10 +1,10 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
-<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.GameInviteAcceptActionBean"/>
+<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.GameInviteActionBean"/>
 <fmt:message var="acceptLbl" key="accept" />
 <fmt:message var="ignoreLbl" key="ignore" />
 <fmt:message var="backLbl" key="back" />
 
-<s:form id="gameInviteAcceptForm" beanclass="com.wordpong.app.action.game.GameInviteAcceptActionBean" method="post">
+<s:form id="gameInviteForm" beanclass="com.wordpong.app.action.game.GameInviteActionBean" method="post">
     <div data-role="header"  data-nobackbtn="true" data-theme="b">
         <!-- Back Button -->
         <div style="float:left;margin-left:10px">

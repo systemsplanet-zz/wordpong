@@ -1,5 +1,7 @@
 package com.wordpong.app.action.game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -13,6 +15,7 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
@@ -21,23 +24,23 @@ import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
-public class GameInviteAcceptActionBean extends BaseActionBean implements
+public class GameInviteAnswersActionBean extends BaseActionBean implements
 		ValidationErrorHandler {
 	private static final Logger log = Logger
-			.getLogger(GameInviteAcceptActionBean.class.getName());
-	private static final String VIEW = "/WEB-INF/jsp/game/_gameInviteAccept.jsp";
+			.getLogger(GameInviteAnswersActionBean.class.getName());
+	private static final String VIEW = "/WEB-INF/jsp/game/_gameInviteAnswers.jsp";
 
 	@Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
 	private String email;
 	private String key;
 	private String createdAtString = "??";
 
-	public GameInviteAcceptActionBean() {
+	public GameInviteAnswersActionBean() {
 	}
 
 	@DontValidate
 	public Resolution back() {
-		return new ForwardResolution(GameActionBean.class);
+		return new ForwardResolution(GameInviteActionBean.class);
 	}
 
 	@DontValidate
@@ -46,37 +49,39 @@ public class GameInviteAcceptActionBean extends BaseActionBean implements
 		return new ForwardResolution(VIEW);
 	}
 
-	@HandlesEvent("ignoreInvite")
-	public Resolution ignoreInvite() {
-		try {
-			// hide game invite from invitee
-			SvcGame sg = SvcGameFactory.getGameService();
-			sg.ignoreGameInvitation(key);
-			addGlobalActionError("gameInviteAccept.inviteIgnored");
-		} catch (WPServiceException e) {
-			addGlobalActionError("gameInviteAccept.unableToIgnore");
+	public List<Answer> getAnswers() {
+		List<Answer> result= new ArrayList<Answer>();
+		SvcGame sg = SvcGameFactory.getGameService();
+		User user = getContext().getUserFromSession();
+		if (user != null) {
+			try {
+				result = sg.getAnswers(user);
+			} catch (WPServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return new ForwardResolution(VIEW);
+		return result;
 	}
 
-	@HandlesEvent("acceptInviteConfirm")
-	public Resolution acceptInvite() {
+	@HandlesEvent("selectAnswers")
+	public Resolution selectAnswers() {
 		AppActionBeanContext c = getContext();
 		if (c != null) {
 			try {
 				User user = c.getUserFromSession();
 				if (user != null) {
-					// todo: START GAME
+					// todo: START GAME . prompt user to select game to send
 					SvcGame sg = SvcGameFactory.getGameService();
 					SvcUser su = SvcUserFactory.getUserService();
 					// user = su.getByKey(user);
-					addGlobalActionError("gameInviteAccept.inviteAccepted");
+					addGlobalActionError("gameInviteQuestions.inviteAccepted");
 				} else {
 					// session expire?
 				}
 			} catch (Exception e) {
-				addGlobalActionError("gameInviteAccept.unableToAccept");
-				log.warning("unable to accept invite");
+				addGlobalActionError("gameInviteQuestions.unableToAccept");
+				log.warning("unable to select questions");
 			}
 		}
 		// redirect back here

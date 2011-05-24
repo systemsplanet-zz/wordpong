@@ -85,9 +85,9 @@ public class GameActionBean extends BaseActionBean {
 		Resolution result;
 		String newFriend = SvcLocale.get("newFriend");
 		if (details != null && details.startsWith(newFriend)) {
-			result = new ForwardResolution(FriendInviteCancelActionBean.class);
+			result = new ForwardResolution(FriendInviteAcceptActionBean.class);
 		} else {
-			result = new ForwardResolution(GameInviteAcceptActionBean.class);
+			result = new ForwardResolution(GameInviteActionBean.class);
 		}
 		return result;
 	}
