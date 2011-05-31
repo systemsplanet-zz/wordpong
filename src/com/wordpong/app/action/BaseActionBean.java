@@ -13,6 +13,7 @@ import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.ErrorResolution;
+import net.sourceforge.stripes.action.HttpCache;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -22,6 +23,7 @@ import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.util.servlet.AjaxUtils;
 import com.wordpong.app.util.servlet.ServletUtil;
 
+@HttpCache(allow=false)
 public abstract class BaseActionBean implements ActionBean {
     // private static final Logger log = Logger.getLogger(BaseActionBean.class
     // .getName());

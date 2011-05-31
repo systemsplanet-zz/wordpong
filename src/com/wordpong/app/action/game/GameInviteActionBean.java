@@ -2,17 +2,19 @@ package com.wordpong.app.action.game;
 
 import java.util.logging.Logger;
 
+import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.validation.EmailTypeConverter;
-import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.util.CryptoUtil;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
@@ -25,12 +27,24 @@ public class GameInviteActionBean extends BaseActionBean implements
 			.getLogger(GameInviteActionBean.class.getName());
 	private static final String VIEW = "/WEB-INF/jsp/game/_gameInvite.jsp";
 
-	@Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
-	private String email;
-	private String key;
-	private String createdAtString = "??";
+	private String inviteGameKeyStringEncrypted;
+	private String inviteGameKeyString;
+	private InviteGame inviteGame;
 
 	public GameInviteActionBean() {
+	}
+
+	@After(stages = LifecycleStage.BindingAndValidation)
+	public void doPostValidationStuff() {
+		if (inviteGameKeyStringEncrypted != null) {
+			inviteGameKeyString = CryptoUtil
+					.decrypt(inviteGameKeyStringEncrypted);
+			SvcGame sg = SvcGameFactory.getGameService();
+			try {
+				inviteGame = sg.getInviteGame(inviteGameKeyString);
+			} catch (WPServiceException e) {
+			}
+		}
 	}
 
 	@DontValidate
@@ -49,7 +63,7 @@ public class GameInviteActionBean extends BaseActionBean implements
 		try {
 			// hide game invite from invitee
 			SvcGame sg = SvcGameFactory.getGameService();
-			sg.ignoreGameInvitation(key);
+			sg.ignoreGameInvitation(inviteGameKeyString);
 			addGlobalActionError("gameInviteAccept.inviteIgnored");
 		} catch (WPServiceException e) {
 			addGlobalActionError("gameInviteAccept.unableToIgnore");
@@ -59,13 +73,14 @@ public class GameInviteActionBean extends BaseActionBean implements
 
 	@HandlesEvent("acceptInviteConfirm")
 	public Resolution acceptInvite() {
-		Resolution result =new ForwardResolution(VIEW); 
+		Resolution result = new ForwardResolution(VIEW);
 		AppActionBeanContext c = getContext();
 		if (c != null) {
 			try {
-				User user = c.getUserFromSession(); //todo: required?
+				User user = c.getUserFromSession(); // todo: required?
 				if (user != null) {
-					result = new ForwardResolution(GameInviteAnswersActionBean.class);
+					result = new ForwardResolution(
+							GameInviteAnswersActionBean.class);
 				} else {
 					// session expire?
 				}
@@ -83,30 +98,21 @@ public class GameInviteActionBean extends BaseActionBean implements
 		return new ForwardResolution(VIEW);
 	}
 
-	public String getEmail() {
-		return email;
+	public String getInviteGameKeyStringEncrypted() {
+		return inviteGameKeyStringEncrypted;
 	}
 
-	public void setEmail(String e) {
-		if (e != null) {
-			e = e.trim().toLowerCase();
-		}
-		email = e;
+	public void setInviteGameKeyStringEncrypted(
+			String inviteGameKeyStringEncrypted) {
+		this.inviteGameKeyStringEncrypted = inviteGameKeyStringEncrypted;
 	}
 
-	public String getKey() {
-		return key;
+	public InviteGame getInviteGame() {
+		return inviteGame;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setInviteGame(InviteGame inviteGame) {
+		this.inviteGame = inviteGame;
 	}
 
-	public String getCreatedAtString() {
-		return createdAtString;
-	}
-
-	public void setCreatedAtString(String createdAtString) {
-		this.createdAtString = createdAtString;
-	}
 }

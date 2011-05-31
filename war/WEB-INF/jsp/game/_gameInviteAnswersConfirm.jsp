@@ -27,9 +27,18 @@
 	<s:form id="gameInviteAnswersConfirmForm" beanclass="com.wordpong.app.action.game.GameInviteAnswersConfirmActionBean" method="post">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 			<li data-role="list-divider" ><s:label for="confirm game"/></li> 
+			<li><s:label for="questions: ${actionBean.questionDescription}"/></li> 
+			<li><s:label for="with: ${actionBean.inviterDetails}"/>      </li> 
 	        <input id="answerKeyString" name="answerKeyString" type="hidden" value=""/>
+	        <input id="questionsKeyString" name="questionsKeyString" type="hidden" value=""/>
+	        <input id="inviterUserKeyString" name="inviterUserKeyString" type="hidden" value=""/>
 	        <input id="questionDescription" name="questionDescription" type="hidden" value=""/>
+	        <input id="inviterDetails" name="inviterDetails" type="hidden" value="inviter details"/>
 		</ul>
+        <div style="float:right">
+			<input name="startGame" value="Start Game" data-theme="a" class="process ui-btn-left  ui-btn-hidden"  type="submit">
+        </div>
+
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="cancel" value="${cancelLbl}" type="submit" /> 
         </div>

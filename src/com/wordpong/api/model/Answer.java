@@ -22,8 +22,10 @@ public class Answer implements Serializable {
     @Attribute(version = true)
     private Long version;
 
+    // db key for user providing answers
     private Key userKey;
 
+    // db key to list of questions
     private Key questionKey;
 
     @Attribute(unindexed = true)

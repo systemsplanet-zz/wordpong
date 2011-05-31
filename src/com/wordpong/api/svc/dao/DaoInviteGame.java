@@ -9,10 +9,13 @@ import com.wordpong.api.svc.dao.transact.Atomic;
 
 public interface DaoInviteGame {
 
-    List<InviteGame> getGameActivePlayerByInviteeKey(User user) throws DaoException;
+	List<InviteGame> getGameActivePlayerByInviteeKey(User user)
+			throws DaoException;
 
-    void createGames(Atomic at, User invitee, User inviter) throws DaoException;
+	void createGames(Atomic at, User invitee, User inviter) throws DaoException;
 
-    void ignoreInvitation(String gameInviteKeyStr) throws DaoException;
+	void ignoreInvitation(String gameInviteKeyStr) throws DaoException;
+
+	InviteGame getInviteGame(String inviteGameKeyString) throws DaoException;
 
 }

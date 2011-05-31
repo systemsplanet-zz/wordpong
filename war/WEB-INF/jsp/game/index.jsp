@@ -7,6 +7,9 @@
 <fmt:message var="logoutLbl" key="logout" />
 <fmt:message var="friendsLbl" key="friends" />
 <fmt:message var="profileLbl" key="profile" />
+<fmt:message var="newFriendLbl" key="newFriend" />
+<fmt:message var="newGameLbl" key="newGame" />
+
 
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
   
@@ -25,10 +28,16 @@
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${myTurnLbl} (${myBean.user.fullName})</li>              
         <small>
-        <c:forEach items="${actionBean.myTurns}" var="myTurn" >
-                <input onClick="javascript:$('#key').val('${myTurn.key}');$('#email').val('${myTurn.id}');$('#createdAtString').val('${myTurn.createdAtString}');$('#details').val('${myTurn.details}');" data-theme="a" class="process"  name="processMyTurnSelection" value="${myTurn.details}" type="submit" />
+        <c:forEach items="${actionBean.inviteFriends}" var="inviteFriend" >
+        	<input value="${newFriendLbl}: ${inviteFriend.inviterDetails}" name="processFriendInvite"  onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
+        </c:forEach>
+    	<input id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" type="hidden" value=""/>    
+
+        <c:forEach items="${actionBean.inviteGames}" var="inviteGame" >
+        	<input value="${newGameLbl}: ${inviteGame.inviterDetails}" name="processGameInvite"  onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
         </c:forEach>
         </small>         
+	    <input id="inviteGameKeyStringEncrypted" name="inviteGameKeyStringEncrypted" type="hidden" value=""/>    
 	</ul>
 	
 	<%-- THEIR TURN --%>	
@@ -43,11 +52,6 @@
         </c:forEach>
         </small>
 	</ul>
-    <input id="key" name="key" type="hidden" value=""/>
-    <input id="email" name="email" type="hidden" value=""/>
-    <input id="createdAtString" name="createdAtString" type="hidden" value=""/>
-    <input id="details" name="details" type="hidden" value=""/>
-    
      
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${myStuffLbl}</li> 

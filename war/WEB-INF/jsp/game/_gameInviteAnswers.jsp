@@ -34,6 +34,7 @@
 	        </small>         
 	        <input id="answerKeyString" name="answerKeyString" type="hidden" value=""/>
 	        <input id="questionDescription" name="questionDescription" type="hidden" value=""/>
+	        <input id="key" name="key" type="hidden" value="${actionBean.key} }"/>
 		</ul>
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 

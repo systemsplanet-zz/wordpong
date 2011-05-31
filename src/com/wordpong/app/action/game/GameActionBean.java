@@ -1,7 +1,6 @@
 package com.wordpong.app.action.game;
 
 import java.util.List;
-//import java.util.logging.Logger;
 
 import javax.annotation.security.PermitAll;
 
@@ -13,12 +12,13 @@ import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
 
+import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.InviteFriend;
+import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.pojo.GameTheirTurn;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
-import com.wordpong.api.svc.util.SvcLocale;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
@@ -80,27 +80,29 @@ public class GameActionBean extends BaseActionBean {
 	}
 
 	@DontValidate
-	@HandlesEvent("processMyTurnSelection")
-	public Resolution processMyTurnSelection() {
-		Resolution result;
-		String newFriend = SvcLocale.get("newFriend");
-		if (details != null && details.startsWith(newFriend)) {
-			result = new ForwardResolution(FriendInviteAcceptActionBean.class);
-		} else {
-			result = new ForwardResolution(GameInviteActionBean.class);
-		}
-		return result;
+	@HandlesEvent("processFriendInvite")
+	public Resolution processFriendInvite() {
+		return new ForwardResolution(FriendInviteAcceptActionBean.class);
+	}
+
+	@DontValidate
+	@HandlesEvent("processGameInvite")
+	public Resolution processGameInvite() {
+		return new ForwardResolution(GameInviteActionBean.class);
 	}
 
 	public User getUser() {
 		return user;
 	}
 
-	// get list of things for me to do, like:
-	// respond to friend/game invites
-	public List<GameMyTurn> getMyTurns() {
+	public List<InviteFriend> getInviteFriends() throws WPServiceException {
 		user = getContext().getUserFromSession();
-		return _svcGame.getMyTurns(user);
+		return _svcGame.getInviteFriends(user);
+	}
+
+	public List<InviteGame> getInviteGames() throws WPServiceException {
+		user = getContext().getUserFromSession();
+		return _svcGame.getInviteGames(user);
 	}
 
 	public List<GameTheirTurn> getTheirTurns() {

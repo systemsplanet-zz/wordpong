@@ -27,6 +27,8 @@ public class GameInviteAnswersActionBean extends BaseActionBean implements
 	private static final String VIEW = "/WEB-INF/jsp/game/_gameInviteAnswers.jsp";
 
 	private String answerKeyString;
+	private String key; //inviterUserKeyString
+
 	private String questionDescription = "??";
 
 	public GameInviteAnswersActionBean() {
@@ -84,8 +86,8 @@ public class GameInviteAnswersActionBean extends BaseActionBean implements
 		return answerKeyString;
 	}
 
-	public void setAnswerKeyString(String key) {
-		this.answerKeyString = key;
+	public void setAnswerKeyString(String k) {
+		this.answerKeyString = k;
 	}
 
 	public String getQuestionDescription() {
@@ -94,6 +96,14 @@ public class GameInviteAnswersActionBean extends BaseActionBean implements
 
 	public void setQuestionDescription(String questionDescription) {
 		this.questionDescription = questionDescription;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKet(String k) {
+		this.key = k;
 	}
 
 }

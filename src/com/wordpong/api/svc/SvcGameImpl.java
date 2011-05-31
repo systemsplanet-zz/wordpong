@@ -9,15 +9,17 @@ import java.util.logging.Logger;
 import com.google.common.base.Predicate;
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
+import com.wordpong.api.model.Game;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.FriendGames;
-import com.wordpong.api.pojo.GameMyTurn;
 import com.wordpong.api.pojo.GameTheirTurn;
 import com.wordpong.api.svc.dao.DaoAnswer;
 import com.wordpong.api.svc.dao.DaoAnswerFactory;
+import com.wordpong.api.svc.dao.DaoGame;
+import com.wordpong.api.svc.dao.DaoGameFactory;
 import com.wordpong.api.svc.dao.DaoInviteFriend;
 import com.wordpong.api.svc.dao.DaoInviteFriendFactory;
 import com.wordpong.api.svc.dao.DaoInviteGame;
@@ -36,46 +38,39 @@ public class SvcGameImpl implements SvcGame {
 	private static final Logger log = Logger.getLogger(SvcGameImpl.class
 			.getName());
 
-	@Override
-	public List<GameMyTurn> getMyTurns(User user) {
-		List<GameMyTurn> result = new ArrayList<GameMyTurn>();
+	public List<InviteFriend> getInviteFriends(User user)
+			throws WPServiceException {
+		List<InviteFriend> result = new ArrayList<InviteFriend>();
 		DaoInviteFriend dif = DaoInviteFriendFactory.getFriendInviteDao();
-
 		try {
-			List<InviteFriend> requests = dif
-					.getFriendInvitesByInviteeKey(user);
-			for (InviteFriend fr : requests) {
-				if (fr.isIgnored() == false) {
-					GameMyTurn gmt = new GameMyTurn();
-					gmt.setAction(GameMyTurn.Action.InvitationRequest);
-					gmt.setId(fr.getInviterEmail());
-					String newFriend = SvcLocale.get("newFriend");
-					gmt.setDetails(newFriend + ": " + fr.getInviterDetails());
-					gmt.setCreatedAtString(fr.getCreatedAtString());
-					gmt.setKey(fr.getKeyString());
-					result.add(gmt);
-				}
-			}
-
-			// get the games where it's my turn
-			DaoInviteGame dig = DaoInviteGameFactory.getInviteGameDao();
-			List<InviteGame> games = dig.getGameActivePlayerByInviteeKey(user);
-			for (InviteGame g : games) {
-				if (g.isIgnored() == false) {
-					GameMyTurn gmt = new GameMyTurn();
-					gmt.setAction(GameMyTurn.Action.CreateGame);
-					gmt.setId(g.getInviterEmail());
-					String newGame = SvcLocale.get("newGame");
-					gmt.setDetails(newGame + ": " + g.getInviterDetails());
-					gmt.setCreatedAtString(g.getCreatedAtString());
-					gmt.setKey(g.getKeyString());
-					result.add(gmt);
+			List<InviteFriend> invites = dif.getFriendInvitesByInviteeKey(user);
+			for (InviteFriend invite : invites) {
+				if (invite.isIgnored() == false) {
+					result.add(invite);
 				}
 			}
 		} catch (DaoException e) {
-			log.warning("getMyTurns err: " + e.getMessage());
+			log.warning("getInviteFriends err: " + e.getMessage());
+			throw new WPServiceException(e.getMessage());
 		}
-		// TODO: gmt.setAction(Action.InviteAccepted);
+		return result;
+	}
+ 
+	public List<InviteGame> getInviteGames(User user) throws WPServiceException {
+		List<InviteGame> result = new ArrayList<InviteGame>();
+		DaoInviteGame dif = DaoInviteGameFactory.getInviteGameDao();
+		try {
+			List<InviteGame> invites = dif
+					.getGameActivePlayerByInviteeKey(user);
+			for (InviteGame invite : invites) {
+				if (invite.isIgnored() == false) {
+					result.add(invite);
+				}
+			}
+		} catch (DaoException e) {
+			log.warning("getInviteGames err: " + e.getMessage());
+			throw new WPServiceException(e.getMessage());
+		}
 		return result;
 	}
 
@@ -131,6 +126,33 @@ public class SvcGameImpl implements SvcGame {
 		return result;
 	}
 
+	@Override
+	public InviteFriend getInviteFriend(String inviteFriendKeyStr)
+			throws WPServiceException {
+		DaoInviteFriend f = DaoInviteFriendFactory.getFriendInviteDao();
+		InviteFriend result;
+		try {
+			result = f.getFriendInvite(inviteFriendKeyStr);
+		} catch (DaoException e) {
+			throw new WPServiceException("getInviteFriend err: "
+					+ e.getMessage());
+		}
+		return result;
+	}
+
+	public InviteGame getInviteGame(String inviteGameKeyStr) throws WPServiceException {
+		DaoInviteGame f = DaoInviteGameFactory.getInviteGameDao();
+		InviteGame result;
+		try { 
+			result = f.getInviteGame(inviteGameKeyStr);
+		} catch (DaoException e) {
+			throw new WPServiceException("getinviteGame err: "
+					+ e.getMessage());
+		}
+		return result;
+	}
+
+	
 	@Override
 	public void cancelFriendInvitation(User user, String email)
 			throws WPServiceException {
@@ -249,7 +271,6 @@ public class SvcGameImpl implements SvcGame {
 			throw new WPServiceException(e.getMessage());
 		}
 	}
-
 
 	// Add each user to each others friend list
 	// Create a new game for each user
@@ -379,7 +400,8 @@ public class SvcGameImpl implements SvcGame {
 	}
 
 	@Override
-	public Question getQuestion(String questionKeyStr) throws WPServiceException {
+	public Question getQuestion(String questionKeyStr)
+			throws WPServiceException {
 		DaoQuestion qa = DaoQuestionFactory.getQuestionDao();
 		Question result;
 		try {
@@ -391,4 +413,14 @@ public class SvcGameImpl implements SvcGame {
 		return result;
 	}
 
+	@Override
+	public void saveGame(Game game) throws WPServiceException {
+		DaoGame dg = DaoGameFactory.getGameDao();
+		try {
+			dg.save(game);
+		} catch (DaoException e) {
+			throw new WPServiceException("saveGame game:" + game + " err: "
+					+ e.getMessage());
+		}
+	}
 }

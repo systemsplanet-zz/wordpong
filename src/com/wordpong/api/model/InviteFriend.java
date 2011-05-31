@@ -3,6 +3,8 @@ package com.wordpong.api.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import net.sourceforge.stripes.util.CryptoUtil;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
@@ -65,6 +67,12 @@ public class InviteFriend implements Serializable {
 	public String getKeyString() {
 		String k = KeyFactory.keyToString(key);
 		return k;
+	}
+
+	public String getKeyStringEncrypted() {
+		String ks = getKeyString();
+		String keyEncrypted = CryptoUtil.encrypt(ks);
+		return keyEncrypted;
 	}
 
 	public void setKey(Key key) {

@@ -10,11 +10,10 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
+import com.wordpong.api.model.Game;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
-import com.wordpong.api.svc.SvcUser;
-import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
@@ -25,8 +24,10 @@ public class GameInviteAnswersConfirmActionBean extends BaseActionBean implement
 	private static final String VIEW = "/WEB-INF/jsp/game/_gameInviteAnswersConfirm.jsp";
 
 	private String answerKeyString;
+	private String questionsKeyString;
+	private String inviterUserKeyString;
 	private String questionDescription = "??";
-
+    private String inviterDetails = "?inviter details?";
 	public GameInviteAnswersConfirmActionBean() {
 	}
 
@@ -48,9 +49,14 @@ public class GameInviteAnswersConfirmActionBean extends BaseActionBean implement
 			try {
 				User user = c.getUserFromSession();
 				if (user != null) {
-					// todo: START GAME . prompt user to select game to send
 					SvcGame sg = SvcGameFactory.getGameService();
-					SvcUser su = SvcUserFactory.getUserService();
+				    Game g = new Game();
+				    //TODO: populate these from the form
+				    g.setAnswersKeyString(answerKeyString);
+				    g.setQuestionsKeyString(questionsKeyString);
+				    g.setUserKeyString(inviterUserKeyString);
+				    sg.saveGame(g);
+					
 			} else {
 					// session expire?
 				}
@@ -82,6 +88,30 @@ public class GameInviteAnswersConfirmActionBean extends BaseActionBean implement
 
 	public void setQuestionDescription(String questionDescription) {
 		this.questionDescription = questionDescription;
+	}
+
+	public String getInviterDetails() {
+		return inviterDetails;
+	}
+
+	public void setInviterDetails(String inviterDetails) {
+		this.inviterDetails = inviterDetails;
+	}
+
+	public String getQuestionsKeyString() {
+		return questionsKeyString;
+	}
+
+	public void setQuestionsKeyString(String questionsKeyString) {
+		this.questionsKeyString = questionsKeyString;
+	}
+
+	public String getInviterUserKeyString() {
+		return inviterUserKeyString;
+	}
+
+	public void setInviterUserKeyString(String inviterUserKeyString) {
+		this.inviterUserKeyString = inviterUserKeyString;
 	}
 	
 
