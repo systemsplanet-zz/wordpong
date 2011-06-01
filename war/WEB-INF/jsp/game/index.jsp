@@ -18,23 +18,24 @@
 		<tags:logo/>
 	</center>
 </div>
-
 <%-- MY TURN --%>
 
 <div data-role="content" style="padding-top:0px;"  >
+
 <s:form  id="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
-    
+    <s:messages/>      
+    <s:errors/>
     <%-- MY TURN --%>    
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${myTurnLbl} (${myBean.user.fullName})</li>              
         <small>
         <c:forEach items="${actionBean.inviteFriends}" var="inviteFriend" >
-        	<input value="${newFriendLbl}: ${inviteFriend.inviterDetails}" name="processFriendInvite"  onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
+        	<input name="processFriendInvite" value="${newFriendLbl}: ${inviteFriend.inviterDetails}" onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
         </c:forEach>
     	<input id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" type="hidden" value=""/>    
 
         <c:forEach items="${actionBean.inviteGames}" var="inviteGame" >
-        	<input value="${newGameLbl}: ${inviteGame.inviterDetails}" name="processGameInvite"  onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
+        	<input name="processGameInvite" value="${newGameLbl}: ${inviteGame.inviterDetails}" onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
         </c:forEach>
         </small>         
 	    <input id="inviteGameKeyStringEncrypted" name="inviteGameKeyStringEncrypted" type="hidden" value=""/>    

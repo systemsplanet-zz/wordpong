@@ -26,8 +26,7 @@
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 			<li>
                 <div data-role="fieldcontain" style="padding:4px;">
-                    <s:label for="inviteGame.inviterDetails" class="ui-input-text"/>
-                    <s:text  name="inviteGame.inviterDetails" tabindex="1" readonly="true"/>
+                    <s:label for="Game Invite From: ${inviteGame.inviterDetails}"/> 
                 </div>
  	            <s:hidden   name="inviteGameKeyStringEncrypted" value="${inviteGame.keyStringEncrypted}" />
 			</li>

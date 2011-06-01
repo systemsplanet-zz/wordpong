@@ -64,11 +64,11 @@ public class GameInviteActionBean extends BaseActionBean implements
 			// hide game invite from invitee
 			SvcGame sg = SvcGameFactory.getGameService();
 			sg.ignoreGameInvitation(inviteGameKeyString);
-			addGlobalActionError("gameInviteAccept.inviteIgnored");
+			addGlobalActionMessage("gameInviteAccept.inviteIgnored");
 		} catch (WPServiceException e) {
 			addGlobalActionError("gameInviteAccept.unableToIgnore");
 		}
-		return new ForwardResolution(VIEW);
+		return new ForwardResolution(GameActionBean.class);
 	}
 
 	@HandlesEvent("acceptInviteConfirm")
