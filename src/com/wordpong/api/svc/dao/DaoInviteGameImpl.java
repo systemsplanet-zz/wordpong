@@ -10,7 +10,6 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.common.base.Predicate;
 import com.wordpong.api.meta.InviteGameMeta;
-import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.err.DaoException;
@@ -119,5 +118,17 @@ public class DaoInviteGameImpl extends DaoBase<InviteGame> implements
 			throw new DaoException(m);
 		}
 		return result;
+	}
+
+	@Override
+	public void removeInviteGame(Atomic at, InviteGame inviteGame)
+			throws DaoException {
+		if (at != null && inviteGame != null) {
+			Key k = inviteGame.getKey();
+			if (k != null) {
+				at.delete(k);
+				log.info("deleted InviteGame:"+k);
+			}
+		}
 	}
 }

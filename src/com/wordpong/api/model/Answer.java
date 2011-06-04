@@ -3,6 +3,8 @@ package com.wordpong.api.model;
 import java.io.Serializable;
 import java.util.List;
 
+import net.sourceforge.stripes.util.CryptoUtil;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
@@ -14,132 +16,139 @@ import com.google.appengine.api.datastore.KeyFactory;
 @Model(schemaVersion = 1)
 public class Answer implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Attribute(primaryKey = true)
-    private Key key;
+	@Attribute(primaryKey = true)
+	private Key key;
 
-    @Attribute(version = true)
-    private Long version;
+	@Attribute(version = true)
+	private Long version;
 
-    // db key for user providing answers
-    private Key userKey;
+	// db key for user providing answers
+	private Key userKey;
 
-    // db key to list of questions
-    private Key questionKey;
+	// db key to list of questions
+	private Key questionKey;
 
-    @Attribute(unindexed = true)
-    private String questionDescription; // copied from question.description
+	@Attribute(unindexed = true)
+	private String questionDescription; // copied from question.description
 
-    private List<String> answers;
+	private List<String> answers;
 
-    @Attribute(unindexed = true)
-    private String localeString;
+	@Attribute(unindexed = true)
+	private String localeString;
 
-    public Key getKey() {
-        return key;
-    }
+	public Key getKey() {
+		return key;
+	}
 
-    public void setKey(Key key) {
-        this.key = key;
-    }
+	public void setKey(Key key) {
+		this.key = key;
+	}
 
-    public String getKeyString() {
-        String k = KeyFactory.keyToString(key);
-        return k;
-    }
+	public String getKeyString() {
+		String k = KeyFactory.keyToString(key);
+		return k;
+	}
 
-    public Long getVersion() {
-        return version;
-    }
+	public String getKeyStringEncrypted() {
+		String ks = getKeyString();
+		String keyEncrypted = CryptoUtil.encrypt(ks);
+		return keyEncrypted;
+	}
 
-    public void setVersion(Long version) {
-        this.version = version;
-    }
+	public Long getVersion() {
+		return version;
+	}
 
-    public List<String> getAnswers() {
-        return answers;
-    }
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 
-    public void setAnswers(List<String> answers) {
-        this.answers = answers;
-    }
+	public List<String> getAnswers() {
+		return answers;
+	}
 
-    public String getLocaleString() {
-        return localeString;
-    }
+	public void setAnswers(List<String> answers) {
+		this.answers = answers;
+	}
 
-    public void setLocaleString(String locale) {
-        this.localeString = locale;
-    }
+	public String getLocaleString() {
+		return localeString;
+	}
 
-    public Key getUserKey() {
-        return userKey;
-    }
+	public void setLocaleString(String locale) {
+		this.localeString = locale;
+	}
 
-    public void setUserKey(Key userKey) {
-        this.userKey = userKey;
-    }
+	public Key getUserKey() {
+		return userKey;
+	}
 
-    public String getQuestionKeyString() {
-        String k = KeyFactory.keyToString(questionKey);
-        return k;
-    }
-    
-    public Key getQuestionKey() {
-        return questionKey;
-    }
+	public void setUserKey(Key userKey) {
+		this.userKey = userKey;
+	}
 
-    public void setQuestionKey(Key questionsKey) {
-        this.questionKey = questionsKey;
-    }
+	public String getQuestionKeyString() {
+		String k = KeyFactory.keyToString(questionKey);
+		return k;
+	}
 
-    public void setQuestionKeyString(String questionsKeyString) {
-        if (questionsKeyString != null) {
-            questionKey = KeyFactory.stringToKey(questionsKeyString);
-        }
-    }
+	public Key getQuestionKey() {
+		return questionKey;
+	}
 
-    public String getQuestionDescription() {
-        return questionDescription;
-    }
+	public void setQuestionKey(Key questionsKey) {
+		this.questionKey = questionsKey;
+	}
 
-    public void setQuestionDescription(String questionDescription) {
-        this.questionDescription = questionDescription;
-    }
+	public void setQuestionKeyString(String questionsKeyString) {
+		if (questionsKeyString != null) {
+			questionKey = KeyFactory.stringToKey(questionsKeyString);
+		}
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        return result;
-    }
+	public String getQuestionDescription() {
+		return questionDescription;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Answer other = (Answer) obj;
-        if (key == null) {
-            if (other.key != null) {
-                return false;
-            }
-        } else if (!key.equals(other.key)) {
-            return false;
-        }
-        return true;
-    }
+	public void setQuestionDescription(String questionDescription) {
+		this.questionDescription = questionDescription;
+	}
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Answer other = (Answer) obj;
+		if (key == null) {
+			if (other.key != null) {
+				return false;
+			}
+		} else if (!key.equals(other.key)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.SHORT_PREFIX_STYLE);
+	}
 }

@@ -78,7 +78,7 @@ public class InviteGame implements Serializable {
     }
 
     public String getKeyStringEncrypted() {
-		String ks = getKeyString();
+    	String ks = KeyFactory.keyToString(key);
 		String keyEncrypted = CryptoUtil.encrypt(ks);
 		return keyEncrypted;
 	}

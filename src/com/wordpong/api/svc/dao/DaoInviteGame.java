@@ -18,4 +18,5 @@ public interface DaoInviteGame {
 
 	InviteGame getInviteGame(String inviteGameKeyString) throws DaoException;
 
+	void removeInviteGame(Atomic at, InviteGame inviteGame) throws DaoException;
 }

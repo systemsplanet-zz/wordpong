@@ -26,9 +26,9 @@
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 			<li>
                 <div data-role="fieldcontain" style="padding:4px;">
-                    <s:label for="Game Invite From: ${inviteGame.inviterDetails}"/> 
+                    <s:label for="Game Invite From: ${actionBean.inviteGame.inviterDetails}"/> 
                 </div>
- 	            <s:hidden   name="inviteGameKeyStringEncrypted" value="${inviteGame.keyStringEncrypted}" />
+ 	            <s:hidden name="inviteGameKeyStringEncrypted" value="${inviteGame.keyStringEncrypted}" />
 			</li>
 		</ul>
         <div style="float:right">

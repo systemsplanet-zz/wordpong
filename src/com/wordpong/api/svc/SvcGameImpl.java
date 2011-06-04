@@ -55,7 +55,7 @@ public class SvcGameImpl implements SvcGame {
 		}
 		return result;
 	}
- 
+
 	public List<InviteGame> getInviteGames(User user) throws WPServiceException {
 		List<InviteGame> result = new ArrayList<InviteGame>();
 		DaoInviteGame dif = DaoInviteGameFactory.getInviteGameDao();
@@ -140,19 +140,18 @@ public class SvcGameImpl implements SvcGame {
 		return result;
 	}
 
-	public InviteGame getInviteGame(String inviteGameKeyStr) throws WPServiceException {
+	public InviteGame getInviteGame(String inviteGameKeyStr)
+			throws WPServiceException {
 		DaoInviteGame f = DaoInviteGameFactory.getInviteGameDao();
 		InviteGame result;
-		try { 
+		try {
 			result = f.getInviteGame(inviteGameKeyStr);
 		} catch (DaoException e) {
-			throw new WPServiceException("getinviteGame err: "
-					+ e.getMessage());
+			throw new WPServiceException("getinviteGame err: " + e.getMessage());
 		}
 		return result;
 	}
 
-	
 	@Override
 	public void cancelFriendInvitation(User user, String email)
 			throws WPServiceException {
@@ -413,14 +412,44 @@ public class SvcGameImpl implements SvcGame {
 		return result;
 	}
 
+	/**
+	 * Create a new game and remove the game invite
+	 */
 	@Override
-	public void saveGame(Game game) throws WPServiceException {
-		DaoGame dg = DaoGameFactory.getGameDao();
+	public void createGame(final InviteGame inviteGame,
+			final String answerKeyString) throws WPServiceException {
+		Predicate<Atomic> WORK = new Predicate<Atomic>() {
+			String msg = "createGame: " + inviteGame + " answer:"
+					+ answerKeyString;
+
+			public boolean apply(Atomic at) {
+				boolean result = false;
+				try {
+					if (answerKeyString != null && inviteGame != null
+							&& inviteGame.getKey() != null) {
+						DaoGame dg = DaoGameFactory.getGameDao();
+						Game g = new Game();
+						g.setAnswersKeyString(answerKeyString);
+						g.setInviteGame(inviteGame);
+						dg.save(at, g);
+						DaoInviteGame dig = DaoInviteGameFactory
+								.getInviteGameDao();
+						dig.removeInviteGame(at, inviteGame);
+						result = true;
+					}
+				} catch (DaoException e) {
+				}
+				return result;
+			}
+
+			public String toString() {
+				return msg;
+			}
+		};
 		try {
-			dg.save(game);
-		} catch (DaoException e) {
-			throw new WPServiceException("saveGame game:" + game + " err: "
-					+ e.getMessage());
+			Atomic.transact(WORK);
+		} catch (Exception e) {
+			throw new WPServiceException(e.getMessage());
 		}
 	}
 }

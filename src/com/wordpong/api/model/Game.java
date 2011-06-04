@@ -21,10 +21,8 @@ public class Game implements Serializable {
 	@Attribute(version = true)
 	private Long version;
 
-	// points to a Question object
-	private Key questionsKey;
-
-	// points to an Answer object and the user who gave the answers
+	// points to an Answer object and the user who gave the answers, and the
+	// questions key
 	private Key answersKey;
 
 	// User playing this game, ie matching questionsKey to answersKey
@@ -77,25 +75,6 @@ public class Game implements Serializable {
 		this.version = version;
 	}
 
-	public Key getQuestionsKey() {
-		return questionsKey;
-	}
-
-	public void setQuestionsKey(Key questionsKey) {
-		this.questionsKey = questionsKey;
-	}
-
-	public String getQuestionsKeyString() {
-		String k = KeyFactory.keyToString(questionsKey);
-		return k;
-	}
-
-	public void setQuestionsKeyString(String kStr) {
-		Key k = KeyFactory.stringToKey(kStr);
-		questionsKey = k;
-	}
-	
-	
 	public Key getAnswersKey() {
 		return answersKey;
 	}
@@ -107,6 +86,10 @@ public class Game implements Serializable {
 	public String getAnswersKeyString() {
 		String k = KeyFactory.keyToString(answersKey);
 		return k;
+	}
+
+	public void setInviteGame(InviteGame ig) {
+		userKey = ig.getInviterKey();
 	}
 
 	public void setAnswersKeyString(String kStr) {

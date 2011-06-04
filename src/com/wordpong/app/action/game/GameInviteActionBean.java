@@ -1,5 +1,7 @@
 package com.wordpong.app.action.game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
@@ -14,6 +16,7 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
@@ -26,22 +29,37 @@ public class GameInviteActionBean extends BaseActionBean implements
 	private static final Logger log = Logger
 			.getLogger(GameInviteActionBean.class.getName());
 	private static final String VIEW = "/WEB-INF/jsp/game/_gameInvite.jsp";
+	private static final String ANSWERS = "/WEB-INF/jsp/game/_gameInvite_Answers.jsp";
+	private static final String CONFIRM = "/WEB-INF/jsp/game/_gameInvite_Confirm.jsp";
 
 	private String inviteGameKeyStringEncrypted;
 	private String inviteGameKeyString;
+
+	private String answerKeyStringEncrypted;
+	private String answerKeyString;
+
 	private InviteGame inviteGame;
+
+	private Answer answer;
 
 	public GameInviteActionBean() {
 	}
 
 	@After(stages = LifecycleStage.BindingAndValidation)
 	public void doPostValidationStuff() {
+		SvcGame sg = SvcGameFactory.getGameService();
 		if (inviteGameKeyStringEncrypted != null) {
 			inviteGameKeyString = CryptoUtil
 					.decrypt(inviteGameKeyStringEncrypted);
-			SvcGame sg = SvcGameFactory.getGameService();
 			try {
 				inviteGame = sg.getInviteGame(inviteGameKeyString);
+			} catch (WPServiceException e) {
+			}
+		}
+		if (answerKeyStringEncrypted != null) {
+			answerKeyString = CryptoUtil.decrypt(answerKeyStringEncrypted);
+			try {
+				answer = sg.getAnswer(answerKeyString);
 			} catch (WPServiceException e) {
 			}
 		}
@@ -64,9 +82,9 @@ public class GameInviteActionBean extends BaseActionBean implements
 			// hide game invite from invitee
 			SvcGame sg = SvcGameFactory.getGameService();
 			sg.ignoreGameInvitation(inviteGameKeyString);
-			addGlobalActionMessage("gameInviteAccept.inviteIgnored");
+			addGlobalActionMessage("gameInvite.inviteIgnored");
 		} catch (WPServiceException e) {
-			addGlobalActionError("gameInviteAccept.unableToIgnore");
+			addGlobalActionError("gameInvite.unableToIgnore");
 		}
 		return new ForwardResolution(GameActionBean.class);
 	}
@@ -79,19 +97,75 @@ public class GameInviteActionBean extends BaseActionBean implements
 			try {
 				User user = c.getUserFromSession(); // todo: required?
 				if (user != null) {
-					result = new ForwardResolution(
-							GameInviteAnswersActionBean.class);
+					result = new ForwardResolution(ANSWERS);
 				} else {
 					// session expire?
 				}
 			} catch (Exception e) {
-				addGlobalActionError("gameInviteAccept.unableToAccept");
+				addGlobalActionError("gameInvite.unableToAccept");
 				log.warning("unable to accept invite");
 			}
 		}
 		// redirect back here
 		return result;
 	}
+
+	/*
+	 * ANSWERS FOLLOW
+	 */
+
+	public List<Answer> getAnswers() {
+		List<Answer> result = new ArrayList<Answer>();
+		SvcGame sg = SvcGameFactory.getGameService();
+		User user = getContext().getUserFromSession();
+		if (user != null) {
+			try {
+				result = sg.getAnswers(user);
+			} catch (WPServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	@HandlesEvent("selectAnswers")
+	public Resolution selectAnswers() {
+		Resolution result = new ForwardResolution(ANSWERS);
+		AppActionBeanContext c = getContext();
+		if (c != null) {
+			try {
+				result = new ForwardResolution(CONFIRM);
+			} catch (Exception e) {
+				addGlobalActionError("gameInvite.unableToAccept");
+				log.warning("unable to select questions");
+			}
+		}
+		// redirect back here
+		return result;
+	}
+
+	/*
+	 * CONFIRM FOLLOWS
+	 */
+
+	@HandlesEvent("startGame")
+	public Resolution startGame() {
+		SvcGame sg = SvcGameFactory.getGameService();
+		try {
+			sg.createGame(inviteGame, answerKeyString);
+			addGlobalActionMessage("gameInvite.gameSent");
+		} catch (Exception e) {
+			addGlobalActionError("gameInvite.unableToStartGame");
+			log.warning("unable to start game");
+		}
+		// redirect home
+		return new ForwardResolution(GameActionBean.class);
+	}
+
+	/*
+	 * BIOLDERPLATE FOLLOW
+	 */
 
 	// on errors, only reply with the content, not the entire page
 	public Resolution handleValidationErrors(ValidationErrors errors) {
@@ -113,6 +187,22 @@ public class GameInviteActionBean extends BaseActionBean implements
 
 	public void setInviteGame(InviteGame inviteGame) {
 		this.inviteGame = inviteGame;
+	}
+
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
+
+	public String getAnswerKeyStringEncrypted() {
+		return answerKeyStringEncrypted;
+	}
+
+	public void setAnswerKeyStringEncrypted(String answerKeyStringEncrypted) {
+		this.answerKeyStringEncrypted = answerKeyStringEncrypted;
 	}
 
 }
