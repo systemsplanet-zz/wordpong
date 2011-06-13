@@ -127,8 +127,24 @@ public class DaoInviteGameImpl extends DaoBase<InviteGame> implements
 			Key k = inviteGame.getKey();
 			if (k != null) {
 				at.delete(k);
-				log.info("deleted InviteGame:"+k);
+				log.info("removeInviteGame InviteGame:" + k);
 			}
 		}
+	}
+
+	@Override
+	public List<InviteGame> getGameInvitesByInviterKey(User user)
+			throws DaoException {
+		List<InviteGame> result = null;
+		InviteGameMeta e = InviteGameMeta.get();
+
+		try {
+			Key k = user.getKey();
+			result = Datastore.query(e).filter(e.inviterKey.equal(k)).asList();
+
+		} catch (Exception ex) {
+			throw new DaoException("getGameInvitesByInviterKey Err:" + ex.getMessage());
+		}
+		return result;
 	}
 }

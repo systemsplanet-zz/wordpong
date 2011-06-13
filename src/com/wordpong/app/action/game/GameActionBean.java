@@ -16,7 +16,6 @@ import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.GameTheirTurn;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
@@ -90,6 +89,20 @@ public class GameActionBean extends BaseActionBean {
 	public Resolution processGameInvite() {
 		return new ForwardResolution(GameInviteActionBean.class);
 	}
+	
+	
+	@DontValidate
+	@HandlesEvent("viewGameInvite")
+	public Resolution viewGameInvite() {
+		return new ForwardResolution(GameInviteActionBean.class); 
+		// TODO: new view to cancel game invite
+	}
+	@DontValidate
+	@HandlesEvent("viewFriendInvite")
+	public Resolution viewFriendInvite() {
+		return new ForwardResolution(FriendInviteActionBean.class); 
+		// TODO: new view to cancel friend invite
+	}
 
 	public User getUser() {
 		return user;
@@ -105,9 +118,14 @@ public class GameActionBean extends BaseActionBean {
 		return _svcGame.getInviteGames(user);
 	}
 
-	public List<GameTheirTurn> getTheirTurns() {
+	public List<InviteFriend> getTheirTurnsInviteFriend() {
 		user = getContext().getUserFromSession();
-		return _svcGame.getTheirTurns(user);
+		return _svcGame.getTheirTurnsInviteFriend(user);
+	}
+
+	public List<InviteGame> getTheirTurnsInviteGame() {
+		user = getContext().getUserFromSession();
+		return _svcGame.getTheirTurnsInviteGame(user);
 	}
 
 	public String getDetails() {

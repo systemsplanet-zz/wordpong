@@ -15,7 +15,6 @@ import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 import com.wordpong.api.pojo.FriendGames;
-import com.wordpong.api.pojo.GameTheirTurn;
 import com.wordpong.api.svc.dao.DaoAnswer;
 import com.wordpong.api.svc.dao.DaoAnswerFactory;
 import com.wordpong.api.svc.dao.DaoGame;
@@ -32,7 +31,6 @@ import com.wordpong.api.svc.dao.DaoUser;
 import com.wordpong.api.svc.dao.DaoUserFactory;
 import com.wordpong.api.svc.dao.err.DaoException;
 import com.wordpong.api.svc.dao.transact.Atomic;
-import com.wordpong.api.svc.util.SvcLocale;
 
 public class SvcGameImpl implements SvcGame {
 	private static final Logger log = Logger.getLogger(SvcGameImpl.class
@@ -74,26 +72,27 @@ public class SvcGameImpl implements SvcGame {
 		return result;
 	}
 
-	public List<GameTheirTurn> getTheirTurns(User user) {
-		List<GameTheirTurn> turns = new ArrayList<GameTheirTurn>();
+	public List<InviteFriend> getTheirTurnsInviteFriend(User user) {
+		List<InviteFriend> result = new ArrayList<InviteFriend>();
 		DaoInviteFriend dfr = DaoInviteFriendFactory.getFriendInviteDao();
 		try {
-			List<InviteFriend> invites = dfr.getFriendInvitesByInviterKey(user);
-			if (invites != null) {
-				for (InviteFriend fi : invites) {
-					GameTheirTurn gtt = new GameTheirTurn();
-					gtt.setId(fi.getInviteeEmail());
-					String newFriend = SvcLocale.get("newFriend");
-					gtt.setDetails(newFriend + ": " + fi.getInviteeDetails());
-					gtt.setAction(GameTheirTurn.Action.InvitationSent);
-					gtt.setCreatedAtString(fi.getCreatedAtString());
-					turns.add(gtt);
-				}
-			}
+			result = dfr.getFriendInvitesByInviterKey(user);
 		} catch (DaoException e) {
-			log.fine("err:" + e.getMessage());
+			log.fine("getTheirTurnsInviteFriend err:" + e.getMessage());
 		}
-		return turns;
+		return result;
+	}
+
+	public List<InviteGame> getTheirTurnsInviteGame(User user) {
+		List<InviteGame> result = new ArrayList<InviteGame>();
+		DaoInviteGame dig = DaoInviteGameFactory.getInviteGameDao();
+		try {
+			result = dig.getGameInvitesByInviterKey(user);
+		} catch (DaoException e) {
+			log.fine("getTheirTurnsInviteGame err:" + e.getMessage());
+		}
+
+		return result;
 	}
 
 	// @Override

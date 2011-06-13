@@ -12,6 +12,8 @@ public interface DaoInviteGame {
 	List<InviteGame> getGameActivePlayerByInviteeKey(User user)
 			throws DaoException;
 
+	List<InviteGame> getGameInvitesByInviterKey(User user) throws DaoException;
+
 	void createGames(Atomic at, User invitee, User inviter) throws DaoException;
 
 	void ignoreInvitation(String gameInviteKeyStr) throws DaoException;

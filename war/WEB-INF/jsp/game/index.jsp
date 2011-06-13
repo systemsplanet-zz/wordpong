@@ -38,21 +38,22 @@
         	<input name="processGameInvite" value="${newGameLbl}: ${inviteGame.inviterDetails}" onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
         </c:forEach>
         </small>         
-	    <input id="inviteGameKeyStringEncrypted" name="inviteGameKeyStringEncrypted" type="hidden" value=""/>    
 	</ul>
 	
 	<%-- THEIR TURN --%>	
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${theirTurnLbl}</li> 
 		<small>
-        <c:forEach items="${actionBean.theirTurns}" var="theirTurn" varStatus="theirStatus">
-                <s:url beanclass="com.wordpong.app.action.game.GameActionBean" event="theirTurnSelect" var="theirTurnListUrl">
-                    <s:param name="theirTurnId" value="${theirTurn.id}"/>
-                </s:url>
-                <input onClick="javascript:$('#email').val('${theirTurn.id}');$('#createdAtString').val('${theirTurn.createdAtString}');" data-theme="a" class="process"  name="viewInvite" value="${theirTurn.details}" type="submit" />
+        <c:forEach items="${actionBean.theirTurnsInviteFriend}" var="if" >
+                <input  name="viewFriendInvite" onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${if.keyStringEncrypted}');" data-theme="a" class="process"  value="Friend Invite Label: ${theirTurn.inviteeDetails}" type="submit" />
+        </c:forEach>
+        <c:forEach items="${actionBean.theirTurnsInviteGame}" var="ig" >
+                <input name="viewGameInvite"    onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${ig.keyStringEncrypted}');" data-theme="a" class="process"  value="Game Invite Label: ${ig.inviterDetails}" type="submit" />
         </c:forEach>
         </small>
 	</ul>
+	<input id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" type="hidden" value=""/>    
+	<input id="inviteGameKeyStringEncrypted" name="inviteGameKeyStringEncrypted" type="hidden" value=""/>    
      
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${myStuffLbl}</li> 
