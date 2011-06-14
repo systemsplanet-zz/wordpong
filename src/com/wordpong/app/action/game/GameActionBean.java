@@ -100,8 +100,7 @@ public class GameActionBean extends BaseActionBean {
 	@DontValidate
 	@HandlesEvent("viewFriendInvite")
 	public Resolution viewFriendInvite() {
-		return new ForwardResolution(FriendInviteActionBean.class); 
-		// TODO: new view to cancel friend invite
+		return new ForwardResolution(TheirTurnFriendInviteActionBean.class); 
 	}
 
 	public User getUser() {

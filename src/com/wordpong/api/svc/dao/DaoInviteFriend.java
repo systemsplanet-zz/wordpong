@@ -9,21 +9,25 @@ import com.wordpong.api.svc.dao.transact.Atomic;
 
 public interface DaoInviteFriend {
 
-    void inviteFriends(User user, List<String> emails) throws DaoException;;
+	void inviteFriends(User user, List<String> emails) throws DaoException;;
 
-    List<InviteFriend> getFriendInvitesByInviterKey(User user) throws DaoException;
+	List<InviteFriend> getFriendInvitesByInviterKey(User user)
+			throws DaoException;
 
-    List<InviteFriend> getFriendInvitesByInviteeKey(User user) throws DaoException;
+	List<InviteFriend> getFriendInvitesByInviteeKey(User user)
+			throws DaoException;
 
-    List<InviteFriend> getFriendInvitesByEmail(User user) throws DaoException;
+	List<InviteFriend> getFriendInvitesByEmail(User user) throws DaoException;
 
-    List<InviteFriend> getAllFriendInvites() throws DaoException;
+	List<InviteFriend> getAllFriendInvites() throws DaoException;
 
-    void cancelInvitation(User user, String email) throws DaoException;
+	void cancelInvitation(User user, String email) throws DaoException;
 
-    void ignoreInvitation(String friendInviteKeyStr) throws DaoException;
+	void withdrawInvitation(String inviteFriendKeyString) throws DaoException;
 
-    InviteFriend getFriendInvite(String friendInviteKeyStr) throws DaoException;
+	void ignoreInvitation(String friendInviteKeyStr) throws DaoException;
 
-    void removeInvitation(Atomic at, InviteFriend fi) throws DaoException;
+	InviteFriend getFriendInvite(String friendInviteKeyStr) throws DaoException;
+
+	void removeInvitation(Atomic at, InviteFriend fi) throws DaoException;
 }

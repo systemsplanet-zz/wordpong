@@ -1,10 +1,10 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
-<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendInviteActionBean"/>
+<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.TheirTurnFriendInviteActionBean"/>
 <fmt:message var="submitLbl" key="submit" />
 <fmt:message var="backLbl" key="back" />
+<fmt:message var="cancelInviteLbl" key="theirTurnFriendInvite.cancelInvite" />
 
-
-<s:form id="friendInviteForm" beanclass="com.wordpong.app.action.game.FriendInviteActionBean" method="post">
+<s:form id="friendInviteForm" beanclass="com.wordpong.app.action.game.TheirTurnFriendInviteActionBean" method="post">
     <div data-role="header"  data-nobackbtn="true" data-theme="b">
         <!-- Back Button -->
         <div style="float:left;margin-left:10px">
@@ -20,19 +20,19 @@
     <div style="clear:both"></div>
 	<div data-role="content" style="padding-top:0px;">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
-			<li data-role="list-divider" ><s:label for="friendInvite.title"/></li> 
+			<li data-role="list-divider" ><s:label for="theirTurnFriendInvite.title"/></li> 
 		</ul>
 		<tags:messages/> 
 			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 				<li>
 					<div data-role="fieldcontain" style="padding:4px;">
-						<s:label for="email" class="ui-input-text"/>
-						<s:text  name="email" id="email" tabindex="1"/>
+                       <s:label for="Friend Invite To Lbl: ${actionBean.inviteFriend.inviterDetails}"/>
+                       <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			 
 					</div>
 				</li>
 			</ul>
 			<div style="float:right">
-				<input name="invite" action="invite" data-theme="a" class="process" value="${submitLbl}" type="submit" />
+				<input action="cancelInvite" name="cancelInvite" data-theme="a" class="process" value="${cancelInviteLbl}" type="submit" />
 			</div>	
 	</div>
 </s:form>   
