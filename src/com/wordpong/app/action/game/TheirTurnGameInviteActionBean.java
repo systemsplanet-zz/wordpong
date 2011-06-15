@@ -15,35 +15,35 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
-import com.wordpong.api.model.InviteFriend;
+import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
-import com.wordpong.api.svc.dao.DaoInviteFriend;
-import com.wordpong.api.svc.dao.DaoInviteFriendFactory;
+import com.wordpong.api.svc.dao.DaoInviteGame;
+import com.wordpong.api.svc.dao.DaoInviteGameFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
-public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
+public class TheirTurnGameInviteActionBean extends BaseActionBean implements
 		ValidationErrorHandler {
 	private static final Logger log = Logger
-			.getLogger(TheirTurnFriendInviteActionBean.class.getName());
-	private static final String VIEW = "/WEB-INF/jsp/game/_theirTurnFriendInvite.jsp";
+			.getLogger(TheirTurnGameInviteActionBean.class.getName());
+	private static final String VIEW = "/WEB-INF/jsp/game/_theirTurnGameInvite.jsp";
 
-	private String inviteFriendKeyStringEncrypted;
-	private String inviteFriendKeyString;
-	private InviteFriend inviteFriend;
+	private String inviteGameKeyStringEncrypted;
+	private String inviteGameKeyString;
+	private InviteGame inviteGame;
 
-	public TheirTurnFriendInviteActionBean() {
+	public TheirTurnGameInviteActionBean() {
 	}
 
 	@After(stages = LifecycleStage.BindingAndValidation)
 	public void doPostValidationStuff() {
-		if (inviteFriendKeyStringEncrypted != null) {
-			inviteFriendKeyString = CryptoUtil
-					.decrypt(inviteFriendKeyStringEncrypted);
+		if (inviteGameKeyStringEncrypted != null) {
+			inviteGameKeyString = CryptoUtil
+					.decrypt(inviteGameKeyStringEncrypted);
 			SvcGame sg = SvcGameFactory.getGameService();
 			try {
-				inviteFriend = sg.getInviteFriend(inviteFriendKeyString);
+				inviteGame = sg.getInviteGame(inviteGameKeyString);
 			} catch (WPServiceException e) {
 			}
 		}
@@ -60,22 +60,22 @@ public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
 		return new ForwardResolution(VIEW);
 	}
 
-	@HandlesEvent("cancelInvite")
-	public Resolution cancelInvite() {
+	@HandlesEvent("withdrawInvitation")
+	public Resolution withdrawInvitation() {
 		Resolution result = new ForwardResolution(VIEW);
 		AppActionBeanContext c = getContext();
 		if (c != null) {
 			try {
-				DaoInviteFriend dif = DaoInviteFriendFactory
-						.getFriendInviteDao();
-				dif.withdrawInvitation(inviteFriendKeyString);
-				addGlobalActionMessage("theirTurnFriendInvite.cancelledInvite");
+				DaoInviteGame dig = DaoInviteGameFactory.getInviteGameDao();
+				dig.withdrawInvitation(inviteGameKeyString);
+				addGlobalActionMessage("theirTurnGameInvite.cancelledInvite");
 				result = new ForwardResolution(GameActionBean.class);
 			} catch (Exception e) {
-				addGlobalActionError("theirTurnFriendInvite.unableToCancelInvite");
-				log.warning("unable to uninvite friend");
+				addGlobalActionError("theirTurnGameInvite.unableToCancelInvite");
+				log.warning("unable to uninvite game");
 			}
 		}
+		// redirect back here
 		return result;
 	}
 
@@ -91,20 +91,20 @@ public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
 		return new ForwardResolution(VIEW);
 	}
 
-	public InviteFriend getInviteFriend() {
-		return inviteFriend;
+	public InviteGame getInviteGame() {
+		return inviteGame;
 	}
 
-	public void setInviteFriend(InviteFriend inviteFriend) {
-		this.inviteFriend = inviteFriend;
+	public void setInviteGame(InviteGame inviteGame) {
+		this.inviteGame = inviteGame;
 	}
 
-	public String getInviteFriendKeyStringEncrypted() {
-		return inviteFriendKeyStringEncrypted;
+	public String getInviteGameKeyStringEncrypted() {
+		return inviteGameKeyStringEncrypted;
 	}
 
-	public void setInviteFriendKeyStringEncrypted(
-			String inviteFriendKeyStringEncrypted) {
-		this.inviteFriendKeyStringEncrypted = inviteFriendKeyStringEncrypted;
+	public void setInviteGameKeyStringEncrypted(
+			String inviteGameKeyStringEncrypted) {
+		this.inviteGameKeyStringEncrypted = inviteGameKeyStringEncrypted;
 	}
 }

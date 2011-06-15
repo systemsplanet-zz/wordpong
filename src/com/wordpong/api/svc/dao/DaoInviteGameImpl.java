@@ -143,8 +143,16 @@ public class DaoInviteGameImpl extends DaoBase<InviteGame> implements
 			result = Datastore.query(e).filter(e.inviterKey.equal(k)).asList();
 
 		} catch (Exception ex) {
-			throw new DaoException("getGameInvitesByInviterKey Err:" + ex.getMessage());
+			throw new DaoException("getGameInvitesByInviterKey Err:"
+					+ ex.getMessage());
 		}
 		return result;
+	}
+
+	@Override
+	public void withdrawInvitation(String inviteGameKeyString)
+			throws DaoException {
+		Key k = KeyFactory.stringToKey(inviteGameKeyString);
+		delete(k);
 	}
 }

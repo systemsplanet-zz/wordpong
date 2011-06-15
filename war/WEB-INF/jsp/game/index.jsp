@@ -47,10 +47,10 @@
 		<li data-role="list-divider">${theirTurnLbl}</li> 
 		<small>
         <c:forEach items="${actionBean.theirTurnsInviteFriend}" var="inviteFriend" >
-                <input  name="viewFriendInvite" onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  value="${friendInviteLbl}: ${inviteFriend.inviteeDetails}" type="submit" />
+			<input  name="viewTheirTurnFriendInvite" onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  value="${friendInviteLbl}: ${inviteFriend.inviteeDetails}" type="submit" />
         </c:forEach>
         <c:forEach items="${actionBean.theirTurnsInviteGame}" var="inviteGame" >
-                <input name="viewGameInvite"    onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  value="${gameInviteLbl}: ${inviteGame.inviterDetails}" type="submit" />
+			<input name="viewTheirTurnGameInvite"    onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  value="${gameInviteLbl}: ${inviteGame.inviteeDetails}" type="submit" />
         </c:forEach>
         </small>
 	</ul>
