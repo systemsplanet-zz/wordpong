@@ -25,6 +25,8 @@
 <br/>
 <br/>
 <div class='wp-footer'></div>
+<div style="clear:both"></div>
+<div class='wp-footer-file'></div>
 <form action="/Login.wp" method="post" style='visibility:hidden'>
 <input id="wp-init-btn" name="view" value="Load App" type="submit" class="process"/>
 </form>
@@ -55,6 +57,7 @@ $("input.process").live( "click", function(e) {
             // todo: http://forum.jquery.com/topic/page-level-refresh
             //  add to cache... transisition, back button support
             $('.wp-footer').html(wpFooter);
+            $('.wp-footer-file').html(wpFooterFile);
             p.width($(".wp-page").outerWidth() - 30 );
             try {
                p.page()

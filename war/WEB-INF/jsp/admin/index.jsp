@@ -54,3 +54,6 @@ log.info("Admin run by user:"+ session.getAttribute("com.wordpong.session.user")
     <a href="${actionBean.logoutUrl}" rel="external">Logout Google</a></br>
     <br>            
 </div>
+<script>
+wpFooterFile = "admin index"
+</script>

@@ -52,3 +52,6 @@
 	<div style="float: right;"><a href="/static/contact.html">${contactUsLbl}</a></div>
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+<script>
+wpFooterFile = "register"
+</script>

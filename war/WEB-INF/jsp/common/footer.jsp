@@ -2,3 +2,4 @@
 <script>
 var wpFooter = "© 2011 " + '<wp:AppVersion/>'
 </script>
+

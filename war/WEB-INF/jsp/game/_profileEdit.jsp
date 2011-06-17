@@ -97,3 +97,6 @@
 </div>
 </s:form>   
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+<script>
+wpFooterFile = "profileEdit"
+</script>

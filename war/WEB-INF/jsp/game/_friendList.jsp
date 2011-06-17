@@ -50,4 +50,7 @@
 	</s:form>	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
+<script>
+wpFooterFile = "friendList"
+</script>
 

@@ -10,7 +10,6 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Transaction;
 import com.wordpong.api.meta.QuestionMeta;
-import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.svc.dao.err.DaoException;
 

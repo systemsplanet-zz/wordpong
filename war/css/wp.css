@@ -5,7 +5,8 @@
 .down {color:red; }
 .wp-status {float:right; padding:2px 25px 10px;font-size:small}
 .wp-date  {float:left; padding:2px 0 10px 25px;font-size:small}
-.wp-footer{float:left; padding:0 0 10px 25px;font-size:small;margin-bottom:1000px;}
+.wp-footer{float:left; padding:0 0 10px 25px;font-size:small;}
+.wp-footer-file{float:left; padding:10px 0 10px 25px;font-size:small;color:gray;margin-bottom:1000px;}
 .wp-loading{width:100%;font-size:small;padding:20;text-align:center}
 .wp-small-text{font-size:60%}
 #Stripes Error msgs
@@ -22,7 +23,6 @@
     font-weight: bold;
     margin-bottom: 10px;
 }
-
 
 
   
