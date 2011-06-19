@@ -27,15 +27,15 @@
 	        <li data-role="list-divider" >${enterAnswersLbl}: ${actionBean.questionDescription}</li> 
         </ul>
         <tags:messages/> 
-        <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+        <ul  data-inset="true" data-theme="c" data-dividertheme="b">
 	        <small>            
 	 	       <c:forEach items="${actionBean.questionEdit.questions}" var="i"  varStatus="s">
-	 	       <li>
+	 	       
 		          <div data-role="fieldcontain" style="padding:4px;">
 		              <s:label for="answers[${s.index}]" class="ui-input-text">${i}</s:label>		              
-		              <sdyn:text name="answers[${s.index}]" id="answers[${s.index}]" maxlength="100" type="text" class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-a"/>
+		              <sdyn:text name="answers[${s.index}]" id="answers[${s.index}]" maxlength="100"  class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-a"/>
 		          </div>
-		       </li>		                
+		       		                
 		       </c:forEach>
 		       <input id="answerKeyString" name="answerKeyString" type="hidden" value="${actionBean.answerKeyString}"/>
 		       <input id="questionDescription" name="questionDescription" type="hidden" value="${actionBean.questionDescription}"/>
