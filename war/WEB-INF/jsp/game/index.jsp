@@ -11,6 +11,7 @@
 <fmt:message var="profileLbl" key="profile" />
 <fmt:message var="newFriendLbl" key="newFriend" />
 <fmt:message var="newGameLbl" key="newGame" />
+<fmt:message var="gameLbl" key="game.game" />
 
 
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
@@ -31,14 +32,21 @@
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${myTurnLbl} (${myBean.user.fullName})</li>              
         <small>
-        <c:forEach items="${actionBean.inviteFriends}" var="inviteFriend" >
-        	<input name="processFriendInvite" value="${newFriendLbl}: ${inviteFriend.inviterDetails}" onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
+        <c:forEach items="${actionBean.myTurnInviteFriends}" var="inviteFriend" >
+        	<input name="processFriendInvite" value="${newFriendLbl}: ${inviteFriend.inviterDetails}" 
+        	   onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
         </c:forEach>
-    	<input id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" type="hidden" value=""/>    
 
-        <c:forEach items="${actionBean.inviteGames}" var="inviteGame" >
-        	<input name="processGameInvite" value="${newGameLbl}: ${inviteGame.inviterDetails}" onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
+        <c:forEach items="${actionBean.myTurnInviteGames}" var="inviteGame" >
+        	<input name="processGameInvite" value="${newGameLbl}: ${inviteGame.inviterDetails}" 
+        	   onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
         </c:forEach>
+        
+        <c:forEach items="${actionBean.myTurnGames}" var="game" >
+        	<input name="playGame" value="${gameLbl}: ${game.inviterDetails} ${game.questionDescription}" 
+        	   onClick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
+        </c:forEach>
+        <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
         </small>         
 	</ul>
 	
@@ -47,14 +55,16 @@
 		<li data-role="list-divider">${theirTurnLbl}</li> 
 		<small>
         <c:forEach items="${actionBean.theirTurnsInviteFriend}" var="inviteFriend" >
-			<input  name="viewTheirTurnFriendInvite" onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  value="${friendInviteLbl}: ${inviteFriend.inviteeDetails}" type="submit" />
+			<input  name="viewTheirTurnFriendInvite"  value="${friendInviteLbl}: ${inviteFriend.inviteeDetails}"  
+			   onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process" type="submit" />
         </c:forEach>
         <c:forEach items="${actionBean.theirTurnsInviteGame}" var="inviteGame" >
-			<input name="viewTheirTurnGameInvite"    onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  value="${gameInviteLbl}: ${inviteGame.inviteeDetails}" type="submit" />
+			<input name="viewTheirTurnGameInvite" value="${gameInviteLbl}: ${inviteGame.inviteeDetails}"   
+			   onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process" type="submit" />
         </c:forEach>
         </small>
 	</ul>
-	<input id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" type="hidden" value=""/>    
+   	<input id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" type="hidden" value=""/>    
 	<input id="inviteGameKeyStringEncrypted" name="inviteGameKeyStringEncrypted" type="hidden" value=""/>    
      
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 

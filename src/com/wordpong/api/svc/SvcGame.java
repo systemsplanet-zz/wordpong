@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
+import com.wordpong.api.model.Game;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.Question;
@@ -12,14 +13,19 @@ import com.wordpong.api.pojo.FriendGames;
 
 public interface SvcGame {
 
-	List<InviteFriend> getInviteFriends(User user) throws WPServiceException;
-
-	InviteFriend getInviteFriend(String inviteFriendKeyStr)
+	List<InviteFriend> getMyTurnInviteFriends(User user)
 			throws WPServiceException;
+
+	List<InviteGame> getMyTurnInviteGames(User user) throws WPServiceException;
+
+	List<Game> getMyTurnGames(User user) throws WPServiceException;
 
 	List<InviteFriend> getTheirTurnsInviteFriend(User user);
 
 	List<InviteGame> getTheirTurnsInviteGame(User user);
+
+	InviteFriend getInviteFriend(String inviteFriendKeyStr)
+			throws WPServiceException;
 
 	void inviteFriends(User user, List<String> emails)
 			throws WPServiceException;
@@ -36,13 +42,11 @@ public interface SvcGame {
 
 	void ignoreFriendInvitation(String key) throws WPServiceException;
 
-	List<InviteGame> getInviteGames(User user) throws WPServiceException;
-
 	InviteGame getInviteGame(String inviteGameKeyStr) throws WPServiceException;
 
 	void ignoreGameInvitation(String key) throws WPServiceException;
 
-	void createGame(final InviteGame inviteGame, final String answerKeyString)
+	void createGame(final InviteGame inviteGame, final Answer answer)
 			throws WPServiceException;
 
 	void makeFriends(String friendInviteKeyStr) throws WPServiceException;

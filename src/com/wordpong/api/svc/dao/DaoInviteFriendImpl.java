@@ -177,7 +177,7 @@ public class DaoInviteFriendImpl extends DaoBase<InviteFriend> implements
 			Key k = KeyFactory.stringToKey(friendInviteKeyStr);
 			result = get(k);
 		} catch (Exception e) {
-			String m = "toFriendInvite failed. keyStr:" + friendInviteKeyStr
+			String m = "getFriendInvite failed. keyStr:" + friendInviteKeyStr
 					+ " Err:" + e.getMessage();
 			log.warning(m);
 			throw new DaoException(m);

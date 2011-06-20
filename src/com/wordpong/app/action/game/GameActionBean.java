@@ -13,6 +13,7 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
 
 import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Game;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.User;
@@ -89,31 +90,44 @@ public class GameActionBean extends BaseActionBean {
 	public Resolution processGameInvite() {
 		return new ForwardResolution(GameInviteActionBean.class);
 	}
-	
-	
+
 	@DontValidate
 	@HandlesEvent("viewTheirTurnGameInvite")
 	public Resolution viewTheirTurnGameInvite() {
-		return new ForwardResolution(TheirTurnGameInviteActionBean.class); 
+		return new ForwardResolution(TheirTurnGameInviteActionBean.class);
 	}
+
 	@DontValidate
 	@HandlesEvent("viewTheirTurnFriendInvite")
 	public Resolution viewTheirTurnFriendInvite() {
-		return new ForwardResolution(TheirTurnFriendInviteActionBean.class); 
+		return new ForwardResolution(TheirTurnFriendInviteActionBean.class);
+	}
+
+	@DontValidate
+	@HandlesEvent("playGame")
+	public Resolution playGame() {
+		return new ForwardResolution(GameActionBean.class);
+		// todo change to GamePlayActionBean.class
 	}
 
 	public User getUser() {
 		return user;
 	}
 
-	public List<InviteFriend> getInviteFriends() throws WPServiceException {
+	public List<InviteFriend> getMyTurnInviteFriends()
+			throws WPServiceException {
 		user = getContext().getUserFromSession();
-		return _svcGame.getInviteFriends(user);
+		return _svcGame.getMyTurnInviteFriends(user);
 	}
 
-	public List<InviteGame> getInviteGames() throws WPServiceException {
+	public List<InviteGame> getMyTurnInviteGames() throws WPServiceException {
 		user = getContext().getUserFromSession();
-		return _svcGame.getInviteGames(user);
+		return _svcGame.getMyTurnInviteGames(user);
+	}
+
+	public List<Game> getMyTurnGames() throws WPServiceException {
+		user = getContext().getUserFromSession();
+		return _svcGame.getMyTurnGames(user);
 	}
 
 	public List<InviteFriend> getTheirTurnsInviteFriend() {

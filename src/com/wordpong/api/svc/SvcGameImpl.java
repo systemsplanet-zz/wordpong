@@ -36,7 +36,7 @@ public class SvcGameImpl implements SvcGame {
 	private static final Logger log = Logger.getLogger(SvcGameImpl.class
 			.getName());
 
-	public List<InviteFriend> getInviteFriends(User user)
+	public List<InviteFriend> getMyTurnInviteFriends(User user)
 			throws WPServiceException {
 		List<InviteFriend> result = new ArrayList<InviteFriend>();
 		DaoInviteFriend dif = DaoInviteFriendFactory.getFriendInviteDao();
@@ -48,13 +48,14 @@ public class SvcGameImpl implements SvcGame {
 				}
 			}
 		} catch (DaoException e) {
-			log.warning("getInviteFriends err: " + e.getMessage());
+			log.warning("getMyTurnInviteFriends err: " + e.getMessage());
 			throw new WPServiceException(e.getMessage());
 		}
 		return result;
 	}
 
-	public List<InviteGame> getInviteGames(User user) throws WPServiceException {
+	public List<InviteGame> getMyTurnInviteGames(User user)
+			throws WPServiceException {
 		List<InviteGame> result = new ArrayList<InviteGame>();
 		DaoInviteGame dif = DaoInviteGameFactory.getInviteGameDao();
 		try {
@@ -66,9 +67,21 @@ public class SvcGameImpl implements SvcGame {
 				}
 			}
 		} catch (DaoException e) {
-			log.warning("getInviteGames err: " + e.getMessage());
+			log.warning("getMyTurnInviteGames err: " + e.getMessage());
 			throw new WPServiceException(e.getMessage());
 		}
+		return result;
+	}
+
+	public List<Game> getMyTurnGames(User user) {
+		List<Game> result = new ArrayList<Game>();
+		DaoGame dig = DaoGameFactory.getGameDao();
+		try {
+			result = dig.getGamesByInviteeKey(user);
+		} catch (DaoException e) {
+			log.fine("getTheirTurnsGames err:" + e.getMessage());
+		}
+
 		return result;
 	}
 
@@ -145,6 +158,17 @@ public class SvcGameImpl implements SvcGame {
 		InviteGame result;
 		try {
 			result = f.getInviteGame(inviteGameKeyStr);
+		} catch (DaoException e) {
+			throw new WPServiceException("getinviteGame err: " + e.getMessage());
+		}
+		return result;
+	}
+
+	public Game getGame(String inviteGameKeyStr) throws WPServiceException {
+		DaoGame f = DaoGameFactory.getGameDao();
+		Game result;
+		try {
+			result = f.getGame(inviteGameKeyStr);
 		} catch (DaoException e) {
 			throw new WPServiceException("getinviteGame err: " + e.getMessage());
 		}
@@ -415,11 +439,13 @@ public class SvcGameImpl implements SvcGame {
 	 * Create a new game and remove the game invite
 	 */
 	@Override
-	public void createGame(final InviteGame inviteGame,
-			final String answerKeyString) throws WPServiceException {
+	public void createGame(final InviteGame inviteGame, final Answer answer)
+			throws WPServiceException {
 		Predicate<Atomic> WORK = new Predicate<Atomic>() {
-			String msg = "createGame: " + inviteGame + " answer:"
-					+ answerKeyString;
+			String msg = "createGame: " + inviteGame + " answer:" + answer;
+			final String answerKeyString = answer.getKeyString();
+			final String questionDescription = answer.getQuestionDescription();
+			final String inviterDetails = inviteGame.getInviteeDetails();
 
 			public boolean apply(Atomic at) {
 				boolean result = false;
@@ -428,8 +454,10 @@ public class SvcGameImpl implements SvcGame {
 							&& inviteGame.getKey() != null) {
 						DaoGame dg = DaoGameFactory.getGameDao();
 						Game g = new Game();
+						g.setInviterDetails(inviterDetails);
+						g.setQuestionDescription(questionDescription);
 						g.setAnswersKeyString(answerKeyString);
-						g.setInviteGame(inviteGame);
+						g.setInvitee(inviteGame);
 						dg.save(at, g);
 						DaoInviteGame dig = DaoInviteGameFactory
 								.getInviteGameDao();

@@ -2,6 +2,8 @@ package com.wordpong.api.model;
 
 import java.io.Serializable;
 
+import net.sourceforge.stripes.util.CryptoUtil;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
@@ -25,10 +27,20 @@ public class Game implements Serializable {
 	// questions key
 	private Key answersKey;
 
+	@Attribute(unindexed = true)
+	private String questionDescription; // copied from question.description
+
+	// "FN LN (Email)"
+	@Attribute(unindexed = true)
+	private String inviterDetails;
+
 	// User playing this game, ie matching questionsKey to answersKey
 	private Key userKey;
 
 	private boolean isCompleted = false;
+
+	// ----------------------------------------------------------------------------
+	// GETTERS/SETTERS
 
 	@Attribute(unindexed = true)
 	private boolean isIgnored = false;
@@ -47,6 +59,12 @@ public class Game implements Serializable {
 
 	public void setKey(Key key) {
 		this.key = key;
+	}
+
+	public String getKeyStringEncrypted() {
+		String ks = KeyFactory.keyToString(key);
+		String keyEncrypted = CryptoUtil.encrypt(ks);
+		return keyEncrypted;
 	}
 
 	public Key getUserKey() {
@@ -88,7 +106,7 @@ public class Game implements Serializable {
 		return k;
 	}
 
-	public void setInviteGame(InviteGame ig) {
+	public void setInvitee(InviteGame ig) {
 		userKey = ig.getInviterKey();
 	}
 
@@ -103,6 +121,22 @@ public class Game implements Serializable {
 
 	public void setCompleted(boolean isCompleted) {
 		this.isCompleted = isCompleted;
+	}
+
+	public String getQuestionDescription() {
+		return questionDescription;
+	}
+
+	public void setQuestionDescription(String questionDescription) {
+		this.questionDescription = questionDescription;
+	}
+
+	public String getInviterDetails() {
+		return inviterDetails;
+	}
+
+	public void setInviterDetails(String inviterDetails) {
+		this.inviterDetails = inviterDetails;
 	}
 
 	@Override

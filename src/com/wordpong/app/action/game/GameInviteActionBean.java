@@ -153,7 +153,7 @@ public class GameInviteActionBean extends BaseActionBean implements
 	public Resolution startGame() {
 		SvcGame sg = SvcGameFactory.getGameService();
 		try {
-			sg.createGame(inviteGame, answerKeyString);
+			sg.createGame(inviteGame, answer);
 			addGlobalActionMessage("gameInvite.gameSent");
 		} catch (Exception e) {
 			addGlobalActionError("gameInvite.unableToStartGame");

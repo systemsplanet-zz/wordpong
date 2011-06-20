@@ -27,9 +27,6 @@ log.info("Admin run by user:"+ session.getAttribute("com.wordpong.session.user")
 		
 	
 		<a href="/ktrwjr/index.html" rel="external" target="_blank">Junit Tests</a><br />
-		
-		
-		
 		<a href="/admin/debugenv" rel="external">Dump Env</a><br />
 		<a href="/testq" rel="external">Test EnQueue (/testq)</a><br/>
 		<a href="/stats" rel="external" target="_blank">App Stats (/stats)</a><br/>
