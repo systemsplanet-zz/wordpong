@@ -17,7 +17,6 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Question;
-import com.wordpong.api.pojo.QuestionEdit;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
@@ -36,7 +35,6 @@ public class AnswerEditActionBean extends BaseActionBean implements
 	private Answer answer;
 	private List<String> answers = new ArrayList<String>();
 
-	private QuestionEdit questionEdit = new QuestionEdit();
 	private List<String> questions;
 	private int questionsSize = 0;
 
@@ -59,7 +57,6 @@ public class AnswerEditActionBean extends BaseActionBean implements
 					questions = q.getQuestions();
 					if (questions != null) {
 						questionsSize = questions.size();
-						questionEdit.setQuestions(questions);
 					}
 					if (answers.size() == 0) {
 						List<String> as = answer.getAnswers();
@@ -77,7 +74,6 @@ public class AnswerEditActionBean extends BaseActionBean implements
 	@DefaultHandler
 	public Resolution view() {
 		loadAnswer();
-		getQuestionEdit();
 
 		// TODO: read the questions/answers if not loaded
 		log.info("answerKeyString:" + answerKeyString + " desc:"
@@ -128,10 +124,6 @@ public class AnswerEditActionBean extends BaseActionBean implements
 		return new ForwardResolution(VIEW);
 	}
 
-	public QuestionEdit getQuestionEdit() {
-		return questionEdit;
-	}
-
 	public String getQuestionDescription() {
 		return questionDescription;
 	}
@@ -154,6 +146,10 @@ public class AnswerEditActionBean extends BaseActionBean implements
 
 	public void setAnswers(List<String> answers) {
 		this.answers = answers;
+	}
+
+	public List<String> getQuestions() {
+		return questions;
 	}
 
 }

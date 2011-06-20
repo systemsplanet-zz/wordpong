@@ -14,7 +14,6 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.FriendGames;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
@@ -51,8 +50,8 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
         return new ForwardResolution(VIEW);
     }
 
-    @HandlesEvent("submit")
-    public Resolution submit() {
+    @HandlesEvent("selectFriend")
+    public Resolution selectFriend() {
         AppActionBeanContext c = getContext();
         if (c != null) {
             try {
@@ -98,9 +97,9 @@ public class FriendListActionBean extends BaseActionBean implements ValidationEr
         emails = e;
     }
 
-    public List<FriendGames> getMyFriendGames() {
+    public List<User> getMyFriends() {
         user = getContext().getUserFromSession();
-        List<FriendGames> result = _svcGame.getMyFriendGames(user);
+        List<User> result = _svcGame.getMyFriends(user);
         return result;
     }
 

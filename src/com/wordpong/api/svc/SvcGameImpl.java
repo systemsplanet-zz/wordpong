@@ -14,7 +14,6 @@ import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.FriendGames;
 import com.wordpong.api.svc.dao.DaoAnswer;
 import com.wordpong.api.svc.dao.DaoAnswerFactory;
 import com.wordpong.api.svc.dao.DaoGame;
@@ -345,19 +344,13 @@ public class SvcGameImpl implements SvcGame {
 	}
 
 	@Override
-	public List<FriendGames> getMyFriendGames(User u) {
+	public List<User> getMyFriends(User u) {
 		DaoUser du = DaoUserFactory.getUserDao();
-		List<FriendGames> fgs = new ArrayList<FriendGames>();
+		List<User> fgs = new ArrayList<User>();
 		try {
-			List<User> us = du.getFriends(u);
-			for (User usr : us) {
-				FriendGames fg = new FriendGames();
-				fg.setFriend(usr);
-				fgs.add(fg);
-				// TODO: get games
-			}
+			fgs = du.getFriends(u);
 		} catch (Exception e) {
-			log.warning("getMyFriendGames: err" + e.getMessage());
+			log.warning("getMyFriends: err" + e.getMessage());
 		}
 		return fgs;
 	}

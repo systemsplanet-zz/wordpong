@@ -18,7 +18,6 @@ import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.QuestionEdit;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
@@ -33,7 +32,6 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 	private SvcGame _svcGame;
 	private String questionKeyString;
 	private String questionDescription;
-	private QuestionEdit questionEdit;
 	private List<String> questions;
 	private int questionsSize = 0;
 	private List<String> answers = new ArrayList<String>();
@@ -50,7 +48,7 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 	@DontValidate
 	@DefaultHandler
 	public Resolution view() {
-		getQuestionEdit();
+		getQuestions();
 		if (answers.size() == 0) {
 			for (int i = 0; i < questionsSize; i++) {
 				answers.add("");
@@ -72,17 +70,15 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		return new ForwardResolution(VIEW);
 	}
 
-	public QuestionEdit getQuestionEdit() {
-		if (questionEdit == null && questionKeyString != null) {
+	public List<String> getQuestions() {
+		if (questions == null && questionKeyString != null) {
 			// todo read questionKeyString question
 			try {
 				Question q = _svcGame.getQuestion(questionKeyString);
 				// create a QuestionEdit
 				if (q != null) {
-					questionEdit = new QuestionEdit();
 					questions = q.getQuestions();
 					questionsSize = questions.size();
-					questionEdit.setQuestions(questions);
 				}
 			} catch (WPServiceException e) {
 				// TODO Auto-generated catch block
@@ -90,15 +86,16 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 			}
 
 		}
-		return questionEdit;
+		return questions;
 	}
 
 	@HandlesEvent("save")
 	public Resolution save() {
-		getQuestionEdit();
+		getQuestions();
 		boolean allAnswered = true;
 		for (int i = 0; i < questionsSize; i++) {
-			if (answers.size() < questionsSize || answers.get(i) == null || answers.get(i).trim().length() == 0) {
+			if (answers.size() < questionsSize || answers.get(i) == null
+					|| answers.get(i).trim().length() == 0) {
 				allAnswered = false;
 				break;
 			}

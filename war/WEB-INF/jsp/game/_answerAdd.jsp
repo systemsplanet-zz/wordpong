@@ -27,11 +27,10 @@
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${selectQuestionLbl}</li> 
         <small>            
-
         <c:forEach items="${actionBean.questionList}" var="questionList" >
-                <input onClick="javascript:$('#questionKeyString').val('${questionList.questionKeyString}');$('#questionDescription').val('${questionList.questionDescription}');" data-theme="a" class="process"  name="editAnswer" value="${questionList.questionDescription}" type="submit" />
+           <input name="editAnswer"  value="${questionList.description}"
+		      onClick="javascript:$('#questionKeyString').val('${questionList.keyString}');$('#questionDescription').val('${questionList.description}');" data-theme="a" class="process" type="submit" />
         </c:forEach>
-        
         </small>         
     </ul>
     <input id="questionKeyString" name="questionKeyString" type="hidden" value=""/>

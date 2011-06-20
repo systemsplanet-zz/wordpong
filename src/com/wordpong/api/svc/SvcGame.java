@@ -9,7 +9,6 @@ import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.FriendGames;
 
 public interface SvcGame {
 
@@ -51,7 +50,7 @@ public interface SvcGame {
 
 	void makeFriends(String friendInviteKeyStr) throws WPServiceException;
 
-	List<FriendGames> getMyFriendGames(User u);
+	List<User> getMyFriends(User u);
 
 	void seedQuestions(User user) throws WPServiceException;
 

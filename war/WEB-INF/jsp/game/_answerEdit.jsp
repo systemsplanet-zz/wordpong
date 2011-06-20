@@ -29,17 +29,14 @@
         <tags:messages/> 
         <ul  data-inset="true" data-theme="c" data-dividertheme="b">
 	        <small>            
-	 	       <c:forEach items="${actionBean.questionEdit.questions}" var="i"  varStatus="s">
-	 	       
+	 	       <c:forEach items="${actionBean.questions}" var="i"  varStatus="s">	 	       
 		          <div data-role="fieldcontain" style="padding:4px;">
 		              <s:label for="answers[${s.index}]" class="ui-input-text">${i}</s:label>		              
 		              <sdyn:text name="answers[${s.index}]" id="answers[${s.index}]" maxlength="100"  class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-a"/>
 		          </div>
-		       		                
 		       </c:forEach>
 		       <input id="answerKeyString" name="answerKeyString" type="hidden" value="${actionBean.answerKeyString}"/>
 		       <input id="questionDescription" name="questionDescription" type="hidden" value="${actionBean.questionDescription}"/>
-		       
 	        </small>         
 	    </ul>
         <div style="float:left">
