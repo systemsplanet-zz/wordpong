@@ -106,8 +106,8 @@ public class GameActionBean extends BaseActionBean {
 	@DontValidate
 	@HandlesEvent("playGame")
 	public Resolution playGame() {
-		return new ForwardResolution(GameActionBean.class);
-		// todo change to GamePlayActionBean.class
+		// TODO: select different game presentations modes here 
+		return new ForwardResolution(GamePlayActionBean.class);
 	}
 
 	public User getUser() {

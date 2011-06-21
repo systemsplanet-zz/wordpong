@@ -17,6 +17,8 @@ public interface SvcGame {
 
 	List<InviteGame> getMyTurnInviteGames(User user) throws WPServiceException;
 
+	Game getGame(String gameKeyStr) throws WPServiceException;
+
 	List<Game> getMyTurnGames(User user) throws WPServiceException;
 
 	List<InviteFriend> getTheirTurnsInviteFriend(User user);
