@@ -14,7 +14,9 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import com.wordpong.api.err.WPServiceException;
+import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Game;
+import com.wordpong.api.model.Question;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
@@ -27,6 +29,8 @@ public class GamePlayActionBean extends BaseActionBean implements
 
 	private String gameKeyStringEncrypted;
 	private String gameKeyString;
+	Question question;
+	private Answer answer;
 	private Game game;
 
 	public GamePlayActionBean() {
@@ -39,6 +43,10 @@ public class GamePlayActionBean extends BaseActionBean implements
 			SvcGame sg = SvcGameFactory.getGameService();
 			try {
 				game = sg.getGame(gameKeyString);
+				String answerKeyString = game.getAnswersKeyString();
+				answer = sg.getAnswer(answerKeyString);
+				String questionKeyString = answer.getQuestionKeyString();
+				question = sg.getQuestion(questionKeyString);
 			} catch (WPServiceException e) {
 				log.warning("doPostValidationStuff: err" + e.getMessage());
 			}
@@ -82,4 +90,21 @@ public class GamePlayActionBean extends BaseActionBean implements
 	public void setGame(Game game) {
 		this.game = game;
 	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
+	
 }

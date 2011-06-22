@@ -15,8 +15,7 @@
 	            </span>
                 <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
             </div> 
-        </span>
-        
+        </span>        
     </div>
 </form>
 <div style="clear:both"></div>
@@ -25,26 +24,29 @@
 	<s:form id="gamePlayForm" beanclass="com.wordpong.app.action.game.GamePlayActionBean" method="post">
 	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 	        <li data-role="list-divider" >Guess Lbl: ${actionBean.game.questionDescription}</li> 
+            <li data-role="list-divider" ><h3  id="question" >${actionBean.question.questions[0]}</h3> 
         </ul>
         <tags:messages/> 
         <ul  data-inset="true" data-theme="c" data-dividertheme="b">
-	        <small>            
-<%--
- 	 	       <c:forEach items="${actionBean.questions}" var="i"  varStatus="s">	 	       
-		          <div data-role="fieldcontain" style="padding:4px;">
-		              <s:label for="answers[${s.index}]" class="ui-input-text">${i}</s:label>		              
-		              <sdyn:text name="answers[${s.index}]" id="answers[${s.index}]" maxlength="100"  class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-a"/>
-		          </div>
-		       </c:forEach>
---%>		       
+	        <small>         
+				<div data-role="fieldcontain"  style="padding:0;"> 
+				    <fieldset data-role="controlgroup" style="margin-bottom:0px;"> 
+						<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
+							<input type="radio" name="answer-1" id="answer-${s.index}" value="answer-${s.index}"  /> 
+							<label for="answer-${s.index}">${i}</label>		              
+						</c:forEach>
+				    </fieldset> 
+				</div> 		       
 		       <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
 	        </small>         
 	    </ul>
         <div style="float:right">
-           <input name="back" value="Skip Lbl" type="submit" data-theme="a" class="process"/> 
+           <input name="back" value="Skip Lbl" 
+              	OnClick="javascript:skip();return false;" type="submit" data-theme="a" /> 
         </div>
         <div style="float:right">
-           <input  name="save" value="Match Lbl" type="submit" data-theme="a" class="process" /> 
+           <input  name="save" value="Match Lbl" 
+           		OnClick="javascript:match();return false;" type="submit" data-theme="a" /> 
         </div>
 	</s:form>	 
 </div>
@@ -52,4 +54,19 @@
 <script>
 wpFooterFile = "gamePlay"
 </script>
+<script> 
+var i=0;
+var q=new Array();
+<c:forEach items="${actionBean.question.questions}" var="i"  varStatus="s">	 	       
+	q[${s.index}]="${i}";			              
+</c:forEach>
 
+function skip(){
+   i=(i+1) % q.length;
+   $("#question").text(q[i]);
+}
+function match(){
+   alert("Sorry, try again.");
+}
+ 
+</script>
