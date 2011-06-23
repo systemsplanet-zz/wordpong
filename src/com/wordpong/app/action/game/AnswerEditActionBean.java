@@ -96,6 +96,7 @@ public class AnswerEditActionBean extends BaseActionBean implements
 
 	@HandlesEvent("save")
 	public Resolution save() {
+		Resolution result = new ForwardResolution(VIEW);
 		try {
 			loadAnswer();
 			if (answer != null) {
@@ -112,8 +113,9 @@ public class AnswerEditActionBean extends BaseActionBean implements
 				}
 				if (allAnswered && answer != null) {
 					_svcGame.saveAnswer(answer);
-					addGlobalActionError("answerEdit.answersUpdated");
+					addGlobalActionMessage("answerEdit.answersUpdated");
 					log.info("updated answers:" + answer);
+					result = new ForwardResolution(GameActionBean.class);
 				} else {
 					addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
 				}
@@ -121,7 +123,7 @@ public class AnswerEditActionBean extends BaseActionBean implements
 		} catch (WPServiceException e) {
 			addGlobalActionError("answerEdit.unableToSaveAnswers");
 		}
-		return new ForwardResolution(VIEW);
+		return result;
 	}
 
 	public String getQuestionDescription() {

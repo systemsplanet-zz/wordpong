@@ -39,7 +39,7 @@
         <li data-role="list-divider" >${myFriendsLbl}</li> 
         <small>            
         <c:forEach items="${actionBean.myFriends}" var="friend" >
-            <input name="selectFriend" value="chat: ${friend.friendInfo}" data-theme="a" class="process"  value="chat: ${friend.friendInfo}" type="submit" />
+            <input name="selectFriend" value="chat: ${friend.details}" data-theme="a" class="process" type="submit" />
         </c:forEach>
         </small>         
     </ul>

@@ -133,7 +133,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     c.putUserInfoToRequestAndSession(user);
                     addGlobalActionMessage("profileEdit.profileUpdated");
                     // force page reload so Locale changes will be immediate
-                    result = new RedirectResolution(ProfileEditActionBean.class);
+                    result = new RedirectResolution(GameActionBean.class);
                 } else {
                     // session expire?
                 }

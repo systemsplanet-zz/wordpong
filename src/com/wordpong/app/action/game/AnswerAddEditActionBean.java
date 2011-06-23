@@ -91,6 +91,7 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 
 	@HandlesEvent("save")
 	public Resolution save() {
+		Resolution result = new ForwardResolution(VIEW);
 		getQuestions();
 		boolean allAnswered = true;
 		for (int i = 0; i < questionsSize; i++) {
@@ -114,8 +115,9 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 			a.setLocaleString(u.getLocaleString());
 			try {
 				_svcGame.saveAnswer(a);
-				addGlobalActionError("answerAddEdit.answersUpdated");
+				addGlobalActionMessage("answerAddEdit.answersUpdated");
 				log.info("updated answers:" + answers);
+				result = new ForwardResolution(GameActionBean.class);
 			} catch (WPServiceException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -123,7 +125,7 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		} else {
 			addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
 		}
-		return new ForwardResolution(VIEW);
+		return result;
 	}
 
 	public List<String> getAnswers() {

@@ -27,7 +27,7 @@
 			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 				<li>
 					<div data-role="fieldcontain" style="padding:4px;">
-                       <s:label for="${friendInviteeLbl}: ${actionBean.inviteFriend.inviterDetails}"/>
+                       <s:label for="${friendInviteeLbl}: ${actionBean.inviteFriend.inviteeDetails}"/>
                        <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			 
 					</div>
 				</li>
