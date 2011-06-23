@@ -1,13 +1,13 @@
 <queue-entries>
 	<queue>
 		<name>default</name>
-		<rate>1/s</rate>
+		<rate>500/s</rate>
 		<bucket-size>1</bucket-size>
 		<retry-parameters>
 			<min-backoff-seconds>10</min-backoff-seconds>
 			<max-backoff-seconds>200</max-backoff-seconds>
 			<max-doublings>2</max-doublings>
-			<task-retry-limit>2</task-retry-limit>
+			<task-retry-limit>4</task-retry-limit>
 			<task-age-limit>10s</task-age-limit>
 		</retry-parameters>
 	</queue>
