@@ -26,21 +26,14 @@
 	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 	        <li data-role="list-divider" >${actionBean.game.inviterDetails}</li> 
 	        <li data-role="list-divider" >${actionBean.game.questionDescription}</li> 
-            <li data-role="list-divider" ><h3  id="question" >${actionBean.question.questions[0]}</h3> 
+            <li data-role="list-divider" ><h3 id="question" style="white-space:normal">${actionBean.question.questions[0]}</h3> 
         </ul>
         <tags:messages/> 
-        <ul  data-inset="true" data-theme="c" data-dividertheme="b">
-	        <small>         
-				<div data-role="fieldcontain"  style="padding:0;"> 
-				    <fieldset data-role="controlgroup" style="margin-bottom:0px;"> 
-						<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
-							<input type="radio" name="answer"  id="answer-${s.index}" value="${s.index}"  /> 
-							<label for="answer-${s.index}" OnClick="javascript:match();">${i}</label>		              
-						</c:forEach>
-				    </fieldset> 
-				</div> 		       
-		       <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
-	        </small>         
+        <ul  data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+			<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
+			  <li OnClick="javascript:match(${s.index});" style="white-space:normal" >${i}</li>
+			</c:forEach>
+		    <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
 	    </ul>
         <div style="float:right">
            <input value="${skipLbl}" 
@@ -69,8 +62,7 @@ function skip(){
    $("#question").text(q[qr[i]]);
 }
 
-function match(){
-    var a=$('#gamePlayForm').find("input[name='answer']:checked").val();
+function match(a){
    	if (qr[i]!=a) {
    		alert("Sorry, try again.");
    	} else {
@@ -78,11 +70,10 @@ function match(){
    		//remove the question from qr
    		qr.splice(i, 1);
    		if (qr.length==0) {
-   		 alert('you won!');
+    		 alert('you won!');
    		} else {
-   		  skip();
+   	  		 skip();
    		}
    	}
 }
- 
 </script>
