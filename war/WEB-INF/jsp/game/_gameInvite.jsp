@@ -19,16 +19,13 @@
     </div>
     <div style="clear:both"></div>
     <div data-role="content" style="padding-top:0px;">
+		<tags:messages/> 
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 			<li data-role="list-divider" ><s:label for="friendInviteAccept.title"/></li> 
-		</ul>
-		<tags:messages/> 
-		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 			<li>
                 <div data-role="fieldcontain" style="padding:4px;">
-                    <s:label for="Game Invite From: ${actionBean.inviteGame.inviterDetails}"/> 
+                    Game Invite From: ${actionBean.inviteGame.inviterDetails} 
                 </div>
- 	            <s:hidden name="inviteGameKeyStringEncrypted" value="${inviteGame.keyStringEncrypted}" />
 			</li>
 		</ul>
         <div style="float:right">
@@ -38,6 +35,7 @@
             <input data-theme="a" class="process" name="ignoreInvite" value="${ignoreLbl}" type="submit" />
         </div>  
     </div>
+ 	<s:hidden name="inviteGameKeyStringEncrypted" value="${inviteGame.keyStringEncrypted}" />
     </s:form>   
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>

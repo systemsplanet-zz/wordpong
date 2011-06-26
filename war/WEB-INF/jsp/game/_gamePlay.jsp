@@ -1,6 +1,8 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.GamePlayActionBean"/>
 <fmt:message var="backLbl" key="back" />
+<fmt:message var="skipLbl" key="skip" />
+<fmt:message var="matchLbl" key="match" />
 <fmt:message var="enterAnswersLbl" key="gamePlay.enterAnswers" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
@@ -42,11 +44,11 @@
 	        </small>         
 	    </ul>
         <div style="float:right">
-           <input name="back" value="Skip Lbl" 
+           <input name="back" value="${skipLbl}" 
               	OnClick="javascript:skip();return false;" type="submit" data-theme="a" /> 
         </div>
         <div style="float:right">
-           <input  name="save" value="Match Lbl" 
+           <input  name="save" value="${matchLbl}" 
            		OnClick="javascript:match();return false;" type="submit" data-theme="a" /> 
         </div>
 	</s:form>	 
