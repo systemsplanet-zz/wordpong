@@ -4,7 +4,7 @@
 <fmt:message var="enterAnswersLbl" key="gamePlay.enterAnswers" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
-<form id="gamePlayFormHead" action="/game/AnswerEdit.wp" method="post">
+<form id="gamePlayFormHead" action="/game/GamePlay.wp" method="post">
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
@@ -23,7 +23,8 @@
 <div data-role="content" style="padding-top:0px;">
 	<s:form id="gamePlayForm" beanclass="com.wordpong.app.action.game.GamePlayActionBean" method="post">
 	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-	        <li data-role="list-divider" >Guess Lbl: ${actionBean.game.questionDescription}</li> 
+	        <li data-role="list-divider" >${actionBean.game.inviterDetails}</li> 
+	        <li data-role="list-divider" >${actionBean.game.questionDescription}</li> 
             <li data-role="list-divider" ><h3  id="question" >${actionBean.question.questions[0]}</h3> 
         </ul>
         <tags:messages/> 

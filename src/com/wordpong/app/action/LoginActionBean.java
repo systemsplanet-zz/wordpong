@@ -91,6 +91,7 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
         }
         return new ForwardResolution(VIEW);
     }
+    
 
     @DontValidate
     @HandlesEvent("logout")
