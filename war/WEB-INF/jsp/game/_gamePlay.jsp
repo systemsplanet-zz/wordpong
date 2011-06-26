@@ -2,7 +2,6 @@
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.GamePlayActionBean"/>
 <fmt:message var="backLbl" key="back" />
 <fmt:message var="skipLbl" key="skip" />
-<fmt:message var="matchLbl" key="match" />
 <fmt:message var="enterAnswersLbl" key="gamePlay.enterAnswers" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
@@ -35,8 +34,8 @@
 				<div data-role="fieldcontain"  style="padding:0;"> 
 				    <fieldset data-role="controlgroup" style="margin-bottom:0px;"> 
 						<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
-							<input type="radio" name="answer-1" id="answer-${s.index}" value="answer-${s.index}"  /> 
-							<label for="answer-${s.index}">${i}</label>		              
+							<input type="radio" name="answer"  id="answer-${s.index}" value="${s.index}"  /> 
+							<label for="answer-${s.index}" OnClick="javascript:match();">${i}</label>		              
 						</c:forEach>
 				    </fieldset> 
 				</div> 		       
@@ -44,12 +43,8 @@
 	        </small>         
 	    </ul>
         <div style="float:right">
-           <input name="back" value="${skipLbl}" 
+           <input value="${skipLbl}" 
               	OnClick="javascript:skip();return false;" type="submit" data-theme="a" /> 
-        </div>
-        <div style="float:right">
-           <input  name="save" value="${matchLbl}" 
-           		OnClick="javascript:match();return false;" type="submit" data-theme="a" /> 
         </div>
 	</s:form>	 
 </div>
@@ -60,16 +55,34 @@ wpFooterFile = "gamePlay"
 <script> 
 var i=0;
 var q=new Array();
+var qr=new Array(); // random question indexes
 <c:forEach items="${actionBean.question.questions}" var="i"  varStatus="s">	 	       
 	q[${s.index}]="${i}";			              
+	qr[${s.index}]=${s.index};
 </c:forEach>
 
+qr.shuffle(); //randomize it
+skip();
+
 function skip(){
-   i=(i+1) % q.length;
-   $("#question").text(q[i]);
+   i=(i+1) % qr.length;
+   $("#question").text(q[qr[i]]);
 }
+
 function match(){
-   alert("Sorry, try again.");
+    var a=$('#gamePlayForm').find("input[name='answer']:checked").val();
+   	if (qr[i]!=a) {
+   		alert("Sorry, try again.");
+   	} else {
+   		alert('correct');
+   		//remove the question from qr
+   		qr.splice(i, 1);
+   		if (qr.length==0) {
+   		 alert('you won!');
+   		} else {
+   		  skip();
+   		}
+   	}
 }
  
 </script>

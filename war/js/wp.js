@@ -9,6 +9,14 @@
 //console.time('find content');  console.timeEnd('find content');
 //console.profile();  console.profileEnd();
 
+// Add array.shuffle() method to randomize the contents of an array
+Array.prototype.shuffle = function() {
+var s = [];
+while (this.length) s.push(this.splice(Math.random() * this.length, 1)[0]);
+while (s.length) this.push(s.pop());
+return this;
+}
+
 $.ajaxSetup(
 	{	cache:false,
 		error:function(x,e){
