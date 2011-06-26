@@ -32,9 +32,30 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             List<String> qs = new ArrayList<String>();
             Set<String> tags = new TreeSet<String>();
             Question q = null;
+            
+            
             q = new Question();
-            q.setDescription("private facts - Favorite Colors");
+            q.setDescription("How are you? (public cliches)");
             q.setIntimacyLevel(Question.INTIMACY_CLICHES);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
+            qs.clear();
+            qs.add("What do you think about the weather we're having?");
+            qs.add("How is your day going?");
+            qs.add("How was your weekend?");
+            qs.add("Anything exciting going on with you?");
+            q.setQuestions(qs);
+            tags.clear();
+            tags.add("favorites");
+            tags.add("personal");
+            q.setTitle("How are you?");
+            q.setUser(u.getKey());
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
+            setTags(q, tags);
+
+            
+            q = new Question();
+            q.setDescription("Favorite Colors (public facts)");
+            q.setIntimacyLevel(Question.INTIMACY_FACTS);
             q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
             qs.clear();
             qs.add("Eye Color?");
@@ -48,20 +69,19 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             tags.add("colors");
             q.setTitle("Favorite Colors");
             q.setUser(u.getKey());
-            q.setVisibility(Question.VISIBILITY_PRIVATE);
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
             setTags(q, tags);
-            
-            
+                        
             
             q = new Question();
-            q.setDescription("public facts - Favorite Dates");
+            q.setDescription("Favorite Dates (public facts)");
             q.setIntimacyLevel(Question.INTIMACY_FACTS);
             q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
             qs.clear();
             qs.add("Birth Date?");
-            qs.add("Hire Date?");
-            qs.add("Marriage Date?");
-            qs.add("Garduation Date?");
+            qs.add("Age at first Job?");
+            qs.add("Age at Highschool graduation?");
+            qs.add("Age when you first drove a car?");
             q.setQuestions(qs);
             tags.clear();
             tags.add("favorites");
@@ -72,17 +92,16 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             q.setVisibility(Question.VISIBILITY_PUBLIC);
             setTags(q, tags);
 
-
             
             q = new Question();
-            q.setDescription("public facts - Favorite Places");
+            q.setDescription("Favorite Places (public facts)");
             q.setIntimacyLevel(Question.INTIMACY_FACTS);
             q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
             qs.clear();
             qs.add("Birth Place?");
             qs.add("High School Location?");
             qs.add("Work Place?");
-            qs.add("Marriage Place?");
+            qs.add("Place where you grew up?");
             q.setQuestions(qs);
             tags.clear();
             tags.add("favorites");
@@ -91,6 +110,137 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
             q.setTitle("Favorite Places");
             q.setUser(u.getKey());
             q.setVisibility(Question.VISIBILITY_PUBLIC);
+            setTags(q, tags);
+          
+            
+            q = new Question();
+            q.setDescription("Big Issues (public opinions)");
+            q.setIntimacyLevel(Question.INTIMACY_OPINIONS);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
+            qs.clear();
+            qs.add("Religion?");
+            qs.add("Politics?");
+            qs.add("Taxes?");
+            qs.add("Homelessness?");
+            q.setQuestions(qs);
+            tags.clear();
+            tags.add("personal");
+            tags.add("big issues");
+            tags.add("religion");
+            tags.add("politics");
+            tags.add("taxes");
+            tags.add("homelessness");
+            q.setTitle("Big Issues");
+            q.setUser(u.getKey());
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
+            setTags(q, tags);
+
+            q = new Question();
+            q.setDescription("Dream Lifestyle (public hopes)");
+            q.setIntimacyLevel(Question.INTIMACY_HOPES);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
+            qs.clear();
+            qs.add("Dream Job?");
+            qs.add("Dream Vacation?");
+            qs.add("Dream Retirement?");
+            qs.add("Dream Lifestyle?");
+            q.setQuestions(qs);
+            tags.clear();
+            tags.add("personal");
+            tags.add("dreams");
+            tags.add("lifestyle");
+            tags.add("hopes");
+            q.setTitle("Dream Lifestyle");
+            q.setUser(u.getKey());
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
+            setTags(q, tags);
+
+            
+            q = new Question();
+            q.setDescription("Feelings About... (public feelings)");
+            q.setIntimacyLevel(Question.INTIMACY_FEELINGS);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
+            qs.clear();
+            qs.add("Your childhood?");
+            qs.add("Your parents?");
+            qs.add("Your life?");
+            qs.add("Your future?");
+            q.setQuestions(qs);
+            tags.clear();
+            tags.add("personal");
+            tags.add("feelings");
+            tags.add("life");
+            tags.add("childhood");
+            tags.add("parents");
+            tags.add("future");
+            q.setTitle("Feelings about...");
+            q.setUser(u.getKey());
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
+            setTags(q, tags);
+
+            
+            q = new Question();
+            q.setDescription("Biggest Fears (public fears)");
+            q.setIntimacyLevel(Question.INTIMACY_FEARS);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
+            qs.clear();
+            qs.add("Biggest Fear?");
+            qs.add("Afraid of dieing?");
+            qs.add("Afraid of failing?");
+            qs.add("Fear of heights?");
+            q.setQuestions(qs);
+            tags.clear();
+            tags.add("personal");
+            tags.add("fears");
+            tags.add("death");
+            q.setTitle("Biggest Fears");
+            q.setUser(u.getKey());
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
+            setTags(q, tags);
+
+            q = new Question();
+            q.setDescription("Needs (public needs)");
+            q.setIntimacyLevel(Question.INTIMACY_NEEDS);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
+            qs.clear();
+            qs.add("What do you need the most?");
+            qs.add("Money Needs?");
+            qs.add("Shelter Needs?");
+            qs.add("Relationship Needs?");
+            q.setQuestions(qs);
+            tags.clear();
+            tags.add("personal");
+            tags.add("needs");
+            tags.add("money");
+            tags.add("relationship");
+            tags.add("shelter");
+            q.setTitle("Needs");
+            q.setUser(u.getKey());
+            q.setVisibility(Question.VISIBILITY_PUBLIC);
+            setTags(q, tags);
+
+            
+            
+            q = new Question();
+            q.setDescription("Favorite Alcohol (private opinions)");
+            q.setIntimacyLevel(Question.INTIMACY_OPINIONS);
+            q.setLocaleString(LocaleDisplay.LOCALE_EN_US);
+            qs.clear();
+            qs.add("Beer?");
+            qs.add("Wine?");
+            qs.add("Mixed Drink?");
+            qs.add("Shooter?");
+            q.setQuestions(qs);
+            tags.clear();
+            tags.add("personal");
+            tags.add("favorites");
+            tags.add("personal");
+            tags.add("food");
+            tags.add("liquid");
+            tags.add("alcohol");
+            q.setTitle("Favorite Alcohol");
+            q.setUser(u.getKey());
+            q.setVisibility(Question.VISIBILITY_PRIVATE);
             setTags(q, tags);
 
             log.info("seedQuestions: user:" + u);
