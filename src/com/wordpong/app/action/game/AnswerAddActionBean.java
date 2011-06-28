@@ -63,8 +63,9 @@ public class AnswerAddActionBean extends BaseActionBean implements
 	public List<Question> getQuestionList() {
 		List<Question> result = new ArrayList<Question>();
 		try {
-			result = _svcGame.getQuestionsPublic();
-			// TODO: remove ones that the user has already answered
+			user = getContext().getUserFromSession();
+			log.info("user:" + user + " svc:" + _svcGame);
+			result = _svcGame.getUnansweredQuestions(user);
 		} catch (WPServiceException e) {
 			log.warning("getQuestionList user:" + user + " err:" + e);
 		}

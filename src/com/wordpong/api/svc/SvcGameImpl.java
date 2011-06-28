@@ -1,6 +1,7 @@
 package com.wordpong.api.svc;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -365,19 +366,6 @@ public class SvcGameImpl implements SvcGame {
 	}
 
 	@Override
-	public List<Question> getQuestionsPublic() throws WPServiceException {
-		List<Question> result = null;
-		DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
-		try {
-			result = dq.getPublic();
-		} catch (DaoException e) {
-			throw new WPServiceException("getQuestionsPublic err: "
-					+ e.getMessage());
-		}
-		return result;
-	}
-
-	@Override
 	public Answer saveAnswer(Answer a) throws WPServiceException {
 		Answer result = null;
 		DaoAnswer f = DaoAnswerFactory.getAnswerDao();
@@ -472,4 +460,40 @@ public class SvcGameImpl implements SvcGame {
 			throw new WPServiceException(e.getMessage());
 		}
 	}
+
+	@Override
+	public List<Question> getUnansweredQuestions(User user)
+			throws WPServiceException {
+		List<Question> result = new ArrayList<Question>();
+		DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+		try {
+			Map<String, Boolean> m = new HashMap<String, Boolean>();
+			// get the list of answers for this user in a map
+			List<Answer> as = getAnswers(user);
+			if (as != null) {
+				for (Answer a : as) {
+					String ks = a.getQuestionKeyString();
+					if (ks != null) {
+						m.put(ks, true);
+					}
+				}
+			}
+			// get the list of all public questions
+			// add ones that the user has not already answered
+			List<Question> allPublic = dq.getPublic();
+			if (allPublic != null) {
+				for (Question q : allPublic) {
+					String ks = q.getKeyString();
+					if (ks != null && m.containsKey(ks) == false) {
+						result.add(q);
+					}
+				}
+			}
+		} catch (DaoException e) {
+			throw new WPServiceException("getQuestionsPublic err: "
+					+ e.getMessage());
+		}
+		return result;
+	}
+
 }

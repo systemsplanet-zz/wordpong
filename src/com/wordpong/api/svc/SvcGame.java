@@ -1,5 +1,6 @@
 package com.wordpong.api.svc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.wordpong.api.err.WPServiceException;
@@ -60,7 +61,7 @@ public interface SvcGame {
 
 	Question getQuestion(String questionKey) throws WPServiceException;
 
-	List<Question> getQuestionsPublic() throws WPServiceException;
+	List<Question> getUnansweredQuestions(User user) throws WPServiceException;
 
 	Answer saveAnswer(Answer u) throws WPServiceException;
 
