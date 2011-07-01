@@ -26,6 +26,7 @@ public class GamePlayActionBean extends BaseActionBean implements
 	private static final Logger log = Logger.getLogger(GamePlayActionBean.class
 			.getName());
 	private static final String VIEW = "/WEB-INF/jsp/game/_gamePlay.jsp";
+	private static final String SUCCESS = "/WEB-INF/jsp/game/_gamePlaySuccess.jsp";
 
 	private String gameKeyStringEncrypted;
 	private String gameKeyString;
@@ -56,6 +57,12 @@ public class GamePlayActionBean extends BaseActionBean implements
 	@DontValidate
 	public Resolution back() {
 		return new ForwardResolution(GameActionBean.class);
+	}
+	
+	@DontValidate
+	@HandlesEvent("success")
+	public Resolution success() {
+		return new ForwardResolution(SUCCESS);
 	}
 
 	@DontValidate

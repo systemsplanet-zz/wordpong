@@ -31,7 +31,7 @@
         <tags:messages/> 
         <ul  data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 			<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
-			  <li OnClick="javascript:match(${s.index});" style="white-space:normal" >${i}</li>
+			  <li id="item-${s.index}" OnClick="javascript:match(${s.index});" style="white-space:normal" >${i}</li>
 			</c:forEach>
 		    <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
 	    </ul>
@@ -39,6 +39,9 @@
            <input value="${skipLbl}" 
               	OnClick="javascript:skip();return false;" type="submit" data-theme="a" /> 
         </div>
+        <div style='visibility:hidden'>
+    	<input name="success" id="success" action="success" data-theme="a" class="process" value="SUCCESS" type="submit" />
+    	</div>
 	</s:form>	 
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
@@ -64,13 +67,17 @@ function skip(){
 
 function match(a){
    	if (qr[i]!=a) {
-   		alert("Sorry, try again.");
+		// alert("Sorry, try again.");
+   		$('#item-'+a).slideToggle();
+   		$('#item-'+a).slideToggle();   		
    	} else {
-   		alert('correct');
+   		//alert('correct'); 
+   		//strike through the answer
+   		$('#item-'+qr[i]).css('text-decoration','line-through');
    		//remove the question from qr
    		qr.splice(i, 1);
    		if (qr.length==0) {
-    		 alert('you won!');
+    		 $('#success').click();
    		} else {
    	  		 skip();
    		}

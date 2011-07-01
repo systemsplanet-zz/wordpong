@@ -1,6 +1,5 @@
 package com.wordpong.api.svc;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.wordpong.api.err.WPServiceException;
