@@ -11,15 +11,27 @@
 <fmt:message var="profileLbl" key="profile" />
 <fmt:message var="newFriendLbl" key="newFriend" />
 <fmt:message var="newGameLbl" key="newGame" />
+<fmt:message var="addLbl" key="add" />
 <fmt:message var="gameLbl" key="game.game" />
-
-
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
-  
 <div data-role="header"  data-nobackbtn="true" data-theme="b" >
-	<center>
+    <span style="float:left;margin-left:12px;margin-top:5px">
 		<tags:logo/>
-	</center>
+    </span>
+    <!-- Add Button -->
+    <span style="float:right;margin-right:10px">
+        <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
+            <small>
+    	        <span class="ui-btn-inner ui-btn-corner-all">
+	                <span class="ui-btn-text">${addLbl}</span>
+                	<span class="ui-icon ui-icon-plus ui-icon-shadow"></span>                    
+            	</span>
+				<form id="addGameForm" action="/game/Game.wp" method="post">
+            		<input id="addGame" name="addGame" value="${addLbl}" data-theme="a" class="process ui-btn-left ui-btn-hidden" type="submit">
+  				</form>
+            </small>
+        </div> 
+    </span>
 </div>
 <%-- MY TURN --%>
 

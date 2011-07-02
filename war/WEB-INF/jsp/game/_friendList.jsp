@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendListActionBean"/>
 <fmt:message var="backLbl" key="back" />
-<fmt:message var="addFriendsLbl" key="friendList.addFriends" />
+<fmt:message var="addLbl" key="add" />
 <fmt:message var="myFriendsLbl" key="friendList.myFriends" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
-<form id="loginForm" action="/game/FriendList.wp" method="post">
+<form action="/game/FriendList.wp" method="post">
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
@@ -22,10 +22,10 @@
         <span style="float:right;margin-right:10px">
             <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
                 <span class="ui-btn-inner ui-btn-corner-all">
-                    <span class="ui-btn-text">${addFriendsLbl}</span>
+                    <span class="ui-btn-text">${addLbl}</span>
                     <span class="ui-icon ui-icon-plus ui-icon-shadow"></span>                    
                 </span>
-                <input name="friendInvite" value="${addFriendsLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" type="submit">
+                <input name="friendInvite" value="${addLbl}" data-theme="a" class="process ui-btn-left ui-btn-hidden" type="submit">
             </div> 
         </span>
     </div>

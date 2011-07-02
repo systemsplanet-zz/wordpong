@@ -58,6 +58,14 @@ public class GameActionBean extends BaseActionBean {
 		return new ForwardResolution(ProfileEditActionBean.class);
 	}
 
+	
+	@DontValidate
+	@HandlesEvent("addGame")
+	public Resolution addGame() {
+		// TODO: make add game, not add friend
+		return new ForwardResolution(FriendInviteActionBean.class);
+	}
+	
 	@DontValidate
 	public Resolution myTurnSelect() {
 		// TODO

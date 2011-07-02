@@ -31,7 +31,7 @@
         <tags:messages/> 
         <ul  data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 			<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
-			  <li id="item-${s.index}" OnClick="javascript:match(${s.index});" style="white-space:normal" >${i}</li>
+			  <li id="item-${s.index}" OnClick="javascript:match(${s.index});" style="white-space:normal;" >${i}</li>
 			</c:forEach>
 		    <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
 	    </ul>
@@ -67,20 +67,20 @@ function skip(){
 
 function match(a){
    	if (qr[i]!=a) {
-		// alert("Sorry, try again.");
-   		$('#item-'+a).slideToggle();
-   		$('#item-'+a).slideToggle();   		
+   		// no match
+   		$('#item-'+a).fadeOut('fast').fadeIn('fast')
    	} else {
-   		//alert('correct'); 
    		//strike through the answer
-   		$('#item-'+qr[i]).css('text-decoration','line-through');
-   		//remove the question from qr
-   		qr.splice(i, 1);
-   		if (qr.length==0) {
-    		 $('#success').click();
-   		} else {
-   	  		 skip();
-   		}
+   		  $('#item-'+qr[i]).fadeOut('fast').fadeIn('fast', function() {
+             $('#item-'+qr[i]).css('text-decoration','line-through').css('color','green');
+	   		//remove the question from qr
+	   		qr.splice(i, 1);
+	   		if (qr.length==0) {
+	    		 $('#success').click();
+	   		} else {
+	   	  		 skip();
+	   		}
+          });
    	}
 }
 </script>
