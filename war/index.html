@@ -11,6 +11,31 @@
 <script type="text/javascript" src="/js/dump.js"></script>
 <script type="text/javascript" src="/js/wp.js"></script>
 <script type="text/javascript" src="/js/dateFormat.js"></script>
+<script type="text/javascript">
+//IE9 FIX
+//https://gist.github.com/723870  
+$(document).bind("mobileinit", function(){
+    $.extend($.mobile, {
+        // loadingMessage: 'Ponging...'
+        //extend gradeA qualifier to include IE7+
+	    gradeA: function(){    	
+	    	//IE version check by James Padolsey, modified by jdalton - from http://gist.github.com/527683
+			var ie = (function() {
+			    var v = 3, div = document.createElement('div'), a = div.all || [];
+			    while (div.innerHTML = '<!--[if gt IE '+(++v)+']><br><![endif]-->', a[0]); 
+			    return v > 4 ? v : !v;
+			}());
+	    	//must either support media queries or be IE7+
+	    	return $.support.mediaquery || (ie && ie >= 7);
+	    }
+    });
+});
+//IE9 FIX
+// Soul_Master custom bug fix for ticket #8052
+if (jQuery.browser.msie && jQuery.browser.version >= 9) {
+ jQuery.support.noCloneEvent = true;
+}
+</script>
 <script type="text/javascript" src="/js/jquery.mobile-1.0a4pre.min.js"></script>
 </head>
 <body>
@@ -75,11 +100,6 @@ $(window).resize(function() {
 	p.width($(".wp-page").outerWidth() - 30 );
 });
 
-$(document).bind("mobileinit", function(){
-    $.extend($.mobile, {
-        loadingMessage: 'Ponging...'
-    });
-});
 
 $(document).ready(function() {
 	// If url contains a query string then redirect to home page without queryString

@@ -33,6 +33,8 @@
         </div> 
     </span>
 </div>
+<div style="clear:both"></div>
+
 <%-- MY TURN --%>
 
 <div data-role="content" style="padding-top:0px;"  >
