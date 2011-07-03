@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import net.sourceforge.stripes.util.CryptoUtil;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
@@ -156,6 +158,11 @@ public class Question implements Serializable {
         String k = KeyFactory.keyToString(key);
         return k;
     }
+	public String getKeyStringEncrypted() {
+		String ks = getKeyString();
+		String keyEncrypted = CryptoUtil.encrypt(ks);
+		return keyEncrypted;
+	}
 
     public Key getKey() {
         return key;

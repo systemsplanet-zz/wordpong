@@ -1,15 +1,20 @@
 package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
+import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.util.CryptoUtil;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
@@ -30,6 +35,7 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 	private static final String VIEW = "/WEB-INF/jsp/game/_answerAddEdit.jsp";
 
 	private SvcGame _svcGame;
+	private String questionKeyStringEncrypted;
 	private String questionKeyString;
 	private String questionDescription;
 	private List<String> questions;
@@ -38,6 +44,26 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 
 	public AnswerAddEditActionBean() {
 		_svcGame = SvcGameFactory.getGameService();
+	}
+
+	@After(stages = LifecycleStage.BindingAndValidation)
+	public void doPostValidationStuff() {
+		if (questionKeyStringEncrypted != null) {
+			questionKeyString = CryptoUtil.decrypt(questionKeyStringEncrypted);
+			if (questions == null && questionKeyString != null) {
+				// todo read questionKeyString question
+				try {
+					Question q = _svcGame.getQuestion(questionKeyString);
+					// create a QuestionEdit
+					if (q != null) {
+						questions = q.getQuestions();
+						questionsSize = questions.size();
+					}
+				} catch (WPServiceException e) {
+					log.warning("doPostValidationStuff error:" + e.getMessage());
+				}
+			}
+		}
 	}
 
 	@DontValidate
@@ -71,21 +97,6 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 	}
 
 	public List<String> getQuestions() {
-		if (questions == null && questionKeyString != null) {
-			// todo read questionKeyString question
-			try {
-				Question q = _svcGame.getQuestion(questionKeyString);
-				// create a QuestionEdit
-				if (q != null) {
-					questions = q.getQuestions();
-					questionsSize = questions.size();
-				}
-			} catch (WPServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
 		return questions;
 	}
 
@@ -94,14 +105,26 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		Resolution result = new ForwardResolution(VIEW);
 		getQuestions();
 		boolean allAnswered = true;
+		boolean duplicate = false;
+		Map<String, Boolean> m = new HashMap<String, Boolean>();
 		for (int i = 0; i < questionsSize; i++) {
-			if (answers.size() < questionsSize || answers.get(i) == null
-					|| answers.get(i).trim().length() == 0) {
+			String a = answers.get(i).trim();
+			if (m.containsKey(a)) {
+				duplicate = true;
+				break;
+			}
+			m.put(a, true);
+			if (answers.size() < questionsSize || a == null || a.length() == 0) {
 				allAnswered = false;
 				break;
 			}
 		}
-		if (allAnswered) {
+		if (duplicate) {
+			addGlobalActionError("answerAddEdit.pleaseMakeAllAnswersUnique");
+		}
+		if (allAnswered == false) {
+			addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
+		} else {
 			// todo call svc_game to persist answers
 			// create a answer object
 			// point it to questionKeyString
@@ -122,8 +145,6 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-			addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
 		}
 		return result;
 	}
@@ -136,14 +157,6 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		this.answers = answers;
 	}
 
-	public String getQuestionKeyString() {
-		return questionKeyString;
-	}
-
-	public void setQuestionKeyString(String questionKeyString) {
-		this.questionKeyString = questionKeyString;
-	}
-
 	public String getQuestionDescription() {
 		return questionDescription;
 	}
@@ -152,4 +165,11 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		this.questionDescription = questionDescription;
 	}
 
+	public String getQuestionKeyStringEncrypted() {
+		return questionKeyStringEncrypted;
+	}
+
+	public void setQuestionKeyStringEncrypted(String q) {
+		this.questionKeyStringEncrypted = q;
+	}
 }
