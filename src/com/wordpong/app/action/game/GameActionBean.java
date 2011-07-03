@@ -29,7 +29,6 @@ public class GameActionBean extends BaseActionBean {
 
 	private SvcGame _svcGame;
 	private User user;
-	private String details; // button caption details
 
 	public GameActionBean() {
 		_svcGame = SvcGameFactory.getGameService();
@@ -148,12 +147,5 @@ public class GameActionBean extends BaseActionBean {
 		return _svcGame.getTheirTurnsInviteGame(user);
 	}
 
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
 
 }

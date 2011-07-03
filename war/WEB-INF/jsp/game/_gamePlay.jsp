@@ -33,7 +33,7 @@
 			<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
 			  <li id="item-${s.index}" OnClick="javascript:match(${s.index});" style="white-space:normal;" >${i}</li>
 			</c:forEach>
-		    <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
+		    <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value="${actionBean.gameKeyStringEncrypted} }"/>    
 	    </ul>
         <div style="float:right">
            <input value="${skipLbl}" 

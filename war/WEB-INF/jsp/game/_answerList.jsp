@@ -39,10 +39,10 @@
 	        <li data-role="list-divider" >${myAnswersLbl}</li> 
 	        <small>            
 		        <c:forEach items="${actionBean.answers}" var="answers" >
-		           <input onClick="javascript:$('#answerKeyString').val('${answers.keyString}');$('#questionDescription').val('${answers.questionDescription}');" data-theme="a" class="process"  name="editAnswers" value="${answers.questionDescription}" type="submit" />
+		           <input onClick="javascript:$('#answerKeyStringEncrypted').val('${answers.keyStringEncrypted}');$('#questionDescription').val('${answers.questionDescription}');" data-theme="a" class="process"  name="editAnswers" value="${answers.questionDescription}" type="submit" />
 		        </c:forEach>
 	        </small>         
-	        <input id="answerKeyString" name="answerKeyString" type="hidden" value=""/>
+	        <input id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" type="hidden" value=""/>
 	        <input id="questionDescription" name="questionDescription" type="hidden" value=""/>
 	    </ul>
         <div style="float:left">

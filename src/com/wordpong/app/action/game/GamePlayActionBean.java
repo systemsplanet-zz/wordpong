@@ -62,6 +62,7 @@ public class GamePlayActionBean extends BaseActionBean implements
 	@DontValidate
 	@HandlesEvent("success")
 	public Resolution success() {
+		// TODO: Mark Game as played. update friend awards too?
 		return new ForwardResolution(SUCCESS);
 	}
 

@@ -34,7 +34,7 @@
 		              <sdyn:text name="answers[${s.index}]" id="answers[${s.index}]" tabindex="1" maxlength="100"  class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-a"/>
 		          </div>
 		       </c:forEach>
-		       <input id="answerKeyString" name="answerKeyString" type="hidden" value="${actionBean.answerKeyString}"/>
+		       <input id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" type="hidden" value="${actionBean.answerKeyStringEncrypted}"/>
 		       <input id="questionDescription" name="questionDescription" type="hidden" value="${actionBean.questionDescription}"/>
 	        </small>         
         <div style="float:left">

@@ -108,21 +108,25 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		boolean duplicate = false;
 		Map<String, Boolean> m = new HashMap<String, Boolean>();
 		for (int i = 0; i < questionsSize; i++) {
-			String a = answers.get(i).trim();
+			if (answers.size() < questionsSize) {
+				allAnswered = false;
+				break;
+			}
+			String a = answers.get(i);
+			if (a == null || a.trim().length() == 0) {
+				allAnswered = false;
+				break;
+			}
+			a = a.trim();
 			if (m.containsKey(a)) {
 				duplicate = true;
 				break;
 			}
 			m.put(a, true);
-			if (answers.size() < questionsSize || a == null || a.length() == 0) {
-				allAnswered = false;
-				break;
-			}
 		}
 		if (duplicate) {
 			addGlobalActionError("answerAddEdit.pleaseMakeAllAnswersUnique");
-		}
-		if (allAnswered == false) {
+		} else if (allAnswered == false) {
 			addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
 		} else {
 			// todo call svc_game to persist answers

@@ -29,11 +29,9 @@ public class AnswerListActionBean extends BaseActionBean implements
 	private static final String VIEW = "/WEB-INF/jsp/game/_answerList.jsp";
 
 	private SvcGame _svcGame;
-
 	private User user;
 
-	// when the user selects answers to edit these are populated
-	private String answerKeyString;
+	// when the user selects answers to edit this is populated
 	private String questionDescription;
 
 	public AnswerListActionBean() {
@@ -64,8 +62,7 @@ public class AnswerListActionBean extends BaseActionBean implements
 			try {
 				user = c.getUserFromSession();
 				if (user != null) {
-					log.info("edit answer key:" + answerKeyString + " quest:"
-							+ questionDescription);
+					log.info("edit answer quest:" + questionDescription);
 					resolution = new ForwardResolution(
 							AnswerEditActionBean.class);
 				} else {
@@ -103,16 +100,7 @@ public class AnswerListActionBean extends BaseActionBean implements
 		} catch (WPServiceException e) {
 			log.warning("getAnswers err:" + e.getMessage());
 		}
-		// TODO populate using _svcGame
 		return result;
-	}
-
-	public String getAnswerKeyString() {
-		return answerKeyString;
-	}
-
-	public void setAnswerKeyString(String answerKeyString) {
-		this.answerKeyString = answerKeyString;
 	}
 
 	public String getQuestionDescription() {
@@ -122,9 +110,5 @@ public class AnswerListActionBean extends BaseActionBean implements
 	public void setQuestionDescription(String questionDescription) {
 		this.questionDescription = questionDescription;
 	}
-
-	// public void setMyTurns(List<GameMyTurn> myTurns) {
-	// _svcGame.setMyTurns(myTurns);
-	// }
 
 }
