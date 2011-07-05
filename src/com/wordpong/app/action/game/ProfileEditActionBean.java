@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
+import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.EmailTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
@@ -74,9 +76,8 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
         return new ForwardResolution(GameActionBean.class);
     }
 
-    @DontValidate
-    @DefaultHandler
-    public Resolution view() {
+	@After(stages = LifecycleStage.BindingAndValidation)
+	public void doPostValidationStuff() {
         AppActionBeanContext c = getContext();
         if (c != null) {
             if (user == null) {
@@ -106,7 +107,12 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 }
                 loadLocales();
             }
-        }
+        }		
+	}
+
+    @DontValidate
+    @DefaultHandler
+    public Resolution view() {
         return new ForwardResolution(VIEW);
     }
 
