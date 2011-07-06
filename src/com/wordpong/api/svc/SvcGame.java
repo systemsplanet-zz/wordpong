@@ -49,6 +49,8 @@ public interface SvcGame {
 
 	void createGame(final InviteGame inviteGame, final Answer answer)
 			throws WPServiceException;
+	
+	void finishGame(String gameKeyString) throws WPServiceException;
 
 	void makeFriends(String friendInviteKeyStr) throws WPServiceException;
 

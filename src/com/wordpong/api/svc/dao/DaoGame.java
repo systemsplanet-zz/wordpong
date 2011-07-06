@@ -13,4 +13,6 @@ public interface DaoGame {
 	Game getGame(String gameKeyStr) throws DaoException;
 
 	List<Game> getGamesByInviteeKey(User user) throws DaoException;
+
+	void finishGame(String gameKeyStr) throws DaoException;
 }

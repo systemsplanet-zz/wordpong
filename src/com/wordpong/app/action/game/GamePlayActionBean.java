@@ -58,11 +58,17 @@ public class GamePlayActionBean extends BaseActionBean implements
 	public Resolution back() {
 		return new ForwardResolution(GameActionBean.class);
 	}
-	
+
 	@DontValidate
 	@HandlesEvent("success")
 	public Resolution success() {
-		// TODO: Mark Game as played. update friend awards too?
+		// Mark Game as played
+		SvcGame sg = SvcGameFactory.getGameService();
+		try {
+			sg.finishGame(gameKeyString);
+		} catch (WPServiceException e) {
+			log.warning("finish game: err" + e.getMessage());
+		}
 		return new ForwardResolution(SUCCESS);
 	}
 
@@ -114,5 +120,5 @@ public class GamePlayActionBean extends BaseActionBean implements
 	public void setAnswer(Answer answer) {
 		this.answer = answer;
 	}
-	
+
 }

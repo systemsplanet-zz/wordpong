@@ -36,7 +36,6 @@ public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
 	public List<Game> getGamesByInviteeKey(User user) throws DaoException {
 		List<Game> result = null;
 		GameMeta e = GameMeta.get();
-
 		try {
 			Key k = user.getKey();
 			result = Datastore.query(e).filter(e.userKey.equal(k)).asList();
@@ -65,4 +64,19 @@ public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
 		return result;
 	}
 
+	@Override
+	public void finishGame(String gameKeyStr) throws DaoException {
+		try {
+			if (gameKeyStr == null)
+				throw new DaoException("gameKeyStr cant be null");
+			Game g = getGame(gameKeyStr);
+			g.setCompleted(true);
+			put(g);
+		} catch (Exception e) {
+			String m = "finishGame failed. keyStr:" + gameKeyStr + " Err:"
+					+ e.getMessage();
+			log.warning(m);
+			throw new DaoException(m);
+		}
+	}
 }

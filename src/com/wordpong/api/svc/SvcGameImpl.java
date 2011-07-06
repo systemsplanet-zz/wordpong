@@ -1,7 +1,6 @@
 package com.wordpong.api.svc;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +76,14 @@ public class SvcGameImpl implements SvcGame {
 		List<Game> result = new ArrayList<Game>();
 		DaoGame dig = DaoGameFactory.getGameDao();
 		try {
-			result = dig.getGamesByInviteeKey(user);
+			List<Game> allGames = dig.getGamesByInviteeKey(user);
+			// add games that are not completed
+			for (Game g : allGames) {
+				if (g.isCompleted() == false) {
+					result.add(g);
+				}
+			}
+
 		} catch (DaoException e) {
 			log.fine("getTheirTurnsGames err:" + e.getMessage());
 		}
@@ -496,4 +502,14 @@ public class SvcGameImpl implements SvcGame {
 		return result;
 	}
 
+	@Override
+	public void finishGame(String gameKeyString) throws WPServiceException {
+		DaoGame dg = DaoGameFactory.getGameDao();
+		try {
+			dg.finishGame(gameKeyString);
+		} catch (DaoException e) {
+			throw new WPServiceException("finishGame key:" + gameKeyString
+					+ " err: " + e.getMessage());
+		}
+	}
 }
