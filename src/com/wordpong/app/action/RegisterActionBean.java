@@ -21,6 +21,7 @@ import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
+import com.wordpong.app.action.game.FriendInviteActionBean;
 import com.wordpong.app.action.game.GameActionBean;
 import com.wordpong.app.auth.RememberMe;
 import com.wordpong.app.msg.MailUtil;
@@ -94,7 +95,7 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
                 MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));
                 SvcGame sg = SvcGameFactory.getGameService();
                 sg.updateFriendInvites(user);
-                resolution = new ForwardResolution(GameActionBean.class);
+                resolution = new ForwardResolution(FriendInviteActionBean.class);
             } catch (Exception e) {
                 String reason = "register.unableToAddUser";
                 LogUtil.logException(reason, e);
