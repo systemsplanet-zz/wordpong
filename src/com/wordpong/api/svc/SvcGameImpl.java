@@ -353,13 +353,29 @@ public class SvcGameImpl implements SvcGame {
 	@Override
 	public List<User> getMyFriends(User u) {
 		DaoUser du = DaoUserFactory.getUserDao();
-		List<User> fgs = new ArrayList<User>();
+		List<User> friends = new ArrayList<User>();
 		try {
-			fgs = du.getFriends(u);
+			friends = du.getFriends(u);
 		} catch (Exception e) {
 			log.warning("getMyFriends: err" + e.getMessage());
 		}
-		return fgs;
+		return friends;
+	}
+
+	@Override
+	public List<User> getMyFriendsGames(User u) {
+		DaoUser du = DaoUserFactory.getUserDao();
+		DaoGame dg = DaoGameFactory.getGameDao();
+		List<User> friends = new ArrayList<User>();
+		try {
+			friends = du.getFriends(u);
+			for (User f : friends) {
+		//TODO		dg.getGamesByInviteeKey(user)
+			}
+		} catch (Exception e) {
+			log.warning("getMyFriendsGames: err" + e.getMessage());
+		}
+		return friends;
 	}
 
 	public void seedQuestions(User user) throws WPServiceException {

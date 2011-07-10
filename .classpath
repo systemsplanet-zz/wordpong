@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/ktrwjr.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slim3-1.0.11.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (1)"/>
+	<classpathentry kind="lib" path="lib-plugin/google-api-translate-java-0.95.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -33,6 +33,7 @@ public class AppLocalePicker extends DefaultLocalePicker {
 	 * The hard-coded, read-only list of supported locales
 	 */
 	public static final List<Locale> SUPPORTED_LOCALES;
+    static public final Locale SPANISH = new Locale("es", "ES");
 
 	/**
 	 * The map of encodings by locale
@@ -47,6 +48,8 @@ public class AppLocalePicker extends DefaultLocalePicker {
 	static {
 		List<Locale> locales = new ArrayList<Locale>();
 		locales.add(Locale.US);
+		//locales.add(Locale.CHINA);
+		locales.add(SPANISH);
 		locales.add(Locale.FRANCE);
 
 		SUPPORTED_LOCALES = Collections.unmodifiableList(locales);
@@ -60,7 +63,7 @@ public class AppLocalePicker extends DefaultLocalePicker {
 		this.locales = SUPPORTED_LOCALES;
 		this.encodings = ENCODINGS;
 	}
-
+	
 	@Override
 	public Locale pickLocale(HttpServletRequest request) {
 		Locale locale = null;

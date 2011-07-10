@@ -38,8 +38,14 @@
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${myFriendsLbl}</li> 
         <small>            
-        <c:forEach items="${actionBean.myFriends}" var="friend" >
+        <c:forEach items="${actionBean.myFriends}" var="friend" varStatus="status" >
             <input name="selectFriend" value="chat: ${friend.details}" data-theme="a" class="process" type="submit" />
+<%--		    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">			 --%>
+	    	    <c:forEach items="${friend.games}" var="game" >	    	     	
+	        	    <input name="selectGame" value="   ${game.questionDescription}" data-theme="a" class="process" type="submit" />
+	        	</c:forEach>
+<%--		   	</ul>
+ --%>
         </c:forEach>
         </small>         
     </ul>

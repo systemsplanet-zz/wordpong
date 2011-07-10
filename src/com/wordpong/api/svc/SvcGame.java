@@ -55,6 +55,8 @@ public interface SvcGame {
 	void makeFriends(String friendInviteKeyStr) throws WPServiceException;
 
 	List<User> getMyFriends(User u);
+	
+	List<User> getMyFriendsGames(User u);
 
 	void seedQuestions(User user) throws WPServiceException;
 

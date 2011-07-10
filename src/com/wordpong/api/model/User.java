@@ -14,6 +14,8 @@ import java.util.TimeZone;
 
 import javax.crypto.SecretKey;
 
+import net.sourceforge.stripes.util.CryptoUtil;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slim3.datastore.Attribute;
@@ -22,6 +24,7 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.wordpong.api.pojo.Role;
 
 @Model(schemaVersion = 1)
@@ -72,6 +75,10 @@ public class User implements Serializable {
 	@Attribute(persistent = false)
 	private List<Role> roles = new ArrayList<Role>();
 
+	@Attribute(persistent = false)
+	private List<Game> games = new ArrayList<Game>();
+
+	
 	@Attribute(listener = ModificationDate.class)
 	Date updatedAt;
 
@@ -123,6 +130,12 @@ public class User implements Serializable {
 	 */
 	public void setKey(Key key) {
 		this.key = key;
+	}
+
+	public String getKeyStringEncrypted() {
+		String ks = KeyFactory.keyToString(key);
+		String keyEncrypted = CryptoUtil.encrypt(ks);
+		return keyEncrypted;
 	}
 
 	/**
@@ -310,6 +323,14 @@ public class User implements Serializable {
 			timeZoneString = DEFAULT_TIMEZONE;
 		}
 		return TimeZone.getTimeZone(timeZoneString);
+	}
+
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
 	}
 
 	/**
