@@ -89,20 +89,6 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements
 					// get user with new friend attached
 					user = su.getByKey(user);
 					c.putUserToRequestAndSession(user);
-					// TODO: add a new InviteGame to both friends
-					// game wont have a question or answer list
-					// user must select their answers
-
-					// String url = "https://wordpong.appspot.com/" +
-					// friend.email;
-					// String msg = getMsg("friendInviteAccept.email.message",
-					// new Object[] { friend.getFullName(), url });
-					// String sub = getMsg("friendInviteAccept.email.subject",
-					// new Object[] { friend.getFullName() });
-					// List<String> emails = new ArrayList<String>();
-					// emails.add(friend.email);
-					// MailUtil.sendAdminMail(new EmailMessage(sub, msg,
-					// friend.email, user.getFullName()));
 					addGlobalActionMessage("friendInviteAccept.inviteAccepted");
 				} else {
 					// session expire?

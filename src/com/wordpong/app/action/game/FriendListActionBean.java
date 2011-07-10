@@ -28,7 +28,6 @@ public class FriendListActionBean extends BaseActionBean implements
 
 	private User user;
 
-
 	public FriendListActionBean() {
 		_svcGame = SvcGameFactory.getGameService();
 	}
@@ -51,7 +50,7 @@ public class FriendListActionBean extends BaseActionBean implements
 
 	@HandlesEvent("selectFriend")
 	public Resolution selectFriend() {
-		//TODO: 
+		// TODO:
 		log.info("selected friend");
 		return new ForwardResolution(VIEW);
 	}
@@ -70,7 +69,10 @@ public class FriendListActionBean extends BaseActionBean implements
 
 	public List<User> getMyFriends() {
 		user = getContext().getUserFromSession();
+		long start = System.currentTimeMillis();
 		List<User> result = _svcGame.getMyFriendsGames(user);
+		log.info("getMyFriends elapsedMs:"
+				+ (System.currentTimeMillis() - start));
 		return result;
 	}
 }
