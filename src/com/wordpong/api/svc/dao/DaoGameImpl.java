@@ -1,5 +1,6 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -9,6 +10,7 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.wordpong.api.meta.GameMeta;
+import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Game;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.err.DaoException;
@@ -78,5 +80,23 @@ public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
 			log.warning(m);
 			throw new DaoException(m);
 		}
+	}
+
+	@Override
+	public List<Game> getGamesByAnswers(List<Answer> as) throws DaoException {
+		List<Game> result = new ArrayList<Game>();
+		GameMeta e = GameMeta.get();
+		for (Answer a : as) {
+			try {
+				Key k = a.getKey();
+				List<Game> games = Datastore.query(e)
+						.filter(e.answersKey.equal(k)).asList();
+				result.addAll(games);
+			} catch (Exception ex) {
+				throw new DaoException("getGamesByAnswers answers:" + as
+						+ " Err:" + ex.getMessage());
+			}
+		}
+		return result;
 	}
 }

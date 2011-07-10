@@ -1,6 +1,5 @@
 package com.wordpong.app.action.game;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -9,12 +8,10 @@ import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
-import com.wordpong.api.model.Game;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
@@ -30,9 +27,6 @@ public class FriendListActionBean extends BaseActionBean implements
 	private SvcGame _svcGame;
 
 	private User user;
-
-	@Validate(required = true, minlength = 4, maxlength = 50)
-	private String emails;
 
 
 	public FriendListActionBean() {
@@ -57,24 +51,8 @@ public class FriendListActionBean extends BaseActionBean implements
 
 	@HandlesEvent("selectFriend")
 	public Resolution selectFriend() {
-		AppActionBeanContext c = getContext();
-		if (c != null) {
-			try {
-				user = c.getUserFromSession();
-				if (user != null) {
-					// TODO: parse friends
-					// Add friends
-					// Send emails
-					addGlobalActionError("friendsInvited");
-				} else {
-					// session expire?
-				}
-			} catch (Exception e) {
-				addGlobalActionError("unableToInviteFriends");
-				log.warning("unable to invite friends");
-			}
-		}
-		// redirect back here
+		//TODO: 
+		log.info("selected friend");
 		return new ForwardResolution(VIEW);
 	}
 
@@ -82,7 +60,6 @@ public class FriendListActionBean extends BaseActionBean implements
 	public void validateUser(ValidationErrors errors) {
 		AppActionBeanContext c = getContext();
 		if (c != null) {
-			// Todo: validate email list
 		}
 	}
 
@@ -91,31 +68,9 @@ public class FriendListActionBean extends BaseActionBean implements
 		return new ForwardResolution(VIEW);
 	}
 
-	public String getEmails() {
-		return emails;
-	}
-
-	public void setEmails(String e) {
-		if (e != null) {
-			e = e.trim().toLowerCase();
-		}
-		emails = e;
-	}
-
 	public List<User> getMyFriends() {
 		user = getContext().getUserFromSession();
-		List<User> result = _svcGame.getMyFriends(user);
-		for (User u : result) {
-			List<Game> games = new ArrayList<Game>();
-//TODO:
-//			Game g = new Game();
-//			g.setQuestionDescription("   game[][0]");
-//			games.add(g);
-//			g = new Game();
-//			g.setQuestionDescription("   game[][1]");
-//			games.add(g);
-			u.setGames(games);			
-		}
+		List<User> result = _svcGame.getMyFriendsGames(user);
 		return result;
 	}
 }

@@ -1,6 +1,8 @@
 package com.wordpong.api.svc;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,11 @@ import com.wordpong.api.svc.dao.transact.Atomic;
 public class SvcGameImpl implements SvcGame {
 	private static final Logger log = Logger.getLogger(SvcGameImpl.class
 			.getName());
+	static final Comparator<User> FRIEND_ORDER = new Comparator<User>() {
+		public int compare(User u1, User u2) {
+			return u2.getTotalPoints() - u1.getTotalPoints();
+		}
+	};
 
 	public List<InviteFriend> getMyTurnInviteFriends(User user)
 			throws WPServiceException {
@@ -362,20 +369,63 @@ public class SvcGameImpl implements SvcGame {
 		return friends;
 	}
 
+	// Return a list of friends and the games they played
+	// very expensive.. TODO: add caching
+	// Query strategy starts with answers to derive friends list
 	@Override
 	public List<User> getMyFriendsGames(User u) {
 		DaoUser du = DaoUserFactory.getUserDao();
 		DaoGame dg = DaoGameFactory.getGameDao();
-		List<User> friends = new ArrayList<User>();
+		DaoAnswer da = DaoAnswerFactory.getAnswerDao();
+		List<User> result = new ArrayList<User>();
 		try {
-			friends = du.getFriends(u);
-			for (User f : friends) {
-		//TODO		dg.getGamesByInviteeKey(user)
+			// get all the answers for a user
+			List<Answer> as = da.getAnswers(u);
+			// get all the games for a set of answers
+			List<Game> games = dg.getGamesByAnswers(as);
+			// map users who played the game to list of games
+			Map<String, List<Game>> m = new HashMap<String, List<Game>>();
+			for (Game g : games) {
+				String uk = g.getUserKeyString();
+				List<Game> gs = new ArrayList<Game>();
+				if (m.containsKey(uk)) {
+					gs = m.get(uk);
+				} else {
+					m.put(uk, gs);
+				}
+				gs.add(g);
 			}
+			// get the list of keys to all my friends
+			List<String> keyStrings = new ArrayList<String>(m.keySet());
+			// read all the users who are my friends
+			result = du.getUsersByKeyStrings(keyStrings);
+			// add the list of games played to each user
+			for (User user : result) {
+				String k = user.getKeyString();
+				// get the list of games from the map
+				List<Game> gs = m.get(k);
+				user.setGames(gs);
+			}
+			
+			
+			// add users who are my friends but I haven't played any games with yet
+			List<String> fks = du.getFriendsKeyStrings(u);	
+			List<String> newFriendKeys = new ArrayList<String>();
+			for (String ks:fks) {
+				if (m.containsKey(ks)==false) {
+					newFriendKeys.add(ks);
+				}				
+			}
+			if (newFriendKeys.size()>0) {
+				List<User> newFriends = du.getUsersByKeyStrings(newFriendKeys);
+				result.addAll(newFriends);
+			}
+			Collections.sort(result, FRIEND_ORDER);
 		} catch (Exception e) {
-			log.warning("getMyFriendsGames: err" + e.getMessage());
+			log.warning("getMyFriendsGames: user:" + u + " err"
+					+ e.getMessage());
 		}
-		return friends;
+		return result;
 	}
 
 	public void seedQuestions(User user) throws WPServiceException {

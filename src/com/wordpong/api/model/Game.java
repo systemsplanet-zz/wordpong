@@ -139,6 +139,13 @@ public class Game implements Serializable {
 		this.inviterDetails = inviterDetails;
 	}
 
+	public int getPoints() {
+		int result = 0;
+		if (isCompleted) 
+			result = 10;
+		return result;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

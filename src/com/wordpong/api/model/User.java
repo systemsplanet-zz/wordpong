@@ -78,7 +78,6 @@ public class User implements Serializable {
 	@Attribute(persistent = false)
 	private List<Game> games = new ArrayList<Game>();
 
-	
 	@Attribute(listener = ModificationDate.class)
 	Date updatedAt;
 
@@ -130,6 +129,11 @@ public class User implements Serializable {
 	 */
 	public void setKey(Key key) {
 		this.key = key;
+	}
+
+	public String getKeyString() {
+		String k = KeyFactory.keyToString(key);
+		return k;
 	}
 
 	public String getKeyStringEncrypted() {
@@ -331,6 +335,16 @@ public class User implements Serializable {
 
 	public void setGames(List<Game> games) {
 		this.games = games;
+	}
+
+	public int getTotalPoints() {
+		int total = 0;
+		if (games != null && games.size() > 0) {
+			for (int i = 0; i < games.size(); i++) {
+				total += games.get(i).getPoints();
+			}
+		}
+		return total;
 	}
 
 	/**

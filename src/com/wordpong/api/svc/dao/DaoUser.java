@@ -23,7 +23,11 @@ public interface DaoUser {
 
 	List<User> getUsers(List<Key> keys) throws DaoException;
 
+	List<User> getUsersByKeyStrings(List<String> keys) throws DaoException;
+
 	List<User> getFriends(User u) throws DaoException;
+	
+	List<String> getFriendsKeyStrings(User u) throws DaoException;
 
 	User getUser(Key key) throws DaoException;
 
