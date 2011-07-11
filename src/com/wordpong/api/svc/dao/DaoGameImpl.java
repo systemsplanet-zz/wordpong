@@ -99,4 +99,11 @@ public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
 		}
 		return result;
 	}
+
+	@Override
+	public Game save(Game game) throws DaoException {
+		Key k = put(game);
+		game.setKey(k);
+		return game;
+	}
 }

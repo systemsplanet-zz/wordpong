@@ -336,7 +336,7 @@ public class SvcGameImpl implements SvcGame {
 				try {
 					if (fInviteeUser != null && fInviterUser != null
 							&& ffi != null) {
-						dig.createGames(at, fInviteeUser, fInviterUser);
+						dig.createGameInvites(at, fInviteeUser, fInviterUser);
 						du.makeFriends(at, fInviteeUser, fInviterUser);
 						dfi.removeInvitation(at, ffi);
 						result = true;
@@ -406,17 +406,16 @@ public class SvcGameImpl implements SvcGame {
 				List<Game> gs = m.get(k);
 				user.setGames(gs);
 			}
-			
-			
-			// add users who are my friends but I haven't played any games with yet
-			List<String> fks = du.getFriendsKeyStrings(u);	
+
+			// add my friends who I haven't played any games with yet
+			List<String> fks = du.getFriendsKeyStrings(u);
 			List<String> newFriendKeys = new ArrayList<String>();
-			for (String ks:fks) {
-				if (m.containsKey(ks)==false) {
+			for (String ks : fks) {
+				if (m.containsKey(ks) == false) {
 					newFriendKeys.add(ks);
-				}				
+				}
 			}
-			if (newFriendKeys.size()>0) {
+			if (newFriendKeys.size() > 0) {
 				List<User> newFriends = du.getUsersByKeyStrings(newFriendKeys);
 				result.addAll(newFriends);
 			}
@@ -486,6 +485,15 @@ public class SvcGameImpl implements SvcGame {
 					+ " err: " + e.getMessage());
 		}
 		return result;
+	}
+
+	public void createGame(Game g) throws WPServiceException {
+		DaoGame dg = DaoGameFactory.getGameDao();
+		try {
+			dg.save(g);
+		} catch (DaoException e) {
+			throw new WPServiceException(e.getMessage());
+		}
 	}
 
 	/**
@@ -577,5 +585,18 @@ public class SvcGameImpl implements SvcGame {
 			throw new WPServiceException("finishGame key:" + gameKeyString
 					+ " err: " + e.getMessage());
 		}
+	}
+
+	// Refresh user from database
+	@Override
+	public User getUser(User u) throws WPServiceException {
+		DaoUser du = DaoUserFactory.getUserDao();
+		User result;
+		try {
+			result = du.getUser(u);
+		} catch (DaoException e) {
+			throw new WPServiceException("getUser user:" + u
+					+ " err: " + e.getMessage());		}
+		return result;
 	}
 }

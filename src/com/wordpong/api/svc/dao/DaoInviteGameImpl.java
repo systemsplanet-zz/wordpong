@@ -38,7 +38,7 @@ public class DaoInviteGameImpl extends DaoBase<InviteGame> implements
 
 	@Override
 	// create a new game for invitee and a new game for inviter
-	public void createGames(Atomic at, User invitee, User inviter)
+	public void createGameInvites(Atomic at, User invitee, User inviter)
 			throws DaoException {
 		final String msg = "createGames: invitee:" + invitee + " inviter:"
 				+ inviter;

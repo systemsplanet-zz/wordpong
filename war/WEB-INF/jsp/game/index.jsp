@@ -10,7 +10,6 @@
 <fmt:message var="friendsLbl" key="friends" />
 <fmt:message var="profileLbl" key="profile" />
 <fmt:message var="newFriendLbl" key="newFriend" />
-<fmt:message var="newGameLbl" key="newGame" />
 <fmt:message var="addLbl" key="add" />
 <fmt:message var="gameLbl" key="game.game" />
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
@@ -52,7 +51,7 @@
         </c:forEach>
 
         <c:forEach items="${actionBean.myTurnInviteGames}" var="inviteGame" >
-        	<input name="processGameInvite" value="${newGameLbl}: ${inviteGame.inviterDetails}" 
+        	<input name="processGameInvite" value="${gameInviteLbl}: ${inviteGame.inviterDetails}" 
         	   onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
         </c:forEach>
         

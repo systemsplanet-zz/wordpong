@@ -11,6 +11,8 @@ import com.wordpong.api.svc.dao.transact.Atomic;
 public interface DaoGame {
 	Game save(Atomic at, Game game) throws DaoException;
 
+	Game save(Game game) throws DaoException;
+
 	Game getGame(String gameKeyStr) throws DaoException;
 
 	List<Game> getGamesByInviteeKey(User user) throws DaoException;

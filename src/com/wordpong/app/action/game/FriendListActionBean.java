@@ -12,6 +12,7 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
+import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
@@ -67,7 +68,7 @@ public class FriendListActionBean extends BaseActionBean implements
 		return new ForwardResolution(VIEW);
 	}
 
-	public List<User> getMyFriends() {
+	public List<User> getMyFriends() throws WPServiceException {
 		user = getContext().getUserFromSession();
 		long start = System.currentTimeMillis();
 		List<User> result = _svcGame.getMyFriendsGames(user);

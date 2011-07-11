@@ -110,6 +110,16 @@ public class Game implements Serializable {
 		userKey = ig.getInviterKey();
 	}
 
+	public void setInviteeKeyEncryptedString(String inviteeKeyEncrypted) {
+		String key = CryptoUtil.decrypt(inviteeKeyEncrypted);
+		userKey = KeyFactory.stringToKey(key);
+	}
+
+	public void setAnswersKeyEncryptedString(String kStrEncrypted) {
+		String key = CryptoUtil.decrypt(kStrEncrypted);
+		Key k = KeyFactory.stringToKey(key);
+		answersKey = k;
+	}
 	public void setAnswersKeyString(String kStr) {
 		Key k = KeyFactory.stringToKey(kStr);
 		answersKey = k;
@@ -141,11 +151,11 @@ public class Game implements Serializable {
 
 	public int getPoints() {
 		int result = 0;
-		if (isCompleted) 
+		if (isCompleted)
 			result = 10;
 		return result;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

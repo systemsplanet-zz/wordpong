@@ -12,63 +12,61 @@ import com.wordpong.api.model.User;
 
 public interface SvcGame {
 
-	List<InviteFriend> getMyTurnInviteFriends(User user)
-			throws WPServiceException;
+    List<InviteFriend> getMyTurnInviteFriends(User user) throws WPServiceException;
 
-	List<InviteGame> getMyTurnInviteGames(User user) throws WPServiceException;
+    List<InviteGame> getMyTurnInviteGames(User user) throws WPServiceException;
 
-	Game getGame(String gameKeyStr) throws WPServiceException;
+    Game getGame(String gameKeyStr) throws WPServiceException;
 
-	List<Game> getMyTurnGames(User user) throws WPServiceException;
+    List<Game> getMyTurnGames(User user) throws WPServiceException;
 
-	List<InviteFriend> getTheirTurnsInviteFriend(User user);
+    List<InviteFriend> getTheirTurnsInviteFriend(User user) throws WPServiceException;
 
-	List<InviteGame> getTheirTurnsInviteGame(User user);
+    List<InviteGame> getTheirTurnsInviteGame(User user) throws WPServiceException;
 
-	InviteFriend getInviteFriend(String inviteFriendKeyStr)
-			throws WPServiceException;
+    InviteFriend getInviteFriend(String inviteFriendKeyStr) throws WPServiceException;
 
-	void inviteFriends(User user, List<String> emails)
-			throws WPServiceException;
+    void inviteFriends(User user, List<String> emails) throws WPServiceException;
 
-	List<InviteFriend> getFriendInvitesByInviterKey(User user)
-			throws WPServiceException;
+    List<InviteFriend> getFriendInvitesByInviterKey(User user) throws WPServiceException;
 
-	void updateFriendInvites(User user) throws WPServiceException;
+    void updateFriendInvites(User user) throws WPServiceException;
 
-	void updateFriendInvites();// background task
+    void updateFriendInvites();// background task
 
-	void cancelFriendInvitation(User user, String email)
-			throws WPServiceException;
+    void cancelFriendInvitation(User user, String email) throws WPServiceException;
 
-	void ignoreFriendInvitation(String key) throws WPServiceException;
+    void ignoreFriendInvitation(String key) throws WPServiceException;
 
-	InviteGame getInviteGame(String inviteGameKeyStr) throws WPServiceException;
+    InviteGame getInviteGame(String inviteGameKeyStr) throws WPServiceException;
 
-	void ignoreGameInvitation(String key) throws WPServiceException;
+    void ignoreGameInvitation(String key) throws WPServiceException;
 
-	void createGame(final InviteGame inviteGame, final Answer answer)
-			throws WPServiceException;
-	
-	void finishGame(String gameKeyString) throws WPServiceException;
+    void createGame(final InviteGame inviteGame, final Answer answer) throws WPServiceException;
 
-	void makeFriends(String friendInviteKeyStr) throws WPServiceException;
+    void createGame(Game g) throws WPServiceException;
 
-	List<User> getMyFriends(User u);
-	
-	List<User> getMyFriendsGames(User u);
+    void finishGame(String gameKeyString) throws WPServiceException;
 
-	void seedQuestions(User user) throws WPServiceException;
+    void makeFriends(String friendInviteKeyStr) throws WPServiceException;
 
-	Question saveQuestion(Question u) throws WPServiceException;
+    User getUser(User u) throws WPServiceException;
 
-	Question getQuestion(String questionKey) throws WPServiceException;
+    List<User> getMyFriends(User u) throws WPServiceException;
 
-	List<Question> getUnansweredQuestions(User user) throws WPServiceException;
+    List<User> getMyFriendsGames(User u) throws WPServiceException;
 
-	Answer saveAnswer(Answer u) throws WPServiceException;
+    void seedQuestions(User user) throws WPServiceException;
 
-	List<Answer> getAnswers(User u) throws WPServiceException;
+    Question saveQuestion(Question u) throws WPServiceException;
 
-	Answer getAnswer(String answerKey) throws WPServiceException;
+    Question getQuestion(String questionKey) throws WPServiceException;
+
+    List<Question> getUnansweredQuestions(User user) throws WPServiceException;
+
+    Answer saveAnswer(Answer u) throws WPServiceException;
+
+    List<Answer> getAnswers(User u) throws WPServiceException;
+
+    Answer getAnswer(String answerKey) throws WPServiceException;
 }
