@@ -106,10 +106,6 @@ public class Game implements Serializable {
 		return k;
 	}
 
-	public void setInvitee(InviteGame ig) {
-		userKey = ig.getInviterKey();
-	}
-
 	public void setInviteeKeyEncryptedString(String inviteeKeyEncrypted) {
 		String key = CryptoUtil.decrypt(inviteeKeyEncrypted);
 		userKey = KeyFactory.stringToKey(key);

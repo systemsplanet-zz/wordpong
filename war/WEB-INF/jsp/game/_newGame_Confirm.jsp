@@ -4,7 +4,7 @@
 <fmt:message var="cancelLbl" key="cancel" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
-<s:form id="gameInviteAnswersConfirmForm" beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
+<s:form  beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
     <div>
 	    <!-- Back Button -->
 	    <div style="float:left;margin-left:10px">
@@ -23,7 +23,7 @@
 
 <div data-role="content" style="padding-top:0px;">
 	<tags:messages/> 
-	<s:form id="gameInviteAnswersConfirmForm" beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
+	<s:form  beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 			<li data-role="list-divider" ><s:label for="confirm game"/></li> 
 			<li><s:label for="questions: ${actionBean.questionDescription}"/></li> 
@@ -43,7 +43,7 @@
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>
-wpFooterFile = "gameInvite_Confirm"
+wpFooterFile = "newGame_Confirm"
 </script>
 
 

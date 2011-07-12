@@ -1,10 +1,9 @@
 package com.wordpong.app.action.game;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.security.PermitAll;
-
-import org.mortbay.log.Log;
 
 import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -17,7 +16,6 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Game;
 import com.wordpong.api.model.InviteFriend;
-import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
@@ -25,8 +23,7 @@ import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class GameActionBean extends BaseActionBean {
-    // private static final Logger log =
-    // Logger.getLogger(GameActionBean.class.getName());
+    private static final Logger log = Logger.getLogger(GameActionBean.class.getName());
     public static final String VIEW = "/WEB-INF/jsp/game/index.jsp";
 
     private SvcGame _svcGame;
@@ -48,7 +45,7 @@ public class GameActionBean extends BaseActionBean {
             user = _svcGame.getUser(user);
             c.putUserToRequestAndSession(user);
         } catch (WPServiceException e) {
-            Log.warn("getUser err:" + e.getMessage());
+            log.warning("getUser err:" + e.getMessage());
         }
         return assertAuthenticated();
     }
@@ -99,17 +96,6 @@ public class GameActionBean extends BaseActionBean {
         return new ForwardResolution(FriendInviteAcceptActionBean.class);
     }
 
-    @DontValidate
-    @HandlesEvent("processGameInvite")
-    public Resolution processGameInvite() {
-        return new ForwardResolution(GameInviteActionBean.class);
-    }
-
-    @DontValidate
-    @HandlesEvent("viewTheirTurnGameInvite")
-    public Resolution viewTheirTurnGameInvite() {
-        return new ForwardResolution(TheirTurnGameInviteActionBean.class);
-    }
 
     @DontValidate
     @HandlesEvent("viewTheirTurnFriendInvite")
@@ -133,10 +119,6 @@ public class GameActionBean extends BaseActionBean {
         return _svcGame.getMyTurnInviteFriends(user);
     }
 
-    public List<InviteGame> getMyTurnInviteGames() throws WPServiceException {
-        user = getContext().getUserFromSession();
-        return _svcGame.getMyTurnInviteGames(user);
-    }
 
     public List<Game> getMyTurnGames() throws WPServiceException {
         user = getContext().getUserFromSession();
@@ -148,9 +130,5 @@ public class GameActionBean extends BaseActionBean {
         return _svcGame.getTheirTurnsInviteFriend(user);
     }
 
-    public List<InviteGame> getTheirTurnsInviteGame() throws WPServiceException {
-        user = getContext().getUserFromSession();
-        return _svcGame.getTheirTurnsInviteGame(user);
-    }
 
 }

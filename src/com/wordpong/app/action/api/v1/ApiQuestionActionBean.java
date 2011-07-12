@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import org.mortbay.log.Log;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Question;
@@ -27,11 +27,13 @@ import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.app.action.game.GameActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.util.secure.Encrypt;
 
 @UrlBinding("/rest/v1/question")
 public class ApiQuestionActionBean extends BaseActionBean {
+    private static final Logger log = Logger.getLogger(ApiQuestionActionBean.class.getName());
 	// public static final String VIEW = "/WEB-INF/jsp/admin/index.jsp";
 
 	private String question;
@@ -93,7 +95,7 @@ public class ApiQuestionActionBean extends BaseActionBean {
 			String desc = object.getString("description");
 
 			}catch(Exception e){ 
-				Log.info("e:" + e.getMessage());
+				log.info("e:" + e.getMessage());
 			}
 		
 		

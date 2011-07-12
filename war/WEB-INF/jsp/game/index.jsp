@@ -4,7 +4,6 @@
 <fmt:message var="myStuffLbl" key="game.myStuff" />
 <fmt:message var="answersLbl" key="game.answers" />
 <fmt:message var="friendInviteLbl" key="game.friendInvite" />
-<fmt:message var="gameInviteLbl" key="game.gameInvite" />
 
 <fmt:message var="logoutLbl" key="logout" />
 <fmt:message var="friendsLbl" key="friends" />
@@ -49,11 +48,6 @@
         	<input name="processFriendInvite" value="${newFriendLbl}: ${inviteFriend.inviterDetails}" 
         	   onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
         </c:forEach>
-
-        <c:forEach items="${actionBean.myTurnInviteGames}" var="inviteGame" >
-        	<input name="processGameInvite" value="${gameInviteLbl}: ${inviteGame.inviterDetails}" 
-        	   onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
-        </c:forEach>
         
         <c:forEach items="${actionBean.myTurnGames}" var="game" >
         	<input name="playGame" value="${gameLbl}: ${game.inviterDetails} ${game.questionDescription}" 
@@ -70,10 +64,6 @@
         <c:forEach items="${actionBean.theirTurnsInviteFriend}" var="inviteFriend" >
 			<input  name="viewTheirTurnFriendInvite"  value="${friendInviteLbl}: ${inviteFriend.inviteeDetails}"  
 			   onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process" type="submit" />
-        </c:forEach>
-        <c:forEach items="${actionBean.theirTurnsInviteGame}" var="inviteGame" >
-			<input name="viewTheirTurnGameInvite" value="${gameInviteLbl}: ${inviteGame.inviteeDetails}"   
-			   onClick="javascript:$('#inviteGameKeyStringEncrypted').val('${inviteGame.keyStringEncrypted}');" data-theme="a" class="process" type="submit" />
         </c:forEach>
         </small>
 	</ul>

@@ -6,7 +6,6 @@ import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Game;
 import com.wordpong.api.model.InviteFriend;
-import com.wordpong.api.model.InviteGame;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 
@@ -14,15 +13,11 @@ public interface SvcGame {
 
     List<InviteFriend> getMyTurnInviteFriends(User user) throws WPServiceException;
 
-    List<InviteGame> getMyTurnInviteGames(User user) throws WPServiceException;
-
     Game getGame(String gameKeyStr) throws WPServiceException;
 
     List<Game> getMyTurnGames(User user) throws WPServiceException;
 
     List<InviteFriend> getTheirTurnsInviteFriend(User user) throws WPServiceException;
-
-    List<InviteGame> getTheirTurnsInviteGame(User user) throws WPServiceException;
 
     InviteFriend getInviteFriend(String inviteFriendKeyStr) throws WPServiceException;
 
@@ -37,12 +32,6 @@ public interface SvcGame {
     void cancelFriendInvitation(User user, String email) throws WPServiceException;
 
     void ignoreFriendInvitation(String key) throws WPServiceException;
-
-    InviteGame getInviteGame(String inviteGameKeyStr) throws WPServiceException;
-
-    void ignoreGameInvitation(String key) throws WPServiceException;
-
-    void createGame(final InviteGame inviteGame, final Answer answer) throws WPServiceException;
 
     void createGame(Game g) throws WPServiceException;
 
