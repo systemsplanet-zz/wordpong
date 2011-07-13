@@ -125,13 +125,13 @@ public class SvcGameImpl implements SvcGame {
         return result;
     }
 
-    public Game getGame(String inviteGameKeyStr) throws WPServiceException {
+    public Game getGame(String gameKeyStr) throws WPServiceException {
         DaoGame f = DaoGameFactory.getGameDao();
         Game result;
         try {
-            result = f.getGame(inviteGameKeyStr);
+            result = f.getGame(gameKeyStr);
         } catch (DaoException e) {
-            throw new WPServiceException("getinviteGame err: " + e.getMessage());
+            throw new WPServiceException("getGame err: " + e.getMessage());
         }
         return result;
     }
@@ -312,7 +312,7 @@ public class SvcGameImpl implements SvcGame {
             // map users who played the game to list of games
             Map<String, List<Game>> m = new HashMap<String, List<Game>>();
             for (Game g : games) {
-                String uk = g.getUserKeyString();
+                String uk = g.getInviteeUserKeyString();
                 List<Game> gs = new ArrayList<Game>();
                 if (m.containsKey(uk)) {
                     gs = m.get(uk);
@@ -409,11 +409,67 @@ public class SvcGameImpl implements SvcGame {
         return result;
     }
 
-    public void createGame(Game g) throws WPServiceException {
-        DaoGame dg = DaoGameFactory.getGameDao();
+    public void createGame(final Game g, final User u) throws WPServiceException {
+        final DaoGame dg = DaoGameFactory.getGameDao();
+        final DaoUser du = DaoUserFactory.getUserDao();
+        final String msg = "createGame Game:" + g + " User:" + u;
+        Predicate<Atomic> WORK = new Predicate<Atomic>() {
+            public boolean apply(Atomic at) {
+                boolean result = false;
+                try {
+                    // get the latest user
+                    User user = du.getUser(at, u);
+                    // create a new game
+                    Game game = dg.save(at, g);
+                    // add the game to the list of active games
+                    user.addGame(game);
+                    du.save(at, user);
+                    result = true;
+                } catch (DaoException e) {
+                }
+                return result;
+            }
+
+            public String toString() {
+                return msg;
+            }
+        };
         try {
-            dg.save(g);
-        } catch (DaoException e) {
+            Atomic.transact(WORK);
+        } catch (Exception e) {
+            throw new WPServiceException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void finishGame(final String gameKeyString) throws WPServiceException {
+        final DaoGame dg = DaoGameFactory.getGameDao();
+        final DaoUser du = DaoUserFactory.getUserDao();
+        final String msg = "finishGame key:" + gameKeyString;
+        Predicate<Atomic> WORK = new Predicate<Atomic>() {
+            public boolean apply(Atomic at) {
+                boolean result = false;
+                try {
+                    Game g = dg.getGame(at, gameKeyString);
+                    g.setCompleted(true);
+                    dg.saveGame(at, g);
+                    String uk = g.getInviterUserKeyString();
+                    User u = du.getUser(at, uk);
+                    u.removeGame(g);
+                    du.save(at, u);
+                    result = true;
+                } catch (DaoException e) {
+                }
+                return result;
+            }
+
+            public String toString() {
+                return msg;
+            }   
+        };
+        try {
+            Atomic.transact(WORK);
+        } catch (Exception e) {
             throw new WPServiceException(e.getMessage());
         }
     }
@@ -451,16 +507,6 @@ public class SvcGameImpl implements SvcGame {
         return result;
     }
 
-    @Override
-    public void finishGame(String gameKeyString) throws WPServiceException {
-        DaoGame dg = DaoGameFactory.getGameDao();
-        try {
-            dg.finishGame(gameKeyString);
-        } catch (DaoException e) {
-            throw new WPServiceException("finishGame key:" + gameKeyString + " err: " + e.getMessage());
-        }
-    }
-
     // Refresh user from database
     @Override
     public User getUser(User u) throws WPServiceException {
@@ -470,6 +516,18 @@ public class SvcGameImpl implements SvcGame {
             result = du.getUser(u);
         } catch (DaoException e) {
             throw new WPServiceException("getUser user:" + u + " err: " + e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public List<Game> getTheirTurnsGame(User user) throws WPServiceException {
+        List<Game> result = new ArrayList<Game>();
+        DaoGame dg = DaoGameFactory.getGameDao();
+        try {
+            result = dg.getTheirTurnGames(user);
+        } catch (DaoException e) {
+            throw new WPServiceException("getTheirTurnsGame user:" + user + " err: " + e.getMessage());
         }
         return result;
     }

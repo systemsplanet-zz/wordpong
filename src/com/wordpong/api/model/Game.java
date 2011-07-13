@@ -15,176 +15,214 @@ import com.google.appengine.api.datastore.KeyFactory;
 @Model(schemaVersion = 1)
 public class Game implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Attribute(primaryKey = true)
-	private Key key;
+    @Attribute(primaryKey = true)
+    private Key key;
 
-	@Attribute(version = true)
-	private Long version;
+    @Attribute(version = true)
+    private Long version;
 
-	// points to an Answer object and the user who gave the answers, and the
-	// questions key
-	private Key answersKey;
+    // points to an Answer object and the user who gave the answers, and the
+    // questions key
+    private Key answersKey;
 
-	@Attribute(unindexed = true)
-	private String questionDescription; // copied from question.description
+    @Attribute(unindexed = true)
+    private String questionDescription; // copied from question.description
 
-	// "FN LN (Email)"
-	@Attribute(unindexed = true)
-	private String inviterDetails;
+    // "FN LN (Email)"
+    @Attribute(unindexed = true)
+    private String inviterDetails;
 
-	// User playing this game, ie matching questionsKey to answersKey
-	private Key userKey;
+    // User playing this game, ie matching questionsKey to answersKey
+    private Key inviteeUserKey;
 
-	private boolean isCompleted = false;
+    // User who answered questions (copied from Answers)
+    private Key inviterUserKey;
 
-	// ----------------------------------------------------------------------------
-	// GETTERS/SETTERS
+    // "FN LN (Email)" of user playing this game
+    @Attribute(unindexed = true)
+    private String inviteeDetails;
 
-	@Attribute(unindexed = true)
-	private boolean isIgnored = false;
+    private boolean isCompleted = false;
 
-	public boolean isIgnored() {
-		return isIgnored;
-	}
+    // ----------------------------------------------------------------------------
+    // GETTERS/SETTERS
 
-	public void setIgnored(boolean isIgnored) {
-		this.isIgnored = isIgnored;
-	}
+    @Attribute(unindexed = true)
+    private boolean isIgnored = false;
 
-	public Key getKey() {
-		return key;
-	}
+    public boolean isIgnored() {
+        return isIgnored;
+    }
 
-	public void setKey(Key key) {
-		this.key = key;
-	}
+    public void setIgnored(boolean isIgnored) {
+        this.isIgnored = isIgnored;
+    }
 
-	public String getKeyStringEncrypted() {
-		String ks = KeyFactory.keyToString(key);
-		String keyEncrypted = CryptoUtil.encrypt(ks);
-		return keyEncrypted;
-	}
+    public Key getKey() {
+        return key;
+    }
 
-	public Key getUserKey() {
-		return userKey;
-	}
+    public void setKey(Key key) {
+        this.key = key;
+    }
 
-	public void setUserKey(Key userKey) {
-		this.userKey = userKey;
-	}
+    public String getKeyStringEncrypted() {
+        String ks = KeyFactory.keyToString(key);
+        String keyEncrypted = CryptoUtil.encrypt(ks);
+        return keyEncrypted;
+    }
 
-	public String getUserKeyString() {
-		String k = KeyFactory.keyToString(userKey);
-		return k;
-	}
+    public Key getInviteeUserKey() {
+        return inviteeUserKey;
+    }
 
-	public void setUserKeyString(String kStr) {
-		Key k = KeyFactory.stringToKey(kStr);
-		userKey = k;
-	}
+    public void setInviteeUserKey(Key userKey) {
+        this.inviteeUserKey = userKey;
+    }
 
-	public Long getVersion() {
-		return version;
-	}
+    public String getInviteeUserKeyString() {
+        String k = KeyFactory.keyToString(inviteeUserKey);
+        return k;
+    }
 
-	public void setVersion(Long version) {
-		this.version = version;
-	}
+    public void setInviteeUserKeytring(String kStr) {
+        Key k = KeyFactory.stringToKey(kStr);
+        inviteeUserKey = k;
+    }
 
-	public Key getAnswersKey() {
-		return answersKey;
-	}
+    public Key getInviterUserKey() {
+        return inviterUserKey;
+    }
 
-	public void setAnswersKey(Key answersKey) {
-		this.answersKey = answersKey;
-	}
+    public void setInviterUserKey(Key userKey) {
+        this.inviterUserKey = userKey;
+    }
 
-	public String getAnswersKeyString() {
-		String k = KeyFactory.keyToString(answersKey);
-		return k;
-	}
+    public String getInviterUserKeyString() {
+        String k = KeyFactory.keyToString(inviterUserKey);
+        return k;
+    }
 
-	public void setInviteeKeyEncryptedString(String inviteeKeyEncrypted) {
-		String key = CryptoUtil.decrypt(inviteeKeyEncrypted);
-		userKey = KeyFactory.stringToKey(key);
-	}
+    public void setInviterUserKeyString(String kStr) {
+        Key k = KeyFactory.stringToKey(kStr);
+        inviterUserKey = k;
+    }
 
-	public void setAnswersKeyEncryptedString(String kStrEncrypted) {
-		String key = CryptoUtil.decrypt(kStrEncrypted);
-		Key k = KeyFactory.stringToKey(key);
-		answersKey = k;
-	}
-	public void setAnswersKeyString(String kStr) {
-		Key k = KeyFactory.stringToKey(kStr);
-		answersKey = k;
-	}
+    public Long getVersion() {
+        return version;
+    }
 
-	public boolean isCompleted() {
-		return isCompleted;
-	}
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 
-	public void setCompleted(boolean isCompleted) {
-		this.isCompleted = isCompleted;
-	}
+    public Key getAnswersKey() {
+        return answersKey;
+    }
 
-	public String getQuestionDescription() {
-		return questionDescription;
-	}
+    public void setAnswersKey(Key answersKey) {
+        this.answersKey = answersKey;
+    }
 
-	public void setQuestionDescription(String questionDescription) {
-		this.questionDescription = questionDescription;
-	}
+    public String getAnswersKeyString() {
+        String k = KeyFactory.keyToString(answersKey);
+        return k;
+    }
 
-	public String getInviterDetails() {
-		return inviterDetails;
-	}
+    public void setInviteeKeyEncryptedString(String ks) {
+        String k = CryptoUtil.decrypt(ks);
+        inviteeUserKey = KeyFactory.stringToKey(k);
+    }
 
-	public void setInviterDetails(String inviterDetails) {
-		this.inviterDetails = inviterDetails;
-	}
+    public void setInviterKeyEncryptedString(String ks) {
+        String k = CryptoUtil.decrypt(ks);
+        inviterUserKey = KeyFactory.stringToKey(k);
+    }
 
-	public int getPoints() {
-		int result = 0;
-		if (isCompleted)
-			result = 10;
-		return result;
-	}
+    public void setAnswersKeyEncryptedString(String kStrEncrypted) {
+        String ks = CryptoUtil.decrypt(kStrEncrypted);
+        Key k = KeyFactory.stringToKey(ks);
+        answersKey = k;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((key == null) ? 0 : key.hashCode());
-		return result;
-	}
+    public void setAnswersKeyString(String ks) {
+        Key k = KeyFactory.stringToKey(ks);
+        answersKey = k;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Game other = (Game) obj;
-		if (key == null) {
-			if (other.key != null) {
-				return false;
-			}
-		} else if (!key.equals(other.key)) {
-			return false;
-		}
-		return true;
-	}
+    public boolean isCompleted() {
+        return isCompleted;
+    }
 
-	@Override
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this,
-				ToStringStyle.SHORT_PREFIX_STYLE);
-	}
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    public String getQuestionDescription() {
+        return questionDescription;
+    }
+
+    public void setQuestionDescription(String questionDescription) {
+        this.questionDescription = questionDescription;
+    }
+
+    public String getInviterDetails() {
+        return inviterDetails;
+    }
+
+    public void setInviterDetails(String inviterDetails) {
+        this.inviterDetails = inviterDetails;
+    }
+
+    public int getPoints() {
+        int result = 0;
+        if (isCompleted)
+            result = 10;
+        return result;
+    }
+
+    public String getInviteeDetails() {
+        return inviteeDetails;
+    }
+
+    public void setInviteeDetails(String inviteeDetails) {
+        this.inviteeDetails = inviteeDetails;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((key == null) ? 0 : key.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Game other = (Game) obj;
+        if (key == null) {
+            if (other.key != null) {
+                return false;
+            }
+        } else if (!key.equals(other.key)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 }

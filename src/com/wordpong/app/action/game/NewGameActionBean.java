@@ -129,7 +129,9 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
             g.setQuestionDescription(questionDescription);
             g.setAnswersKeyEncryptedString(answerKeyStringEncrypted);
             g.setInviteeKeyEncryptedString(friendKeyStringEncrypted);
-            sg.createGame(g);
+            g.setInviteeDetails(friendDetails);
+            g.setInviterUserKeyString(user.getKeyString());
+            sg.createGame(g, user);
             addGlobalActionMessage("newGame.gameSent");
         } catch (Exception e) {
             addGlobalActionError("newGame.unableToStartGame");

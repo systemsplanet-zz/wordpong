@@ -1,20 +1,13 @@
 package com.wordpong.app.stripes;
 
-import java.util.logging.Logger;
+import java.util.TimeZone;
 
-import javax.crypto.SecretKey;
-import javax.servlet.http.Cookie;
 import javax.servlet.jsp.jstl.core.Config;
 
 import net.sourceforge.stripes.action.ActionBeanContext;
 
-import org.apache.commons.codec.binary.Base64;
-
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.Role;
-import com.wordpong.app.util.secure.CryptoEngine;
-import com.wordpong.app.util.secure.CryptoEngineFactory;
-import com.wordpong.app.util.servlet.CookieUtil;
+import com.wordpong.app.util.secure.Role;
 import com.wordpong.app.util.servlet.ServletUtil;
 import com.wordpong.cmn.svc.SvcCommon;
 import com.wordpong.cmn.svc.SvcCommonFactory;
@@ -23,9 +16,8 @@ public class AppActionBeanContext extends ActionBeanContext {
     private static final String SESSION_USER = "s.usr";
     private static final String REQUEST_USER = "r.usr";
     private static final String REQUEST_URL = "r.url";
-    private static final String COOKIE_USER = "c.usr";
-    private static final String SESSION_PASSWORD = "s.pwd";
-    private static final Logger log = Logger.getLogger(AppActionBeanContext.class.getName());
+    // private static final Logger log =
+    // Logger.getLogger(AppActionBeanContext.class.getName());
     private SvcCommon _svcCommon;
     private User _user;
 
@@ -58,9 +50,6 @@ public class AppActionBeanContext extends ActionBeanContext {
 
     public boolean hasRole(String role) {
         boolean result = false;
-        if (_user != null) {
-            result = _user.hasRole(role);
-        }
         if (result == false && Role.isAdmin(role)) {
             result = _svcCommon.isUserAdmin();
         }
@@ -99,25 +88,32 @@ public class AppActionBeanContext extends ActionBeanContext {
         if (getUserFromRequest() != null) {
             return;
         }
-        if (_user != null) {
-            Cookie secretKeyCookie = CookieUtil.getCookie(getRequest(), getResponse(), COOKIE_USER);
-            if (secretKeyCookie != null) {
-                // important : no end of line, else the cookie contains control
-                // characters,
-                // and it doesn't work
-                Base64 base64 = new Base64(-1);
-                byte[] encryptedSecretKey = base64.decode(secretKeyCookie.getValue());
-
-                byte[] cookieEncryptionKeyAsBytes = (byte[]) getRequest().getSession().getAttribute(SESSION_PASSWORD);
-                CryptoEngine cryptoEngine = CryptoEngineFactory.getCryptoEngine();
-                SecretKey cookieEncryptionKey = cryptoEngine.bytesToSecretKey(cookieEncryptionKeyAsBytes);
-                byte[] secretKeyAsBytes = cryptoEngine.decrypt(encryptedSecretKey, cookieEncryptionKey, cryptoEngine.buildInitializationVector(cookieEncryptionKeyAsBytes));
-                SecretKey secretKey = cryptoEngine.bytesToSecretKey(secretKeyAsBytes);
-                _user.setEncryptionKey(secretKey);
-                putUserInfoToRequestAndSession(_user);
-                log.fine("save encrypted user info");
-            }
-        }
+        // if (_user != null) {
+        // Cookie secretKeyCookie = CookieUtil.getCookie(getRequest(),
+        // getResponse(), COOKIE_USER);
+        // if (secretKeyCookie != null) {
+        // // important : no end of line, else the cookie contains control
+        // // characters,
+        // // and it doesn't work
+        // Base64 base64 = new Base64(-1);
+        // byte[] encryptedSecretKey =
+        // base64.decode(secretKeyCookie.getValue());
+        //
+        // byte[] cookieEncryptionKeyAsBytes = (byte[])
+        // getRequest().getSession().getAttribute(SESSION_PASSWORD);
+        // CryptoEngine cryptoEngine = CryptoEngineFactory.getCryptoEngine();
+        // SecretKey cookieEncryptionKey =
+        // cryptoEngine.bytesToSecretKey(cookieEncryptionKeyAsBytes);
+        // byte[] secretKeyAsBytes = cryptoEngine.decrypt(encryptedSecretKey,
+        // cookieEncryptionKey,
+        // cryptoEngine.buildInitializationVector(cookieEncryptionKeyAsBytes));
+        // SecretKey secretKey =
+        // cryptoEngine.bytesToSecretKey(secretKeyAsBytes);
+        // _user.setEncryptionKey(secretKey);
+        // putUserInfoToRequestAndSession(_user);
+        // log.fine("save encrypted user info");
+        // }
+        // }
     }
 
     /**
@@ -133,6 +129,6 @@ public class AppActionBeanContext extends ActionBeanContext {
     public void putUserInfoToRequestAndSession(User user) {
         AppLocalePicker.setPreferredLocale(getRequest(), user.getLocale());
         putUserToRequestAndSession(user);
-        Config.set(getRequest().getSession(), Config.FMT_TIME_ZONE, user.getTimeZone());
+        Config.set(getRequest().getSession(), Config.FMT_TIME_ZONE, TimeZone.getDefault());
     }
 }

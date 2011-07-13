@@ -102,6 +102,14 @@ public class GameActionBean extends BaseActionBean {
     public Resolution viewTheirTurnFriendInvite() {
         return new ForwardResolution(TheirTurnFriendInviteActionBean.class);
     }
+    
+    
+    @DontValidate
+    @HandlesEvent("theirTurnGameCancel")
+    public Resolution theirTurnGameCancel() {
+        return new ForwardResolution(TheirTurnGameCancelActionBean.class);
+    }
+
 
     @DontValidate
     @HandlesEvent("playGame")
@@ -110,24 +118,26 @@ public class GameActionBean extends BaseActionBean {
         return new ForwardResolution(GamePlayActionBean.class);
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public List<InviteFriend> getMyTurnInviteFriends() throws WPServiceException {
-        user = getContext().getUserFromSession();
         return _svcGame.getMyTurnInviteFriends(user);
     }
 
 
     public List<Game> getMyTurnGames() throws WPServiceException {
-        user = getContext().getUserFromSession();
         return _svcGame.getMyTurnGames(user);
     }
 
     public List<InviteFriend> getTheirTurnsInviteFriend() throws WPServiceException {
         user = getContext().getUserFromSession();
         return _svcGame.getTheirTurnsInviteFriend(user);
+    }
+    
+    public List<Game> getTheirTurnsGame() throws WPServiceException {
+        return _svcGame.getTheirTurnsGame(user);
+    }
+    
+    public User getUser() {
+        return user;
     }
 
 

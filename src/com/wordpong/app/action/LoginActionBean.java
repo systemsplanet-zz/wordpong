@@ -18,7 +18,6 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.Role;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.admin.AdminActionBean;
@@ -27,6 +26,7 @@ import com.wordpong.app.auth.RememberMe;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.AppLocalePicker;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
+import com.wordpong.app.util.secure.Role;
 import com.wordpong.app.util.servlet.ServletUtil;
 
 public class LoginActionBean extends BaseActionBean implements ValidationErrorHandler {

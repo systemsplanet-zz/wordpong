@@ -33,7 +33,9 @@ public interface SvcGame {
 
     void ignoreFriendInvitation(String key) throws WPServiceException;
 
-    void createGame(Game g) throws WPServiceException;
+    void createGame(Game g, User u) throws WPServiceException;
+
+    List<Game> getTheirTurnsGame(User user) throws WPServiceException;
 
     void finishGame(String gameKeyString) throws WPServiceException;
 

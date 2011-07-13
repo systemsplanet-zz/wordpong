@@ -65,10 +65,14 @@
 			<input  name="viewTheirTurnFriendInvite"  value="${friendInviteLbl}: ${inviteFriend.inviteeDetails}"  
 			   onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process" type="submit" />
         </c:forEach>
+        <c:forEach items="${actionBean.theirTurnsGame}" var="game" >
+			<input  name="theirTurnGameCancel"  value="${gameLbl}: ${game.inviteeDetails}  ${game.questionDescription}"  
+			   onClick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');" data-theme="a" class="process" type="submit" />
+        </c:forEach>
         </small>
 	</ul>
-   	<input id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" type="hidden" value=""/>    
-	<input id="inviteGameKeyStringEncrypted" name="inviteGameKeyStringEncrypted" type="hidden" value=""/>    
+   	<s:hidden id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" value="?inviteFriendKeyStringEncrypted?"/>    
+	<s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="?gameKeyStringEncrypted?"/>    
      
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${myStuffLbl}</li> 

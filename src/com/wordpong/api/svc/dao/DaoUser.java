@@ -9,28 +9,34 @@ import com.wordpong.api.svc.dao.err.DaoException;
 import com.wordpong.api.svc.dao.transact.Atomic;
 
 public interface DaoUser {
-	User save(User u) throws DaoException;
+    User save(Atomic at, User u) throws DaoException;
 
-	User findByEmail(String email) throws DaoException;
+    User save(User u) throws DaoException;
 
-	void makeFriends(Atomic at, User invitee, User inviter) throws DaoException;
+    User findByEmail(String email) throws DaoException;
 
-	void purgeExpiredPasswordChangeRequests();
+    void makeFriends(Atomic at, User invitee, User inviter) throws DaoException;
 
-	String createPasswordChangeRequest(String email) throws DaoException;
+    void purgeExpiredPasswordChangeRequests();
 
-	PasswordChangeRequest getPasswordChangeRequest(String randomId, String email);
+    String createPasswordChangeRequest(String email) throws DaoException;
 
-	List<User> getUsers(List<Key> keys) throws DaoException;
+    PasswordChangeRequest getPasswordChangeRequest(String randomId, String email);
 
-	List<User> getUsersByKeyStrings(List<String> keys) throws DaoException;
+    List<User> getUsers(List<Key> keys) throws DaoException;
 
-	List<User> getFriends(User u) throws DaoException;
-	
-	List<String> getFriendsKeyStrings(User u) throws DaoException;
+    List<User> getUsersByKeyStrings(List<String> keys) throws DaoException;
 
-	User getUser(Key key) throws DaoException;
+    List<User> getFriends(User u) throws DaoException;
 
-	User getUser(User user) throws DaoException;
+    List<String> getFriendsKeyStrings(User u) throws DaoException;
+
+    User getUser(Key key) throws DaoException;
+
+    User getUser(User user) throws DaoException;
+
+    User getUser(Atomic at, User user) throws DaoException;
+
+    User getUser(Atomic at, String uk)throws DaoException;
 
 }
