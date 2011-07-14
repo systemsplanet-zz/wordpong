@@ -40,10 +40,12 @@
     </ul>
         <c:forEach items="${actionBean.myFriends}" var="friend" varStatus="status" >
             <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-        	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" > 
-	       	      <img src="${friend.pictureUrl}"  >
-	       	      <h3><a href="#" OnClick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#selectFriend').click();return false;">${friend.fullName}</a></h3> 
-	       	      <p>${friend.email}</p>
+        	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
+             	  <a href="#" OnClick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#selectFriend').click();return false;"> 
+	       	         <img src="${friend.pictureUrl}"  >
+	       	         <h3>${friend.fullName}</h3> 
+	       	         <p>${friend.email}</p>
+	       	      </a>
         	  </li>	        	    
             </ul>
         </c:forEach>        
@@ -59,6 +61,6 @@
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>
-wpFooterFile = "newGameFriend"
+wpFooterFile = "newGame"
 </script>
 

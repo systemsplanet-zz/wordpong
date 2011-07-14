@@ -5,38 +5,16 @@
 <title>WordPong</title>
 <meta http-equiv="Expires" content="0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="/css/jquery.mobile-1.0a4pre.css" />
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta name="description" content="WordPong">
+<meta name="author" content="Systemsplanet">
+<link rel="stylesheet" href="/css/jquery.mobile.css" />
 <link rel="stylesheet" href="/css/wp.css" type="text/css">
-<script type="text/javascript" src="/js/jquery-1.5.min.js"></script>
+<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="/js/dump.js"></script>
 <script type="text/javascript" src="/js/wp.js"></script>
 <script type="text/javascript" src="/js/dateFormat.js"></script>
-<script type="text/javascript">
-//IE9 FIX
-//https://gist.github.com/723870  
-$(document).bind("mobileinit", function(){
-    $.extend($.mobile, {
-        // loadingMessage: 'Ponging...'
-        //extend gradeA qualifier to include IE7+
-	    gradeA: function(){    	
-	    	//IE version check by James Padolsey, modified by jdalton - from http://gist.github.com/527683
-			var ie = (function() {
-			    var v = 3, div = document.createElement('div'), a = div.all || [];
-			    while (div.innerHTML = '<!--[if gt IE '+(++v)+']><br><![endif]-->', a[0]); 
-			    return v > 4 ? v : !v;
-			}());
-	    	//must either support media queries or be IE7+
-	    	return $.support.mediaquery || (ie && ie >= 7);
-	    }
-    });
-});
-//IE9 FIX
-// Soul_Master custom bug fix for ticket #8052
-if (jQuery.browser.msie && jQuery.browser.version >= 9) {
- jQuery.support.noCloneEvent = true;
-}
-</script>
-<script type="text/javascript" src="/js/jquery.mobile-1.0a4pre.min.js"></script>
+<script type="text/javascript" src="/js/jquery.mobile.min.js"></script>
 </head>
 <body>
 <div id="wp-main-page" class="wp-page" data-role="page" data-theme="a" style="width:100%" >
@@ -95,11 +73,11 @@ $("input.process").live( "click", function(e) {
         }
     });
 });
+
 $(window).resize(function() {
 	var p= $('.ui-page-active [data-role="content"]')
-	p.width($(".wp-page").outerWidth() - 30 );
+  p.width($(".wp-page").outerWidth() - 30 );
 });
-
 
 $(document).ready(function() {
 	// If url contains a query string then redirect to home page without queryString

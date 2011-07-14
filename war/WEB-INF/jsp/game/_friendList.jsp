@@ -40,10 +40,12 @@
     </ul>
         <c:forEach items="${actionBean.myFriends}" var="friend" varStatus="status" >
             <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-        	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" > 
+        	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
+        	      <a href="javascript:return false;">
 	       	      <img src="${friend.pictureUrl}"  >
-	       	      <h3><a href="javascript:return false;">${friend.fullName}</a></h3> 
+	       	      <h3>${friend.fullName} </h3> 
 	       	      <p>${friend.email} <span class="ui-li-count">${friend.totalPoints}</span></p>
+	       	      </a>
 	       	      <c:forEach items="${friend.games}" var="game" varStatus="s">	    	     	
 	        	    <li id="item-${s.index}"  style="white-space:normal;">  
 	        	        ${game.questionDescription}

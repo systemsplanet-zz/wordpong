@@ -28,7 +28,7 @@ $.ajaxSetup(
 			}else if(x.status==404){
 				alert('Requested URL not found.');
 			}else if(x.status==500){
-				alert('Internel Server Error.');
+				alert('Internal Server Error.');
 			}else if(x.status==503){
 				alert('Service Unavailable.');
 				window.location.href = "/err/infrastructure_unavailable.html"
