@@ -151,6 +151,7 @@ public class SvcGameImpl implements SvcGame {
         Question result = null;
         DaoQuestion f = DaoQuestionFactory.getQuestionDao();
         try {
+          //TODO: make sure question title is unique
             result = f.save(q);
         } catch (DaoException e) {
             throw new WPServiceException("saveQuestion err: " + e.getMessage());

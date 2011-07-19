@@ -1,7 +1,6 @@
 package com.wordpong.app.action.api.v1;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.Resolution;
@@ -13,89 +12,61 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.wordpong.api.err.WPServiceException;
-import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
-import com.wordpong.api.svc.SvcGame;
-import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.app.action.api.ApiResult;
 import com.wordpong.app.util.secure.Encrypt;
 
 @UrlBinding("/rest/v1/login/{email}/{password}")
 public class ApiLoginActionBean extends BaseActionBean {
-	// public static final String VIEW = "/WEB-INF/jsp/admin/index.jsp";
+    private static final Logger log = Logger.getLogger(ApiLoginActionBean.class.getName());
 
-	private String email;
-	private String password;
-	private SvcUser _svcUser;
+    private String email;
+    private String password;
 
-	public ApiLoginActionBean() {
-		_svcUser = SvcUserFactory.getUserService();
-	}
+    public ApiLoginActionBean() {
+    }
 
-	// @Before(stages = { LifecycleStage.BindingAndValidation })
-	@DefaultHandler
-	public Resolution renderJSON() throws JSONException {
-		JSONArray array = new JSONArray();
-		JSONObject obj = new JSONObject();
-		if (email == null || password == null) {
-			obj.put("error", "500");
-			obj.put("message", "Email and password is required on login URL");
-			array.put(obj);
-		} else {
-			try {
-				User user = _svcUser.findByEmail(email);	
-				password = Encrypt.hashSha1(password);
-				if (!user.getPassword().equals(password)) {
-					obj.put("error", "501");
-					obj.put("message", "Password does not match user account.");
-					array.put(obj);
-				} else {
-					obj.put("error", "0");
-					obj.put("message", "Login successful.");
-					array.put(obj);
-					getContext().putUserToRequestAndSession(user);
-					//DEBUG
-					
-				    Question q = new Question();
-				    q.setTitle("Favorite Dates");
-				    List<String> qs = new ArrayList<String>();
-				    qs.add("Q1");
-				    qs.add("Q2");
-				    q.setQuestions(qs);
-				    SvcGame svcGame = SvcGameFactory.getGameService();
-				    svcGame.saveQuestion(q);
-				}
-			} catch (WPServiceException e) {
-				obj.put("error", "502");
-				obj.put("message", "Email address not found.");
-				array.put(obj);
-			}
-		}
-		return new StreamingResolution("application/json", array.toString());
-	}
+    @DefaultHandler
+    public Resolution renderJSON() throws JSONException {
+        JSONArray result = new JSONArray();
+        if (email == null || password == null) {
+            result.put(ApiResult.ERR500_INVALID_ARGUMENT);
+        } else {
+            try {
+                SvcUser _svcUser = SvcUserFactory.getUserService();
+                User user = _svcUser.findByEmail(email);
+                password = Encrypt.hashSha1(password);
+                if (!user.getPassword().equals(password)) {
+                    result.put(ApiResult.ERR501_INVALID_PASSWORD);
+                } else {
+                    result.put(ApiResult.ERR000_SUCCESS);
+                    getContext().putUserToRequestAndSession(user);
+                }
+            } catch (WPServiceException e) {
+                JSONObject err = ApiResult.addMessage(ApiResult.ERR502_INVALID_USER_ID, e.getMessage());
+                result.put(err);
+            }
+        }
+        log.info("API login email:" + email + " result:" + result);
+        return new StreamingResolution("application/json", result.toString());
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	// Make sure user is authenticated
-
-	// public Resolution authorizeFilter() {
-	// return assertAuthenticated();
-	// }
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
