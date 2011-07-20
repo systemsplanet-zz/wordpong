@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.SvcUserFactory;
 
@@ -47,7 +48,11 @@ public class CronServlet extends HttpServlet {
         
         
         // Remove expired password change requests
-        SvcUserFactory.getUserService().purgeExpiredPasswordChangeRequests();
+        try {
+            SvcUserFactory.getUserService().purgeExpiredPasswordChangeRequests();
+        } catch (WPServiceException e) {
+            e.printStackTrace();
+        }
 
         // move any invites to the users myTurn list as requests
         SvcGameFactory.getGameService().updateFriendInvites();

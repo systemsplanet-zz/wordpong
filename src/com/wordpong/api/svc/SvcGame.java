@@ -49,7 +49,7 @@ public interface SvcGame {
 
     void seedQuestions(User user) throws WPServiceException;
 
-    Question saveQuestion(Question u) throws WPServiceException;
+    Question createQuestion(Question u) throws WPServiceException;
 
     Question getQuestion(String questionKey) throws WPServiceException;
 

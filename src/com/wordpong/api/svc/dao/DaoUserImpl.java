@@ -27,10 +27,12 @@ public class DaoUserImpl extends DaoBase<User> implements DaoUser {
     // Create a user with a unique email address inside a transaction
     // since queries are not part of a transaction there is a chance of creating
     // duplicates!
-    public User create(User u) throws DaoException {
+    public User createUser(User u) throws DaoException {
         Transaction txn = Datastore.beginTransaction();
         try {
             findByEmail(u.getEmail());
+            txn.rollback();
+            throw new DaoException("Duplicate User");
         } catch (DaoExceptionUserNotFound e) {
             u = save(u);
             txn.commit();

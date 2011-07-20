@@ -147,14 +147,13 @@ public class SvcGameImpl implements SvcGame {
     }
 
     @Override
-    public Question saveQuestion(Question q) throws WPServiceException {
+    public Question createQuestion(Question q) throws WPServiceException {
         Question result = null;
-        DaoQuestion f = DaoQuestionFactory.getQuestionDao();
+        DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
         try {
-          //TODO: make sure question title is unique
-            result = f.save(q);
+            result = dq.createQuestion(q);
         } catch (DaoException e) {
-            throw new WPServiceException("saveQuestion err: " + e.getMessage());
+            throw new WPServiceException("createQuestion err: " + e.getMessage());
         }
         return result;
     }
@@ -466,7 +465,7 @@ public class SvcGameImpl implements SvcGame {
 
             public String toString() {
                 return msg;
-            }   
+            }
         };
         try {
             Atomic.transact(WORK);

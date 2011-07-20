@@ -76,7 +76,7 @@ public class ApiQuestionActionBean extends BaseActionBean {
                 // Persist the questions
                 SvcGame svcGame = SvcGameFactory.getGameService();
                 //TODO: make sure question title is unique
-                svcGame.saveQuestion(q);
+                svcGame.createQuestion(q);
                 result.put(ApiResult.ERR000_SUCCESS);
             } catch (Exception e) {
                 JSONObject err = ApiResult.addMessage(ApiResult.ERR504_GENERAL_ERROR, e.getMessage());

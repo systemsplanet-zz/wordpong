@@ -22,7 +22,6 @@ import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.app.action.game.FriendInviteActionBean;
-import com.wordpong.app.action.game.GameActionBean;
 import com.wordpong.app.auth.RememberMe;
 import com.wordpong.app.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
@@ -71,7 +70,6 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
         return new ForwardResolution(VIEW);
     }
 
-
     // main form processor
     // if called directly, validation events are fired
     // called to register a new user
@@ -86,16 +84,17 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
             user.setPassword(password);
             RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), email);
             RememberMe.savePasswordToCookie(c.getRequest(), c.getResponse(), user.getPassword());
-            c.putUserToRequestAndSession(user);
             SvcUser svcUser = SvcUserFactory.getUserService();
-            try {
-                user = svcUser.save(user);
+            try { 
+                //Create user in a transaction
+                user = svcUser.createUser(user);
                 String msg = getMsg("register.email.message", new Object[] { user.getFirstName(), user.getEmail() });
                 String sub = getMsg("register.email.subject", new Object[] { user.getFirstName() });
                 MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));
                 SvcGame sg = SvcGameFactory.getGameService();
                 sg.updateFriendInvites(user);
                 resolution = new ForwardResolution(FriendInviteActionBean.class);
+                c.putUserToRequestAndSession(user);
             } catch (Exception e) {
                 String reason = "register.unableToAddUser";
                 LogUtil.logException(reason, e);

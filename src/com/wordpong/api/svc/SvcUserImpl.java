@@ -10,6 +10,17 @@ import com.wordpong.api.svc.dao.err.DaoException;
 public class SvcUserImpl implements SvcUser {
     private DaoUser daoUser = DaoUserFactory.getUserDao();
 
+    
+    // Create a unique user
+    public User createUser(User u) throws WPServiceException {
+        try {
+            u = daoUser.createUser(u);
+        } catch (DaoException e) {
+            throw new WPServiceException(e.getMessage());
+        }
+        return u;
+    }
+
     public User save(User u) throws WPServiceException {
         try {
             u = daoUser.save(u);

@@ -9,9 +9,11 @@ import com.wordpong.api.svc.dao.err.DaoException;
 import com.wordpong.api.svc.dao.transact.Atomic;
 
 public interface DaoUser {
-    User save(Atomic at, User u) throws DaoException;
+    User createUser(User user) throws DaoException;
 
     User save(User u) throws DaoException;
+
+    User save(Atomic at, User u) throws DaoException;
 
     User findByEmail(String email) throws DaoException;
 
@@ -37,6 +39,6 @@ public interface DaoUser {
 
     User getUser(Atomic at, User user) throws DaoException;
 
-    User getUser(Atomic at, String uk)throws DaoException;
+    User getUser(Atomic at, String uk) throws DaoException;
 
 }
