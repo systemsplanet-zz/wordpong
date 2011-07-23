@@ -3,6 +3,8 @@
 <fmt:message var="acceptLbl" key="accept" />
 <fmt:message var="ignoreLbl" key="ignore" />
 <fmt:message var="backLbl" key="back" />
+<fmt:message var="friendInviteFromLbl" key="friendInviteAccept.friendInviteFrom" />
+
 
 <s:form id="friendInviteAcceptForm" beanclass="com.wordpong.app.action.game.FriendInviteAcceptActionBean" method="post">
     <div data-role="header"  data-nobackbtn="true" data-theme="b">
@@ -26,7 +28,7 @@
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 			<li>
                 <div data-role="fieldcontain" style="padding:4px;">
-                    <s:label for="Friend Invite From Lbl: ${actionBean.inviteFriend.inviterDetails}"/> 
+                    <s:label for="${friendInviteFromLbl}: ${actionBean.inviteFriend.inviterDetails}"/> 
                 </div>
  	            <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			
 			</li>
