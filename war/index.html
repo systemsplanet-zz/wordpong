@@ -6,6 +6,7 @@
 <meta http-equiv="Expires" content="0">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="description" content="WordPong">
 <meta name="author" content="Systemsplanet">
 <link rel="stylesheet" href="/css/jquery.mobile.css" />
@@ -71,7 +72,20 @@ $("input.process").live( "click", function(e) {
                p.page()
             } catch (e) {
             }
-            $('html, body').animate({scrollTop:0}, 'slow');
+            // hide address bar in android
+		    if (navigator.userAgent.match(/Android/i)) {
+		       window.scrollTo(0,0); // reset in case prev not scrolled  
+		       var nPageH = $(document).height();
+		       var nViewH = window.outerHeight;
+		       //alert('Android nPageH:'+nPageH+ ' nViewH:'+nViewH)
+		       if (nViewH > nPageH) {
+		         nViewH -= 250;
+		         $('BODY').css('height',nViewH + 'px');
+		       }
+		       window.scrollTo(0,1);
+		    } else {
+		      $('html, body').animate({scrollTop:0}, 'slow');
+		    }
         } else {
             alert("Login session expired.");
             window.location.reload(true);
@@ -84,7 +98,7 @@ $(window).resize(function() {
   p.width($(".wp-page").outerWidth() - 30 );
 });
 
-$(document).ready(function() {
+$(document).ready(function() {  
 	// If url contains a query string then redirect to home page without queryString
 	var query = location.search.substring(1); 
 	if (query!=null && query.length > 0) {

@@ -1,5 +1,8 @@
 package com.wordpong.app.action.api.v1;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -7,9 +10,6 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.action.UrlBinding;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
@@ -30,24 +30,24 @@ public class ApiLoginActionBean extends BaseActionBean {
     }
 
     @DefaultHandler
-    public Resolution renderJSON() throws JSONException {
-        JSONArray result = new JSONArray();
+    public Resolution renderJSON()  {
+        List<HashMap<String, String>> result   = new ArrayList<HashMap<String,String>>();
         if (email == null || password == null) {
-            result.put(ApiResult.ERR500_INVALID_ARGUMENT);
+            result.add(ApiResult.ERR500_INVALID_ARGUMENT);
         } else {
             try {
                 SvcUser _svcUser = SvcUserFactory.getUserService();
                 User user = _svcUser.findByEmail(email);
                 password = Encrypt.hashSha1(password);
                 if (!user.getPassword().equals(password)) {
-                    result.put(ApiResult.ERR501_INVALID_PASSWORD);
+                    result.add(ApiResult.ERR501_INVALID_PASSWORD);
                 } else {
-                    result.put(ApiResult.ERR000_SUCCESS);
+                    result.add(ApiResult.ERR000_SUCCESS);
                     getContext().putUserToRequestAndSession(user);
                 }
             } catch (WPServiceException e) {
-                JSONObject err = ApiResult.addMessage(ApiResult.ERR502_INVALID_USER_ID, e.getMessage());
-                result.put(err);
+                ApiResult err = ApiResult.addMessage(ApiResult.ERR502_INVALID_USER_ID, e.getMessage());
+                result.add(err);
             }
         }
         log.info("API login email:" + email + " result:" + result);

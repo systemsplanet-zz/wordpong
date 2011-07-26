@@ -17,6 +17,7 @@ import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.wordpong.app.action.api.pojo.QuestionCreation;
 
 @Model(schemaVersion = 1)
 public class Question implements Serializable {
@@ -158,11 +159,12 @@ public class Question implements Serializable {
         String k = KeyFactory.keyToString(key);
         return k;
     }
-	public String getKeyStringEncrypted() {
-		String ks = getKeyString();
-		String keyEncrypted = CryptoUtil.encrypt(ks);
-		return keyEncrypted;
-	}
+
+    public String getKeyStringEncrypted() {
+        String ks = getKeyString();
+        String keyEncrypted = CryptoUtil.encrypt(ks);
+        return keyEncrypted;
+    }
 
     public Key getKey() {
         return key;
@@ -219,6 +221,19 @@ public class Question implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public Question() {
+        super();
+    }
+
+    public Question(QuestionCreation qc) {
+        setTitle(qc.getTitle());
+        setDescription(qc.getDescription());
+        setVisibility(qc.getVisibility());
+        setIntimacyLevel(qc.getIntimacy());
+        setLocaleString(qc.getLocale());
+        setQuestions(qc.getQuestions());
     }
 
     @Override
