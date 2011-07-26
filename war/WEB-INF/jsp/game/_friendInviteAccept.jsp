@@ -27,10 +27,8 @@
 		<tags:messages/> 
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 			<li>
-                <div data-role="fieldcontain" style="padding:4px;">
-                    <s:label for="${friendInviteFromLbl}: ${actionBean.inviteFriend.inviterDetails}"/> 
-                </div>
- 	            <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			
+       			<label>${friendInviteFromLbl}: ${actionBean.inviteFriend.inviterDetails}</label>
+   	            <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			
 			</li>
 		</ul>
         <div style="float:right">

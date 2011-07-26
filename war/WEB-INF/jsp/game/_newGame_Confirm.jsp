@@ -2,6 +2,8 @@
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.NewGameActionBean"/>
 <fmt:message var="acceptLbl" key="accept" />
 <fmt:message var="cancelLbl" key="cancel" />
+<fmt:message var="shareLbl" key="share" />
+<fmt:message var="withLbl" key="with" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
 <s:form  beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
@@ -26,8 +28,12 @@
 	<s:form  beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 			<li data-role="list-divider" ><s:label for="confirm game"/></li> 
-			<li><s:label for="questions: ${actionBean.questionDescription}"/></li> 
-			<li><s:label for="to: ${actionBean.friendDetails}"/>      </li> 
+			<li>
+			    <label>${shareLbl}: ${actionBean.questionDescription}</label>
+			</li>			
+			<li>			
+				<label>${withLbl}: ${actionBean.friendDetails}</label>
+			</li>
 		</ul>
         <div style="float:right">
 			<input name="startGame" value="Start Game" data-theme="a" class="process ui-btn-left  ui-btn-hidden"  type="submit">

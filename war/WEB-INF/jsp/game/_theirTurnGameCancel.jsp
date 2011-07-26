@@ -3,6 +3,8 @@
 <fmt:message var="resendLbl" key="resend" />
 <fmt:message var="cancelInviteLbl" key="theirTurnGameCancel.cancelInvite" />
 <fmt:message var="backLbl" key="back" />
+<fmt:message var="shareLbl" key="share" />
+<fmt:message var="withLbl" key="with" />
 
 <s:form id="theirTurnGameCancelForm" beanclass="com.wordpong.app.action.game.TheirTurnGameCancelActionBean" method="post">
     <div data-role="header"  data-nobackbtn="true" data-theme="b">
@@ -25,13 +27,11 @@
 		<tags:messages/> 
 			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 				<li>
-	                <div data-role="fieldcontain" style="padding:4px;">
-	                <%-- TODO: display details about game being canceled --%>
-	                    <s:label for="questionDescription" class="ui-input-text"/>
-	                    <s:text  name="questionDescription" id="questionDescription" tabindex="1"/>
-	                    <s:label for="inviteeDetails" class="ui-input-text"/>
-	                    <s:text  name="inviteeDetails" id="questionDescription" tabindex="1"/>
-	                </div>
+                <%-- TODO: display details about game being canceled --%>
+                    <label>${shareLbl}: ${questionDescription}</label>
+				</li>
+				<li>	                    
+                    <label>${withLbl}: ${inviteeDetails}</label>
 				</li>
 			</ul>
 	        <div style="float:right">

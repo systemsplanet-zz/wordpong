@@ -2,6 +2,7 @@
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendInviteActionBean"/>
 <fmt:message var="submitLbl" key="submit" />
 <fmt:message var="backLbl" key="back" />
+<fmt:message var="emailLbl" key="email" />
 
 
 <s:form id="friendInviteForm" beanclass="com.wordpong.app.action.game.FriendInviteActionBean" method="post">
@@ -18,22 +19,19 @@
         </div>
     </div>
     <div style="clear:both"></div>
-	<div data-role="content" style="padding-top:0px;">
+	<div data-role="content" style="padding-top:0px; ">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 			<li data-role="list-divider" ><s:label for="friendInvite.title"/></li> 
 		</ul>
 		<tags:messages/> 
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
-				<li>
-					<div data-role="fieldcontain" style="padding:4px;">
-						<s:label for="email" class="ui-input-text"/>
-						<s:text  name="email" id="email" tabindex="1"/>
-					</div>
-				</li>
-			</ul>
-			<div style="float:right">
-				<input name="invite" action="invite" data-theme="a" class="process" value="${submitLbl}" type="submit" />
-			</div>	
+		<div data-role="fieldcontain">
+    		<label for="email">${emailLbl}</label>
+    		<input type="text" name="email" id="email" value=""  tabindex="1" />
+		</div>	
+			
+		<div style="float:right">
+			<input name="invite" action="invite" data-theme="a" class="process" value="${submitLbl}" type="submit" />
+		</div>	
 	</div>
 </s:form>   
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
