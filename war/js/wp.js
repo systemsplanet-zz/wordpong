@@ -22,9 +22,9 @@ $.ajaxSetup(
 		error:function(x,e){
      		$.mobile.pageLoading(true);//close the wait icon
 			if(x.status==0){
-				alert('Network unavailable.');
+				//alert('Network unavailable.'); just retry no msg
 			}else if(x.status==403){
-				alert('Login expired.');
+				// alert('Login expired.'); just retry 
 			}else if(x.status==404){
 				alert('Requested URL not found.');
 			}else if(x.status==500){
@@ -35,7 +35,7 @@ $.ajaxSetup(
 			}else if(e=='parsererror'){
 				alert('Error.\nParsing JSON Request failed.');
 			}else if(e=='timeout'){
-				alert('Request Time out.');
+				//alert('Request Time out.'); just retry no error
 			}else {
 				alert('Unknow Error.\n'+x.responseText);
 			}

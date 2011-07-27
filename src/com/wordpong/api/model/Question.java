@@ -47,7 +47,7 @@ public class Question implements Serializable {
     @Attribute(listener = CreationDate.class)
     Date createdAt;
 
-    @Attribute(unindexed = true)
+    @Attribute(unindexed = false)
     private Key user;
 
     @Attribute(unindexed = true)
@@ -87,6 +87,9 @@ public class Question implements Serializable {
         return user;
     }
 
+    public void setUser(User u) {
+        this.user = u.getKey();
+    }
     public void setUser(Key user) {
         this.user = user;
     }
@@ -173,6 +176,13 @@ public class Question implements Serializable {
     public void setKey(Key key) {
         this.key = key;
     }
+    
+    public void setKeyString(String questionsKeyString) {
+        if (questionsKeyString != null) {
+            key = KeyFactory.stringToKey(questionsKeyString);
+        }
+    }
+
 
     public Long getVersion() {
         return version;

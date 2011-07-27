@@ -51,9 +51,13 @@ public interface SvcGame {
 
     Question createQuestion(Question u) throws WPServiceException;
 
+    void updateQuestion(Question u) throws WPServiceException;
+
     Question getQuestion(String questionKey) throws WPServiceException;
 
     List<Question> getUnansweredQuestions(User user) throws WPServiceException;
+
+    List<Question> getMyQuestions(User user) throws WPServiceException;
 
     Answer saveAnswer(Answer u) throws WPServiceException;
 

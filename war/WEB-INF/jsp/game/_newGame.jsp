@@ -43,8 +43,8 @@
         	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
              	  <a href="#" OnClick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#selectFriend').click();return false;"> 
 	       	         <img src="${friend.pictureUrl}"  >
-	       	         <h3>${friend.fullName}</h3> 
-	       	         <p>${friend.email}</p>
+	       	         <h3><small>${friend.fullName}</small></h3> 
+	       	         <p><small>${friend.email}</small></p>
 	       	      </a>
         	  </li>	        	    
             </ul>

@@ -145,6 +145,17 @@ public class SvcGameImpl implements SvcGame {
             throw new WPServiceException("cancelInvitation err: " + e.getMessage());
         }
     }
+    @Override
+    public List<Question> getMyQuestions(User user) throws WPServiceException {
+        List<Question> result;
+        DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+        try {
+            result = dq.getMyQuestions(user);
+        } catch (DaoException e) {
+            throw new WPServiceException("getMyQuestions err: " + e.getMessage());
+        }
+        return result;
+    }
 
     @Override
     public Question createQuestion(Question q) throws WPServiceException {
@@ -156,6 +167,16 @@ public class SvcGameImpl implements SvcGame {
             throw new WPServiceException("createQuestion err: " + e.getMessage());
         }
         return result;
+    }
+
+    @Override
+    public void updateQuestion(Question q) throws WPServiceException {
+        DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+        try {
+            dq.updateQuestion(q);
+        } catch (DaoException e) {
+            throw new WPServiceException("updateQuestion err: " + e.getMessage());
+        }
     }
 
     @Override
@@ -531,4 +552,5 @@ public class SvcGameImpl implements SvcGame {
         }
         return result;
     }
+
 }

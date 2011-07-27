@@ -1,5 +1,6 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Transaction;
 import com.wordpong.api.meta.QuestionMeta;
 import com.wordpong.api.model.Question;
+import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.err.DaoException;
 
 public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
@@ -38,8 +40,6 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         }
         try {
             String action = q.getKey() == null ? "Created" : "Updated";
-            // Key key = Datastore.allocateId(Question.class);
-            // u.setKey(key);
             Key key = put(q);
             log.info(action + " Question:" + q + " key:" + key);
         } catch (Exception e) {
@@ -80,6 +80,27 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
     public Question getQuestion(String questionKeyStr) throws DaoException {
         Key k = KeyFactory.stringToKey(questionKeyStr);
         Question result = get(k);
+        return result;
+    }
+
+    @Override
+    // dont allow the title to be changed!! It's the unique Key
+    public Key updateQuestion(Question u) throws DaoException {
+        Key k = put(u);
+        return k;
+    }
+
+    // Get the list of private questions for a user
+    @Override
+    public List<Question> getMyQuestions(User u) throws DaoException {
+        List<Question> result;
+        QuestionMeta e = QuestionMeta.get();
+        try {
+            Key uKey = u.getKey();
+            result = Datastore.query(e).filter(e.user.equal(uKey)).asList();
+        } catch (Exception ex) {
+            throw new DaoException("Err:" + ex.getMessage());
+        }
         return result;
     }
 }

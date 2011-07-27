@@ -1,6 +1,6 @@
 package com.wordpong.api.err;
 
-public class WPServiceException extends WPException {
+public class WPServiceException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public enum ErrorType {

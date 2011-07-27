@@ -3,6 +3,7 @@
 <fmt:message var="theirTurnLbl" key="game.theirTurn" />
 <fmt:message var="myStuffLbl" key="game.myStuff" />
 <fmt:message var="answersLbl" key="game.answers" />
+<fmt:message var="questionsLbl" key="game.questions" />
 <fmt:message var="friendInviteLbl" key="game.friendInvite" />
 
 <fmt:message var="logoutLbl" key="logout" />
@@ -76,6 +77,7 @@
      
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${myStuffLbl}</li> 
+        <input name="questionList"  data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${questionsLbl}" type="submit" />
         <input name="answerList"  data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${answersLbl}" type="submit" />
         <input name="friendList"  data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${friendsLbl}" type="submit" />
 		<input name="profileEdit"  data-theme="a" data-iconpos="right" data-icon="gear" class="process" value="${profileLbl}" type="submit" />

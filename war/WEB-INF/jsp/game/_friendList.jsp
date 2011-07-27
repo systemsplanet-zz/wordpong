@@ -43,15 +43,18 @@
         	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
         	      <a href="javascript:return false;">
 	       	      <img src="${friend.pictureUrl}"  >
-	       	      <h3>${friend.fullName} </h3> 
+        	     
+	       	      <h3><small>${friend.fullName}</small></h3> 
 	       	      <p>${friend.email} <span class="ui-li-count">${friend.totalPoints}</span></p>
+	        	  		            
 	       	      </a>
+	       	      
 	       	      <c:forEach items="${friend.games}" var="game" varStatus="s">	    	     	
 	        	    <li id="item-${s.index}"  style="white-space:normal;">  
-	        	        ${game.questionDescription}
+	        	        <small>${game.questionDescription}</small>
        	                <span class="ui-li-count">${game.points}</span>
 	        	    </li>	        	    
-	        	  </c:forEach>		            
+	        	  </c:forEach>
         	  </li>	        	    
             </ul>
         </c:forEach>        
