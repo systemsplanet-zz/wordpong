@@ -35,7 +35,7 @@
 				</li>
 			</ul>
 	        <div style="float:right">
-	            <input data-theme="a" class="process" action="cancelGame" name="cancelGame" value="${cancelInviteLbl}" type="submit" />
+	            <input data-theme="a" class="process" id="cancelGame" name="cancelGame" value="${cancelInviteLbl}" type="submit" />
 	        </div>  
     </div>
 </s:form>   

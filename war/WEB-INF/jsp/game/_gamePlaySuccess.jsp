@@ -12,12 +12,12 @@
             	<h3 style="white-space:normal">Congratulations! All Questions Answered Correctly.</h3> 
             </li>
         </ul>
-        <ul  data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+<%--        <ul  data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;"> --%>
             <center>
 	        	<img src="/i/a/adsense-adchoices-expanded.png">
         	</center>
 		    <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
-	    </ul>
+	   <%-- </ul>--%>
         <div style="float:right">
            <input value="${continueLbl}" name="done" id="done" type="submit" data-theme="a"  class="process" /> 
         </div>

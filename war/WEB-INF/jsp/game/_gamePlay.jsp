@@ -9,16 +9,17 @@
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
-            <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
+            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
 	            <span class="ui-btn-inner ui-btn-corner-all">
 	               <span class="ui-btn-text">${backLbl}</span>
     	           <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
 	            </span>
                 <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
-            </div> 
+            </span> 
         </span>        
     </div>
 </form>
+</div>
 <div style="clear:both"></div>
 
 <div data-role="content" style="padding-top:0px;">
@@ -33,14 +34,14 @@
 			<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
 			  <li id="item-${s.index}" OnClick="javascript:match(${s.index});" style="white-space:normal;" >${i}</li>
 			</c:forEach>
-		    <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value="${actionBean.gameKeyStringEncrypted} }"/>    
 	    </ul>
+		<input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value="${actionBean.gameKeyStringEncrypted} }"/>    
         <div style="float:right">
            <input value="${skipLbl}" 
               	OnClick="javascript:skip();return false;" type="submit" data-theme="a" /> 
         </div>
         <div style='visibility:hidden'>
-    	<input name="success" id="success" action="success" data-theme="a" class="process" value="SUCCESS" type="submit" />
+    	<input name="success" id="success" name="success" data-theme="a" class="process" value="SUCCESS" type="submit" />
     	</div>
 	</s:form>	 
 </div>

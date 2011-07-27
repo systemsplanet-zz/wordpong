@@ -30,7 +30,7 @@
 		</div>	
 			
 		<div style="float:right">
-			<input name="invite" action="invite" data-theme="a" class="process" value="${submitLbl}" type="submit" />
+			<input name="invite" id="invite" data-theme="a" class="process" value="${submitLbl}" type="submit" />
 		</div>	
 	</div>
 </s:form>   

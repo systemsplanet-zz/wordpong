@@ -9,27 +9,28 @@
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
-            <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
+            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
 	            <span class="ui-btn-inner ui-btn-corner-all">
 	               <span class="ui-btn-text">${backLbl}</span>
     	           <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
 	            </span>
                 <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
-            </div> 
+            </span> 
         </span>
         
         <!-- Add Button -->
         <span style="float:right;margin-right:10px">
-            <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
+            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
                 <span class="ui-btn-inner ui-btn-corner-all">
                     <span class="ui-btn-text">${addLbl}</span>
                     <span class="ui-icon ui-icon-plus ui-icon-shadow"></span>                    
                 </span>
                 <input name="friendInvite" value="${addLbl}" data-theme="a" class="process ui-btn-left ui-btn-hidden" type="submit">
-            </div> 
+            </span> 
         </span>
     </div>
 </form>
+</div>
 <div style="clear:both"></div>
 
 <div data-role="content" style="padding-top:0px;">
@@ -42,11 +43,9 @@
             <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
         	      <a href="javascript:return false;">
-	       	      <img src="${friend.pictureUrl}"  >
-        	     
-	       	      <h3><small>${friend.fullName}</small></h3> 
-	       	      <p>${friend.email} <span class="ui-li-count">${friend.totalPoints}</span></p>
-	        	  		            
+		       	      <img src="${friend.pictureUrl}"  >
+		       	      <h3><small>${friend.fullName}</small></h3> 
+		       	      <p>${friend.email} <span class="ui-li-count">${friend.totalPoints}</span></p>
 	       	      </a>
 	       	      
 	       	      <c:forEach items="${friend.games}" var="game" varStatus="s">	    	     	

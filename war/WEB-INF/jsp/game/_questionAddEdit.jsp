@@ -8,17 +8,18 @@
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
-            <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
+            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
 	            <span class="ui-btn-inner ui-btn-corner-all">
 	               <span class="ui-btn-text">${backLbl}</span>
     	           <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
 	            </span>
                 <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
-            </div> 
+            </span> 
         </span>
         
     </div>
 </form>
+</div>
 <div style="clear:both"></div>
 
 <div data-role="content" style="padding-top:0px;">
@@ -30,16 +31,16 @@
 	        <small>      
 	           
 	        <!-- TODO: required -->
-			<div data-role="fieldcontain">
+			<span data-role="fieldcontain">
 				<label for="title">Title:</label>	
 				<s:text id="title" name="title" tabindex="1"/>
-			</div>
+			</span>
 	
 			<!-- TODO: required -->
-			<div data-role="fieldcontain">
+			<span data-role="fieldcontain">
 				<label for="description">Description:</label>	
 				<s:text id="description" name="description" tabindex="2"   />
-			</div>
+			</span>
 			
  	        <c:forEach items="${actionBean.questions}" var="i"  varStatus="s">
 	           <div data-role="fieldcontain" style="padding:4px;">
@@ -48,7 +49,7 @@
 	           </div>
  	        </c:forEach>
 	
-			<div data-role="fieldcontain">
+			<span data-role="fieldcontain">
 				<label for="intimacyLevel">Intimacy Level:</label>	
 				<s:select name="intimacyLevel" id="intimacyLevel" size="1" tabindex="4">
 				    <%-- <s:option value="" SELECTED="true">Choose One</s:option> --%>
@@ -60,15 +61,15 @@
 				    <s:option value="5">Fears/Failures/Weaknesses</s:option>
 				    <s:option value="6">Needs</s:option>
 			 	</s:select>
-			</div>
+			</span>
 	
-			<div data-role="fieldcontain">
+			<span data-role="fieldcontain">
 				<label for="visibility">Visibility:</label>	
 				<s:select name="visibility" id="visibility" size="1" tabindex="5">
 				 <s:option value="0" >Private</s:option>
 				<s:option value="1">Public</s:option>
 			 	</s:select>
-			</div>
+			</span>
 	
 	           		       
 	        </small>         

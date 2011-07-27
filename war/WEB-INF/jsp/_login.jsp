@@ -4,12 +4,11 @@
 <fmt:message var="loginLbl" key="login" />
 <fmt:message var="contactUsLbl" key="contactUs" />
 
-<div data-role="header"  data-theme="b">
-<div style="float:left" >
-    <span style="float:left;margin:12px 0px 0px 12px;" >
-        <tags:logo/>
-	</span>
-    <span class="wp-right-button"  >
+<div data-role="header" data-theme="b">
+	<div style="float:left;margin:12px 0 0 12px" >
+	    <tags:logo/>
+	</div>
+	<div class="wp-right-button" >
 	    <s:form  id="loginForm" beanclass="com.wordpong.app.action.RegisterActionBean" method="post">
 	        <div style="float:right;margin-right:10px">
 	            <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
@@ -21,10 +20,9 @@
 	            </div> 
 	        </div>
 		</s:form>
-	</span>
-<div>
+	</div>
 </div>
-
+<div style="clear:both"></div>
 <div data-role="content" data-theme="a" >
 	<tags:messages/>
         
@@ -43,14 +41,14 @@
 	</s:form>
 	<p/>
 	<small>
-		<div style="float:left">
+		<span style="float:left">
 			<s:form  beanclass="com.wordpong.app.action.ForgotPasswordActionBean" method="post">
 				<input data-theme="a" class="process" name="view" value="${forgotPasswordLbl}" type="submit" /> 
 			</s:form>
-		</div>
-		<div style="float:right; margin-top:20px; margin-right:10px;" >
+		</span>
+		<span style="float:right; margin-top:20px; margin-right:10px;" >
 			<a href="/static/contact.html" data-theme="a">${contactUsLbl}</a> 
-		</div>
+		</span>
 	</small>
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>

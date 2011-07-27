@@ -19,12 +19,12 @@
     </div>
     <!-- Save Button -->
     <span style="float:right;margin-right:10px">
-        <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
+        <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
             <span class="ui-btn-inner ui-btn-corner-all">
                 <span class="ui-btn-text">${saveLbl}</span>
             </span>
-            <input name="save" action="save" value="${saveLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" type="submit">
-        </div> 
+            <input name="save"  value="${saveLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" type="submit">
+        </span> 
     </span>
 </div>
 
@@ -80,7 +80,7 @@
 		<input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
 	</div>
 	<div style="float:right">
-		<input data-theme="a" class="process" name="save" action="save" value="${saveLbl}" type="submit" />
+		<input data-theme="a" class="process" name="save" id="save" value="${saveLbl}" type="submit" />
 	</div>
 </div>
 </s:form>   

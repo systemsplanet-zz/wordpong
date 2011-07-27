@@ -1,7 +1,5 @@
 package com.wordpong.app.action.game;
 
-import java.util.logging.Logger;
-
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -15,7 +13,6 @@ import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class TheirTurnGameCancelActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(TheirTurnGameCancelActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_theirTurnGameCancel.jsp";
 
     private User user;

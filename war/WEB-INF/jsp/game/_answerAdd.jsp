@@ -8,17 +8,18 @@
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
-            <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
+            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
 	            <span class="ui-btn-inner ui-btn-corner-all">
 	               <span class="ui-btn-text">${backLbl}</span>
     	           <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
 	            </span>
                 <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
-            </div> 
+            </span> 
         </span>
         
     </div>
 </form>
+</div>
 <div style="clear:both"></div>
 
 <div data-role="content" style="padding-top:0px;">
@@ -26,13 +27,14 @@
 	<s:form id="answerAddForm" beanclass="com.wordpong.app.action.game.AnswerAddActionBean" method="post">
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${selectQuestionLbl}</li> 
+    </ul>
         <small>            
         <c:forEach items="${actionBean.questionList}" var="questionList" >
            <input name="editAnswer"  value="${questionList.description}"
 		      onClick="javascript:$('#questionKeyStringEncrypted').val('${questionList.keyStringEncrypted}');$('#questionDescription').val('${questionList.description}');" data-theme="a" class="process" type="submit" />
         </c:forEach>
         </small>         
-    </ul>
+        
     <input id="questionKeyStringEncrypted" name="questionKeyStringEncrypted" type="hidden" value=""/>
     <input id="questionDescription" name="questionDescription" type="hidden" value=""/>
 

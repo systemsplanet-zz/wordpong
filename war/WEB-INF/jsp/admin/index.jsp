@@ -30,7 +30,7 @@ log.info("Admin run by user:"+ session.getAttribute("com.wordpong.session.user")
 		<a href="/admin/debugenv" rel="external">Dump Env</a><br />
 		<a href="/testq" rel="external">Test EnQueue (/testq)</a><br/>
 		<a href="/stats" rel="external" target="_blank">App Stats (/stats)</a><br/>
-		<a href="https://appengine.google.com/dashboard?&app_id=wordpong" rel="external" target="_blank">App Engine Console (https://appengine.google.com/dashboard?&app_id=wordpong)</a><br/>
+		<a href="https://appengine.google.com/dashboard?&app_id=wordpong" rel="external" target="_blank">App Engine Console (https://appengine.google.com/dashboard?app_id=wordpong)</a><br/>
 <p />
 <%--		
         <s:url beanclass="com.wordpong.app.action.admin.AdminActionBean" event="logout" var="logoutUrl"/>
@@ -48,7 +48,7 @@ log.info("Admin run by user:"+ session.getAttribute("com.wordpong.session.user")
     </s:form>
 	
     <br>
-    <a href="${actionBean.logoutUrl}" rel="external">Logout Google</a></br>
+    <a href="${actionBean.logoutUrl}" rel="external">Logout Google</a>
     <br>            
 </div>
 <script>
