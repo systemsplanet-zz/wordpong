@@ -14,7 +14,11 @@ import javax.servlet.http.HttpSession;
 
 public class ServletUtil {
     private static final Logger log = Logger.getLogger(ServletUtil.class.getName());
-
+    public static final String REPLY_HEADER_OK_KEY = "Stripes-Success";
+    public static final String REPLY_HEADER_OK_VAL = "OK";
+    public static final String REPLY_HEADER_ERR_KEY = "Stripes-Unavailable";
+    public static final String REPLY_HEADER_ERR_VAL = "ERR";
+    
     static public boolean isSecure(HttpServletRequest req) {
         return req.getScheme().equals("https");
     }

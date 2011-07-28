@@ -111,8 +111,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 		</init-param>
 		<init-param>
 			<param-name>Interceptor.Classes</param-name>
-			<param-value>com.wordpong.app.stripes.AuthenticationInterceptor,
-				org.stripesstuff.plugin.security.SecurityInterceptor,
+			<param-value>
+				com.wordpong.app.stripes.BackendAvailableInterceptor,
+	 			com.wordpong.app.stripes.AuthenticationInterceptor,
+				org.stripesstuff.plugin.security.SecurityInterceptor
 			</param-value>
 		</init-param>
 	</filter>
