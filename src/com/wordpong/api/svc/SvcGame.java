@@ -15,6 +15,10 @@ public interface SvcGame {
 
     Game getGame(String gameKeyStr) throws WPServiceException;
 
+    void finishGame(String gameKeyString) throws WPServiceException;
+
+    void cancelGameInvite(final Game g, final User u) throws WPServiceException;
+
     List<Game> getMyTurnGames(User user) throws WPServiceException;
 
     List<InviteFriend> getTheirTurnsInviteFriend(User user) throws WPServiceException;
@@ -36,8 +40,6 @@ public interface SvcGame {
     void createGame(Game g, User u) throws WPServiceException;
 
     List<Game> getTheirTurnsGame(User user) throws WPServiceException;
-
-    void finishGame(String gameKeyString) throws WPServiceException;
 
     void makeFriends(String friendInviteKeyStr) throws WPServiceException;
 

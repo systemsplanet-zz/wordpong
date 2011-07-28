@@ -28,16 +28,18 @@
 			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 				<li>
                 <%-- TODO: display details about game being canceled --%>
-                    <label>${shareLbl}: ${questionDescription}</label>
+                    <label>${shareLbl}: ${actionBean.game.questionDescription}</label>
 				</li>
 				<li>	                    
-                    <label>${withLbl}: ${inviteeDetails}</label>
+                    <label>${withLbl}: ${actionBean.game.inviteeDetails}</label>
 				</li>
 			</ul>
 	        <div style="float:right">
 	            <input data-theme="a" class="process" id="cancelGame" name="cancelGame" value="${cancelInviteLbl}" type="submit" />
 	        </div>  
     </div>
+    <s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="${actionBean.gameKeyStringEncrypted}"/>    
+    
 </s:form>   
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>

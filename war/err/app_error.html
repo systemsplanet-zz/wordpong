@@ -1,5 +1,14 @@
 <!doctype html>
 <title>App Error</title>
+<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="/js/dump.js"></script>
+<script type="text/javascript" src="/js/wp.js"></script>
+<script type="text/javascript" src="/js/dateFormat.js"></script>
+<script type="text/javascript">
+var d = $('#wp-date')
+d.html(dateFormat(new Date(),"HH:MM:ss mmm dd"))
+</script>
+
 <style>
   body { text-align: center;}
   h1 { font-size: 50px; text-align: center }
@@ -10,13 +19,13 @@
   article {display:block; text-align: left; width: 500px; margin: 0 auto; }
 </style>
 <article>
-   <h1>App Error <span>:(</span></h1>
+   <h1>Yikes <span>!</span></h1>
    <div>
-       <p>Sorry, but WordPong is unavailable right now...</p>
-       <p>We're working hard to fix this problem.</p>
+       <p>Sorry, but WordPong was unable to process your request.</p>
        <ul>
-           <li>Please try again later</li>
-           <li>Thanks!</li>
+           <li>Please try again. If the problem persists, please contact: contact at wordpong dot com with this date/time:</li>
+           <li id='wp-date'></li>
+           
        </ul>
        <p><a href="http://wordpong.appspot.com">WordPong Home</a></p> 
    </div>

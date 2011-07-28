@@ -136,6 +136,34 @@ public class SvcGameImpl implements SvcGame {
         return result;
     }
 
+    public void cancelGameInvite(final Game g, final User u) throws WPServiceException {
+        final DaoGame dg = DaoGameFactory.getGameDao();
+        final DaoUser du = DaoUserFactory.getUserDao();
+        final String msg = "cancelGameInvite Game:" + g + " User:" + u;
+        Predicate<Atomic> WORK = new Predicate<Atomic>() {
+            public boolean apply(Atomic at) {
+                boolean result = false;
+                try {
+                    u.removeGame(g);
+                    du.save(at, u);
+                    dg.cancelGameInvite(at, g);
+                    result = true;
+                } catch (DaoException e) {
+                }
+                return result;
+            }
+
+            public String toString() {
+                return msg;
+            }
+        };
+        try {
+            Atomic.transact(WORK);
+        } catch (Exception e) {
+            throw new WPServiceException(e.getMessage());
+        }
+    }
+
     @Override
     public void cancelFriendInvitation(User user, String email) throws WPServiceException {
         DaoInviteFriend f = DaoInviteFriendFactory.getFriendInviteDao();
@@ -145,6 +173,7 @@ public class SvcGameImpl implements SvcGame {
             throw new WPServiceException("cancelInvitation err: " + e.getMessage());
         }
     }
+
     @Override
     public List<Question> getMyQuestions(User user) throws WPServiceException {
         List<Question> result;

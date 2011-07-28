@@ -89,6 +89,15 @@ public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
         return result;
     }
 
+    public void cancelGameInvite(Atomic at, Game game) throws DaoException {
+        if (game != null) {
+            Key gameKey = game.getKey();
+            if (gameKey != null) {
+                at.delete(gameKey);
+            }
+        }
+    }
+
     @Override
     public Game getGame(Atomic at, String gameKeyString) throws DaoException {
         Key k = KeyFactory.stringToKey(gameKeyString);
@@ -98,7 +107,7 @@ public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
 
     @Override
     public void saveGame(Atomic at, Game g) throws DaoException {
-        at.put(g);        
+        at.put(g);
     }
 
 }

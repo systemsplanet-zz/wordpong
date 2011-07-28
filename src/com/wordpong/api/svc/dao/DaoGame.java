@@ -23,4 +23,5 @@ public interface DaoGame {
 
     List<Game> getTheirTurnGames(User user) throws DaoException;
 
+    void cancelGameInvite(Atomic at, Game game) throws DaoException;
 }
