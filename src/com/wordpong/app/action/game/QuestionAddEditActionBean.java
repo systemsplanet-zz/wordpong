@@ -40,11 +40,11 @@ public class QuestionAddEditActionBean extends BaseActionBean implements Validat
     @Validate(required = true, maxlength = 100, minlength = 5)
     private String description;
 
-    @Validate(required = true)
+    //@Validate(required = true)  //TODO: allow public questions once rating system is in place
     private int visibility = Question.VISIBILITY_PRIVATE;
 
     @Validate(required = true)
-    private int intimacyLevel = Question.INTIMACY_FACTS;
+    private int intimacyLevel = Question.INTIMACY_CLICHES;
 
     @Validate(required = true, maxlength = 100, minlength = 5)
     private List<String> questions;
