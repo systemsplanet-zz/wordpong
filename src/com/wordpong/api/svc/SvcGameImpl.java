@@ -179,7 +179,7 @@ public class SvcGameImpl implements SvcGame {
         List<Question> result;
         DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
         try {
-            result = dq.getMyQuestions(user);
+            result = dq.getQuestions(user);
         } catch (DaoException e) {
             throw new WPServiceException("getMyQuestions err: " + e.getMessage());
         }
@@ -542,7 +542,7 @@ public class SvcGameImpl implements SvcGame {
             }
             // get the list of all public questions
             // add ones that the user has not already answered
-            List<Question> allPublic = dq.getPublic();
+            List<Question> allPublic = dq.getQuestions(user);
             if (allPublic != null) {
                 for (Question q : allPublic) {
                     String ks = q.getKeyString();

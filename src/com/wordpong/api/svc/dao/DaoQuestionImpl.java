@@ -1,6 +1,10 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.slim3.datastore.DaoBase;
@@ -62,19 +66,6 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         return result;
     }
 
-    public List<Question> getPublic() throws DaoException {
-        List<Question> result = null;
-        QuestionMeta e = QuestionMeta.get();
-        try {
-            result = Datastore.query(e).filter(e.visibility.equal(Question.VISIBILITY_PUBLIC)).asList();
-        } catch (Exception ex) {
-            // should never happen!
-            // com.google.appengine.api.datastore.PreparedQuery$TooManyResultsException
-            throw new DaoException("Err:" + ex.getMessage());
-        }
-        return result;
-    }
-
     @Override
     public Question getQuestion(String questionKeyStr) throws DaoException {
         Key k = KeyFactory.stringToKey(questionKeyStr);
@@ -89,9 +80,8 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         return k;
     }
 
-    // Get the list of private questions for a user
-    @Override
-    public List<Question> getMyQuestions(User u) throws DaoException {
+    // Get the list of private/public questions for a user
+    private List<Question> getMyQuestions(User u) throws DaoException {
         List<Question> result;
         QuestionMeta e = QuestionMeta.get();
         try {
@@ -100,6 +90,40 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         } catch (Exception ex) {
             throw new DaoException("Err:" + ex.getMessage());
         }
+        Collections.sort(result, Question.TITLE_ORDER);
+        return result;
+    }
+
+    private List<Question> getPublicQuestions() throws DaoException {
+        List<Question> result = null;
+        QuestionMeta e = QuestionMeta.get();
+        try {
+            result = Datastore.query(e).filter(e.visibility.equal(Question.VISIBILITY_PUBLIC)).asList();
+        } catch (Exception ex) {
+            // should never happen!
+            // com.google.appengine.api.datastore.PreparedQuery$TooManyResultsException
+            throw new DaoException("Err:" + ex.getMessage());
+        }
+        Collections.sort(result, Question.TITLE_ORDER);
+        return result;
+    }
+
+    // get unique, sorted list of public questions plus my public/private questions
+    public List<Question> getQuestions(User u) throws DaoException {
+        List<Question> result = new ArrayList<Question>();
+        Map<String, Question> m = new HashMap<String, Question>();
+        List<Question> mq = getMyQuestions(u);
+        for (Question q : mq) {
+            m.put(q.getTitle(), q);
+        }
+        List<Question> pq = getPublicQuestions();
+        for (Question q : pq) {
+            m.put(q.getTitle(), q);
+        }
+        for (Map.Entry<String, Question> entry : m.entrySet()) {
+            result.add((Question) entry.getValue());
+        }
+        Collections.sort(result, Question.TITLE_ORDER);
         return result;
     }
 }

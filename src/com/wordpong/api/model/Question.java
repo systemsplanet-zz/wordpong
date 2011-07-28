@@ -1,6 +1,7 @@
 package com.wordpong.api.model;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,11 @@ import com.wordpong.app.action.api.pojo.QuestionCreation;
 @Model(schemaVersion = 1)
 public class Question implements Serializable {
 
+    public static final Comparator<Question> TITLE_ORDER = new Comparator<Question>() {
+        public int compare(Question e1, Question e2) {
+            return e2.getTitle().compareTo(e1.getTitle());
+        }
+    };
     private static final long serialVersionUID = 1L;
 
     public static final int VISIBILITY_PUBLIC = 1;
@@ -90,6 +96,7 @@ public class Question implements Serializable {
     public void setUser(User u) {
         this.user = u.getKey();
     }
+
     public void setUser(Key user) {
         this.user = user;
     }
@@ -176,13 +183,12 @@ public class Question implements Serializable {
     public void setKey(Key key) {
         this.key = key;
     }
-    
+
     public void setKeyString(String questionsKeyString) {
         if (questionsKeyString != null) {
             key = KeyFactory.stringToKey(questionsKeyString);
         }
     }
-
 
     public Long getVersion() {
         return version;
