@@ -55,7 +55,7 @@
 			<li data-role="list-divider"   style="white-space:normal;" >
 				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#hiddenBtn').click();" href="#">
 					<img src="https://wordpong.appspot.com/i/p/u.png"  >
-					<p><b>${gameLbl}</b></p>
+					<%--<p><b>${gameLbl}</b></p> --%>
 					<p style="white-space:normal;">${game.questionDescription}</p> 
 					<p>${game.inviterDetails}</p>
 		       	</a>
@@ -64,7 +64,6 @@
     </ul>            
     <div style='visibility:hidden; height:0; padding:0 margin:0'>
 		<input id="hiddenBtn" name="playGame" value="SUBMIT" type="submit" class="process"/>
-        <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
 	</div>
     
 	

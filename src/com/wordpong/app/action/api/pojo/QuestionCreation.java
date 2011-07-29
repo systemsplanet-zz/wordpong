@@ -5,14 +5,17 @@ import java.util.List;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import com.wordpong.api.model.Question;
+import com.wordpong.api.pojo.LocaleDisplay;
+
 public class QuestionCreation {
 
     List<String> questions;
     String title;
     String description;
-    int visibility;
-    int intimacy;
-    String locale;
+    int visibility=Question.VISIBILITY_PRIVATE;
+    int intimacy=Question.INTIMACY_CLICHES;
+    String locale=LocaleDisplay.LOCALE_EN_US;
 
     public QuestionCreation() {
         super();

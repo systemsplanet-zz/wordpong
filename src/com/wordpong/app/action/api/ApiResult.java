@@ -12,6 +12,7 @@ public class ApiResult extends HashMap<String, String> {
     public static ApiResult ERR502_INVALID_USER_ID = new ApiResult();
     public static ApiResult ERR503_LOGIN_REQUIRED = new ApiResult();
     public static ApiResult ERR504_GENERAL_ERROR = new ApiResult();
+    public static ApiResult ERR505_INCOMPLETE = new ApiResult();
 
     public static String KEY_ERROR = "error";
     public static String KEY_MESSAGE = "message";
@@ -30,6 +31,8 @@ public class ApiResult extends HashMap<String, String> {
         ERR503_LOGIN_REQUIRED.put(KEY_MESSAGE, "Login required");
         ERR504_GENERAL_ERROR.put(KEY_ERROR, "504");
         ERR504_GENERAL_ERROR.put(KEY_MESSAGE, "General Error");
+        ERR505_INCOMPLETE.put(KEY_ERROR, "505");
+        ERR505_INCOMPLETE.put(KEY_MESSAGE, "Please complete all fields");
     }
 
     public static ApiResult addMessage(ApiResult err, String detail) {

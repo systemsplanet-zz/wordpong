@@ -59,7 +59,6 @@ $("input.process").live( "click", function(e) {
             // Remove unused jquerymobile cached divs
             $('div').remove('[data-role="page"]:not(#wp-main-page)')
             $('div').remove('[data-role="dialog"]')
-
             var d = $('.wp-date')
             d.html(dateFormat(new Date(),"HH:MM:ss mmm dd")+ " (" + timeDiff + "ms)")
             var p= $('.ui-page-active [data-role="content"]')
@@ -77,14 +76,13 @@ $("input.process").live( "click", function(e) {
 		       window.scrollTo(0,0); // reset in case prev not scrolled  
 		       var nPageH = $(document).height();
 		       var nViewH = window.outerHeight;
-		       //alert('Android nPageH:'+nPageH+ ' nViewH:'+nViewH)
 		       if (nViewH > nPageH) {
 		         nViewH -= 250;
 		         $('BODY').css('height',nViewH + 'px');
 		       }
 		       window.scrollTo(0,1);
 		    } else {
-		      $('html, body').animate({scrollTop:0}, 'slow');
+ 		       $('html, body').animate({scrollTop:0}, 'slow');
 		    }
         } else {
             alert("Login session expired.");

@@ -31,8 +31,8 @@ public class ApiQuestionActionBean extends BaseActionBean {
     }
 
     @DefaultHandler
-    public Resolution renderJSON() throws  IOException {
-        List<HashMap<String, String>> result   = new ArrayList<HashMap<String,String>>();
+    public Resolution renderJSON() throws IOException {
+        List<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
         AppActionBeanContext c = getContext();
         // Make sure user is authenticated
         User user = c.getUserFromSession();
@@ -49,17 +49,36 @@ public class ApiQuestionActionBean extends BaseActionBean {
                     baos.write(buf, 0, letti);
                 String data = new String(baos.toByteArray());
                 // parse the string into a JSON object
-                //TODO: Validate the params
+                // TODO: Validate the params
                 Gson gson = new Gson();
-                QuestionCreation qc = gson.fromJson(data, QuestionCreation.class);                
-                // Create a question object to add to the database
-                Question q = new Question(qc);
-                q.setUser(user.getKey());
-                // Persist the questions
-                SvcGame svcGame = SvcGameFactory.getSvcGame();
-                //TODO: make sure question title is unique
-                svcGame.createQuestion(q);
-                result.add(ApiResult.ERR000_SUCCESS);
+                QuestionCreation qc = gson.fromJson(data, QuestionCreation.class);
+                boolean complete = true;
+                if (complete)
+                    complete = qc.getDescription() != null && qc.getDescription().length() > 4;
+                if (complete)
+                    complete = qc.getTitle() != null && qc.getTitle().length() > 4;
+                if (complete)
+                    complete = qc.getQuestions() != null && qc.getQuestions().size() == 4;
+                if (complete)
+                    complete = qc.getQuestions().get(0) != null && qc.getQuestions().get(0).length() > 4;
+                if (complete)
+                    complete = qc.getQuestions().get(1) != null && qc.getQuestions().get(1).length() > 4;
+                if (complete)
+                    complete = qc.getQuestions().get(2) != null && qc.getQuestions().get(2).length() > 4;
+                if (complete)
+                    complete = qc.getQuestions().get(3) != null && qc.getQuestions().get(3).length() > 4;
+                if (complete) {
+                    // Create a question object to add to the database
+                    Question q = new Question(qc);
+                    q.setUser(user.getKey());
+                    // Persist the questions
+                    SvcGame svcGame = SvcGameFactory.getSvcGame();
+                    // TODO: make sure question title is unique
+                    svcGame.createQuestion(q);
+                    result.add(ApiResult.ERR000_SUCCESS);
+                } else {
+                    result.add(ApiResult.ERR505_INCOMPLETE);
+                }
             } catch (Exception e) {
                 ApiResult err = ApiResult.addMessage(ApiResult.ERR504_GENERAL_ERROR, e.getMessage());
                 result.add(err);
