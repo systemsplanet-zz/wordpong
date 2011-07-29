@@ -45,15 +45,25 @@
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${myTurnLbl} (${myBean.user.fullName})</li>              
 	</ul>
-    <c:forEach items="${actionBean.myTurnInviteFriends}" var="inviteFriend" >
-    	<input name="processFriendInvite" value="${newFriendLbl}: ${inviteFriend.inviterDetails}" 
-    	   onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
-    </c:forEach>
+	<%-- FRIEND INVITES --%>
+	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+	    <c:forEach items="${actionBean.myTurnInviteFriends}" var="inviteFriend" >
+			<li data-role="list-divider"   style="white-space:normal;" >
+				<a  onclick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');$('#processFriendInviteBtn').click();" href="#">
+					<img src="https://wordpong.appspot.com/i/p/u.png"  >
+					<p>${newFriendLbl}</p>
+					<p style="white-space:normal;">${inviteFriend.inviterDetails}</p> 
+		       	</a>
+        	</li>	        	    
+	    </c:forEach>
+    </ul>            
     
+	<%-- GAMES --%>
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 	    <c:forEach items="${actionBean.myTurnGames}" var="game" >
 			<li data-role="list-divider"   style="white-space:normal;" >
-				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#hiddenBtn').click();" href="#">
+				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#playGameBtn').click();" href="#">
+<!-- TODO: get user's image -->
 					<img src="https://wordpong.appspot.com/i/p/u.png"  >
 					<%--<p><b>${gameLbl}</b></p> --%>
 					<p style="white-space:normal;">${game.questionDescription}</p> 
@@ -63,7 +73,8 @@
 	    </c:forEach>
     </ul>            
     <div style='visibility:hidden; height:0; padding:0 margin:0'>
-		<input id="hiddenBtn" name="playGame" value="SUBMIT" type="submit" class="process"/>
+		<input id="playGameBtn" name="playGame" value="SUBMIT" type="submit" class="process"/>
+		<input id="processFriendInviteBtn" name="processFriendInvite" value="SUBMIT" type="submit" class="process"/>		
 	</div>
     
 	
@@ -71,19 +82,40 @@
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${theirTurnLbl}</li> 
 	</ul>
-	<small>
-      <c:forEach items="${actionBean.theirTurnsInviteFriend}" var="inviteFriend" >
-	    <input  name="viewTheirTurnFriendInvite"  value="${friendInviteLbl}: ${inviteFriend.inviteeDetails}"  
-	    onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process" type="submit" />
-      </c:forEach>
-      <c:forEach items="${actionBean.theirTurnsGame}" var="game" >
-	    <input  name="theirTurnGameCancel"  value="${gameLbl}: ${game.inviteeDetails}  ${game.questionDescription}"  
-	    onClick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');" data-theme="a" class="process" type="submit" />
-      </c:forEach>
-    </small>
-   	<s:hidden id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" value="?inviteFriendKeyStringEncrypted?"/>    
-	<s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="?gameKeyStringEncrypted?"/>    
 
+	<%-- FRIEND INVITE --%>
+	
+	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+	    <c:forEach items="${actionBean.theirTurnsInviteFriend}" var="inviteFriend" >
+			<li data-role="list-divider"   style="white-space:normal;" >
+				<a  onclick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');$('#viewTheirTurnFriendInviteBtn').click();" href="#">
+					<img src="https://wordpong.appspot.com/i/p/u.png"  >
+					<p>${friendInviteLbl}</p>
+					<p style="white-space:normal;">${inviteFriend.inviteeDetails}</p> 
+		       	</a>
+        	</li>	        	    
+	    </c:forEach>
+    </ul>            
+	<%-- GAMES --%>
+	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+	    <c:forEach items="${actionBean.theirTurnsGame}" var="game" >
+			<li data-role="list-divider"   style="white-space:normal;" >
+				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#theirTurnGameCancelBtn').click();" href="#">
+					<img src="https://wordpong.appspot.com/i/p/u.png"  >
+					<%--<p><b>${gameLbl}</b></p> --%>
+					<p style="white-space:normal;">${game.questionDescription}</p> 
+					<p>${game.inviteeDetails}</p>
+		       	</a>
+        	</li>	        	    
+	    </c:forEach>
+    </ul>            
+    <div style='visibility:hidden; height:0; padding:0 margin:0'>
+		<input id="viewTheirTurnFriendInviteBtn" name="viewTheirTurnFriendInvite" value="SUBMIT" type="submit" class="process"/>
+		<input id="theirTurnGameCancelBtn" name="theirTurnGameCancel" value="SUBMIT" type="submit" class="process"/>
+   		<s:hidden id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" value="?inviteFriendKeyStringEncrypted?"/>    
+		<s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="?gameKeyStringEncrypted?"/>    
+	</div>
+    
 
 
      
