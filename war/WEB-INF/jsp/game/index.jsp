@@ -13,7 +13,6 @@
 <fmt:message var="addLbl" key="add" />
 <fmt:message var="gameLbl" key="game.game" />
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
-<form id="addGameForm" action="/game/Game.wp" method="post">
 <div data-role="header"  data-nobackbtn="true" data-theme="b" >
     <span style="float:left;margin-left:12px;margin-top:5px">
 		<tags:logo/>
@@ -26,19 +25,20 @@
 	                <span class="ui-btn-text">${addLbl}</span>
                 	<span class="ui-icon ui-icon-plus ui-icon-shadow"></span>                    
             	</span>
-            		<input id="addGame" name="addGame" value="${addLbl}" data-theme="a" class="process ui-btn-left ui-btn-hidden" type="submit">
+				<s:form  name="addGameForm" id="addGameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
+            		<input id="addGame" name="addGame" value="${addLbl}" data-theme="a" class="process ui-btn-left ui-btn-hidden" type="submit"/>
+				</s:form>
             </small>
         </span> 
     </span>
 </div>
-</form>
 <div style="clear:both"></div>
 
 <%-- MY TURN --%>
 
 <div data-role="content" style="padding-top:0px;"  >
 
-<s:form  id="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
+<s:form  id="gameForm" name="gameForm" beanclass="com.wordpong.app.action.game.GameActionBean" method="post">		        	    
     <s:messages/>      
     <s:errors/>
     <%-- MY TURN --%>    
@@ -72,8 +72,8 @@
 	    </c:forEach>
     </ul>            
     <div style='visibility:hidden; height:0; padding:0 margin:0'>
-		<input id="playGameBtn" name="playGame" value="SUBMIT" type="submit" class="process"/>
-		<input id="processFriendInviteBtn" name="processFriendInvite" value="SUBMIT" type="submit" class="process"/>		
+		<input id="playGameBtn" name="playGame" value="play game" type="submit" class="process"/>
+		<input id="processFriendInviteBtn" name="processFriendInvite" value="process friend invite" type="submit" class="process"/>		
 	</div>
     
 	
@@ -110,8 +110,8 @@
 	    </c:forEach>
     </ul>            
     <div style='visibility:hidden; height:0; padding:0 margin:0'>
-		<input id="viewTheirTurnFriendInviteBtn" name="viewTheirTurnFriendInvite" value="SUBMIT" type="submit" class="process"/>
-		<input id="theirTurnGameCancelBtn" name="theirTurnGameCancel" value="SUBMIT" type="submit" class="process"/>
+		<input id="viewTheirTurnFriendInviteBtn" name="viewTheirTurnFriendInvite" value="viewTheirTurnFriendInvite" type="submit" class="process"/>
+		<input id="theirTurnGameCancelBtn" name="theirTurnGameCancel" value="theirTurnGameCancel" type="submit" class="process"/>
    		<s:hidden id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" value="?inviteFriendKeyStringEncrypted?"/>    
 		<s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="?gameKeyStringEncrypted?"/>    
 	</div>
@@ -131,7 +131,7 @@
 
 </s:form>
 <br/>
-<s:form  beanclass="com.wordpong.app.action.LoginActionBean" method="post">
+<s:form id="logoutFrm" beanclass="com.wordpong.app.action.LoginActionBean" method="post">
    <small> <input name="logout" value="${logoutLbl}" data-icon='arrow-l' class="process"  data-theme="c" type="submit"  /></small>
 </s:form>
 

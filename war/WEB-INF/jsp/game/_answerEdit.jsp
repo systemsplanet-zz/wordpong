@@ -4,7 +4,6 @@
 <fmt:message var="enterAnswersLbl" key="answerEdit.enterAnswers" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
-<form id="answerEditFormHead" action="/game/AnswerEdit.wp" method="post">
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
@@ -13,12 +12,13 @@
 	               <span class="ui-btn-text">${backLbl}</span>
     	           <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
 	            </span>
-                <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
+				<form id="answerEditFormHead" action="/game/AnswerEdit.wp" method="post">
+                	<input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
+				</form>
             </span> 
         </span>
         
     </div>
-</form>
 </div>
 <div style="clear:both"></div>
 

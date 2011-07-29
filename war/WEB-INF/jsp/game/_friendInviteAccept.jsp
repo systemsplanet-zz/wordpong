@@ -6,7 +6,6 @@
 <fmt:message var="friendInviteFromLbl" key="friendInviteAccept.friendInviteFrom" />
 
 
-<s:form id="friendInviteAcceptForm" beanclass="com.wordpong.app.action.game.FriendInviteAcceptActionBean" method="post">
     <div data-role="header"  data-nobackbtn="true" data-theme="b">
         <!-- Back Button -->
         <div style="float:left;margin-left:10px">
@@ -15,7 +14,9 @@
                    <span class="ui-btn-text">${backLbl}</span>
                    <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
                 </span>
-                <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
+				<s:form id="friendInviteAcceptForm" beanclass="com.wordpong.app.action.game.FriendInviteAcceptActionBean" method="post">
+                	<input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
+             	</s:form>   
             </div> 
         </div>
     </div>
@@ -25,20 +26,21 @@
 			<li data-role="list-divider" ><s:label for="friendInviteAccept.title"/></li> 
 		</ul>
 		<tags:messages/> 
-		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
-			<li>
-       			<label>${friendInviteFromLbl}: ${actionBean.inviteFriend.inviterDetails}</label>
-   	            <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			
-			</li>
-		</ul>
-        <div style="float:right">
-            <input data-theme="a" class="process" name="acceptInviteConfirm" value="${acceptLbl}" type="submit" />
-        </div>  
-        <div style="float:right">
-            <input data-theme="a" class="process" name="ignoreInvite" value="${ignoreLbl}" type="submit" />
-        </div>  
+		<s:form id="friendInviteAcceptForm" beanclass="com.wordpong.app.action.game.FriendInviteAcceptActionBean" method="post">
+			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+				<li>
+	       			<label>${friendInviteFromLbl}: ${actionBean.inviteFriend.inviterDetails}</label>
+	   	            <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			
+				</li>
+			</ul>
+	        <div style="float:right">
+	            <input data-theme="a" class="process" name="acceptInviteConfirm" value="${acceptLbl}" type="submit" />
+	        </div>  
+	        <div style="float:right">
+	            <input data-theme="a" class="process" name="ignoreInvite" value="${ignoreLbl}" type="submit" />
+	        </div>  
+    	</s:form>   
     </div>
-    </s:form>   
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>
 wpFooterFile = "friendInviteAccept"

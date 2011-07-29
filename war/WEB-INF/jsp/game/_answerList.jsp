@@ -5,7 +5,6 @@
 <fmt:message var="myAnswersLbl" key="answerList.myAnswers" />
 
 <div data-role="header"  data-nobackbtn="true" data-theme="b">
-<form id="answerListForm" action="/game/AnswerList.wp" method="post">
     <div>
         <!-- Back Button -->
         <span style="float:left;margin-left:10px">
@@ -14,7 +13,9 @@
 	               <span class="ui-btn-text">${backLbl}</span>
     	           <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
 	            </span>
-                <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
+				<form id="answerListForm1" action="/game/AnswerList.wp" method="post">
+                	<input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
+				</form>
             </span> 
         </span>
         
@@ -25,11 +26,12 @@
                     <span class="ui-btn-text">${addAnswerLbl}</span>
                     <span class="ui-icon ui-icon-plus ui-icon-shadow"></span>                    
                 </span>
-                <input name="addAnswer" value="${addAnswerLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" type="submit">
+				<form id="answerListForm2" action="/game/AnswerList.wp" method="post">
+                	<input name="addAnswer" value="${addAnswerLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" type="submit">
+				</form>
             </span> 
         </span>
     </div>
-</form>
 </div>
 <div style="clear:both"></div>
 
