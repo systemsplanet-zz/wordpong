@@ -49,12 +49,12 @@ public class CronServlet extends HttpServlet {
         
         // Remove expired password change requests
         try {
-            SvcUserFactory.getUserService().purgeExpiredPasswordChangeRequests();
+            SvcUserFactory.getSvcUser().purgeExpiredPasswordChangeRequests();
         } catch (WPServiceException e) {
             e.printStackTrace();
         }
 
         // move any invites to the users myTurn list as requests
-        SvcGameFactory.getGameService().updateFriendInvites();
+        SvcGameFactory.getSvcGame().updateFriendInvites();
     }
 }

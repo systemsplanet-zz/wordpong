@@ -84,14 +84,14 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
             user.setPassword(password);
             RememberMe.saveEmailToCookie(c.getRequest(), c.getResponse(), email);
             RememberMe.savePasswordToCookie(c.getRequest(), c.getResponse(), user.getPassword());
-            SvcUser svcUser = SvcUserFactory.getUserService();
+            SvcUser svcUser = SvcUserFactory.getSvcUser();
             try { 
                 //Create user in a transaction
                 user = svcUser.createUser(user);
                 String msg = getMsg("register.email.message", new Object[] { user.getFirstName(), user.getEmail() });
                 String sub = getMsg("register.email.subject", new Object[] { user.getFirstName() });
                 MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, user.getFullName()));
-                SvcGame sg = SvcGameFactory.getGameService();
+                SvcGame sg = SvcGameFactory.getSvcGame();
                 sg.updateFriendInvites(user);
                 resolution = new ForwardResolution(FriendInviteActionBean.class);
                 c.putUserToRequestAndSession(user);
@@ -107,7 +107,7 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
 
     @ValidationMethod
     public void validateUser(ValidationErrors errors) {
-        SvcUser svcUser = SvcUserFactory.getUserService();
+        SvcUser svcUser = SvcUserFactory.getSvcUser();
         try {
             user = svcUser.findByEmail(email);
             log.info("find email:" + email + " returned:" + user);

@@ -29,7 +29,7 @@ public class AdminActionBean extends BaseActionBean {
     private SvcCommon _svcCommon;
 
     public AdminActionBean() {
-        _svcCommon = SvcCommonFactory.getCommonService();
+        _svcCommon = SvcCommonFactory.getSvcCommon();
     }
 
     // Make sure user is authenticated
@@ -49,7 +49,7 @@ public class AdminActionBean extends BaseActionBean {
     @HandlesEvent("seedQuestions")
     public Resolution seedQuestions() {
         User u = getContext().getUserFromSession();
-        SvcGame sg = SvcGameFactory.getGameService();
+        SvcGame sg = SvcGameFactory.getSvcGame();
         try {
             sg.seedQuestions(u);
             setMessage("Questions added");
@@ -95,20 +95,20 @@ public class AdminActionBean extends BaseActionBean {
     }
 
     public String getLogoutUrl() {
-        SvcCommon svcCommon = SvcCommonFactory.getCommonService();
+        SvcCommon svcCommon = SvcCommonFactory.getSvcCommon();
         // String baseUrl = getContext().getRequest().getRequestURI();
         String result = svcCommon.getLogoutUrl("/");
         return result;
     }
 
     public String getIsLoggedIn() {
-        SvcCommon svcCommon = SvcCommonFactory.getCommonService();
+        SvcCommon svcCommon = SvcCommonFactory.getSvcCommon();
         String result = new Boolean(svcCommon.isLoggedIn()).toString();
         return result;
     }
 
     public String getIsUserAdmin() {
-        SvcCommon svcCommon = SvcCommonFactory.getCommonService();
+        SvcCommon svcCommon = SvcCommonFactory.getSvcCommon();
         String result = new Boolean(svcCommon.isUserAdmin()).toString();
         return result;
     }

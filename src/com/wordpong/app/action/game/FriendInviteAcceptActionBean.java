@@ -41,7 +41,7 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements
 		if (inviteFriendKeyStringEncrypted != null) {
 			inviteFriendKeyString = CryptoUtil
 					.decrypt(inviteFriendKeyStringEncrypted);
-			SvcGame sg = SvcGameFactory.getGameService();
+			SvcGame sg = SvcGameFactory.getSvcGame();
 			try {
 				inviteFriend = sg.getInviteFriend(inviteFriendKeyString);
 			} catch (WPServiceException e) {
@@ -65,7 +65,7 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements
 		Resolution result = new ForwardResolution(VIEW);
 		try {
 			// hide friendinvite from invitee
-			SvcGame sg = SvcGameFactory.getGameService();
+			SvcGame sg = SvcGameFactory.getSvcGame();
 			sg.ignoreFriendInvitation(inviteFriendKeyString);
 			addGlobalActionMessage("friendInviteAccept.inviteIgnored");
 			result = new ForwardResolution(GameActionBean.class);
@@ -83,9 +83,9 @@ public class FriendInviteAcceptActionBean extends BaseActionBean implements
 			try {
 				User user = c.getUserFromSession();
 				if (user != null) {
-					SvcGame sg = SvcGameFactory.getGameService();
+					SvcGame sg = SvcGameFactory.getSvcGame();
 					sg.makeFriends(inviteFriendKeyString); // inviteFriendKey
-					SvcUser su = SvcUserFactory.getUserService();
+					SvcUser su = SvcUserFactory.getSvcUser();
 					// get user with new friend attached
 					user = su.getByKey(user);
 					c.putUserToRequestAndSession(user);

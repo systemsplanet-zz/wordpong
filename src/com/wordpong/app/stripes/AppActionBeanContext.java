@@ -23,7 +23,7 @@ public class AppActionBeanContext extends ActionBeanContext {
 
     public AppActionBeanContext() {
         // log.info("AppActionBeanContext created.");
-        _svcCommon = SvcCommonFactory.getCommonService();
+        _svcCommon = SvcCommonFactory.getSvcCommon();
     }
 
     public void putUserToRequestAndSession(User user) {

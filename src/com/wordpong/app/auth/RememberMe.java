@@ -64,7 +64,7 @@ public class RememberMe {
 		String email = getEmailFromCookie(request, response);
 		if (email != null) {
 			try {
-				result = SvcUserFactory.getUserService().findByEmail(email);
+				result = SvcUserFactory.getSvcUser().findByEmail(email);
 			} catch (WPServiceException e) {
 			}
 		}

@@ -43,7 +43,7 @@ public class AnswerEditActionBean extends BaseActionBean implements
 	private int questionsSize = 0;
 
 	public AnswerEditActionBean() {
-		_svcGame = SvcGameFactory.getGameService();
+		_svcGame = SvcGameFactory.getSvcGame();
 	}
 
 	@After(stages = LifecycleStage.BindingAndValidation)

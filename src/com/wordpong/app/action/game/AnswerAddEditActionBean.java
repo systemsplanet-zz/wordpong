@@ -43,7 +43,7 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 	private List<String> answers = new ArrayList<String>();
 
 	public AnswerAddEditActionBean() {
-		_svcGame = SvcGameFactory.getGameService();
+		_svcGame = SvcGameFactory.getSvcGame();
 	}
 
 	@After(stages = LifecycleStage.BindingAndValidation)

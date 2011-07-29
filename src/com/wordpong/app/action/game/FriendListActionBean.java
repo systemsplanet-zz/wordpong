@@ -30,7 +30,7 @@ public class FriendListActionBean extends BaseActionBean implements
 	private User user;
 
 	public FriendListActionBean() {
-		_svcGame = SvcGameFactory.getGameService();
+		_svcGame = SvcGameFactory.getSvcGame();
 	}
 
 	@DontValidate

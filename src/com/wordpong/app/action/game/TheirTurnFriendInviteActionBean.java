@@ -41,7 +41,7 @@ public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
 		if (inviteFriendKeyStringEncrypted != null) {
 			inviteFriendKeyString = CryptoUtil
 					.decrypt(inviteFriendKeyStringEncrypted);
-			SvcGame sg = SvcGameFactory.getGameService();
+			SvcGame sg = SvcGameFactory.getSvcGame();
 			try {
 				inviteFriend = sg.getInviteFriend(inviteFriendKeyString);
 			} catch (WPServiceException e) {
@@ -67,7 +67,7 @@ public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
 		if (c != null) {
 			try {
 				DaoInviteFriend dif = DaoInviteFriendFactory
-						.getFriendInviteDao();
+						.getDaoInviteFriend();
 				dif.withdrawInvitation(inviteFriendKeyString);
 				addGlobalActionMessage("theirTurnFriendInvite.cancelledInvite");
 				result = new ForwardResolution(GameActionBean.class);

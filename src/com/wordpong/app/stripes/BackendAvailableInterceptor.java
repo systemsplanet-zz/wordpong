@@ -34,7 +34,7 @@ public class BackendAvailableInterceptor implements Interceptor {
         AppActionBeanContext actionBeanContext = (AppActionBeanContext) ctx.getActionBeanContext();
         boolean isDuplicate = actionBeanContext.getResponse().containsHeader(ServletUtil.REPLY_HEADER_OK_KEY);
         if (isDuplicate == false) {
-            boolean isDatastoreUp = SvcCommonFactory.getCommonService().isDatastoreUp();
+            boolean isDatastoreUp = SvcCommonFactory.getSvcCommon().isDatastoreUp();
             //System.out.println("Backend Intercept up:" + isDatastoreUp);
             if (isDatastoreUp == false) {
                 actionBeanContext.getResponse().setHeader(ServletUtil.REPLY_HEADER_ERR_KEY,

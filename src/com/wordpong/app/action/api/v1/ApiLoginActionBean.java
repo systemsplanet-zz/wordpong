@@ -36,7 +36,7 @@ public class ApiLoginActionBean extends BaseActionBean {
             result.add(ApiResult.ERR500_INVALID_ARGUMENT);
         } else {
             try {
-                SvcUser _svcUser = SvcUserFactory.getUserService();
+                SvcUser _svcUser = SvcUserFactory.getSvcUser();
                 User user = _svcUser.findByEmail(email);
                 password = Encrypt.hashSha1(password);
                 if (!user.getPassword().equals(password)) {

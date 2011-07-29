@@ -45,18 +45,28 @@
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${myTurnLbl} (${myBean.user.fullName})</li>              
 	</ul>
-    <small>
     <c:forEach items="${actionBean.myTurnInviteFriends}" var="inviteFriend" >
     	<input name="processFriendInvite" value="${newFriendLbl}: ${inviteFriend.inviterDetails}" 
     	   onClick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
     </c:forEach>
     
-    <c:forEach items="${actionBean.myTurnGames}" var="game" >
-    	<input name="playGame" value="${gameLbl}: ${game.inviterDetails} ${game.questionDescription}" 
-    	   onClick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');" data-theme="a" class="process"  type="submit" />
-    </c:forEach>
-    <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
-    </small>         
+	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+	    <c:forEach items="${actionBean.myTurnGames}" var="game" >
+			<li data-role="list-divider"   style="white-space:normal;" >
+				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#hiddenBtn').click();" href="#">
+					<img src="https://wordpong.appspot.com/i/p/u.png"  >
+					<p><b>${gameLbl}</b></p>
+					<p style="white-space:normal;">${game.questionDescription}</p> 
+					<p>${game.inviterDetails}</p>
+		       	</a>
+        	</li>	        	    
+	    </c:forEach>
+    </ul>            
+    <div style='visibility:hidden; height:0; padding:0 margin:0'>
+		<input id="hiddenBtn" name="playGame" value="SUBMIT" type="submit" class="process"/>
+        <input id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" type="hidden" value=""/>    
+	</div>
+    
 	
 	<%-- THEIR TURN --%>	
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
@@ -74,6 +84,9 @@
     </small>
    	<s:hidden id="inviteFriendKeyStringEncrypted" name="inviteFriendKeyStringEncrypted" value="?inviteFriendKeyStringEncrypted?"/>    
 	<s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="?gameKeyStringEncrypted?"/>    
+
+
+
      
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
 		<li data-role="list-divider">${myStuffLbl}</li> 
@@ -83,6 +96,8 @@
         <input name="answerList"  data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${answersLbl}" type="submit" />
         <input name="friendList"  data-theme="a" data-iconpos="right" data-icon='arrow-r' class="process" value="${friendsLbl}" type="submit" />
 		<input name="profileEdit"  data-theme="a" data-iconpos="right" data-icon="gear" class="process" value="${profileLbl}" type="submit" />
+
+
 </s:form>
 <br/>
 <s:form  beanclass="com.wordpong.app.action.LoginActionBean" method="post">

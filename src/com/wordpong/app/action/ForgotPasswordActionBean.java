@@ -32,7 +32,7 @@ public class ForgotPasswordActionBean extends BaseActionBean implements Validati
     private String email;
 
     public ForgotPasswordActionBean() {
-        svcUser = SvcUserFactory.getUserService();
+        svcUser = SvcUserFactory.getSvcUser();
     }
 
     @DontValidate

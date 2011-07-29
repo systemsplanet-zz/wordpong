@@ -33,7 +33,7 @@ public class AnswerAddActionBean extends BaseActionBean implements
 	private User user;
 
 	public AnswerAddActionBean() {
-		_svcGame = SvcGameFactory.getGameService();
+		_svcGame = SvcGameFactory.getSvcGame();
 	}
 
 	@DontValidate

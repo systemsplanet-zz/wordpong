@@ -35,7 +35,7 @@ public class QuestionListActionBean extends BaseActionBean implements
 	private String questionDescription;
 
 	public QuestionListActionBean() {
-		_svcGame = SvcGameFactory.getGameService();
+		_svcGame = SvcGameFactory.getSvcGame();
 	}
 
 	@DontValidate

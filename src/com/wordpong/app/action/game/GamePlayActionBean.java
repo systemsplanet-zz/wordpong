@@ -41,7 +41,7 @@ public class GamePlayActionBean extends BaseActionBean implements
 	public void doPostValidationStuff() {
 		if (gameKeyStringEncrypted != null) {
 			gameKeyString = CryptoUtil.decrypt(gameKeyStringEncrypted);
-			SvcGame sg = SvcGameFactory.getGameService();
+			SvcGame sg = SvcGameFactory.getSvcGame();
 			try {
 				game = sg.getGame(gameKeyString);
 				String answerKeyString = game.getAnswersKeyString();
@@ -63,7 +63,7 @@ public class GamePlayActionBean extends BaseActionBean implements
 	@HandlesEvent("success")
 	public Resolution success() {
 		// Mark Game as played
-		SvcGame sg = SvcGameFactory.getGameService();
+		SvcGame sg = SvcGameFactory.getSvcGame();
 		try {
 			sg.finishGame(gameKeyString);
 		} catch (WPServiceException e) {

@@ -1,7 +1,7 @@
 package com.wordpong.api.svc.dao;
 
 public class DaoGameFactory {
-	public static DaoGame getGameDao() {
+	public static DaoGame getDaoGame() {
 		return new DaoGameImpl();
 	}
 }

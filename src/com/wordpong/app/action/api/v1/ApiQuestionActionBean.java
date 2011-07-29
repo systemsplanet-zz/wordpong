@@ -56,7 +56,7 @@ public class ApiQuestionActionBean extends BaseActionBean {
                 Question q = new Question(qc);
                 q.setUser(user.getKey());
                 // Persist the questions
-                SvcGame svcGame = SvcGameFactory.getGameService();
+                SvcGame svcGame = SvcGameFactory.getSvcGame();
                 //TODO: make sure question title is unique
                 svcGame.createQuestion(q);
                 result.add(ApiResult.ERR000_SUCCESS);

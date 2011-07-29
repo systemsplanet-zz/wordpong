@@ -40,7 +40,7 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
     private String answerKeyStringEncrypted;
 
     public NewGameActionBean() {
-        _svcGame = SvcGameFactory.getGameService();
+        _svcGame = SvcGameFactory.getSvcGame();
     }
 
     @After(stages = LifecycleStage.BindingAndValidation)
@@ -121,7 +121,7 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
 
     @HandlesEvent("startGame")
     public Resolution startGame() {
-        SvcGame sg = SvcGameFactory.getGameService();
+        SvcGame sg = SvcGameFactory.getSvcGame();
         try {
             String inviterDetails = user.getDetails();
             Game g = new Game();

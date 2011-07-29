@@ -130,7 +130,7 @@ public class QuestionAddEditActionBean extends BaseActionBean implements Validat
             a.setUser(u);
             a.setLocaleString(u.getLocaleString());
             try {
-                SvcGame _svcGame = SvcGameFactory.getGameService();
+                SvcGame _svcGame = SvcGameFactory.getSvcGame();
                 // call svc_game to persist questions
                 _svcGame.createQuestion(a);
                 addGlobalActionMessage("questionAddEdit.questionsUpdated");

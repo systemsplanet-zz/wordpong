@@ -66,7 +66,7 @@ public class FriendInviteActionBean extends BaseActionBean implements
 							new Object[] { user.getFullName() });
 					List<String> emails = new ArrayList<String>();
 					emails.add(email);
-					SvcGame sg = SvcGameFactory.getGameService();
+					SvcGame sg = SvcGameFactory.getSvcGame();
 					sg.inviteFriends(user, emails);
 					MailUtil.sendAdminMail(new EmailMessage(sub, msg, email,
 							user.getFullName()));

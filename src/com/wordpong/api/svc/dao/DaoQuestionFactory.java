@@ -1,7 +1,7 @@
 package com.wordpong.api.svc.dao;
 
 public class DaoQuestionFactory {
-	public static DaoQuestion getQuestionDao() {
+	public static DaoQuestion getDaoQuestion() {
 		return new DaoQuestionImpl();
 	}
 }

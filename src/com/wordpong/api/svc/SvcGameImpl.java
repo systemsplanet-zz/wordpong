@@ -40,7 +40,7 @@ public class SvcGameImpl implements SvcGame {
 
     public List<InviteFriend> getMyTurnInviteFriends(User user) throws WPServiceException {
         List<InviteFriend> result = new ArrayList<InviteFriend>();
-        DaoInviteFriend dif = DaoInviteFriendFactory.getFriendInviteDao();
+        DaoInviteFriend dif = DaoInviteFriendFactory.getDaoInviteFriend();
         try {
             List<InviteFriend> invites = dif.getFriendInvitesByInviteeKey(user);
             for (InviteFriend invite : invites) {
@@ -57,7 +57,7 @@ public class SvcGameImpl implements SvcGame {
 
     public List<Game> getMyTurnGames(User user) {
         List<Game> result = new ArrayList<Game>();
-        DaoGame dig = DaoGameFactory.getGameDao();
+        DaoGame dig = DaoGameFactory.getDaoGame();
         try {
             List<Game> allGames = dig.getGamesByInviteeKey(user);
             // add games that are not completed
@@ -76,7 +76,7 @@ public class SvcGameImpl implements SvcGame {
 
     public List<InviteFriend> getTheirTurnsInviteFriend(User user) {
         List<InviteFriend> result = new ArrayList<InviteFriend>();
-        DaoInviteFriend dfr = DaoInviteFriendFactory.getFriendInviteDao();
+        DaoInviteFriend dfr = DaoInviteFriendFactory.getDaoInviteFriend();
         try {
             result = dfr.getFriendInvitesByInviterKey(user);
         } catch (DaoException e) {
@@ -93,7 +93,7 @@ public class SvcGameImpl implements SvcGame {
     // }
 
     public void inviteFriends(User user, List<String> emails) throws WPServiceException {
-        DaoInviteFriend f = DaoInviteFriendFactory.getFriendInviteDao();
+        DaoInviteFriend f = DaoInviteFriendFactory.getDaoInviteFriend();
         try {
             f.inviteFriends(user, emails);
         } catch (DaoException e) {
@@ -104,7 +104,7 @@ public class SvcGameImpl implements SvcGame {
     @Override
     public List<InviteFriend> getFriendInvitesByInviterKey(User user) throws WPServiceException {
         List<InviteFriend> result = new ArrayList<InviteFriend>();
-        DaoInviteFriend f = DaoInviteFriendFactory.getFriendInviteDao();
+        DaoInviteFriend f = DaoInviteFriendFactory.getDaoInviteFriend();
         try {
             result = f.getFriendInvitesByInviterKey(user);
         } catch (DaoException e) {
@@ -115,7 +115,7 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     public InviteFriend getInviteFriend(String inviteFriendKeyStr) throws WPServiceException {
-        DaoInviteFriend f = DaoInviteFriendFactory.getFriendInviteDao();
+        DaoInviteFriend f = DaoInviteFriendFactory.getDaoInviteFriend();
         InviteFriend result;
         try {
             result = f.getFriendInvite(inviteFriendKeyStr);
@@ -126,7 +126,7 @@ public class SvcGameImpl implements SvcGame {
     }
 
     public Game getGame(String gameKeyStr) throws WPServiceException {
-        DaoGame f = DaoGameFactory.getGameDao();
+        DaoGame f = DaoGameFactory.getDaoGame();
         Game result;
         try {
             result = f.getGame(gameKeyStr);
@@ -137,8 +137,8 @@ public class SvcGameImpl implements SvcGame {
     }
 
     public void cancelGameInvite(final Game g, final User u) throws WPServiceException {
-        final DaoGame dg = DaoGameFactory.getGameDao();
-        final DaoUser du = DaoUserFactory.getUserDao();
+        final DaoGame dg = DaoGameFactory.getDaoGame();
+        final DaoUser du = DaoUserFactory.getDaoUser();
         final String msg = "cancelGameInvite Game:" + g + " User:" + u;
         Predicate<Atomic> WORK = new Predicate<Atomic>() {
             public boolean apply(Atomic at) {
@@ -166,7 +166,7 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     public void cancelFriendInvitation(User user, String email) throws WPServiceException {
-        DaoInviteFriend f = DaoInviteFriendFactory.getFriendInviteDao();
+        DaoInviteFriend f = DaoInviteFriendFactory.getDaoInviteFriend();
         try {
             f.cancelInvitation(user, email);
         } catch (DaoException e) {
@@ -177,7 +177,7 @@ public class SvcGameImpl implements SvcGame {
     @Override
     public List<Question> getMyQuestions(User user) throws WPServiceException {
         List<Question> result;
-        DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+        DaoQuestion dq = DaoQuestionFactory.getDaoQuestion();
         try {
             result = dq.getQuestions(user);
         } catch (DaoException e) {
@@ -189,7 +189,7 @@ public class SvcGameImpl implements SvcGame {
     @Override
     public Question createQuestion(Question q) throws WPServiceException {
         Question result = null;
-        DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+        DaoQuestion dq = DaoQuestionFactory.getDaoQuestion();
         try {
             result = dq.createQuestion(q);
         } catch (DaoException e) {
@@ -200,7 +200,7 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     public void updateQuestion(Question q) throws WPServiceException {
-        DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+        DaoQuestion dq = DaoQuestionFactory.getDaoQuestion();
         try {
             dq.updateQuestion(q);
         } catch (DaoException e) {
@@ -223,7 +223,7 @@ public class SvcGameImpl implements SvcGame {
                     boolean result = false;
                     try {
                         // get FriendInvites for this user from db
-                        DaoInviteFriend dfi = DaoInviteFriendFactory.getFriendInviteDao();
+                        DaoInviteFriend dfi = DaoInviteFriendFactory.getDaoInviteFriend();
                         List<InviteFriend> invites = dfi.getFriendInvitesByEmail(fUser);
                         final String msg = "updateFriendInvites: user:" + fUser + " invites:" + invites;
                         log.info(msg);
@@ -254,12 +254,12 @@ public class SvcGameImpl implements SvcGame {
 
     // cron calls this to move any missed invites to the users myTurn list
     public void updateFriendInvites() {
-        DaoInviteFriend dfi = DaoInviteFriendFactory.getFriendInviteDao();
+        DaoInviteFriend dfi = DaoInviteFriendFactory.getDaoInviteFriend();
         try {
             List<InviteFriend> invites = dfi.getAllFriendInvites();
             Map<String, Boolean> processed = new HashMap<String, Boolean>();
             if (invites != null) {
-                DaoUser du = DaoUserFactory.getUserDao();
+                DaoUser du = DaoUserFactory.getDaoUser();
                 for (InviteFriend fi : invites) {
                     try {
                         String email = fi.getInviteeDetails();
@@ -280,7 +280,7 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     public void ignoreFriendInvitation(String friendInvitekeyStr) throws WPServiceException {
-        DaoInviteFriend dfi = DaoInviteFriendFactory.getFriendInviteDao();
+        DaoInviteFriend dfi = DaoInviteFriendFactory.getDaoInviteFriend();
         try {
             dfi.ignoreInvitation(friendInvitekeyStr);
         } catch (DaoException e) {
@@ -291,8 +291,8 @@ public class SvcGameImpl implements SvcGame {
     // Add each user to each others friend list
     // Create a new game for each user
     public void makeFriends(final String inviteFriendKeyStr) throws WPServiceException {
-        final DaoInviteFriend dfi = DaoInviteFriendFactory.getFriendInviteDao();
-        final DaoUser du = DaoUserFactory.getUserDao();
+        final DaoInviteFriend dfi = DaoInviteFriendFactory.getDaoInviteFriend();
+        final DaoUser du = DaoUserFactory.getDaoUser();
         InviteFriend fi = null;
         User inviteeUser = null;
         User inviterUser = null;
@@ -335,7 +335,7 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     public List<User> getMyFriends(User u) {
-        DaoUser du = DaoUserFactory.getUserDao();
+        DaoUser du = DaoUserFactory.getDaoUser();
         List<User> friends = new ArrayList<User>();
         try {
             friends = du.getFriends(u);
@@ -350,9 +350,9 @@ public class SvcGameImpl implements SvcGame {
     // Query strategy starts with answers to derive friends list
     @Override
     public List<User> getMyFriendsGames(User u) {
-        DaoUser du = DaoUserFactory.getUserDao();
-        DaoGame dg = DaoGameFactory.getGameDao();
-        DaoAnswer da = DaoAnswerFactory.getAnswerDao();
+        DaoUser du = DaoUserFactory.getDaoUser();
+        DaoGame dg = DaoGameFactory.getDaoGame();
+        DaoAnswer da = DaoAnswerFactory.getDaoAnswer();
         List<User> result = new ArrayList<User>();
         try {
             // get all the answers for a user
@@ -403,7 +403,7 @@ public class SvcGameImpl implements SvcGame {
     }
 
     public void seedQuestions(User user) throws WPServiceException {
-        DaoTagQuestion f = DaoTagQuestionFactory.getTagQuestionDao();
+        DaoTagQuestion f = DaoTagQuestionFactory.getDaoTagQuestion();
         try {
             f.seedQuestions(user);
         } catch (DaoException e) {
@@ -414,7 +414,7 @@ public class SvcGameImpl implements SvcGame {
     @Override
     public Answer saveAnswer(Answer a) throws WPServiceException {
         Answer result = null;
-        DaoAnswer f = DaoAnswerFactory.getAnswerDao();
+        DaoAnswer f = DaoAnswerFactory.getDaoAnswer();
         try {
             result = f.save(a);
         } catch (DaoException e) {
@@ -426,7 +426,7 @@ public class SvcGameImpl implements SvcGame {
     @Override
     public List<Answer> getAnswers(User u) throws WPServiceException {
         List<Answer> result = null;
-        DaoAnswer da = DaoAnswerFactory.getAnswerDao();
+        DaoAnswer da = DaoAnswerFactory.getDaoAnswer();
         try {
             result = da.getAnswers(u);
         } catch (DaoException e) {
@@ -437,7 +437,7 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     public Answer getAnswer(String answerKeyStr) throws WPServiceException {
-        DaoAnswer da = DaoAnswerFactory.getAnswerDao();
+        DaoAnswer da = DaoAnswerFactory.getDaoAnswer();
         Answer result;
         try {
             result = da.getAnswer(answerKeyStr);
@@ -449,7 +449,7 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     public Question getQuestion(String questionKeyStr) throws WPServiceException {
-        DaoQuestion qa = DaoQuestionFactory.getQuestionDao();
+        DaoQuestion qa = DaoQuestionFactory.getDaoQuestion();
         Question result;
         try {
             result = qa.getQuestion(questionKeyStr);
@@ -460,8 +460,8 @@ public class SvcGameImpl implements SvcGame {
     }
 
     public void createGame(final Game g, final User u) throws WPServiceException {
-        final DaoGame dg = DaoGameFactory.getGameDao();
-        final DaoUser du = DaoUserFactory.getUserDao();
+        final DaoGame dg = DaoGameFactory.getDaoGame();
+        final DaoUser du = DaoUserFactory.getDaoUser();
         final String msg = "createGame Game:" + g + " User:" + u;
         Predicate<Atomic> WORK = new Predicate<Atomic>() {
             public boolean apply(Atomic at) {
@@ -493,8 +493,8 @@ public class SvcGameImpl implements SvcGame {
 
     @Override
     public void finishGame(final String gameKeyString) throws WPServiceException {
-        final DaoGame dg = DaoGameFactory.getGameDao();
-        final DaoUser du = DaoUserFactory.getUserDao();
+        final DaoGame dg = DaoGameFactory.getDaoGame();
+        final DaoUser du = DaoUserFactory.getDaoUser();
         final String msg = "finishGame key:" + gameKeyString;
         Predicate<Atomic> WORK = new Predicate<Atomic>() {
             public boolean apply(Atomic at) {
@@ -527,7 +527,7 @@ public class SvcGameImpl implements SvcGame {
     @Override
     public List<Question> getUnansweredQuestions(User user) throws WPServiceException {
         List<Question> result = new ArrayList<Question>();
-        DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+        DaoQuestion dq = DaoQuestionFactory.getDaoQuestion();
         try {
             Map<String, Boolean> m = new HashMap<String, Boolean>();
             // get the list of answers for this user in a map
@@ -560,7 +560,7 @@ public class SvcGameImpl implements SvcGame {
     // Refresh user from database
     @Override
     public User getUser(User u) throws WPServiceException {
-        DaoUser du = DaoUserFactory.getUserDao();
+        DaoUser du = DaoUserFactory.getDaoUser();
         User result;
         try {
             result = du.getUser(u);
@@ -573,7 +573,7 @@ public class SvcGameImpl implements SvcGame {
     @Override
     public List<Game> getTheirTurnsGame(User user) throws WPServiceException {
         List<Game> result = new ArrayList<Game>();
-        DaoGame dg = DaoGameFactory.getGameDao();
+        DaoGame dg = DaoGameFactory.getDaoGame();
         try {
             result = dg.getTheirTurnGames(user);
         } catch (DaoException e) {

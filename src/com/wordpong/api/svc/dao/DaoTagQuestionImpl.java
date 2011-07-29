@@ -328,7 +328,7 @@ public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQu
     @Override
     public List<Question> getQuestions(Set<String> tags) throws DaoException {
         final TagQuestionMeta e = TagQuestionMeta.get();
-        final DaoQuestion dq = DaoQuestionFactory.getQuestionDao();
+        final DaoQuestion dq = DaoQuestionFactory.getDaoQuestion();
         List<Question> result = new ArrayList<Question>();
         if (tags != null && tags.size() > 0) {
             for (String tag : tags) {

@@ -68,7 +68,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
     private List<LocaleDisplay> supportedLocales;
 
     public ProfileEditActionBean() {
-        svcUser = SvcUserFactory.getUserService();
+        svcUser = SvcUserFactory.getSvcUser();
     }
 
     @DontValidate
@@ -160,7 +160,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
             if (email != null && user != null && !email.equalsIgnoreCase(user.getEmail())) {
                 try {
                     // make sure new email is unique
-                    SvcUserFactory.getUserService().findByEmail(email);
+                    SvcUserFactory.getSvcUser().findByEmail(email);
                     addGlobalActionError("register.duplicateUser");
                 } catch (WPServiceException e) {
                     // if not found, then not problem

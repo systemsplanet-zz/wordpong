@@ -38,7 +38,7 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
     private int questionsSize = 0;
 
     public QuestionEditActionBean() {
-        _svcGame = SvcGameFactory.getGameService();
+        _svcGame = SvcGameFactory.getSvcGame();
     }
 
     @After(stages = LifecycleStage.BindingAndValidation)

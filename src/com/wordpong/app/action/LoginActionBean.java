@@ -45,7 +45,7 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
     private SvcUser svcUser;
 
     public LoginActionBean() {
-        svcUser = SvcUserFactory.getUserService();
+        svcUser = SvcUserFactory.getSvcUser();
     }
 
     @DontValidate

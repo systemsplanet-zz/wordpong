@@ -30,7 +30,7 @@ public class GameActionBean extends BaseActionBean {
     private User user;
 
     public GameActionBean() {
-        _svcGame = SvcGameFactory.getGameService();
+        _svcGame = SvcGameFactory.getSvcGame();
     }
 
     // Make sure user is authenticated

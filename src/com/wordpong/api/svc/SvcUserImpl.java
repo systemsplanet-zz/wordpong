@@ -8,7 +8,7 @@ import com.wordpong.api.svc.dao.DaoUserFactory;
 import com.wordpong.api.svc.dao.err.DaoException;
 
 public class SvcUserImpl implements SvcUser {
-    private DaoUser daoUser = DaoUserFactory.getUserDao();
+    private DaoUser daoUser = DaoUserFactory.getDaoUser();
 
     
     // Create a unique user

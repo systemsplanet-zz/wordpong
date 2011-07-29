@@ -38,7 +38,7 @@ public class TheirTurnGameCancelActionBean extends BaseActionBean implements Val
             if (game == null && gameKeyString != null) {
                 // todo read gameKeyString question
                 try {
-                    SvcGame _svcGame = SvcGameFactory.getGameService();
+                    SvcGame _svcGame = SvcGameFactory.getSvcGame();
                     game = _svcGame.getGame(gameKeyString);
                 } catch (WPServiceException e) {
                     log.warning("doPostValidationStuff error:" + e.getMessage());
@@ -64,7 +64,7 @@ public class TheirTurnGameCancelActionBean extends BaseActionBean implements Val
         log.info("cancel game invitation:" + game);
         if (game != null) {
             try {
-                SvcGame sg = SvcGameFactory.getGameService();
+                SvcGame sg = SvcGameFactory.getSvcGame();
                 AppActionBeanContext c = getContext();
                 User user = c.getUserFromSession();
                 sg.cancelGameInvite(game, user);
