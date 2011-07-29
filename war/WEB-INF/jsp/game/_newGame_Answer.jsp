@@ -50,7 +50,8 @@
         <s:hidden id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" value="?answerKeyStringEncrypted?"/>
         <s:hidden id="questionDescription" name="questionDescription" value="?questionDescription?"/>
         <s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="${actionBean.friendKeyStringEncrypted}" />	
-        <s:hidden id="friendDetails" name="friendDetails" value="${actionBean.friendDetails}" />	
+        <s:hidden id="friendDetails" name="friendDetails" value="${actionBean.friendDetails}" />
+        <s:hidden name="friendPictureUrl" id="friendPictureUrl" value="${actionBean.friendPictureUrl}" />	
 	</s:form>	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>

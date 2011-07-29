@@ -36,6 +36,7 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
     private List<Answer> answers = new ArrayList<Answer>();
     private String friendKeyStringEncrypted = null;
     private String friendDetails = null;
+    private String friendPictureUrl=null;
     private String questionDescription;
     private String answerKeyStringEncrypted;
 
@@ -124,12 +125,15 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
         SvcGame sg = SvcGameFactory.getSvcGame();
         try {
             String inviterDetails = user.getDetails();
+            String inviterPictureUrl= user.getPictureUrl();
             Game g = new Game();
             g.setInviterDetails(inviterDetails);
+            g.setInviterPictureUrl(inviterPictureUrl);
             g.setQuestionDescription(questionDescription);
             g.setAnswersKeyEncryptedString(answerKeyStringEncrypted);
             g.setInviteeKeyEncryptedString(friendKeyStringEncrypted);
             g.setInviteeDetails(friendDetails);
+            g.setInviteePictureUrl(friendPictureUrl);
             g.setInviterUserKeyString(user.getKeyString());
             sg.createGame(g, user);
             addGlobalActionMessage("newGame.gameSent");
@@ -171,6 +175,14 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
 
     public void setFriendDetails(String friendDetails) {
         this.friendDetails = friendDetails;
+    }
+
+    public String getFriendPictureUrl() {
+        return friendPictureUrl;
+    }
+
+    public void setFriendPictureUrl(String friendPictureUrl) {
+        this.friendPictureUrl = friendPictureUrl;
     }
 
     public String getQuestionDescription() {

@@ -32,6 +32,7 @@ public class DaoInviteFriendImpl extends DaoBase<InviteFriend> implements
 				fi.setInviteeDetails(email);
 				fi.setInviterKey(user.getKey());
 				fi.setInviterDetails(user.getDetails());
+				fi.setInviterPictureUrl(user.getPictureUrl());
 				Key key = put(fi);
 				log.info("invite email:" + email + " for user:" + user
 						+ " key:" + key);

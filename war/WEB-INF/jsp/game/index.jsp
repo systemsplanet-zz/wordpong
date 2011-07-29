@@ -63,8 +63,7 @@
 	    <c:forEach items="${actionBean.myTurnGames}" var="game" >
 			<li data-role="list-divider"   style="white-space:normal;" >
 				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#playGameBtn').click();" href="#">
-<!-- TODO: get user's image -->
-					<img src="https://wordpong.appspot.com/i/p/u.png"  >
+					<img src="${game.inviterPictureUrl}"  >
 					<%--<p><b>${gameLbl}</b></p> --%>
 					<p style="white-space:normal;">${game.questionDescription}</p> 
 					<p>${game.inviterDetails}</p>
@@ -101,7 +100,8 @@
 	    <c:forEach items="${actionBean.theirTurnsGame}" var="game" >
 			<li data-role="list-divider"   style="white-space:normal;" >
 				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#theirTurnGameCancelBtn').click();" href="#">
-					<img src="https://wordpong.appspot.com/i/p/u.png"  >
+					<img src="${game.inviteePictureUrl}"  >
+<!-- TODO: get user's image -->
 					<%--<p><b>${gameLbl}</b></p> --%>
 					<p style="white-space:normal;">${game.questionDescription}</p> 
 					<p>${game.inviteeDetails}</p>

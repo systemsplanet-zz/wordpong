@@ -30,19 +30,25 @@ public class Game implements Serializable {
     @Attribute(unindexed = true)
     private String questionDescription; // copied from question.description
 
+    // User who answered questions (copied from Answers)
+    private Key inviterUserKey;
+
     // "FN LN (Email)"
     @Attribute(unindexed = true)
     private String inviterDetails;
 
+    @Attribute(unindexed = true)
+    private String inviterPictureUrl;
+
     // User playing this game, ie matching questionsKey to answersKey
     private Key inviteeUserKey;
-
-    // User who answered questions (copied from Answers)
-    private Key inviterUserKey;
 
     // "FN LN (Email)" of user playing this game
     @Attribute(unindexed = true)
     private String inviteeDetails;
+
+    @Attribute(unindexed = true)
+    private String inviteePictureUrl;
 
     private boolean isCompleted = false;
 
@@ -189,6 +195,22 @@ public class Game implements Serializable {
 
     public void setInviteeDetails(String inviteeDetails) {
         this.inviteeDetails = inviteeDetails;
+    }
+
+    public String getInviterPictureUrl() {
+        return inviterPictureUrl;
+    }
+
+    public void setInviterPictureUrl(String inviterPictureUrl) {
+        this.inviterPictureUrl = inviterPictureUrl;
+    }
+
+    public String getInviteePictureUrl() {
+        return inviteePictureUrl;
+    }
+
+    public void setInviteePictureUrl(String inviteePictureUrl) {
+        this.inviteePictureUrl = inviteePictureUrl;
     }
 
     @Override

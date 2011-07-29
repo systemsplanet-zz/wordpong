@@ -43,9 +43,13 @@ public class InviteFriend implements Serializable {
 	private Key inviterKey;
 
 	// "FN LN (Email)"
-	@Attribute(unindexed = true)
-	private String inviterDetails;
+    @Attribute(unindexed = true)
+    private String inviterDetails;
+    
+    @Attribute(unindexed = true)
+    private String inviterPictureUrl;
 
+	
 	// TO INVITEE
 
 	@Attribute(unindexed = false)
@@ -123,7 +127,15 @@ public class InviteFriend implements Serializable {
 		return inviterDetails;
 	}
 
-	public String getInviterEmail() {
+	public String getInviterPictureUrl() {
+        return inviterPictureUrl;
+    }
+
+    public void setInviterPictureUrl(String inviterPictureUrl) {
+        this.inviterPictureUrl = inviterPictureUrl;
+    }
+
+    public String getInviterEmail() {
 		String result = inviterDetails;
 		if (inviterDetails != null) {
 			int s = inviterDetails.indexOf("(");

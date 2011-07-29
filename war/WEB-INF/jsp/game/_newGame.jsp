@@ -42,7 +42,7 @@
         <c:forEach items="${actionBean.myFriends}" var="friend" varStatus="status" >
             <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">			
         	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
-             	  <a href="#" OnClick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#selectFriend').click();return false;"> 
+             	  <a href="#" OnClick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#friendPictureUrl').val('${friend.pictureUrl}');$('#selectFriend').click();return false;"> 
 	       	         <img src="${friend.pictureUrl}"  />
 	       	         <h3><small>${friend.fullName}</small></h3> 
 	       	         <p><small>${friend.email}</small></p>
@@ -58,6 +58,7 @@
         </div>
         <s:hidden name="friendKeyStringEncrypted" id="friendKeyStringEncrypted" value="?friendKeyStringEncrypted?" />	
         <s:hidden name="friendDetails" id="friendDetails" value="?friendDetails?" />	
+        <s:hidden name="friendPictureUrl" id="friendPictureUrl" value="?friendPictureUrl?" />	
 	</s:form>	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
