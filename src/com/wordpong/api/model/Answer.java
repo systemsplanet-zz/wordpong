@@ -1,6 +1,7 @@
 package com.wordpong.api.model;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.List;
 
 import net.sourceforge.stripes.util.CryptoUtil;
@@ -17,6 +18,11 @@ import com.google.appengine.api.datastore.KeyFactory;
 public class Answer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+    public static final Comparator<Answer> TITLE_ORDER = new Comparator<Answer>() {
+        public int compare(Answer e1, Answer e2) {
+            return e1.getQuestionTitle().toLowerCase().compareTo(e2.getQuestionTitle().toLowerCase());
+        }
+    };
 
 	@Attribute(primaryKey = true)
 	private Key key;

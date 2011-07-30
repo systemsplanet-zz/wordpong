@@ -25,7 +25,7 @@ public class Question implements Serializable {
 
     public static final Comparator<Question> TITLE_ORDER = new Comparator<Question>() {
         public int compare(Question e1, Question e2) {
-            return e2.getTitle().compareTo(e1.getTitle());
+            return e1.getTitle().toLowerCase().compareTo(e2.getTitle().toLowerCase());
         }
     };
     private static final long serialVersionUID = 1L;

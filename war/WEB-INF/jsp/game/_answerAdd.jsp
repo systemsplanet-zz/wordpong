@@ -24,18 +24,31 @@
 <div data-role="content" style="padding-top:0px;">
 	<tags:messages/> 
 	<s:form id="answerAddForm" beanclass="com.wordpong.app.action.game.AnswerAddActionBean" method="post">
-    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-        <li data-role="list-divider" >${selectQuestionLbl}</li> 
-    </ul>
-        <small>            
-        <c:forEach items="${actionBean.questionList}" var="questionList" >
-           <input name="editAnswer"  value="${questionList.title}"
-		      onClick="javascript:$('#questionKeyStringEncrypted').val('${questionList.keyStringEncrypted}');$('#questionTitle').val('${questionList.title}');" data-theme="a" class="process" type="submit" />
-        </c:forEach>
-        </small>         
-        
-    <input id="questionKeyStringEncrypted" name="questionKeyStringEncrypted" type="hidden" value=""/>
-    <input id="questionTitle" name="questionTitle" type="hidden" value=""/>
+
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
+			<li data-role="list-divider">${selectQuestionLbl}</li> 
+		</ul>
+	
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+		    <c:forEach items="${actionBean.questionList}" var="q" >
+				<li data-role="list-divider"   style="white-space:normal;" >
+					<a  onclick="javascript:$('#questionKeyStringEncrypted').val('${q.keyStringEncrypted}');$('#questionTitle').val('${q.title}');$('#editAnswer').val('${q.title}');$('#editAnswer').click();" href="#">
+						<%-- <img src="${game.inviteePictureUrl}"  > --%>
+						<h3 style="white-space:normal;">${q.title}</h3> 
+						<p style="white-space:normal;">${q.description}</p>
+<%-- TODO:				<p>visibilityLbl: ${q.visibility}</p>
+						<p>intimacyLbl: ${q.intimacyLevel}</p>
+--%>
+			       	</a>
+	        	</li>	        	    
+		    </c:forEach>
+    	</ul>            
+    	<div style='visibility:hidden; height:0; padding:0 margin:0'>
+			<s:button id="editAnswer" name="editAnswer" value="?editAnswer?" class="process"/>    
+		    <input id="questionKeyStringEncrypted" name="questionKeyStringEncrypted" type="hidden" value=""/>
+		    <input id="questionTitle" name="questionTitle" type="hidden" value=""/>
+		</div>
+
 
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 

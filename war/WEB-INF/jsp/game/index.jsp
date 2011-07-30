@@ -11,7 +11,6 @@
 <fmt:message var="profileLbl" key="profile" />
 <fmt:message var="newFriendLbl" key="newFriend" />
 <fmt:message var="addLbl" key="add" />
-<fmt:message var="gameLbl" key="game.game" />
 <s:useActionBean id="myBean" beanclass="com.wordpong.app.action.game.GameActionBean"/>
 <div data-role="header"  data-nobackbtn="true" data-theme="b" >
     <span style="float:left;margin-left:12px;margin-top:5px">
@@ -64,7 +63,6 @@
 			<li data-role="list-divider"   style="white-space:normal;" >
 				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#playGameBtn').click();" href="#">
 					<img src="${game.inviterPictureUrl}"  >
-					<%--<p><b>${gameLbl}</b></p> --%>
 					<p style="white-space:normal;">${game.questionTitle}</p> 
 					<p>${game.inviterDetails}</p>
 		       	</a>
@@ -101,8 +99,6 @@
 			<li data-role="list-divider"   style="white-space:normal;" >
 				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#theirTurnGameCancelBtn').click();" href="#">
 					<img src="${game.inviteePictureUrl}"  >
-<!-- TODO: get user's image -->
-					<%--<p><b>${gameLbl}</b></p> --%>
 					<p style="white-space:normal;">${game.questionTitle}</p> 
 					<p>${game.inviteeDetails}</p>
 		       	</a>

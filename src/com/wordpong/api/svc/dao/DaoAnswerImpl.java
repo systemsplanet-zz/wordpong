@@ -1,5 +1,6 @@
 package com.wordpong.api.svc.dao;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -10,6 +11,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.wordpong.api.meta.AnswerMeta;
 import com.wordpong.api.model.Answer;
+import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.err.DaoException;
 
@@ -43,6 +45,7 @@ public class DaoAnswerImpl extends DaoBase<Answer> implements DaoAnswer {
         } catch (Exception ex) {
             throw new DaoException("Err:" + ex.getMessage());
         }
+        Collections.sort(result, Answer.TITLE_ORDER);
         return result;
     }
 

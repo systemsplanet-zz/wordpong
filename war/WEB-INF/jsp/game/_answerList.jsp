@@ -38,19 +38,31 @@
 <div data-role="content" style="padding-top:0px;">
 	<tags:messages/> 
 	<s:form id="answerListForm" beanclass="com.wordpong.app.action.game.AnswerListActionBean" method="post">
-	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-	        <li data-role="list-divider" >${myAnswersLbl}</li> 
-	    </ul>
-        <small>            
-	        <c:forEach items="${actionBean.answers}" var="answers" >
-	           <input onClick="javascript:$('#answerKeyStringEncrypted').val('${answers.keyStringEncrypted}');$('#questionTitle').val('${answers.questionTitle}');" data-theme="a" class="process"  name="editAnswers" value="${answers.questionTitle}" type="submit" />
-	        </c:forEach>
-        </small>         
+	
+	
+	
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
+			<li data-role="list-divider">${myAnswersLbl}</li> 
+		</ul>
+	
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+		    <c:forEach items="${actionBean.answers}" var="a" >
+				<li data-role="list-divider"   style="white-space:normal;" >
+					<a  onclick="javascript:$('#answerKeyStringEncrypted').val('${a.keyStringEncrypted}');$('#questionTitle').val('${a.questionTitle}');$('#editAnswers').val('${a.questionTitle}');$('#editAnswers').click();" href="#">
+						<h3 style="white-space:normal;">${a.questionTitle}</h3> 
+			       	</a>
+	        	</li>	        	    
+		    </c:forEach>
+    	</ul>            
+    	<div style='visibility:hidden; height:0; padding:0 margin:0'>
+			<s:button id="editAnswers" name="editAnswers" value="?editAnswers?" class="process"/>    
+	        <input id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" type="hidden" value=""/>
+    	    <input id="questionTitle" name="questionTitle" type="hidden" value=""/>
+		</div>
+	
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
         </div>
-        <input id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" type="hidden" value=""/>
-        <input id="questionTitle" name="questionTitle" type="hidden" value=""/>
 	</s:form>	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>

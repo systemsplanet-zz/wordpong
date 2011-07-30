@@ -36,22 +36,35 @@
 <div data-role="content" style="padding-top:0px;">
 	<tags:messages/> 
 	<s:form id="newGame_AnswerForm" beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
-	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-	        <li data-role="list-divider" >${selectAnswerLbl}</li> 
-	    </ul>
-	        <small>            
-		        <c:forEach items="${actionBean.answers}" var="answers" >
-		           <input onClick="javascript:$('#answerKeyStringEncrypted').val('${answers.keyStringEncrypted}');$('#questionTitle').val('${answers.questionTitle}');" data-theme="a" class="process"  name="selectAnswer" value="${answers.questionTitle}" type="submit" />
-		        </c:forEach>
-	        </small>         
+	
+	
+	
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
+			<li data-role="list-divider">${selectAnswerLbl}</li> 
+		</ul>
+	
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+		    <c:forEach items="${actionBean.answers}" var="answers" >
+				<li data-role="list-divider"   style="white-space:normal;" >
+					<a  onclick="javascript:$('#answerKeyStringEncrypted').val('${answers.keyStringEncrypted}');$('#questionTitle').val('${answers.questionTitle}');$('#selectAnswer').val('${answers.questionTitle}');$('#selectAnswer').click();" href="#">
+						<%-- <img src="${game.inviteePictureUrl}"  > --%>
+						<h3 style="white-space:normal;">${answers.questionTitle}</h3> 						
+			       	</a>
+	        	</li>	        	    
+		    </c:forEach>
+    	</ul>            
+    	<div style='visibility:hidden; height:0; padding:0 margin:0'>
+			<s:button id="selectAnswer" name="selectAnswer" value="selectAnswer" class="process"/>    
+			<s:hidden id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" value="?answerKeyStringEncrypted?"/>
+			<s:hidden id="questionTitle" name="questionTitle" value="?questionTitle?"/>
+			<s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="${actionBean.friendKeyStringEncrypted}" />	
+			<s:hidden id="friendDetails" name="friendDetails" value="${actionBean.friendDetails}" />
+			<s:hidden name="friendPictureUrl" id="friendPictureUrl" value="${actionBean.friendPictureUrl}" />	
+		</div>
+	
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
         </div>
-        <s:hidden id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" value="?answerKeyStringEncrypted?"/>
-        <s:hidden id="questionTitle" name="questionTitle" value="?questionTitle?"/>
-        <s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="${actionBean.friendKeyStringEncrypted}" />	
-        <s:hidden id="friendDetails" name="friendDetails" value="${actionBean.friendDetails}" />
-        <s:hidden name="friendPictureUrl" id="friendPictureUrl" value="${actionBean.friendPictureUrl}" />	
 	</s:form>	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>

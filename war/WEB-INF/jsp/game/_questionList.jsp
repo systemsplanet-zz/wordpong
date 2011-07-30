@@ -36,14 +36,26 @@
 <div data-role="content" style="padding-top:0px;">
 	<tags:messages/> 
 	<s:form id="questionListForm" beanclass="com.wordpong.app.action.game.QuestionListActionBean" method="post">
-	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-	        <li data-role="list-divider" >${myQuestionsLbl}</li> 
-	    </ul>
-        <small>            
-	        <c:forEach items="${actionBean.questions}" var="questions" >
-	           <input onClick="javascript:$('#questionKeyStringEncrypted').val('${questions.keyStringEncrypted}');$('#questionTitle').val('${questions.title}');" data-theme="a" class="process"  name="editQuestions" value="${questions.title}" type="submit" />
-	        </c:forEach>
-        </small>         
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
+			<li data-role="list-divider">${myQuestionsLbl}</li> 
+		</ul>
+	
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
+		    <c:forEach items="${actionBean.questions}" var="questions" >
+				<li data-role="list-divider"   style="white-space:normal;" >
+					<a  onclick="javascript:$('#questionKeyStringEncrypted').val('${questions.keyStringEncrypted}');$('#questionTitle').val('${questions.title}');$('#editQuestions').click();" href="#">
+						<%-- <img src="${game.inviteePictureUrl}"  > --%>
+						<h3 style="white-space:normal;">${questions.title}</h3> 
+						<p style="white-space:normal;">${questions.description}</p>
+			       	</a>
+	        	</li>	        	    
+		    </c:forEach>
+    	</ul>            
+    	<div style='visibility:hidden; height:0; padding:0 margin:0'>
+			<s:button id="editQuestions" name="editQuestions" value="editQuestions" class="process"/>    
+		</div>
+    	
+    	
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
         </div>
