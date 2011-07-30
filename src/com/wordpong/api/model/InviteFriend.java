@@ -14,8 +14,8 @@ import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.wordpong.cmn.util.ImageUtil;
-import com.wordpong.cmn.util.TimeUtil;
+import com.wordpong.util.ImageUtil;
+import com.wordpong.util.TimeUtil;
 
 // Sent to a existing or non-members of wordpong to invite them to join
 // updated once user registers with word pong

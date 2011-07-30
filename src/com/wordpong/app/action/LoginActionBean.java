@@ -16,18 +16,18 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
-import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
+import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.admin.AdminActionBean;
 import com.wordpong.app.action.game.GameActionBean;
-import com.wordpong.app.auth.RememberMe;
+import com.wordpong.app.servlet.util.RememberMe;
+import com.wordpong.app.servlet.util.ServletUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.AppLocalePicker;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
-import com.wordpong.app.util.secure.Role;
-import com.wordpong.app.util.servlet.ServletUtil;
+import com.wordpong.util.secure.Role;
 
 public class LoginActionBean extends BaseActionBean implements ValidationErrorHandler {
     private static final String VIEW = "/WEB-INF/jsp/_login.jsp";

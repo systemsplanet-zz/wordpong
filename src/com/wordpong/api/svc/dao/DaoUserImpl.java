@@ -17,9 +17,8 @@ import com.wordpong.api.meta.PasswordChangeRequestMeta;
 import com.wordpong.api.meta.UserMeta;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
-import com.wordpong.api.svc.dao.err.DaoException;
-import com.wordpong.api.svc.dao.err.DaoExceptionUserNotFound;
-import com.wordpong.api.svc.dao.transact.Atomic;
+import com.wordpong.api.svc.err.DaoException;
+import com.wordpong.api.svc.err.DaoExceptionUserNotFound;
 
 public class DaoUserImpl extends DaoBase<User> implements DaoUser {
     private static final Logger log = Logger.getLogger(DaoUserImpl.class.getName());

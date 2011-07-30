@@ -1,8 +1,8 @@
 package com.wordpong.api.svc;
 
-import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
+import com.wordpong.api.svc.err.WPServiceException;
 
 public interface SvcUser {
     User createUser(User user) throws WPServiceException;

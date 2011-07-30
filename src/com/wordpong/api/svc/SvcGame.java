@@ -2,12 +2,12 @@ package com.wordpong.api.svc;
 
 import java.util.List;
 
-import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Game;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
+import com.wordpong.api.svc.err.WPServiceException;
 
 public interface SvcGame {
 

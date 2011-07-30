@@ -14,8 +14,7 @@ import com.google.common.base.Predicate;
 import com.wordpong.api.meta.InviteFriendMeta;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.User;
-import com.wordpong.api.svc.dao.err.DaoException;
-import com.wordpong.api.svc.dao.transact.Atomic;
+import com.wordpong.api.svc.err.DaoException;
 
 public class DaoInviteFriendImpl extends DaoBase<InviteFriend> implements
 		DaoInviteFriend {

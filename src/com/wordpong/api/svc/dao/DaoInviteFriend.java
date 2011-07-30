@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.User;
-import com.wordpong.api.svc.dao.err.DaoException;
-import com.wordpong.api.svc.dao.transact.Atomic;
+import com.wordpong.api.svc.err.DaoException;
 
 public interface DaoInviteFriend {
 

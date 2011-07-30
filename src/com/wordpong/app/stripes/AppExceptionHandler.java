@@ -11,7 +11,7 @@ import net.sourceforge.stripes.config.Configuration;
 import net.sourceforge.stripes.exception.ActionBeanNotFoundException;
 import net.sourceforge.stripes.exception.ExceptionHandler;
 
-import com.wordpong.cmn.util.debug.LogUtil;
+import com.wordpong.util.debug.LogUtil;
 
 public class AppExceptionHandler implements ExceptionHandler {
 	private static final Logger log = Logger

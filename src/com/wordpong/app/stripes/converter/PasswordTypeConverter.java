@@ -6,7 +6,7 @@ import java.util.Locale;
 import net.sourceforge.stripes.validation.TypeConverter;
 import net.sourceforge.stripes.validation.ValidationError;
 
-import com.wordpong.app.util.secure.Encrypt;
+import com.wordpong.util.secure.Encrypt;
 
 public class PasswordTypeConverter implements TypeConverter<String> {
 

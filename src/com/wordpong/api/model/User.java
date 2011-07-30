@@ -19,7 +19,7 @@ import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.wordpong.cmn.util.ImageUtil;
+import com.wordpong.util.ImageUtil;
 
 @Model(schemaVersion = 1)
 public class User implements Serializable {

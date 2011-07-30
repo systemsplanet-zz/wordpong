@@ -16,7 +16,7 @@ import net.sourceforge.stripes.config.Configuration;
 import net.sourceforge.stripes.controller.StripesFilter;
 import net.sourceforge.stripes.localization.DefaultLocalePicker;
 
-import com.wordpong.api.svc.util.SvcLocale;
+import com.wordpong.app.servlet.util.SvcLocale;
 
 /**
  * The locale picker usd by MemWords. Rather than using a list of locales and

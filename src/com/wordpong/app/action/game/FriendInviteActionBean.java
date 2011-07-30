@@ -16,11 +16,11 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.EmailMessage;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
-import com.wordpong.app.msg.MailUtil;
+import com.wordpong.app.servlet.msg.EmailMessage;
+import com.wordpong.app.servlet.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class FriendInviteActionBean extends BaseActionBean implements

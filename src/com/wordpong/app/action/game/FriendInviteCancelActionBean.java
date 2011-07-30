@@ -14,13 +14,13 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
-import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.EmailMessage;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
+import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
-import com.wordpong.app.msg.MailUtil;
+import com.wordpong.app.servlet.msg.EmailMessage;
+import com.wordpong.app.servlet.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
 
 public class FriendInviteCancelActionBean extends BaseActionBean implements ValidationErrorHandler {

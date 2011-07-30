@@ -28,7 +28,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 
 	<listener>
 		<listener-class>
-			com.wordpong.app.listener.AppListener</listener-class>
+			com.wordpong.app.servlet.listener.AppListener</listener-class>
 	</listener>
 
 	<filter>
@@ -157,14 +157,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	<!-- Warmup Servlet -->
 	<servlet>
 		<servlet-name>_ah_warmup</servlet-name>
-		<servlet-class>com.wordpong.app.listener.AppWarmingServlet
+		<servlet-class>com.wordpong.app.servlet.listener.AppWarmingServlet
 		</servlet-class>
 	</servlet>
 
 	<!--  Cron Jobs -->
 	<servlet>
 		<servlet-name>cron</servlet-name>
-		<servlet-class>com.wordpong.app.cron.CronServlet
+		<servlet-class>com.wordpong.app.servlet.cron.CronServlet
 		</servlet-class>
 	</servlet>
 	<servlet-mapping>
@@ -186,7 +186,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	<!-- Queue Task -->
 	<servlet>
 		<servlet-name>taskenqueue</servlet-name>
-		<servlet-class>com.wordpong.app.tasks.TaskEnqueueServlet
+		<servlet-class>com.wordpong.app.servlet.tasks.TaskEnqueueServlet
 		</servlet-class>
 	</servlet>
 	<servlet-mapping>
@@ -196,7 +196,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 
 	<servlet>
 		<servlet-name>defaulttask</servlet-name>
-		<servlet-class>com.wordpong.app.tasks.TaskServlet
+		<servlet-class>com.wordpong.app.servlet.tasks.TaskServlet
 		</servlet-class>
 	</servlet>
 	<servlet-mapping>
@@ -216,7 +216,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 
 	<servlet>
 		<servlet-name>sendinvitationtask</servlet-name>
-		<servlet-class>com.wordpong.app.tasks.TaskServlet
+		<servlet-class>com.wordpong.app.servlet.tasks.TaskServlet
 		</servlet-class>
 	</servlet>
 	<servlet-mapping>
@@ -324,7 +324,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	<servlet>
 		<servlet-name>PrintEnvironmentServlet
 		</servlet-name>
-		<servlet-class>com.wordpong.app.util.servlet.PrintEnvironmentServlet
+		<servlet-class>com.wordpong.app.servlet.util.PrintEnvironmentServlet
 		</servlet-class>
 	</servlet>
 	<servlet-mapping>
@@ -337,7 +337,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	<!-- MAIL -->
 	<servlet>
 		<servlet-name>mailreceiver</servlet-name>
-		<servlet-class>com.wordpong.app.msg.MailReceiverServlet
+		<servlet-class>com.wordpong.app.servlet.msg.MailReceiverServlet
 		</servlet-class>
 	</servlet>
 	<servlet-mapping>
@@ -348,7 +348,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
 	<!--  incomming text messages -->
 	<servlet>
 		<servlet-name>xmppreceiver</servlet-name>
-		<servlet-class>com.wordpong.app.msg.XMPPReceiverServlet
+		<servlet-class>com.wordpong.app.servlet.msg.XMPPReceiverServlet
 		</servlet-class>
 	</servlet>
 	<servlet-mapping>

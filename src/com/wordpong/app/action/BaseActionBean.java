@@ -19,9 +19,9 @@ import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.validation.LocalizableError;
 
+import com.wordpong.app.servlet.util.AjaxUtils;
+import com.wordpong.app.servlet.util.ServletUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
-import com.wordpong.app.util.servlet.AjaxUtils;
-import com.wordpong.app.util.servlet.ServletUtil;
 
 @HttpCache(allow=false)
 public abstract class BaseActionBean implements ActionBean {

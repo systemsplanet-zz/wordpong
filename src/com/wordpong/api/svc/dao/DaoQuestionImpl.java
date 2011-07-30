@@ -16,7 +16,7 @@ import com.google.appengine.api.datastore.Transaction;
 import com.wordpong.api.meta.QuestionMeta;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
-import com.wordpong.api.svc.dao.err.DaoException;
+import com.wordpong.api.svc.err.DaoException;
 
 public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
     private static final Logger log = Logger.getLogger(DaoQuestionImpl.class.getName());
@@ -79,9 +79,9 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         Key k = put(u);
         return k;
     }
-
+ 
     // Get the list of private/public questions for a user
-    private List<Question> getMyQuestions(User u) throws DaoException {
+    public List<Question> getMyQuestions(User u) throws DaoException {
         List<Question> result;
         QuestionMeta e = QuestionMeta.get();
         try {

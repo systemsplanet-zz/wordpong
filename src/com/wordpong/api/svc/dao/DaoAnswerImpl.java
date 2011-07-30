@@ -11,7 +11,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.wordpong.api.meta.AnswerMeta;
 import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.User;
-import com.wordpong.api.svc.dao.err.DaoException;
+import com.wordpong.api.svc.err.DaoException;
 
 public class DaoAnswerImpl extends DaoBase<Answer> implements DaoAnswer {
     private static final Logger log = Logger.getLogger(DaoAnswerImpl.class.getName());

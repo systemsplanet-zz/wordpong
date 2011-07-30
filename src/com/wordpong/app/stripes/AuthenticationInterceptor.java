@@ -16,9 +16,9 @@ import com.wordpong.app.action.ForgotPasswordActionBean;
 import com.wordpong.app.action.ForgotPasswordChangeActionBean;
 import com.wordpong.app.action.LoginActionBean;
 import com.wordpong.app.action.RegisterActionBean;
-import com.wordpong.app.action.api.v1.ApiLoginActionBean;
-import com.wordpong.app.util.servlet.AjaxUtils;
-import com.wordpong.app.util.servlet.ServletUtil;
+import com.wordpong.app.action.apiv1.ApiLoginActionBean;
+import com.wordpong.app.servlet.util.AjaxUtils;
+import com.wordpong.app.servlet.util.ServletUtil;
 
 /**
  * Stripes interceptor applied to all requests returns a common header so the

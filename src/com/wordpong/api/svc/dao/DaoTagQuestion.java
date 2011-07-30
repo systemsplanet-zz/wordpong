@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
-import com.wordpong.api.svc.dao.err.DaoException;
+import com.wordpong.api.svc.err.DaoException;
 
 public interface DaoTagQuestion {
 

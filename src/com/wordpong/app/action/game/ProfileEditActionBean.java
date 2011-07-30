@@ -19,18 +19,18 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
-import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.LocaleDisplay;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
+import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
-import com.wordpong.app.auth.RememberMe;
+import com.wordpong.app.servlet.util.RememberMe;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.AppLocalePicker;
 import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
 import com.wordpong.app.stripes.converter.LocaleTypeConverter;
-import com.wordpong.app.util.secure.Encrypt;
+import com.wordpong.util.LocaleDisplay;
+import com.wordpong.util.secure.Encrypt;
 
 public class ProfileEditActionBean extends BaseActionBean implements ValidationErrorHandler {
     private static final Logger log = Logger.getLogger(ProfileEditActionBean.class.getName());

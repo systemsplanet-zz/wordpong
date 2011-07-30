@@ -8,6 +8,6 @@
 <tag>
     <info>Application Version</info>
     <name>AppVersion</name>
-    <tagclass>com.wordpong.app.util.servlet.taglib.AppVersion</tagclass>
+    <tagclass>com.wordpong.app.servlet.taglib.AppVersion</tagclass>
 </tag>
 </taglib>

@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.common.base.Predicate;
-import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Game;
 import com.wordpong.api.model.InviteFriend;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
+import com.wordpong.api.svc.dao.Atomic;
 import com.wordpong.api.svc.dao.DaoAnswer;
 import com.wordpong.api.svc.dao.DaoAnswerFactory;
 import com.wordpong.api.svc.dao.DaoGame;
@@ -27,8 +27,8 @@ import com.wordpong.api.svc.dao.DaoTagQuestion;
 import com.wordpong.api.svc.dao.DaoTagQuestionFactory;
 import com.wordpong.api.svc.dao.DaoUser;
 import com.wordpong.api.svc.dao.DaoUserFactory;
-import com.wordpong.api.svc.dao.err.DaoException;
-import com.wordpong.api.svc.dao.transact.Atomic;
+import com.wordpong.api.svc.err.DaoException;
+import com.wordpong.api.svc.err.WPServiceException;
 
 public class SvcGameImpl implements SvcGame {
     private static final Logger log = Logger.getLogger(SvcGameImpl.class.getName());
@@ -179,7 +179,7 @@ public class SvcGameImpl implements SvcGame {
         List<Question> result;
         DaoQuestion dq = DaoQuestionFactory.getDaoQuestion();
         try {
-            result = dq.getQuestions(user);
+            result = dq.getMyQuestions(user);
         } catch (DaoException e) {
             throw new WPServiceException("getMyQuestions err: " + e.getMessage());
         }

@@ -9,8 +9,8 @@ import net.sourceforge.stripes.action.ActionBeanContext;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcCommon;
 import com.wordpong.api.svc.SvcCommonFactory;
-import com.wordpong.app.util.secure.Role;
-import com.wordpong.app.util.servlet.ServletUtil;
+import com.wordpong.app.servlet.util.ServletUtil;
+import com.wordpong.util.secure.Role;
 
 public class AppActionBeanContext extends ActionBeanContext {
     private static final String SESSION_USER = "s.usr";

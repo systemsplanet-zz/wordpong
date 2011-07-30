@@ -1,11 +1,11 @@
 package com.wordpong.api.svc;
 
-import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.dao.DaoUser;
 import com.wordpong.api.svc.dao.DaoUserFactory;
-import com.wordpong.api.svc.dao.err.DaoException;
+import com.wordpong.api.svc.err.DaoException;
+import com.wordpong.api.svc.err.WPServiceException;
 
 public class SvcUserImpl implements SvcUser {
     private DaoUser daoUser = DaoUserFactory.getDaoUser();

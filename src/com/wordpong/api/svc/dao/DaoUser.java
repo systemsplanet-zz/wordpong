@@ -5,8 +5,7 @@ import java.util.List;
 import com.google.appengine.api.datastore.Key;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
-import com.wordpong.api.svc.dao.err.DaoException;
-import com.wordpong.api.svc.dao.transact.Atomic;
+import com.wordpong.api.svc.err.DaoException;
 
 public interface DaoUser {
     User createUser(User user) throws DaoException;

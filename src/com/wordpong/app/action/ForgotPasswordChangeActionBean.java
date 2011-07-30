@@ -12,12 +12,12 @@ import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
 
-import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.PasswordChangeRequest;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.SvcUser;
 import com.wordpong.api.svc.SvcUserFactory;
-import com.wordpong.app.auth.RememberMe;
+import com.wordpong.api.svc.err.WPServiceException;
+import com.wordpong.app.servlet.util.RememberMe;
 import com.wordpong.app.stripes.AppActionBeanContext;
 import com.wordpong.app.stripes.converter.PasswordTypeConverter;
 

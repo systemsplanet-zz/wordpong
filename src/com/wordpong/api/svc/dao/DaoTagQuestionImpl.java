@@ -17,9 +17,8 @@ import com.wordpong.api.meta.TagQuestionMeta;
 import com.wordpong.api.model.Question;
 import com.wordpong.api.model.TagQuestion;
 import com.wordpong.api.model.User;
-import com.wordpong.api.pojo.LocaleDisplay;
-import com.wordpong.api.svc.dao.err.DaoException;
-import com.wordpong.api.svc.dao.transact.Atomic;
+import com.wordpong.api.svc.err.DaoException;
+import com.wordpong.util.LocaleDisplay;
 
 public class DaoTagQuestionImpl extends DaoBase<TagQuestion> implements DaoTagQuestion {
     private static final Logger log = Logger.getLogger(DaoTagQuestionImpl.class.getName());

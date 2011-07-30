@@ -18,7 +18,7 @@ import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.wordpong.app.action.api.pojo.QuestionCreation;
+import com.wordpong.app.action.apiv1.pojo.QuestionCreation;
 
 @Model(schemaVersion = 1)
 public class Question implements Serializable {
