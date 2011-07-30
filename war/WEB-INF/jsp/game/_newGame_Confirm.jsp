@@ -29,7 +29,7 @@
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 			<li data-role="list-divider" ><s:label for="confirm game"/></li> 
 			<li>
-			    <label>${shareLbl}: ${actionBean.questionDescription}</label>
+			    <label>${shareLbl}: ${actionBean.questionTitle}</label>
 			</li>			
 			<li>			
 				<label>${withLbl}: ${actionBean.friendDetails}</label>
@@ -42,7 +42,7 @@
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${cancelLbl}" type="submit" /> 
         </div>
         <s:hidden id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" value="${actionBean.answerKeyStringEncrypted}"/>
-        <s:hidden id="questionDescription" name="questionDescription" value="${actionBean.questionDescription}"/>
+        <s:hidden id="questionTitle" name="questionTitle" value="${actionBean.questionTitle}"/>
         <s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="${actionBean.friendKeyStringEncrypted}" />	
         <s:hidden id="friendDetails" name="friendDetails" value="${actionBean.friendDetails}" />	        
         <s:hidden id="friendPictureUrl" name="friendPictureUrl" value="${actionBean.friendPictureUrl}" />	        

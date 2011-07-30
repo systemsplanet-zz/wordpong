@@ -41,14 +41,14 @@
 	    </ul>
 	        <small>            
 		        <c:forEach items="${actionBean.answers}" var="answers" >
-		           <input onClick="javascript:$('#answerKeyStringEncrypted').val('${answers.keyStringEncrypted}');$('#questionDescription').val('${answers.questionDescription}');" data-theme="a" class="process"  name="selectAnswer" value="${answers.questionDescription}" type="submit" />
+		           <input onClick="javascript:$('#answerKeyStringEncrypted').val('${answers.keyStringEncrypted}');$('#questionTitle').val('${answers.questionTitle}');" data-theme="a" class="process"  name="selectAnswer" value="${answers.questionTitle}" type="submit" />
 		        </c:forEach>
 	        </small>         
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
         </div>
         <s:hidden id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" value="?answerKeyStringEncrypted?"/>
-        <s:hidden id="questionDescription" name="questionDescription" value="?questionDescription?"/>
+        <s:hidden id="questionTitle" name="questionTitle" value="?questionTitle?"/>
         <s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="${actionBean.friendKeyStringEncrypted}" />	
         <s:hidden id="friendDetails" name="friendDetails" value="${actionBean.friendDetails}" />
         <s:hidden name="friendPictureUrl" id="friendPictureUrl" value="${actionBean.friendPictureUrl}" />	

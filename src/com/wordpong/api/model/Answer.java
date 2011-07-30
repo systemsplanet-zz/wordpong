@@ -31,7 +31,7 @@ public class Answer implements Serializable {
 	private Key questionKey;
 
 	@Attribute(unindexed = true)
-	private String questionDescription; // copied from question.description
+	private String questionTitle; // copied from question.title
 
 	private List<String> answers;
 
@@ -108,12 +108,12 @@ public class Answer implements Serializable {
 		}
 	}
 
-	public String getQuestionDescription() {
-		return questionDescription;
+	public String getQuestionTitle() {
+		return questionTitle;
 	}
 
-	public void setQuestionDescription(String questionDescription) {
-		this.questionDescription = questionDescription;
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
 	}
 
 	@Override

@@ -28,7 +28,7 @@
 			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
 				<li>
                 <%-- TODO: display details about game being canceled --%>
-                    <label>${shareLbl}: ${actionBean.game.questionDescription}</label>
+                    <label>${shareLbl}: ${actionBean.game.questionTitle}</label>
 				</li>
 				<li>	                    
                     <label>${withLbl}: ${actionBean.game.inviteeDetails}</label>

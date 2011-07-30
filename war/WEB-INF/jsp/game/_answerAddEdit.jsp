@@ -24,7 +24,7 @@
 <div data-role="content" style="padding-top:0px;">
 	<s:form id="answerAddEditForm" beanclass="com.wordpong.app.action.game.AnswerAddEditActionBean" method="post">
 	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-	        <li data-role="list-divider" >${enterAnswersLbl}: ${actionBean.questionDescription}</li> 
+	        <li data-role="list-divider" >${enterAnswersLbl}: ${actionBean.questionTitle}</li> 
         </ul>
         <tags:messages/> 
 	        <small>            
@@ -35,7 +35,7 @@
 		          </div>
 		       </c:forEach>
 		       <input id="questionKeyStringEncrypted" name="questionKeyStringEncrypted" type="hidden" value="${actionBean.questionKeyStringEncrypted}"/>
-		       <input id="questionDescription" name="questionDescription" type="hidden" value="${actionBean.questionDescription}"/>
+		       <input id="questionTitle" name="questionTitle" type="hidden" value="${actionBean.questionTitle}"/>
 		       
 	        </small>         
         <div style="float:left">

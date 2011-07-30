@@ -32,7 +32,7 @@ public class AnswerListActionBean extends BaseActionBean implements
 	private User user;
 
 	// when the user selects answers to edit this is populated
-	private String questionDescription;
+	private String questionTitle;
 
 	public AnswerListActionBean() {
 		_svcGame = SvcGameFactory.getSvcGame();
@@ -62,7 +62,7 @@ public class AnswerListActionBean extends BaseActionBean implements
 			try {
 				user = c.getUserFromSession();
 				if (user != null) {
-					log.info("edit answer quest:" + questionDescription);
+					log.info("edit answer quest:" + questionTitle);
 					resolution = new ForwardResolution(
 							AnswerEditActionBean.class);
 				} else {
@@ -103,12 +103,13 @@ public class AnswerListActionBean extends BaseActionBean implements
 		return result;
 	}
 
-	public String getQuestionDescription() {
-		return questionDescription;
-	}
+    public String getQuestionTitle() {
+        return questionTitle;
+    }
 
-	public void setQuestionDescription(String questionDescription) {
-		this.questionDescription = questionDescription;
-	}
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
+    }
+
 
 }

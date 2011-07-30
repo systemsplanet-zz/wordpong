@@ -29,13 +29,13 @@
     </ul>
         <small>            
         <c:forEach items="${actionBean.questionList}" var="questionList" >
-           <input name="editAnswer"  value="${questionList.description}"
-		      onClick="javascript:$('#questionKeyStringEncrypted').val('${questionList.keyStringEncrypted}');$('#questionDescription').val('${questionList.description}');" data-theme="a" class="process" type="submit" />
+           <input name="editAnswer"  value="${questionList.title}"
+		      onClick="javascript:$('#questionKeyStringEncrypted').val('${questionList.keyStringEncrypted}');$('#questionTitle').val('${questionList.title}');" data-theme="a" class="process" type="submit" />
         </c:forEach>
         </small>         
         
     <input id="questionKeyStringEncrypted" name="questionKeyStringEncrypted" type="hidden" value=""/>
-    <input id="questionDescription" name="questionDescription" type="hidden" value=""/>
+    <input id="questionTitle" name="questionTitle" type="hidden" value=""/>
 
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 

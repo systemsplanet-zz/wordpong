@@ -65,7 +65,7 @@
 				<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#playGameBtn').click();" href="#">
 					<img src="${game.inviterPictureUrl}"  >
 					<%--<p><b>${gameLbl}</b></p> --%>
-					<p style="white-space:normal;">${game.questionDescription}</p> 
+					<p style="white-space:normal;">${game.questionTitle}</p> 
 					<p>${game.inviterDetails}</p>
 		       	</a>
         	</li>	        	    
@@ -103,7 +103,7 @@
 					<img src="${game.inviteePictureUrl}"  >
 <!-- TODO: get user's image -->
 					<%--<p><b>${gameLbl}</b></p> --%>
-					<p style="white-space:normal;">${game.questionDescription}</p> 
+					<p style="white-space:normal;">${game.questionTitle}</p> 
 					<p>${game.inviteeDetails}</p>
 		       	</a>
         	</li>	        	    

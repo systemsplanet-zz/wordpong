@@ -43,14 +43,14 @@
 	    </ul>
         <small>            
 	        <c:forEach items="${actionBean.answers}" var="answers" >
-	           <input onClick="javascript:$('#answerKeyStringEncrypted').val('${answers.keyStringEncrypted}');$('#questionDescription').val('${answers.questionDescription}');" data-theme="a" class="process"  name="editAnswers" value="${answers.questionDescription}" type="submit" />
+	           <input onClick="javascript:$('#answerKeyStringEncrypted').val('${answers.keyStringEncrypted}');$('#questionTitle').val('${answers.questionTitle}');" data-theme="a" class="process"  name="editAnswers" value="${answers.questionTitle}" type="submit" />
 	        </c:forEach>
         </small>         
         <div style="float:left">
             <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
         </div>
         <input id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" type="hidden" value=""/>
-        <input id="questionDescription" name="questionDescription" type="hidden" value=""/>
+        <input id="questionTitle" name="questionTitle" type="hidden" value=""/>
 	</s:form>	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>

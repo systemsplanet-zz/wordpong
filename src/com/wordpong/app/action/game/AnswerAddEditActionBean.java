@@ -37,7 +37,7 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 	private SvcGame _svcGame;
 	private String questionKeyStringEncrypted;
 	private String questionKeyString;
-	private String questionDescription;
+	private String questionTitle;
 	private List<String> questions;
 	private int questionsSize = 0;
 	private List<String> answers = new ArrayList<String>();
@@ -137,7 +137,7 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 			User u = getContext().getUserFromSession();
 			a.setQuestionKeyString(questionKeyString);
 			a.setAnswers(answers);
-			a.setQuestionDescription(questionDescription);
+			a.setQuestionTitle(questionTitle);
 			a.setUserKey(u.getKey());
 			a.setLocaleString(u.getLocaleString());
 			try {
@@ -161,12 +161,12 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		this.answers = answers;
 	}
 
-	public String getQuestionDescription() {
-		return questionDescription;
+	public String getQuestionTitle() {
+		return questionTitle;
 	}
 
-	public void setQuestionDescription(String questionDescription) {
-		this.questionDescription = questionDescription;
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
 	}
 
 	public String getQuestionKeyStringEncrypted() {

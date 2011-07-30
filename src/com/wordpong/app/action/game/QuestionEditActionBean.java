@@ -31,7 +31,7 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
     private SvcGame _svcGame;
     // when the user selects questions to edit these are populated
     private String questionKeyStringEncrypted;
-    private String questionDescription;
+    private String questionTitle;
     private Question question;
     private List<String> questions = null;
 
@@ -131,12 +131,12 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
         return result;
     }
 
-    public String getQuestionDescription() {
-        return questionDescription;
+    public String getQuestionTitle() {
+        return questionTitle;
     }
 
-    public void setQuestionDescription(String questionDescription) {
-        this.questionDescription = questionDescription;
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
     }
 
     public String getQuestionKeyStringEncrypted() {

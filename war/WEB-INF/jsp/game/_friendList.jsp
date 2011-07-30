@@ -52,7 +52,7 @@
 	       	      
 	       	      <c:forEach items="${friend.games}" var="game" varStatus="s">	    	     	
 	        	    <li id="item-${s.index}"  style="white-space:normal;">  
-	        	        <small>${game.questionDescription}</small>
+	        	        <small>${game.questionTitle}</small>
        	                <span class="ui-li-count">${game.points}</span>
 	        	    </li>	        	    
 	        	  </c:forEach>

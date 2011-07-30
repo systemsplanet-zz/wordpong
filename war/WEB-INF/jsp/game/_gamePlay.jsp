@@ -26,7 +26,7 @@
 	<s:form id="gamePlayForm" beanclass="com.wordpong.app.action.game.GamePlayActionBean" method="post">
 	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 	        <li data-role="list-divider" >${actionBean.game.inviterDetails}</li> 
-	        <li data-role="list-divider" >${actionBean.game.questionDescription}</li> 
+	        <li data-role="list-divider" >${actionBean.game.questionTitle}</li> 
             <li data-role="list-divider" ><h3 id="question" style="white-space:normal">${actionBean.question.questions[0]}</h3> 
         </ul>
         <tags:messages/> 

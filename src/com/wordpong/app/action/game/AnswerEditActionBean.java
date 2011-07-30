@@ -35,7 +35,7 @@ public class AnswerEditActionBean extends BaseActionBean implements
 	private SvcGame _svcGame;
 	// when the user selects answers to edit these are populated
 	private String answerKeyStringEncrypted;
-	private String questionDescription;
+	private String questionTitle;
 	private Answer answer;
 	private List<String> answers = new ArrayList<String>();
 
@@ -135,15 +135,16 @@ public class AnswerEditActionBean extends BaseActionBean implements
 		return result;
 	}
 
-	public String getQuestionDescription() {
-		return questionDescription;
-	}
 
-	public void setQuestionDescription(String questionDescription) {
-		this.questionDescription = questionDescription;
-	}
+	public String getQuestionTitle() {
+        return questionTitle;
+    }
 
-	public String getAnswerKeyStringEncrypted() {
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
+    }
+
+    public String getAnswerKeyStringEncrypted() {
 		return answerKeyStringEncrypted;
 	}
 

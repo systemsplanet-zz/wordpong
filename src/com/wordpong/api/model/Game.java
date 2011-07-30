@@ -28,7 +28,7 @@ public class Game implements Serializable {
     private Key answersKey;
 
     @Attribute(unindexed = true)
-    private String questionDescription; // copied from question.description
+    private String questionTitle; // copied from question.Title
 
     // User who answered questions (copied from Answers)
     private Key inviterUserKey;
@@ -166,12 +166,12 @@ public class Game implements Serializable {
         this.isCompleted = isCompleted;
     }
 
-    public String getQuestionDescription() {
-        return questionDescription;
+    public String getQuestionTitle() {
+        return questionTitle;
     }
 
-    public void setQuestionDescription(String questionDescription) {
-        this.questionDescription = questionDescription;
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
     }
 
     public String getInviterDetails() {
