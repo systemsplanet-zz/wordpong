@@ -1,9 +1,6 @@
 package com.wordpong.api.model;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,10 +19,10 @@ import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.wordpong.cmn.util.ImageUtil;
 
 @Model(schemaVersion = 1)
 public class User implements Serializable {
-    public static final String IMAGE_DEFAULT = "https://wordpong.appspot.com/i/p/u.png";
     public static final String DEFAULT_TIMEZONE = "EST";
 
     private static final long serialVersionUID = 1L;
@@ -191,18 +188,8 @@ public class User implements Serializable {
     }
 
     public String getPictureUrl() {
-        if (email != null) {
-            String e = email.toLowerCase().trim();
-            try {
-                MessageDigest m = MessageDigest.getInstance("MD5");
-                m.update(e.getBytes(), 0, e.length());
-                String hash = new BigInteger(1, m.digest()).toString(16);
-                pictureUrl = "http://www.gravatar.com/avatar/" + hash + "?d=" + IMAGE_DEFAULT;
-            } catch (NoSuchAlgorithmException e1) {
-            }
-        }
         if (pictureUrl == null) {
-            pictureUrl = IMAGE_DEFAULT;
+            pictureUrl = ImageUtil.getPictureUrl(email);
         }
         return pictureUrl;
     }

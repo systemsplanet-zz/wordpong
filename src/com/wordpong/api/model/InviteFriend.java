@@ -14,6 +14,7 @@ import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.wordpong.cmn.util.ImageUtil;
 import com.wordpong.cmn.util.TimeUtil;
 
 // Sent to a existing or non-members of wordpong to invite them to join
@@ -189,6 +190,11 @@ public class InviteFriend implements Serializable {
 		this.inviteeDetails = inviteeDetails;
 	}
 
+	public String getInviteePictureUrl() {
+        String url = ImageUtil.getPictureUrl(getInviteeEmail());
+        return url;
+    }
+
 	public boolean isIgnored() {
 		return isIgnored;
 	}
@@ -231,6 +237,7 @@ public class InviteFriend implements Serializable {
 		if (user != null) {
 			setInviteeKey(user.getKey());
 			setInviteeDetails(user.getDetails());
+			
 		}
 	}
 
