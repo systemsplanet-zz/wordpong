@@ -7,10 +7,10 @@ import javax.servlet.jsp.jstl.core.Config;
 import net.sourceforge.stripes.action.ActionBeanContext;
 
 import com.wordpong.api.model.User;
+import com.wordpong.api.svc.SvcCommon;
+import com.wordpong.api.svc.SvcCommonFactory;
 import com.wordpong.app.util.secure.Role;
 import com.wordpong.app.util.servlet.ServletUtil;
-import com.wordpong.cmn.svc.SvcCommon;
-import com.wordpong.cmn.svc.SvcCommonFactory;
 
 public class AppActionBeanContext extends ActionBeanContext {
     private static final String SESSION_USER = "s.usr";

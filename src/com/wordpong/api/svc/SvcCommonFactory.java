@@ -1,4 +1,5 @@
-package com.wordpong.cmn.svc;
+package com.wordpong.api.svc;
+
 
 
 public class SvcCommonFactory {

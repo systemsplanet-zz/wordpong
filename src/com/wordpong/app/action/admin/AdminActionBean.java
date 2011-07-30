@@ -15,12 +15,12 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 
 import com.wordpong.api.err.WPServiceException;
 import com.wordpong.api.model.User;
+import com.wordpong.api.svc.SvcCommon;
+import com.wordpong.api.svc.SvcCommonFactory;
 import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
-import com.wordpong.cmn.svc.SvcCommon;
-import com.wordpong.cmn.svc.SvcCommonFactory;
 
 public class AdminActionBean extends BaseActionBean {
     public static final String VIEW = "/WEB-INF/jsp/admin/index.jsp";

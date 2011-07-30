@@ -1,4 +1,4 @@
-package com.wordpong.cmn.svc;
+package com.wordpong.api.svc;
 
 public interface SvcCommon {
 	// MEMCACHE

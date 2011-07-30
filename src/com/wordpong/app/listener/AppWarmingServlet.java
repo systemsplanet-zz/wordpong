@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wordpong.cmn.svc.SvcCommonFactory;
+import com.wordpong.api.svc.SvcCommonFactory;
 
 @SuppressWarnings("serial")
 public class AppWarmingServlet extends HttpServlet {

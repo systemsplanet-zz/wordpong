@@ -10,9 +10,9 @@ import net.sourceforge.stripes.controller.Interceptor;
 import net.sourceforge.stripes.controller.Intercepts;
 import net.sourceforge.stripes.controller.LifecycleStage;
 
+import com.wordpong.api.svc.SvcCommonFactory;
 import com.wordpong.app.util.servlet.AjaxUtils;
 import com.wordpong.app.util.servlet.ServletUtil;
-import com.wordpong.cmn.svc.SvcCommonFactory;
 
 /**
  * Stripes interceptor applied to all requests returns a common header so the
