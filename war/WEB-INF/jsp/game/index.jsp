@@ -50,7 +50,7 @@
 	    <c:forEach items="${actionBean.myTurnInviteFriends}" var="inviteFriend" >
 			<li data-role="list-divider"   style="white-space:normal;" >
 				<a  onclick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');$('#processFriendInviteBtn').click();" href="#">
-					<img src="https://wordpong.appspot.com/i/p/u.png"  >
+					<img src="${inviteFriend.inviterPictureUrl}"  >
 					<p>${newFriendLbl}</p>
 					<p style="white-space:normal;">${inviteFriend.inviterDetails}</p> 
 		       	</a>

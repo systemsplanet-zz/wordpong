@@ -8,14 +8,10 @@
 	</ul>
 	<tags:messages/> 
 	<s:form id="forgotPasswordForm" beanclass="com.wordpong.app.action.ForgotPasswordActionBean" method="post">
-		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
-			<li>
-				<div data-role="fieldcontain" style="padding:4px;">
-					<s:label for="email" class="ui-input-text"/>
-					<s:text name="email" tabindex="1"/>
-				</div>
-			</li>
-		</ul>
+		<div data-role="fieldcontain" style="padding:4px;">
+			<s:label for="email" class="ui-input-text"/>
+			<s:text name="email" tabindex="1"/>
+		</div>
 		<div style="float:left">
 			<input data-theme="a" class="process ui-btn-left" data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
 		</div>
