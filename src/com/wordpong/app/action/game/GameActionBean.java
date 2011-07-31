@@ -58,14 +58,12 @@ public class GameActionBean extends BaseActionBean {
     }
 
     @DontValidate
-    public Resolution theirTurnSelect() {
-        // TODO
+    public Resolution profileBtn() {
         return new ForwardResolution(ProfileEditActionBean.class);
     }
 
     @DontValidate
-    @HandlesEvent("addGame")
-    public Resolution addGame() {
+    public Resolution addGameBtn() {
         return new ForwardResolution(NewGameActionBean.class);
     }
 
@@ -81,16 +79,16 @@ public class GameActionBean extends BaseActionBean {
     }
 
     @DontValidate
-    public Resolution friendList() {
+    public Resolution friendsBtn() {
         return new ForwardResolution(FriendListActionBean.class);
     }
 
     @DontValidate
-    public Resolution answerList() {
+    public Resolution answersBtn() {
         return new ForwardResolution(AnswerListActionBean.class);
     }
     @DontValidate
-    public Resolution questionList() {
+    public Resolution questionsBtn() {
         return new ForwardResolution(QuestionListActionBean.class);
     }
 

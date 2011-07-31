@@ -68,7 +68,7 @@ public class TheirTurnGameCancelActionBean extends BaseActionBean implements Val
                 AppActionBeanContext c = getContext();
                 User user = c.getUserFromSession();
                 sg.cancelGameInvite(game, user);
-                addGlobalActionError("theirTurnGameCancel.invitedCancelled");
+                addGlobalActionMessage("theirTurnGameCancel.invitedCancelled");
                 result = new ForwardResolution(GameActionBean.class);
             } catch (WPServiceException e) {
                 addGlobalActionError("theirTurnGameCancel.unableToCancel");

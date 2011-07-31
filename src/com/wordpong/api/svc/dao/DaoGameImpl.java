@@ -15,6 +15,7 @@ import com.wordpong.api.model.Answer;
 import com.wordpong.api.model.Game;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.err.DaoException;
+import com.wordpong.util.debug.LogUtil;
 
 public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
     private static final Logger log = Logger.getLogger(DaoGameImpl.class.getName());
@@ -84,7 +85,13 @@ public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
     public List<Game> getTheirTurnGames(User user) throws DaoException {
         Set<Key> gameKeys = user.getGameKeys();
         List<Key> gks = new ArrayList<Key>(gameKeys);
-        List<Game> result = get(gks);
+        List<Game> result = new ArrayList<Game>();
+        try {
+            result = get(gks);
+        } catch (Exception e) {
+            LogUtil.logException("getTheirTurnGames user:" + user, e);
+            throw new DaoException(e.getMessage());
+        }
         return result;
     }
 

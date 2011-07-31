@@ -577,7 +577,10 @@ public class SvcGameImpl implements SvcGame {
         try {
             result = dg.getTheirTurnGames(user);
         } catch (DaoException e) {
-            throw new WPServiceException("getTheirTurnsGame user:" + user + " err: " + e.getMessage());
+            // return empty games list
+            //TODO: always reload user from db upon error
+            // in case user made changes in another session
+            log.warning("getTheirTurnsGame user:" + user + " err:" + e.getMessage());
         }
         return result;
     }

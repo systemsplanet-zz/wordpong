@@ -3,42 +3,24 @@
 <fmt:message var="backLbl" key="back" />
 <fmt:message var="addLbl" key="add" />
 <fmt:message var="selectFriendLbl" key="newGame.selectFriend" />
-
-<div data-role="header"  data-nobackbtn="true" data-theme="b">
-<s:form beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
-    <div>
-        <!-- Back Button -->
-        <span style="float:left;margin-left:10px">
-            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
-	            <span class="ui-btn-inner ui-btn-corner-all">
-	               <span class="ui-btn-text">${backLbl}</span>
-    	           <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
-	            </span>
-                <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
-            </span> 
-        </span>
-        
-        <!-- Add Button -->
-        <span style="float:right;margin-right:10px">
-            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
-                <span class="ui-btn-inner ui-btn-corner-all">
-                    <span class="ui-btn-text">${addLbl}</span>
-                    <span class="ui-icon ui-icon-plus ui-icon-shadow"></span>                    
-                </span>
-                <input name="friendInvite" value="${addLbl}" data-theme="a" class="process ui-btn-left ui-btn-hidden" type="submit">
-            </span> 
-        </span>
-    </div>
-</s:form>
+<div data-role="content" style="padding-top:0px;">
+<%-- NAVIGATION --%>
+<div class="wp-nav">
+<a data-icon="arrow-l" 		onclick="javascript:$('#homeBtn').click()" 		href="#" data-role="button" data-iconpos="notext" style='visibility:hidden;'>Back</a>
+<a data-icon="home" 	   	onclick="javascript:$('#homeBtn').click()" 		href="#" data-role="button" data-iconpos="notext">Home</a>
+<a data-icon="wp-friend" 	onclick="javascript:$('#friendsBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Friends</a>
+<a data-icon="wp-question" 	onclick="javascript:$('#questionsBtn').click()" href="#" data-role="button" data-iconpos="notext">Question</a>
+<a data-icon="check" 		onclick="javascript:$('#answersBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Answer</a>
+<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Profile</a>
+<a data-icon="plus" 		onclick="javascript:$('#friendInvite').click()" href="#" data-role="button" data-iconpos="notext">Invite Friend</a>
+<tags:navigation/>
 </div>
 <div style="clear:both"></div>
-
-<div data-role="content" style="padding-top:0px;">
-	<tags:messages/> 
 	<s:form id="newGameFriendForm" beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
     <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
         <li data-role="list-divider" >${selectFriendLbl}</li> 
     </ul>
+	<tags:messages/> 
         <c:forEach items="${actionBean.myFriends}" var="friend" varStatus="status" >
             <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">			
         	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >

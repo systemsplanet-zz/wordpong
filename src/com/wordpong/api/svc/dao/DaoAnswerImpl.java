@@ -11,7 +11,6 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.wordpong.api.meta.AnswerMeta;
 import com.wordpong.api.model.Answer;
-import com.wordpong.api.model.Question;
 import com.wordpong.api.model.User;
 import com.wordpong.api.svc.err.DaoException;
 

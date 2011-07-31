@@ -13,4 +13,3 @@
     response.addHeader("Expires", "-1");
 %>
 <%-- <%@ page isELIgnored="false" %>  --%>
-<%--<c:set var="contextPath" value="${pageContext.request.contextPath}"/> --%>

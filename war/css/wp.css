@@ -1,6 +1,9 @@
 /*! WordPong CSS */
+.wp-page{width:100%;}
 .wp-logo { text-align:center; }
 .wp-right-button {float:right; margin:2px 10px; padding:0px;}
+.wp-nav {overflow:hidden;float:right;margin:0;padding:0;height:40px}
+.wp-invisible {overflow:none;float:right;visibility:hidden; height:0; padding:0; margin:0}
 .up {color:green; }
 .down {color:red; }
 .wp-status {float:right; padding:2px 25px 10px;font-size:small}
@@ -25,4 +28,9 @@
 }
 
 
-  
+.ui-icon-wp-question {
+	background: url("/i/wp-question.png") no-repeat rgba(0, 0, 0, 0.4) !important;
+}
+.ui-icon-wp-friend {
+	background: url("/i/wp-friend.png") no-repeat rgba(0, 0, 0, 0.4) !important;
+}

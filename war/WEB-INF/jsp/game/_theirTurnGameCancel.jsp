@@ -5,42 +5,34 @@
 <fmt:message var="backLbl" key="back" />
 <fmt:message var="shareLbl" key="share" />
 <fmt:message var="withLbl" key="with" />
-
-<s:form id="theirTurnGameCancelForm" beanclass="com.wordpong.app.action.game.TheirTurnGameCancelActionBean" method="post">
-    <div data-role="header"  data-nobackbtn="true" data-theme="b">
-        <!-- Back Button -->
-        <div style="float:left;margin-left:10px">
-            <div data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
-                <span class="ui-btn-inner ui-btn-corner-all">
-                   <span class="ui-btn-text">${backLbl}</span>
-                   <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
-                </span>
-                <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
-            </div> 
-        </div>
-    </div>
-    <div style="clear:both"></div>
-    <div data-role="content" style="padding-top:0px;">
+<div data-role="content" style="padding-top:0px;">
+	<%-- NAVIGATION --%>
+	<span class="wp-nav">
+		<a data-icon="arrow-l" 		onclick="javascript:$('#addGameBtn').click()" 	href="#" data-role="button" data-iconpos="notext" style='visibility:hidden;'>Back</a>
+		<a data-icon="home" 		onclick="javascript:$('#homeBtn').click()" 		href="#" data-role="button" data-iconpos="notext">Home</a>
+		<a data-icon="wp-friend" 	onclick="javascript:$('#friendsBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Friends</a>
+		<a data-icon="wp-question" 	onclick="javascript:$('#questionsBtn').click()" href="#" data-role="button" data-iconpos="notext">Question</a>
+		<a data-icon="check" 		onclick="javascript:$('#answersBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Answer</a>
+		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Profile</a>
+		<a data-icon="plus" 		onclick="javascript:$('#').click()" href="#" data-role="button" data-iconpos="notext" style='visibility:hidden;'></a>
+		<tags:navigation/>
+	</span>
+	<div style="clear:both"></div>
+	<s:form id="theirTurnGameCancelForm" beanclass="com.wordpong.app.action.game.TheirTurnGameCancelActionBean" method="post">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 			<li data-role="list-divider" ><s:label for="theirTurnGameCancel.title"/></li> 
 		</ul>
 		<tags:messages/> 
-			<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
-				<li>
-                <%-- TODO: display details about game being canceled --%>
-                    <label>${shareLbl}: ${actionBean.game.questionTitle}</label>
-				</li>
-				<li>	                    
-                    <label>${withLbl}: ${actionBean.game.inviteeDetails}</label>
-				</li>
-			</ul>
-	        <div style="float:right">
-	            <input data-theme="a" class="process" id="cancelGame" name="cancelGame" value="${cancelInviteLbl}" type="submit" />
-	        </div>  
-    </div>
-    <s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="${actionBean.gameKeyStringEncrypted}"/>    
-    
-</s:form>   
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+			<li><label>${shareLbl}: ${actionBean.game.questionTitle}</label></li>
+			<li><label>${withLbl}: ${actionBean.game.inviteeDetails}</label></li>
+		</ul>
+        <div style="float:right">
+            <input data-theme="a" class="process" id="cancelGame" name="cancelGame" value="${cancelInviteLbl}" type="submit" />
+        </div>  
+    	<s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="${actionBean.gameKeyStringEncrypted}"/>    
+	</s:form>   
+</div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>
 wpFooterFile = "theirTurnGameCancel"

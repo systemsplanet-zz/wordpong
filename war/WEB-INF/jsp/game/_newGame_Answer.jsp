@@ -3,45 +3,24 @@
 <fmt:message var="backLbl" key="back" />
 <fmt:message var="addAnswerLbl" key="newGame.addAnswers" />
 <fmt:message var="selectAnswerLbl" key="newGame.selectAnswer" />
-
-<div data-role="header"  data-nobackbtn="true" data-theme="b">
-<s:form  beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
-    <div>
-        <!-- Back Button -->
-        <span style="float:left;margin-left:10px">
-            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-btn-corner-all ui-shadow">
-	            <span class="ui-btn-inner ui-btn-corner-all">
-	               <span class="ui-btn-text">${backLbl}</span>
-    	           <span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
-	            </span>
-                <input name="back" value="${backLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" data-icon="arrow-l" type="submit">
-            </span> 
-        </span>
-        
-        <!-- Add Button -->
-        <span style="float:right;margin-right:10px">
-            <span data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-right ui-btn-corner-all ui-shadow">
-                <span class="ui-btn-inner ui-btn-corner-all">
-                    <span class="ui-btn-text">${addAnswerLbl}</span>
-                    <span class="ui-icon ui-icon-plus ui-icon-shadow"></span>                    
-                </span>
-                <input name="addAnswer" value="${addAnswerLbl}" data-theme="a" class="process ui-btn-left  ui-btn-hidden" type="submit">
-            </span> 
-        </span>
-    </div>
-</s:form>
-</div>
-<div style="clear:both"></div>
-
 <div data-role="content" style="padding-top:0px;">
-	<tags:messages/> 
+	<%-- NAVIGATION --%>
+	<span class="wp-nav">
+		<a data-icon="arrow-l" 		onclick="javascript:$('#addGameBtn').click()" 		href="#" data-role="button" data-iconpos="notext">Back</a>
+		<a data-icon="home" 		onclick="javascript:$('#homeBtn').click()" 		href="#" data-role="button" data-iconpos="notext">Home</a>
+		<a data-icon="wp-friend" 	onclick="javascript:$('#friendsBtn').click()" 	href="#" data-role="button" data-iconpos="notext" class="ui-btn-active" >Friends</a>
+		<a data-icon="wp-question" 	onclick="javascript:$('#questionsBtn').click()" href="#" data-role="button" data-iconpos="notext">Question</a>
+		<a data-icon="check" 		onclick="javascript:$('#answersBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Answer</a>
+		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Profile</a>
+		<a data-icon="plus" 		onclick="javascript:$('#addAnswer').click()" href="#" data-role="button" data-iconpos="notext">Add Answer</a>
+		<tags:navigation/>
+	</span>
+	<div style="clear:both"></div>
 	<s:form id="newGame_AnswerForm" beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
-	
-	
-	
-		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"> 
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;"> 
 			<li data-role="list-divider">${selectAnswerLbl}</li> 
 		</ul>
+		<tags:messages/> 
 	
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 		    <c:forEach items="${actionBean.answers}" var="answers" >
@@ -54,12 +33,12 @@
 		    </c:forEach>
     	</ul>            
     	<div style='visibility:hidden; height:0; padding:0 margin:0'>
-			<s:button id="selectAnswer" name="selectAnswer" value="selectAnswer" class="process"/>    
+			<s:button id="selectAnswer" 			name="selectAnswer" value="selectAnswer" class="process"/>    
 			<s:hidden id="answerKeyStringEncrypted" name="answerKeyStringEncrypted" value="?answerKeyStringEncrypted?"/>
-			<s:hidden id="questionTitle" name="questionTitle" value="?questionTitle?"/>
+			<s:hidden id="questionTitle" 			name="questionTitle" value="?questionTitle?"/>
 			<s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="${actionBean.friendKeyStringEncrypted}" />	
-			<s:hidden id="friendDetails" name="friendDetails" value="${actionBean.friendDetails}" />
-			<s:hidden name="friendPictureUrl" id="friendPictureUrl" value="${actionBean.friendPictureUrl}" />	
+			<s:hidden id="friendDetails" 			name="friendDetails" value="${actionBean.friendDetails}" />
+			<s:hidden id="friendPictureUrl" 		name="friendPictureUrl" value="${actionBean.friendPictureUrl}" />	
 		</div>
 	
         <div style="float:left">

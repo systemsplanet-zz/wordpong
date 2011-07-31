@@ -50,7 +50,7 @@ public class LoginActionBean extends BaseActionBean implements ValidationErrorHa
 
     @DontValidate
     @DefaultHandler
-    public Resolution view() {
+    public Resolution homeBtn() {
         // if there is a query string, just save in the session and we're done.
         if (queryString != null) {
             setSessionAttribute(SESS_QUERY_STRING, queryString);
