@@ -24,7 +24,7 @@
         <c:forEach items="${actionBean.myFriends}" var="friend" varStatus="status" >
            <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 	       	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
-	       	      <a href="javascript:return false;">
+	       	      <a href="#"  OnClick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#friendPictureUrl').val('${friend.pictureUrl}');$('#selectFriend').click();return false;">
 		       	      <img src="${friend.pictureUrl}"  >
 		       	      <h3><small>${friend.fullName}</small></h3> 
 		       	      <p>${friend.email} <span class="ui-li-count">${friend.totalPoints}</span></p>
@@ -42,6 +42,15 @@
        <div style="float:left">
            <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
        </div>
+       
+	</s:form>	
+	<s:form id="newGameFriendForm" beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
+		<div style='visibility:hidden'>
+			<input class="process" id="selectFriend" name="selectFriend" value="select friend" type="submit"  />
+	        <s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="?friendKeyStringEncrypted?" />	
+	        <s:hidden id="friendDetails" 			name="friendDetails" 			value="?friendDetails?" />	
+	        <s:hidden id="friendPictureUrl" 		name="friendPictureUrl" 		value="?friendPictureUrl?" />	
+        </div>
 	</s:form>	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>

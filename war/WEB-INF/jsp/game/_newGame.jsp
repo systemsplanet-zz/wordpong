@@ -38,9 +38,9 @@
         <div style='visibility:hidden'>
            <input class="process" id="selectFriend" name="selectFriend" value="select friend" type="submit"  />
         </div>
-        <s:hidden name="friendKeyStringEncrypted" id="friendKeyStringEncrypted" value="?friendKeyStringEncrypted?" />	
-        <s:hidden name="friendDetails" id="friendDetails" value="?friendDetails?" />	
-        <s:hidden name="friendPictureUrl" id="friendPictureUrl" value="?friendPictureUrl?" />	
+        <s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="?friendKeyStringEncrypted?" />	
+        <s:hidden id="friendDetails" 			name="friendDetails" 			value="?friendDetails?" />	
+        <s:hidden id="friendPictureUrl" 		name="friendPictureUrl" 		value="?friendPictureUrl?" />	
 	</s:form>	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
