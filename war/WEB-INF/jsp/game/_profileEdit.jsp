@@ -11,7 +11,7 @@
 		<a data-icon="wp-friend" 	onclick="javascript:$('#friendsBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Friends</a>
 		<a data-icon="wp-question" 	onclick="javascript:$('#questionsBtn').click()" href="#" data-role="button" data-iconpos="notext">Question</a>
 		<a data-icon="check" 		onclick="javascript:$('#answersBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Answer</a>
-		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext" class="ui-btn-active">Profile</a>
+		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext"  style='visibility:hidden;'>Profile</a>
 		<a data-icon="arrow-r" 		onclick="javascript:$('#save').click()"         href="#" data-role="button" data-iconpos="notext">Save</a>
 		<tags:navigation/>
 	</span>

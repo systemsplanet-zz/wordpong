@@ -19,7 +19,7 @@
 		<a data-icon="wp-friend" 	onclick="javascript:$('#friendsBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Friends</a>
 		<a data-icon="wp-question" 	onclick="javascript:$('#questionsBtn').click()" href="#" data-role="button" data-iconpos="notext">Question</a>
 		<a data-icon="check" 		onclick="javascript:$('#answersBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Answer</a>
-		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Profile</a>
+		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext" style='visibility:hidden;'>Profile</a>
 		<a data-icon="arrow-r" 		onclick="javascript:$('#addGameBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Next</a>
 		<tags:navigation/>
 	</div>
@@ -36,7 +36,7 @@
 		    <c:forEach items="${actionBean.myTurnInviteFriends}" var="inviteFriend" >
 				<li data-role="list-divider"   style="white-space:normal;" >
 					<a  onclick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');$('#processFriendInviteBtn').click();" href="#">
-						<img src="${inviteFriend.inviterPictureUrl}"  >
+						<img src="${inviteFriend.inviterPictureUrl}" width="80" height="80" >
 						<p>${newFriendLbl}</p>
 						<p style="white-space:normal;">${inviteFriend.inviterDetails}</p> 
 			       	</a>
@@ -49,7 +49,7 @@
 		    <c:forEach items="${actionBean.myTurnGames}" var="game" >
 				<li data-role="list-divider"   style="white-space:normal;" >
 					<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#playGameBtn').click();" href="#">
-						<img src="${game.inviterPictureUrl}"  >
+						<img src="${game.inviterPictureUrl}" width="80" height="80" >
 						<p style="white-space:normal;">${game.questionTitle}</p> 
 						<p>${game.inviterDetails}</p>
 			       	</a>
@@ -73,7 +73,7 @@
 		    <c:forEach items="${actionBean.theirTurnsInviteFriend}" var="inviteFriend" >
 				<li data-role="list-divider"   style="white-space:normal;" >
 					<a  onclick="javascript:$('#inviteFriendKeyStringEncrypted').val('${inviteFriend.keyStringEncrypted}');$('#viewTheirTurnFriendInviteBtn').click();" href="#">
-						<img src="${inviteFriend.inviteePictureUrl}"  >
+						<img src="${inviteFriend.inviteePictureUrl}"  width="80" height="80">
 						<p>${friendInviteLbl}</p>
 						<p style="white-space:normal;">${inviteFriend.inviteeDetails}</p> 
 			       	</a>
@@ -85,7 +85,7 @@
 		    <c:forEach items="${actionBean.theirTurnsGame}" var="game" >
 				<li data-role="list-divider"   style="white-space:normal;" >
 					<a  onclick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#theirTurnGameCancelBtn').click();" href="#">
-						<img src="${game.inviteePictureUrl}"  >
+						<img src="${game.inviteePictureUrl}"  width="80" height="80">
 						<p style="white-space:normal;">${game.questionTitle}</p> 
 						<p>${game.inviteeDetails}</p>
 			       	</a>

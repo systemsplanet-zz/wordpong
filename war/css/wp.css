@@ -26,11 +26,26 @@
     font-weight: bold;
     margin-bottom: 10px;
 }
-
+#JQuery orientation classes
+.portrait {
+    /* portrait orientation changes go here! */
+}
+.landscape {
+    /* landscape orientation changes go here! */
+}   
 
 .ui-icon-wp-question {
 	background: url("/i/wp-question.png") no-repeat rgba(0, 0, 0, 0.4) !important;
 }
+.ui-icon-wp-question-add {
+	background: url("/i/wp-question-add.png") no-repeat rgba(0, 0, 0, 0.4) !important;
+}
 .ui-icon-wp-friend {
 	background: url("/i/wp-friend.png") no-repeat rgba(0, 0, 0, 0.4) !important;
+}
+.ui-icon-wp-friend-add {
+	background: url("/i/wp-friend-add.png") no-repeat rgba(0, 0, 0, 0.4) !important;
+}
+.ui-icon-wp-answer-add {
+	background: url("/i/wp-answer-add.png") no-repeat rgba(0, 0, 0, 0.4) !important;
 }

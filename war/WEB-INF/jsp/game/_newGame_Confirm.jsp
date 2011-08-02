@@ -1,9 +1,8 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.NewGameActionBean"/>
-<fmt:message var="acceptLbl" key="accept" />
 <fmt:message var="cancelLbl" key="cancel" />
-<fmt:message var="shareLbl" key="share" />
-<fmt:message var="withLbl" key="with" />
+<fmt:message var="confirmGameLbl" key="newGame.confirmGame" />
+
 <div data-role="content" style="padding-top:0px;">
 	<%-- NAVIGATION --%>
 	<span class="wp-nav">
@@ -12,17 +11,17 @@
 		<a data-icon="wp-friend" 	onclick="javascript:$('#friendsBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Friends</a>
 		<a data-icon="wp-question" 	onclick="javascript:$('#questionsBtn').click()" href="#" data-role="button" data-iconpos="notext">Question</a>
 		<a data-icon="check" 		onclick="javascript:$('#answersBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Answer</a>
-		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Profile</a>
+		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext" style='visibility:hidden;'>Profile</a>
 		<a data-icon="plus" 		onclick="javascript:$('#').click()" href="#" data-role="button" data-iconpos="notext" style='visibility:hidden;'></a>
 		<tags:navigation/>
 	</span>
 	<div style="clear:both"></div>
 	<s:form  beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
-			<li data-role="list-divider" ><s:label for="confirm game"/></li> 
-				<li >
+			<li data-role="list-divider" >${confirmGameLbl}</li> 
+				<li>
 					<h3 style="white-space:normal;">${actionBean.questionTitle}</h3>
-					<p style="white-space:normal;"><img src="${actionBean.friendPictureUrl}"></p>
+					<p style="white-space:normal;"><img src="${actionBean.friendPictureUrl}" width="80" height="80" /></p>
 					<p style="white-space:normal;">${actionBean.friendDetails}</p> 
 	        	</li>	        	    
 		</ul>

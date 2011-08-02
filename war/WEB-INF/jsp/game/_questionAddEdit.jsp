@@ -17,13 +17,13 @@
 <div data-role="content" style="padding-top:0px;">
 	<%-- NAVIGATION --%>
 	<span class="wp-nav">
-		<a data-icon="arrow-l" 		onclick="javascript:$('#back').click()" 		href="#" data-role="button" data-iconpos="notext">Back</a>
-		<a data-icon="home" 		onclick="javascript:$('#homeBtn').click()" 		href="#" data-role="button" data-iconpos="notext">Home</a>
-		<a data-icon="wp-friend" 	onclick="javascript:$('#friendsBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Friends</a>
-		<a data-icon="wp-question" 	onclick="javascript:$('#questionsBtn').click()" href="#" data-role="button" data-iconpos="notext">Question</a>
-		<a data-icon="check" 		onclick="javascript:$('#answersBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Answer</a>
-		<a data-icon="gear"			onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Profile</a>
-		<a data-icon="plus" 		onclick="javascript:$('#').click()" 			href="#" data-role="button" data-iconpos="notext" style='visibility:hidden;'></a>
+		<a data-icon="arrow-l" 			onclick="javascript:$('#back').click()" 		href="#" data-role="button" data-iconpos="notext">Back</a>
+		<a data-icon="home" 			onclick="javascript:$('#homeBtn').click()" 		href="#" data-role="button" data-iconpos="notext">Home</a>
+		<a data-icon="wp-friend" 		onclick="javascript:$('#friendsBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Friends</a>
+		<a data-icon="wp-question" 		onclick="javascript:$('#questionsBtn').click()" href="#" data-role="button" data-iconpos="notext">Question</a>
+		<a data-icon="check" 			onclick="javascript:$('#answersBtn').click()" 	href="#" data-role="button" data-iconpos="notext">Answer</a>
+		<a data-icon="gear"				onclick="javascript:$('#profileBtn').click()" 	href="#" data-role="button" data-iconpos="notext" style='visibility:hidden;'>Profile</a>
+		<a data-icon="wp-question-add" 	onclick="javascript:$('#').click()" 			href="#" data-role="button" data-iconpos="notext" class="ui-btn-active"></a>
 		<tags:navigation/>
 	</span>
 	<div style="clear:both"></div>
