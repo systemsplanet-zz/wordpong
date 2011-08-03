@@ -1,9 +1,7 @@
 package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
@@ -98,8 +96,6 @@ public class AnswerEditActionBean extends BaseActionBean implements
 		try {
 			if (answer != null) {
 				answer.setAnswers(answers);
-				Map<String, Boolean> m = new HashMap<String, Boolean>();
-				boolean duplicate = false;
 				boolean allAnswered = true;
 				for (int i = 0; i < questionsSize; i++) {
 					if (answers.size() < questionsSize) {
@@ -112,15 +108,8 @@ public class AnswerEditActionBean extends BaseActionBean implements
 						break;
 					}
 					a = a.trim();
-					if (m.containsKey(a)) {
-						duplicate = true;
-						break;
-					}
-					m.put(a, true);
 				}
-				if (duplicate) {
-					addGlobalActionError("answerAddEdit.pleaseMakeAllAnswersUnique");
-				} else if (allAnswered == false) {
+				if (allAnswered == false) {
 					addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
 				} else if (answer != null) {
 					_svcGame.saveAnswer(answer);

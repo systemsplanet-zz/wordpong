@@ -44,11 +44,17 @@ wpFooterFile = "gamePlay"
 </script>
 <script> 
 var i=0;
-var q=new Array();
+var q=new Array(); //questions
+var a=new Array(); //answers
 var qr=new Array(); // random question indexes
 <c:forEach items="${actionBean.question.questions}" var="i"  varStatus="s">	 	       
 	q[${s.index}]="${i}";			              
 	qr[${s.index}]=${s.index};
+</c:forEach>
+
+
+<c:forEach items="${actionBean.answer.answers}" var="i"  varStatus="s">	 	       
+	a[${s.index}]="${i}";			              
 </c:forEach>
 
 qr.shuffle(); //randomize it
@@ -59,14 +65,21 @@ function skip(){
    $("#question").text(q[qr[i]]);
 }
 
-function match(a){
-   	if (qr[i]!=a) {
+function match(ai){
+var responseIndex = qr[i]
+var response = a[responseIndex]
+var response = response.toLowerCase();
+//alert("response:["  + response +  "] i=" +i)
+var question = a[ai]
+var question = question.toLowerCase()
+//alert("question:["+question+ "] ai="+ ai )
+   	if (question != response) {
    		// no match
-   		$('#item-'+a).fadeOut('fast').fadeIn('fast')
+   		$('#item-'+ai).fadeOut('fast').fadeIn('fast')
    	} else {
    		//strike through the answer
-   		  $('#item-'+qr[i]).fadeOut('fast').fadeIn('fast', function() {
-             $('#item-'+qr[i]).css('text-decoration','line-through').css('color','green');
+   		  $('#item-'+ai).fadeOut('fast').fadeIn('fast', function() {
+             $('#item-'+ai).css('text-decoration','line-through').css('color','green');
 	   		//remove the question from qr
 	   		qr.splice(i, 1);
 	   		if (qr.length==0) {
