@@ -121,21 +121,24 @@ public class QuestionAddEditActionBean extends BaseActionBean implements Validat
             User u = getContext().getUserFromSession();
 
             // create a question object
-            Question a = new Question();
-            a.setQuestions(questions);
-            a.setTitle(title);
-            a.setDescription(description);
-            a.setVisibility(visibility);
-            a.setIntimacyLevel(intimacyLevel);
-            a.setUser(u);
-            a.setLocaleString(u.getLocaleString());
+            Question q = new Question();
+            q.setQuestions(questions);
+            q.setTitle(title);
+            q.setDescription(description);
+            q.setVisibility(visibility);
+            q.setIntimacyLevel(intimacyLevel);
+            q.setUser(u);
+            q.setLocaleString(u.getLocaleString());
             try {
                 SvcGame _svcGame = SvcGameFactory.getSvcGame();
                 // call svc_game to persist questions
-                _svcGame.createQuestion(a);
-                addGlobalActionMessage("questionAddEdit.questionsUpdated");
+                 _svcGame.createQuestion(q);                
+                //addGlobalActionMessage("questionAddEdit.questionsUpdated");
                 log.info("created questions:" + questions);
-                result = new ForwardResolution(GameActionBean.class);
+                Map<String,String> params = new HashMap<String,String>();
+                params.put("questionKeyStringEncrypted", q.getKeyStringEncrypted());
+                params.put("questionTitle", q.getTitle());
+                result = new ForwardResolution(AnswerAddEditActionBean.class).addParameters(params);
             } catch (WPServiceException e) {
                 // Duplicate title?
                 addGlobalActionError("questionAddEdit.unableToCreate");
