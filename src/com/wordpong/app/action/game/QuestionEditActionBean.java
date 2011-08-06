@@ -14,6 +14,7 @@ import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.util.CryptoUtil;
+import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
@@ -32,6 +33,10 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
     // when the user selects questions to edit these are populated
     private String questionKeyStringEncrypted;
     private String questionTitle;
+
+    @Validate(required = true, maxlength = 100, minlength = 4)
+    private String questionDescription;
+
     private Question question;
     private List<String> questions = null;
 
@@ -58,6 +63,9 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
                             if (questions.size() == 0) {
                                 List<String> as = question.getQuestions();
                                 questions.addAll(as);
+                            }
+                            if (questionDescription == null) {
+                                questionDescription = question.getDescription();
                             }
                         }
                     }
@@ -93,6 +101,7 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
         Resolution result = new ForwardResolution(VIEW);
         try {
             if (question != null) {
+                question.setDescription(questionDescription);
                 question.setQuestions(questions);
                 Map<String, Boolean> m = new HashMap<String, Boolean>();
                 boolean duplicate = false;
@@ -139,6 +148,14 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
         this.questionTitle = questionTitle;
     }
 
+    public String getQuestionDescription() {
+        return questionDescription;
+    }
+
+    public void setQuestionDescription(String questionDescription) {
+        this.questionDescription = questionDescription;
+    }
+
     public String getQuestionKeyStringEncrypted() {
         return questionKeyStringEncrypted;
     }
@@ -153,5 +170,6 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
 
     public List<String> getQuestions() {
         return questions;
+
     }
 }
