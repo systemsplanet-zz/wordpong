@@ -1,9 +1,7 @@
 package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
@@ -105,8 +103,6 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 		Resolution result = new ForwardResolution(VIEW);
 		getQuestions();
 		boolean allAnswered = true;
-		boolean duplicate = false;
-		Map<String, Boolean> m = new HashMap<String, Boolean>();
 		for (int i = 0; i < questionsSize; i++) {
 			if (answers.size() < questionsSize) {
 				allAnswered = false;
@@ -118,15 +114,8 @@ public class AnswerAddEditActionBean extends BaseActionBean implements
 				break;
 			}
 			a = a.trim();
-			if (m.containsKey(a)) {
-				duplicate = true;
-				break;
-			}
-			m.put(a, true);
 		}
-		if (duplicate) {
-			addGlobalActionError("answerAddEdit.pleaseMakeAllAnswersUnique");
-		} else if (allAnswered == false) {
+		if (allAnswered == false) {
 			addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
 		} else {
 			// todo call svc_game to persist answers
