@@ -22,12 +22,14 @@
 	</ul>
 	<tags:messages/> 
 	<s:form id="friendInviteAcceptForm" beanclass="com.wordpong.app.action.game.FriendInviteAcceptActionBean" method="post">
-		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
+			<li data-role="list-divider" >${friendInviteFromLbl}</li> 
 			<li>
-       			<label>${friendInviteFromLbl}: ${actionBean.inviteFriend.inviterDetails}</label>
-   	            <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			
-			</li>
+				<p style="white-space:normal;"><img src="${actionBean.inviteFriend.inviterPictureUrl}" width="80" height="80" /></p>
+				<p style="white-space:normal;">${actionBean.inviteFriend.inviterDetails}</p> 
+        	</li>	        	    
 		</ul>
+   	    <s:hidden   name="inviteFriendKeyStringEncrypted" value="${inviteFriend.keyStringEncrypted}" />			
         <div style="float:right">
             <input data-theme="a" class="process" name="acceptInviteConfirm" value="${acceptLbl}" type="submit" />
         </div>  

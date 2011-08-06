@@ -19,11 +19,11 @@
 	<s:form  beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" style="margin-top:0px;">
 			<li data-role="list-divider" >${confirmGameLbl}</li> 
-				<li>
-					<h3 style="white-space:normal;">${actionBean.questionTitle}</h3>
-					<p style="white-space:normal;"><img src="${actionBean.friendPictureUrl}" width="80" height="80" /></p>
-					<p style="white-space:normal;">${actionBean.friendDetails}</p> 
-	        	</li>	        	    
+			<li>
+				<h3 style="white-space:normal;">${actionBean.questionTitle}</h3>
+				<p style="white-space:normal;"><img src="${actionBean.friendPictureUrl}" width="80" height="80" /></p>
+				<p style="white-space:normal;">${actionBean.friendDetails}</p> 
+        	</li>	        	    
 		</ul>
 		<tags:messages/> 
         <div style="float:right">
