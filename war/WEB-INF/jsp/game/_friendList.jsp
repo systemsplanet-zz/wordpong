@@ -33,8 +33,10 @@
 	       	      
 	       	      <c:forEach items="${friend.games}" var="game" varStatus="s">	    	     	
 	        	    <li id="item-${s.index}"  style="white-space:normal;">  
-	        	        <small>${game.questionTitle}</small>
-	      	            <span class="ui-li-count">${game.points}</span>
+	        	    	<a href="#"  OnClick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#selectGame').click();return false;">
+	        	        	<small>${game.questionTitle}</small>
+	      	            	<span class="ui-li-count">${game.points}</span>
+	      	            </a>
 	        	    </li>	        	    
 	        	  </c:forEach>
 	       	  </li>	        	    
@@ -42,15 +44,23 @@
        </c:forEach>        
        <div style="float:left">
            <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
-       </div>
-       
-	</s:form>	
+       </div>       
+	</s:form>
+	
+<!-- hidden form for starting a new game -->	
 	<s:form id="newGameFriendForm" beanclass="com.wordpong.app.action.game.NewGameActionBean" method="post">
 		<div style='visibility:hidden'>
 			<input class="process" id="selectFriend" name="selectFriend" value="select friend" type="submit"  />
 	        <s:hidden id="friendKeyStringEncrypted" name="friendKeyStringEncrypted" value="?friendKeyStringEncrypted?" />	
 	        <s:hidden id="friendDetails" 			name="friendDetails" 			value="?friendDetails?" />	
 	        <s:hidden id="friendPictureUrl" 		name="friendPictureUrl" 		value="?friendPictureUrl?" />	
+        </div>
+	</s:form>	
+<!-- hidden form for viewing game answers -->	
+	<s:form id="friendAnswerForm" beanclass="com.wordpong.app.action.game.FriendAnswerActionBean" method="post">
+		<div style='visibility:hidden'>
+			<input class="process" id="selectGame" name="selectGame" value="select game" type="submit"  />
+	        <s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="?gameKeyStringEncrypted?" />	
         </div>
 	</s:form>	
 </div>
