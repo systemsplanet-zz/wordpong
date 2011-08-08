@@ -36,6 +36,8 @@ public interface DaoUser {
 
     User getUser(User user) throws DaoException;
 
+    User getUser(String keyString) throws DaoException;
+
     User getUser(Atomic at, User user) throws DaoException;
 
     User getUser(Atomic at, String uk) throws DaoException;

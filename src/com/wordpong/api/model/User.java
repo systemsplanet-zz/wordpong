@@ -55,6 +55,9 @@ public class User implements Serializable {
     private Set<Key> friends = new HashSet<Key>();
 
     @Attribute(unindexed = true)
+    private int totalPoints = 0;
+
+    @Attribute(unindexed = true)
     private Set<Key> gameKeys = new HashSet<Key>();
 
     // List of games not saved. Just used for display purposes
@@ -234,6 +237,14 @@ public class User implements Serializable {
     }
 
     public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
+    /*    public int getTotalPoints() {
         int total = 0;
         if (games != null && games.size() > 0) {
             for (int i = 0; i < games.size(); i++) {
@@ -242,7 +253,7 @@ public class User implements Serializable {
         }
         return total;
     }
-
+*/
     public void addGame(Game g) {
         if (g != null) {
             Key key = g.getKey();

@@ -71,7 +71,7 @@ public class FriendListActionBean extends BaseActionBean implements
 	public List<User> getMyFriends() throws WPServiceException {
 		user = getContext().getUserFromSession();
 		long start = System.currentTimeMillis();
-		List<User> result = _svcGame.getMyFriendsGames(user);
+		List<User> result = _svcGame.getMyFriends(user);
 		log.info("getMyFriends elapsedMs:"
 				+ (System.currentTimeMillis() - start));
 		return result;

@@ -104,6 +104,18 @@ public class DaoUserImpl extends DaoBase<User> implements DaoUser {
         }
     }
 
+    public User getUser(String keyString) throws DaoException {
+        User result = null;
+        try {
+            Key key = KeyFactory.stringToKey(keyString);
+            result = getUser(key);
+        } catch (Exception e) {
+            log.warning("getUser keyStr:" + keyString + " err:" + e.getMessage());
+            throw new DaoException(e.getMessage());
+        }
+        return result;
+    }
+
     public User getUser(Key key) throws DaoException {
         User result = null;
         try {

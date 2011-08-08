@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
-<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendListActionBean"/>
+<s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendHistoryActionBean"/>
 <fmt:message var="backLbl" key="back" />
 <fmt:message var="addLbl" key="add" />
 <fmt:message var="myFriendsLbl" key="friendList.myFriends" />
@@ -18,24 +18,22 @@
 		<tags:navigation/>
 	</span>
 	<div style="clear:both"></div>
-	<s:form id="friendListForm" beanclass="com.wordpong.app.action.game.FriendListActionBean" method="post"> 
+	<s:form id="friendHistoryForm" beanclass="com.wordpong.app.action.game.FriendHistoryActionBean" method="post"> 
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 			<li data-role="list-divider" >${myFriendsLbl}</li> 
 		</ul>
 		<tags:messages/> 
-        <c:forEach items="${actionBean.myFriends}" var="friend" varStatus="status" >
            <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="c"  style="margin-top:0px;">
 	       	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
 	       	      <span >
-		       	      <img src="${friend.pictureUrl}" style="float:left;"  width="60" height="60" />&nbsp;${friend.totalPoints}
+		       	      <img src="${actionBean.friend.pictureUrl}" style="float:left;"  width="60" height="60" />&nbsp;${actionBean.friend.totalPoints}
 		       	      <div style="float:right">
-				 		  	<input data-icon="star" type="button"  onclick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#friendPictureUrl').val('${friend.pictureUrl}');$('#selectFriend').click();return false;" data-role="button" value="${playLbl}" data-iconpos="right"/>
-				 		  	<input data-icon="arrow-r" type="button" onclick="javascript:$('#friendHistoryKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#selectHistory').click();return false;" data-role="button" value="${historyLbl}" data-iconpos="right" />		       	      
+				 		  	<input data-icon="star" type="button"  onclick="javascript:$('#friendKeyStringEncrypted').val('${actionBean.friend.keyStringEncrypted}');$('#friendDetails').val('${actionBean.friend.details}');$('#friendPictureUrl').val('${actionBean.friend.pictureUrl}');$('#selectFriend').click();return false;" data-role="button" value="${playLbl}" data-iconpos="right" />
 		       	      </div>
 					  <div style="clear:both"></div>
 		       	      <span style="float:left;">
-			       	      <h3 style="white-space:normal;">${friend.fullName}</h3> 
-			       	      <p style="white-space:normal;">${friend.email} </p>
+			       	      <h3 style="white-space:normal;">${actionBean.friend.fullName}</h3> 
+			       	      <p style="white-space:normal;">${actionBean.friend.email} </p>
 		       	      </span>
 		       	      <br/>
 		       	      
@@ -43,9 +41,16 @@
 	       	      </span>
 	       	      <div>
 		       	  </div> 
+	       	      <c:forEach items="${actionBean.friend.games}" var="game" varStatus="s">	    	     	
+	        	    <li id="item-${s.index}"  style="white-space:normal;">  
+	        	    	<a href="#"  OnClick="javascript:$('#gameKeyStringEncrypted').val('${game.keyStringEncrypted}');$('#selectGame').click();return false;">
+	        	        	<small>${game.questionTitle}</small>
+	      	            	<span class="ui-li-count">${game.points}</span>
+	      	            </a>
+	        	    </li>	        	    
+	        	  </c:forEach>
 	       	  </li>	        	    
            </ul>
-       </c:forEach>        
        <div style="float:left">
            <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
        </div>       
@@ -60,16 +65,17 @@
 	        <s:hidden id="friendPictureUrl" 		name="friendPictureUrl" 		value="?friendPictureUrl?" />	
         </div>
 	</s:form>	
-<!-- hidden form for viewing game answers -->	
-	<s:form id="historyForm" beanclass="com.wordpong.app.action.game.FriendHistoryActionBean" method="post">
+	<!-- hidden form for viewing game answers -->	
+	<s:form id="friendAnswerForm" beanclass="com.wordpong.app.action.game.FriendAnswerActionBean" method="post">
 		<div style='visibility:hidden'>
-			<input class="process" id="selectHistory" name="selectHistory" value="select history" type="submit"  />
-	        <s:hidden id="friendHistoryKeyStringEncrypted" name="friendHistoryKeyStringEncrypted" value="?friendHistoryKeyStringEncrypted?" />	
+			<input class="process" id="selectGame" name="selectGame" value="select game" type="submit"  />
+	        <s:hidden id="gameKeyStringEncrypted" name="gameKeyStringEncrypted" value="?gameKeyStringEncrypted?" />	
         </div>
 	</s:form>	
+	
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>
-wpFooterFile = "friendList"
+wpFooterFile = "friendHistory"
 </script>
 

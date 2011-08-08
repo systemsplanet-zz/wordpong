@@ -339,16 +339,17 @@ public class SvcGameImpl implements SvcGame {
         List<User> friends = new ArrayList<User>();
         try {
             friends = du.getFriends(u);
+            Collections.sort(friends, FRIEND_ORDER);
         } catch (Exception e) {
             log.warning("getMyFriends: err" + e.getMessage());
         }
         return friends;
     }
-
+/*
     // Return a list of friends and the games they played
     // very expensive.. TODO: add caching
     // Query strategy starts with answers to derive friends list
-    @Override
+    @Deprecated
     public List<User> getMyFriendsGames(User u) {
         DaoUser du = DaoUserFactory.getDaoUser();
         DaoGame dg = DaoGameFactory.getDaoGame();
@@ -399,6 +400,14 @@ public class SvcGameImpl implements SvcGame {
         } catch (Exception e) {
             log.warning("getMyFriendsGames: user:" + u + " err" + e.getMessage());
         }
+        return result;
+    }
+*/
+    @Override
+    public List<Game> getFriendGames(User user, User friend)throws WPServiceException {
+        List<Game> result = new ArrayList<Game>();
+        DaoGame dg = DaoGameFactory.getDaoGame();
+        result = dg.getGames(user,friend);
         return result;
     }
 
@@ -557,6 +566,18 @@ public class SvcGameImpl implements SvcGame {
         return result;
     }
 
+    @Override
+    public User getUser(String keyString) throws WPServiceException {
+        DaoUser du = DaoUserFactory.getDaoUser();
+        User result;
+        try {
+            result = du.getUser(keyString);
+        } catch (DaoException e) {
+            throw new WPServiceException("getUser userKey:" + keyString + " err: " + e.getMessage());
+        }
+        return result;
+        
+    }
     // Refresh user from database
     @Override
     public User getUser(User u) throws WPServiceException {

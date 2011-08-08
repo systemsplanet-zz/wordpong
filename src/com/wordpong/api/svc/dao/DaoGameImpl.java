@@ -35,6 +35,27 @@ public class DaoGameImpl extends DaoBase<Game> implements DaoGame {
         return g;
     }
 
+    public List<Game> getGames(User inviter, User invitee) throws DaoException {
+        List<Game> result = new ArrayList<Game>();
+        Key inviterKey = inviter.getKey();
+        Key inviteeKey = invitee.getKey();
+        GameMeta e = GameMeta.get();
+        try {
+            List<Game> gs = Datastore.query(e).filter(e.inviteeUserKey.equal(inviteeKey)).asList();
+            for (Game g : gs) {
+                Key k = g.getInviterUserKey();
+                if (inviterKey.equals(k)) {
+                    result.add(g);
+                }
+            }
+
+        } catch (Exception ex) {
+            throw new DaoException("Err:" + ex.getMessage());
+        }
+        return result;
+
+    }
+
     public List<Game> getGamesByInviteeKey(User user) throws DaoException {
         List<Game> result = null;
         GameMeta e = GameMeta.get();
