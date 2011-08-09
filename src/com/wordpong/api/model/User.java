@@ -3,9 +3,11 @@ package com.wordpong.api.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import net.sourceforge.stripes.util.CryptoUtil;
@@ -54,8 +56,9 @@ public class User implements Serializable {
     @Attribute(unindexed = true)
     private Set<Key> friends = new HashSet<Key>();
 
-    @Attribute(unindexed = true)
-    private int totalPoints = 0;
+    // map friend keyString to the total points with that friend
+    @Attribute(unindexed = true, lob = true)
+    private Map<String, Integer> friendPointsMap = new HashMap<String, Integer>();
 
     @Attribute(unindexed = true)
     private Set<Key> gameKeys = new HashSet<Key>();
@@ -63,6 +66,10 @@ public class User implements Serializable {
     // List of games not saved. Just used for display purposes
     @Attribute(persistent = false)
     private List<Game> games = new ArrayList<Game>();
+
+    // points not saved. Just used for display purposes
+    @Attribute(persistent = false)
+    private int points;
 
     @Attribute(listener = ModificationDate.class)
     Date updatedAt;
@@ -234,26 +241,53 @@ public class User implements Serializable {
 
     public void setGames(List<Game> games) {
         this.games = games;
-    }
-
-    public int getTotalPoints() {
-        return totalPoints;
-    }
-
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
-    }
-
-    /*    public int getTotalPoints() {
-        int total = 0;
-        if (games != null && games.size() > 0) {
-            for (int i = 0; i < games.size(); i++) {
-                total += games.get(i).getPoints();
+        if (games != null) {
+            points = 0;
+            for (Game g : games) {
+                points += g.getPoints();
             }
         }
-        return total;
     }
-*/
+
+    public void addFriendPoints(String keyString, int points) {
+        int pts = getFriendPoints(keyString);
+        pts += points;
+        setFriendPoints(keyString, pts);
+    }
+
+    public void setFriendPoints(String keyString, int pts) {
+        friendPointsMap.put(keyString, pts);
+    }
+
+    public int getFriendPoints(String keyString) {
+        int result = 0;
+        if (friendPointsMap != null && friendPointsMap.containsKey(keyString)) {
+            result = friendPointsMap.get(keyString);
+        }
+        return result;
+    }
+
+    public Map<String, Integer> getFriendPointsMap() {
+        return friendPointsMap;
+    }
+
+    public void setFriendPointsMap(Map<String, Integer> friendPointsMap) {
+        this.friendPointsMap = friendPointsMap;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    /*
+     * public int getTotalPoints() { int total = 0; if (games != null &&
+     * games.size() > 0) { for (int i = 0; i < games.size(); i++) { total +=
+     * games.get(i).getPoints(); } } return total; }
+     */
     public void addGame(Game g) {
         if (g != null) {
             Key key = g.getKey();

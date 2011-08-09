@@ -34,7 +34,9 @@ public class SvcGameImpl implements SvcGame {
     private static final Logger log = Logger.getLogger(SvcGameImpl.class.getName());
     static final Comparator<User> FRIEND_ORDER = new Comparator<User>() {
         public int compare(User u1, User u2) {
-            return u2.getTotalPoints() - u1.getTotalPoints();
+            int u1pts = u1.getFriendPoints(u1.getKeyString());
+            int u2pts = u2.getFriendPoints(u2.getKeyString());
+            return u2pts - u1pts;
         }
     };
 
@@ -339,6 +341,10 @@ public class SvcGameImpl implements SvcGame {
         List<User> friends = new ArrayList<User>();
         try {
             friends = du.getFriends(u);
+            for (User f:friends){
+                int pts = u.getFriendPoints(f.getKeyString());
+                f.setPoints(pts);
+            }
             Collections.sort(friends, FRIEND_ORDER);
         } catch (Exception e) {
             log.warning("getMyFriends: err" + e.getMessage());
@@ -509,13 +515,22 @@ public class SvcGameImpl implements SvcGame {
             public boolean apply(Atomic at) {
                 boolean result = false;
                 try {
+                    long start = System.currentTimeMillis();
                     Game g = dg.getGame(at, gameKeyString);
                     g.setCompleted(true);
                     dg.saveGame(at, g);
-                    String uk = g.getInviterUserKeyString();
-                    User u = du.getUser(at, uk);
-                    u.removeGame(g);
-                    du.save(at, u);
+
+                    String inviterKey = g.getInviterUserKeyString();
+                    String inviteeKey = g.getInviteeUserKeyString();
+                    User inviter = du.getUser(at, inviterKey);
+                    inviter.addFriendPoints(inviteeKey, g.getPoints());
+                    inviter.removeGame(g);
+                    du.save(at, inviter);
+                    
+                    User invitee = du.getUser(at, inviteeKey);
+                    invitee.addFriendPoints(inviterKey, g.getPoints());
+                    du.save(at, invitee);
+                    log.info("finished game elapsedMs:"+(System.currentTimeMillis()-start) + " game:"+g);
                     result = true;
                 } catch (DaoException e) {
                 }

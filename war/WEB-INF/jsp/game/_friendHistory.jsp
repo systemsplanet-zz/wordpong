@@ -26,7 +26,7 @@
            <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="c"  style="margin-top:0px;">
 	       	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
 	       	      <span >
-		       	      <img src="${actionBean.friend.pictureUrl}" style="float:left;"  width="60" height="60" />&nbsp;${actionBean.friend.totalPoints}
+		       	      <img src="${actionBean.friend.pictureUrl}" style="float:left;"  width="60" height="60" />&nbsp;${actionBean.friend.points}
 		       	      <div style="float:right">
 				 		  	<input data-icon="star" type="button"  onclick="javascript:$('#friendKeyStringEncrypted').val('${actionBean.friend.keyStringEncrypted}');$('#friendDetails').val('${actionBean.friend.details}');$('#friendPictureUrl').val('${actionBean.friend.pictureUrl}');$('#selectFriend').click();return false;" data-role="button" value="${playLbl}" data-iconpos="right" />
 		       	      </div>
