@@ -30,6 +30,8 @@
 		       	      <img src="${friend.pictureUrl}" style="float:left;"  width="60" height="60" />&nbsp;${friend.points}
 		       	      <div style="float:right">
 				 		  	<input data-icon="star" type="button"  onclick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#friendPictureUrl').val('${friend.pictureUrl}');$('#selectFriend').click();return false;" data-role="button" value="${playLbl}" data-iconpos="right"/>
+		       	      </div>
+		       	      <div style="float:right">
 				 		  	<input data-icon="arrow-r" type="button" onclick="javascript:$('#friendHistoryKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#selectHistory').click();return false;" data-role="button" value="${historyLbl}" data-iconpos="right" />		       	      
 		       	      </div>
 					  <div style="clear:both"></div>
@@ -38,7 +40,6 @@
 			       	      <p style="white-space:normal;">${friend.email} </p>
 		       	      </span>
 		       	      <br/>
-		       	      
 					  <div style="clear:both"></div>
 	       	      </span>
 	       	      <div>

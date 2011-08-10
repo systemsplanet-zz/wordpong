@@ -1,11 +1,9 @@
 package com.wordpong.api.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -62,10 +60,6 @@ public class User implements Serializable {
 
     @Attribute(unindexed = true)
     private Set<Key> gameKeys = new HashSet<Key>();
-
-    // List of games not saved. Just used for display purposes
-    @Attribute(persistent = false)
-    private List<Game> games = new ArrayList<Game>();
 
     // points not saved. Just used for display purposes
     @Attribute(persistent = false)
@@ -233,20 +227,6 @@ public class User implements Serializable {
 
     public void setLocaleString(String localeString) {
         this.localeString = localeString;
-    }
-
-    public List<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(List<Game> games) {
-        this.games = games;
-        if (games != null) {
-            points = 0;
-            for (Game g : games) {
-                points += g.getPoints();
-            }
-        }
     }
 
     public void addFriendPoints(String keyString, int points) {

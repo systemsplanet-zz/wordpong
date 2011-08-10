@@ -1,5 +1,6 @@
 package com.wordpong.app.action.game;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,6 +30,8 @@ public class FriendHistoryActionBean extends BaseActionBean implements Validatio
     private String friendHistoryKeyStringEncrypted = "?fhke?";
     private User user;
     private User friend;
+    private List<Game> theirAnswers = new ArrayList<Game>();
+    private List<Game> myAnswers = new ArrayList<Game>();
 
     public FriendHistoryActionBean() {
     }
@@ -44,9 +47,17 @@ public class FriendHistoryActionBean extends BaseActionBean implements Validatio
                     if (friend != null) {
                         user = getContext().getUserFromSession();
                         long start = System.currentTimeMillis();
-                        List<Game> games = _svcGame.getFriendGames(user, friend);
-                        log.info("getFriendGames elapsedMs:" + (System.currentTimeMillis() - start));
-                        friend.setGames(games);
+                        theirAnswers = _svcGame.getFriendGames(friend, user);
+                        int points = 0;
+                        for (Game g : theirAnswers) {
+                            points += g.getPoints();
+                        }
+                        myAnswers = _svcGame.getFriendGames(user, friend);
+                        for (Game g : myAnswers) {
+                            points += g.getPoints();
+                        }
+                        friend.setPoints(points);
+                        log.info("getFriendGames elapsedMs:" + (System.currentTimeMillis() - start));                       
                     }
                 } catch (WPServiceException e) {
                     log.warning("unable to get friend:" + e.getMessage());
@@ -91,8 +102,12 @@ public class FriendHistoryActionBean extends BaseActionBean implements Validatio
         return friend;
     }
 
-    public void setFriend(User friend) {
-        this.friend = friend;
+    public List<Game> getTheirAnswers() {
+        return theirAnswers;
+    }
+
+    public List<Game> getMyAnswers() {
+        return myAnswers;
     }
 
 }
