@@ -68,17 +68,16 @@ public class Atomic {
             } catch (ConcurrentModificationException e) {
                 log.warning("concurrent modification for predicate:" + p + " err:" + e.getMessage());
                 if (retries <= 0) {
-                    throw e;
+                    throw new Exception("retries exceeded predicate:" + p, e);
                 }
             } catch (Exception e) {
-                log.warning("unable to process predicate:" + p + " err:" + e.getMessage());
-                throw e;
+                throw new Exception("unable to process predicate:" + p, e);
             } finally {
                 if (at.isActive()) {
                     at.rollback();
                 }
             }
-            int min = 200;  // min sleep ms
+            int min = 200; // min sleep ms
             int max = 2000; // max sleep ms
             int sleep = min + (int) (Math.random() * ((max - min) + 1));
             log.warning("sleep: " + sleep + " ms then retrying predicate:" + p);
@@ -112,23 +111,28 @@ public class Atomic {
         return gtx.equals(obj);
     }
 
-    public <M> List<M> get(Class<M> modelClass, Iterable<Key> keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> List<M> get(Class<M> modelClass, Iterable<Key> keys) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.get(modelClass, keys);
     }
 
-    public <M> M get(Class<M> modelClass, Key key, long version) throws NullPointerException, EntityNotFoundRuntimeException, ConcurrentModificationException, IllegalStateException {
+    public <M> M get(Class<M> modelClass, Key key, long version) throws NullPointerException,
+            EntityNotFoundRuntimeException, ConcurrentModificationException, IllegalStateException {
         return gtx.get(modelClass, key, version);
     }
 
-    public <M> List<M> get(Class<M> modelClass, Key... keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> List<M> get(Class<M> modelClass, Key... keys) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.get(modelClass, keys);
     }
 
-    public <M> M get(Class<M> modelClass, Key key) throws NullPointerException, EntityNotFoundRuntimeException, ConcurrentModificationException, IllegalStateException {
+    public <M> M get(Class<M> modelClass, Key key) throws NullPointerException, EntityNotFoundRuntimeException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.get(modelClass, key);
     }
 
-    public List<Entity> get(Iterable<Key> keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public List<Entity> get(Iterable<Key> keys) throws NullPointerException, ConcurrentModificationException,
+            IllegalStateException {
         return gtx.get(keys);
     }
 
@@ -136,35 +140,43 @@ public class Atomic {
         return gtx.get(keys);
     }
 
-    public Entity get(Key key) throws NullPointerException, EntityNotFoundRuntimeException, ConcurrentModificationException, IllegalStateException {
+    public Entity get(Key key) throws NullPointerException, EntityNotFoundRuntimeException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.get(key);
     }
 
-    public <M> List<M> get(ModelMeta<M> modelMeta, Iterable<Key> keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> List<M> get(ModelMeta<M> modelMeta, Iterable<Key> keys) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.get(modelMeta, keys);
     }
 
-    public <M> M get(ModelMeta<M> modelMeta, Key key, long version) throws NullPointerException, EntityNotFoundRuntimeException, ConcurrentModificationException, IllegalStateException {
+    public <M> M get(ModelMeta<M> modelMeta, Key key, long version) throws NullPointerException,
+            EntityNotFoundRuntimeException, ConcurrentModificationException, IllegalStateException {
         return gtx.get(modelMeta, key, version);
     }
 
-    public <M> List<M> get(ModelMeta<M> modelMeta, Key... keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> List<M> get(ModelMeta<M> modelMeta, Key... keys) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.get(modelMeta, keys);
     }
 
-    public <M> M get(ModelMeta<M> modelMeta, Key key) throws NullPointerException, EntityNotFoundRuntimeException, ConcurrentModificationException, IllegalStateException {
+    public <M> M get(ModelMeta<M> modelMeta, Key key) throws NullPointerException, EntityNotFoundRuntimeException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.get(modelMeta, key);
     }
 
-    public <M> Map<Key, M> getAsMap(Class<M> modelClass, Iterable<Key> keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> Map<Key, M> getAsMap(Class<M> modelClass, Iterable<Key> keys) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.getAsMap(modelClass, keys);
     }
 
-    public <M> Map<Key, M> getAsMap(Class<M> modelClass, Key... keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> Map<Key, M> getAsMap(Class<M> modelClass, Key... keys) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.getAsMap(modelClass, keys);
     }
 
-    public Map<Key, Entity> getAsMap(Iterable<Key> arg0) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public Map<Key, Entity> getAsMap(Iterable<Key> arg0) throws NullPointerException, ConcurrentModificationException,
+            IllegalStateException {
         return gtx.getAsMap(arg0);
     }
 
@@ -172,11 +184,13 @@ public class Atomic {
         return gtx.getAsMap(keys);
     }
 
-    public <M> Map<Key, M> getAsMap(ModelMeta<M> modelMeta, Iterable<Key> keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> Map<Key, M> getAsMap(ModelMeta<M> modelMeta, Iterable<Key> keys) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.getAsMap(modelMeta, keys);
     }
 
-    public <M> Map<Key, M> getAsMap(ModelMeta<M> modelMeta, Key... keys) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> Map<Key, M> getAsMap(ModelMeta<M> modelMeta, Key... keys) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.getAsMap(modelMeta, keys);
     }
 
@@ -188,15 +202,18 @@ public class Atomic {
         return gtx.getLocalTransaction();
     }
 
-    public <M> M getOrNull(Class<M> modelClass, Key key) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> M getOrNull(Class<M> modelClass, Key key) throws NullPointerException, ConcurrentModificationException,
+            IllegalStateException {
         return gtx.getOrNull(modelClass, key);
     }
 
-    public Entity getOrNull(Key key) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public Entity getOrNull(Key key) throws NullPointerException, ConcurrentModificationException,
+            IllegalStateException {
         return gtx.getOrNull(key);
     }
 
-    public <M> M getOrNull(ModelMeta<M> modelMeta, Key key) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> M getOrNull(ModelMeta<M> modelMeta, Key key) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.getOrNull(modelMeta, key);
     }
 
@@ -208,11 +225,13 @@ public class Atomic {
         return gtx.isActive();
     }
 
-    public Key put(Entity entity) throws NullPointerException, IllegalArgumentException, ConcurrentModificationException {
+    public Key put(Entity entity) throws NullPointerException, IllegalArgumentException,
+            ConcurrentModificationException {
         return gtx.put(entity);
     }
 
-    public List<Key> put(Iterable<?> arg0) throws NullPointerException, IllegalArgumentException, ConcurrentModificationException {
+    public List<Key> put(Iterable<?> arg0) throws NullPointerException, IllegalArgumentException,
+            ConcurrentModificationException {
         return gtx.put(arg0);
     }
 
@@ -224,19 +243,23 @@ public class Atomic {
         return gtx.put(model);
     }
 
-    public <M> ModelQuery<M> query(Class<M> modelClass, Key ancestorKey) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> ModelQuery<M> query(Class<M> modelClass, Key ancestorKey) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.query(modelClass, ancestorKey);
     }
 
-    public KindlessQuery query(Key ancestorKey) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public KindlessQuery query(Key ancestorKey) throws NullPointerException, ConcurrentModificationException,
+            IllegalStateException {
         return gtx.query(ancestorKey);
     }
 
-    public <M> ModelQuery<M> query(ModelMeta<M> modelMeta, Key ancestorKey) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public <M> ModelQuery<M> query(ModelMeta<M> modelMeta, Key ancestorKey) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.query(modelMeta, ancestorKey);
     }
 
-    public EntityQuery query(String kind, Key ancestorKey) throws NullPointerException, ConcurrentModificationException, IllegalStateException {
+    public EntityQuery query(String kind, Key ancestorKey) throws NullPointerException,
+            ConcurrentModificationException, IllegalStateException {
         return gtx.query(kind, ancestorKey);
     }
 

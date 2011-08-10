@@ -530,7 +530,7 @@ public class SvcGameImpl implements SvcGame {
                     User invitee = du.getUser(at, inviteeKey);
                     invitee.addFriendPoints(inviterKey, g.getPoints());
                     du.save(at, invitee);
-                    log.info("finished game elapsedMs:"+(System.currentTimeMillis()-start) + " game:"+g);
+                    log.info("   finished game elapsedMs:"+(System.currentTimeMillis()-start) + " game:"+g);
                     result = true;
                 } catch (DaoException e) {
                 }
@@ -544,7 +544,7 @@ public class SvcGameImpl implements SvcGame {
         try {
             Atomic.transact(WORK);
         } catch (Exception e) {
-            throw new WPServiceException(e.getMessage());
+            throw new WPServiceException("Atomic tx error",e);
         }
     }
 

@@ -56,7 +56,7 @@ public class User implements Serializable {
 
     // map friend keyString to the total points with that friend
     @Attribute(unindexed = true, lob = true)
-    private Map<String, Integer> friendPointsMap = new HashMap<String, Integer>();
+    private Map<String, Integer> friendPointsMap = null;
 
     @Attribute(unindexed = true)
     private Set<Key> gameKeys = new HashSet<Key>();
@@ -236,18 +236,22 @@ public class User implements Serializable {
     }
 
     public void setFriendPoints(String keyString, int pts) {
+        getFriendPointsMap();
         friendPointsMap.put(keyString, pts);
     }
 
     public int getFriendPoints(String keyString) {
         int result = 0;
-        if (friendPointsMap != null && friendPointsMap.containsKey(keyString)) {
+        getFriendPointsMap();
+        if (friendPointsMap.containsKey(keyString)) {
             result = friendPointsMap.get(keyString);
         }
         return result;
     }
 
     public Map<String, Integer> getFriendPointsMap() {
+        if (friendPointsMap == null)
+            friendPointsMap = new HashMap<String, Integer>();
         return friendPointsMap;
     }
 
