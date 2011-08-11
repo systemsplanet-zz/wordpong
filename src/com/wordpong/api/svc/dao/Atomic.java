@@ -52,6 +52,15 @@ public class Atomic {
         transact(p, MAX_RETRIES);
     }
 
+    /*
+     * *Note:* If your app receives an exception when submitting a transaction,
+     * it does not always mean that the transaction failed. You can receive
+     * DatastoreTimeoutException , ConcurrentModificationException or
+     * DatastoreFailureException in cases where transactions have been committed
+     * and eventually will be applied successfully. Whenever possible, make your
+     * datastore transactions idempotent so that if you repeat a transaction,
+     * the end result will be the same.
+     */
     private static void transact(Predicate<Atomic> p, int retries) throws Exception {
         while (true) {
             GlobalTransaction gt = Datastore.beginGlobalTransaction();

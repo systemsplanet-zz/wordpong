@@ -27,11 +27,6 @@
 		<tags:navigation/>
 	</span>
 	<div style="clear:both"></div>
-	<span class="wp-invisible">
-		<s:form beanclass="com.wordpong.app.action.game.QuestionAddEditActionBean" method="post">
-			<input name="back" id="back" value="${backLbl}" class="process" type="submit">
-		</s:form>
-	</span>
 	<s:form id="questionAddEditForm" beanclass="com.wordpong.app.action.game.QuestionAddEditActionBean" method="post">
 	    <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
 	        <li data-role="list-divider" >${enterQuestionsLbl}</li> 
@@ -79,13 +74,18 @@
 	 --%>
 	           		       
         </small>         
+        <div style="float:right">
+           <input data-theme="a" class="process ui-btn-left "  name="save"  tabindex="1" value="${saveLbl}" type="submit" /> 
+        </div>
         <div style="float:left">
            <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" tabindex="6"/> 
         </div>
-        <div style="float:right">
-           <input data-theme="a" class="process ui-btn-left "  name="save" value="${saveLbl}" type="submit" /> 
-        </div>
 	</s:form>	 
+	<span class="wp-invisible">
+		<s:form beanclass="com.wordpong.app.action.game.QuestionAddEditActionBean" method="post">
+			<input name="back" id="back" value="${backLbl}" class="process" type="submit">
+		</s:form>
+	</span>
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>
