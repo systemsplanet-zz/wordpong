@@ -51,7 +51,6 @@ public class FriendListActionBean extends BaseActionBean implements
 
 	@HandlesEvent("selectFriend")
 	public Resolution selectFriend() {
-		// TODO:
 		log.info("selected friend");
 		return new ForwardResolution(VIEW);
 	}

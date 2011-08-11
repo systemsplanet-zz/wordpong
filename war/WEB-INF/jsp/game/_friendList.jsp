@@ -27,23 +27,25 @@
            <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="c"  style="margin-top:0px;">
 	       	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
 	       	      <span >
-		       	      <img src="${friend.pictureUrl}" style="float:left;"  width="60" height="60" />&nbsp;${friend.points}
-		       	      <div style="float:right">
-				 		  	<input data-icon="star" type="button"  onclick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#friendPictureUrl').val('${friend.pictureUrl}');$('#selectFriend').click();return false;" data-role="button" value="${playLbl}" data-iconpos="right"/>
+		       	      <img src="${friend.pictureUrl}" style="float:left;"  width="60" height="60" />
+		       	      <div style="float:left;padding-left:8px">
+			       	      <h3 style="white-space:normal;">${friend.fullName}</h3> 
+			       	      <p style="white-space:normal;">${friend.email} 
 		       	      </div>
-		       	      <div style="float:right">
-				 		  	<input data-icon="arrow-r" type="button" onclick="javascript:$('#friendHistoryKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#selectHistory').click();return false;" data-role="button" value="${historyLbl}" data-iconpos="right" />		       	      
+					  <div style="float:right">
+				 		  	<p class="wp-points">${friend.points}</p></p>		       	      
 		       	      </div>
 					  <div style="clear:both"></div>
-		       	      <span style="float:left;">
-			       	      <h3 style="white-space:normal;">${friend.fullName}</h3> 
-			       	      <p style="white-space:normal;">${friend.email} </p>
-		       	      </span>
-		       	      <br/>
+		       	      <small>
+			       	      <div style="float:right;">
+					 		  	<input data-icon="star" type="button"  onclick="javascript:$('#friendKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#friendDetails').val('${friend.details}');$('#friendPictureUrl').val('${friend.pictureUrl}');$('#selectFriend').click();return false;" data-role="button" value="${playLbl}" data-iconpos="right"/>
+			       	      </div>
+			       	      <div style="float:right">
+					 		  	<input data-icon="arrow-r" type="button" onclick="javascript:$('#friendHistoryKeyStringEncrypted').val('${friend.keyStringEncrypted}');$('#selectHistory').click();return false;" data-role="button" value="${historyLbl}" data-iconpos="right" />		       	      
+			       	      </div>
+		       	      </small>
 					  <div style="clear:both"></div>
 	       	      </span>
-	       	      <div>
-		       	  </div> 
 	       	  </li>	        	    
            </ul>
        </c:forEach>        

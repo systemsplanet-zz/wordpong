@@ -2,11 +2,12 @@
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendHistoryActionBean"/>
 <fmt:message var="backLbl" key="back" />
 <fmt:message var="addLbl" key="add" />
-<fmt:message var="myFriendsLbl" key="friendList.myFriends" />
+<fmt:message var="friendHistoryLbl" key="friendHistory.title" />
 <fmt:message var="playLbl" key="friendList.play" />
 <fmt:message var="historyLbl" key="friendList.history" />
 <fmt:message var="theirAnswersLbl" key="friendHistory.theirAnswers" />
 <fmt:message var="myAnswersLbl" key="friendHistory.myAnswers" />
+
 
 <div data-role="content" style="padding-top:0px;">
 	<%-- NAVIGATION --%>
@@ -23,22 +24,27 @@
 	<div style="clear:both"></div>
 	<s:form id="friendHistoryForm" beanclass="com.wordpong.app.action.game.FriendHistoryActionBean" method="post"> 
 		<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b"  style="margin-top:0px;">
-			<li data-role="list-divider" >${myFriendsLbl}</li> 
+			<li data-role="list-divider" >${friendHistoryLbl}</li> 
 		</ul>
 		<tags:messages/> 
 
         <ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="c"  style="margin-top:0px;">
      	  <li data-role="list-divider" id="item-${s.index}"  style="white-space:normal;" >
      	  	<span >
-	      	      <img src="${actionBean.friend.pictureUrl}" style="float:left;"  width="60" height="60" />&nbsp;${actionBean.friend.points}
-	      	      <div style="float:right">
-		 		  	<input data-icon="star" type="button"  onclick="javascript:$('#friendKeyStringEncrypted').val('${actionBean.friend.keyStringEncrypted}');$('#friendDetails').val('${actionBean.friend.details}');$('#friendPictureUrl').val('${actionBean.friend.pictureUrl}');$('#selectFriend').click();return false;" data-role="button" value="${playLbl}" data-iconpos="right" />
-	      	      </div>
-				  <div style="clear:both"></div>
-	      	      <span style="float:left;">
+	      	      <img src="${actionBean.friend.pictureUrl}" style="float:left;"  width="60" height="60" />
+	      	      <div style="float:left;padding-left:8px">
 	       	    	  <h3 style="white-space:normal;">${actionBean.friend.fullName}</h3> 
 	       		      <p style="white-space:normal;">${actionBean.friend.email} </p>
-	      	      </span>
+	      	      </div>
+				  <div style="float:right">
+			 		  	<p class="wp-points">${actionBean.friend.points}</p>	       	      
+	       	      </div>
+				  <div style="clear:both"></div>
+	       	      <small>
+		      	      <div style="float:right">
+			 		  	<input data-icon="star" type="button"  onclick="javascript:$('#friendKeyStringEncrypted').val('${actionBean.friend.keyStringEncrypted}');$('#friendDetails').val('${actionBean.friend.details}');$('#friendPictureUrl').val('${actionBean.friend.pictureUrl}');$('#selectFriend').click();return false;" data-role="button" value="${playLbl}" data-iconpos="right" />
+		      	      </div>
+	       	      </small>
 				  <div style="clear:both"></div>
 			  </span>
      	  </li>	        	    
