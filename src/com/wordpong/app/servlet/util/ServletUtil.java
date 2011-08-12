@@ -32,7 +32,7 @@ public class ServletUtil {
                 } else {
                     s.setAttribute(key, value);
                 }
-                log.info("sessionSet:" + s.getId() + " key:" + key + " val:" + value);
+                log.fine("sessionSet:" + s.getId() + " key:" + key + " val:" + value);
             } catch (Exception e) {
                 log.warning("sessionSet: cant set key:[" + key + "] val:[" + value + "] err:" + e.getMessage());
             }
@@ -47,7 +47,7 @@ public class ServletUtil {
                 HttpSession s = req.getSession();
                 value = (T) s.getAttribute(key);
                 if (value == null) {
-                    log.info("sessionGet:" + s.getId() + " key:[" + key + "] not found");
+                    log.fine("sessionGet:" + s.getId() + " key:[" + key + "] not found");
                     value = defaultValue;
                     if (value != null) {
                         sessionSet(req, key, value);

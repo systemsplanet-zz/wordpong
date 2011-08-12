@@ -1,7 +1,5 @@
 package com.wordpong.app.action.game;
 
-import java.util.logging.Logger;
-
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -20,10 +18,10 @@ import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
 public class TheirTurnGameCancelActionBean extends BaseActionBean implements ValidationErrorHandler {
     private static final String VIEW = "/WEB-INF/jsp/game/_theirTurnGameCancel.jsp";
-    private static final Logger log = Logger.getLogger(TheirTurnGameCancelActionBean.class.getName());
 
     private String gameKeyStringEncrypted;
     private Game game;
@@ -41,7 +39,7 @@ public class TheirTurnGameCancelActionBean extends BaseActionBean implements Val
                     SvcGame _svcGame = SvcGameFactory.getSvcGame();
                     game = _svcGame.getGame(gameKeyString);
                 } catch (WPServiceException e) {
-                    log.warning("doPostValidationStuff error:" + e.getMessage());
+                    LogUtil.logException("doPostValidationStuff", e);
                 }
             }
         }
@@ -61,7 +59,6 @@ public class TheirTurnGameCancelActionBean extends BaseActionBean implements Val
     @HandlesEvent("cancelGame")
     public Resolution cancelGame() {
         Resolution result = new ForwardResolution(VIEW);
-        log.info("cancel game invitation:" + game);
         if (game != null) {
             try {
                 SvcGame sg = SvcGameFactory.getSvcGame();
@@ -72,6 +69,7 @@ public class TheirTurnGameCancelActionBean extends BaseActionBean implements Val
                 result = new ForwardResolution(GameActionBean.class);
             } catch (WPServiceException e) {
                 addGlobalActionError("theirTurnGameCancel.unableToCancel");
+                LogUtil.logException("cancelGame", e);
             }
         }
         return result;

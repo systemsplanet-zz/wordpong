@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -25,9 +24,9 @@ import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.util.debug.LogUtil;
 
 public class QuestionAddEditActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(QuestionAddEditActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_questionAddEdit.jsp";
 
     // TODO: how do we add more questions
@@ -133,14 +132,12 @@ public class QuestionAddEditActionBean extends BaseActionBean implements Validat
                 SvcGame _svcGame = SvcGameFactory.getSvcGame();
                 // call svc_game to persist questions
                  _svcGame.createQuestion(q);                
-                //addGlobalActionMessage("questionAddEdit.questionsUpdated");
-                log.info("created questions:" + questions);
                 Map<String,String> params = new HashMap<String,String>();
                 params.put("questionKeyStringEncrypted", q.getKeyStringEncrypted());
                 params.put("questionTitle", q.getTitle());
                 result = new ForwardResolution(AnswerAddEditActionBean.class).addParameters(params);
             } catch (WPServiceException e) {
-                // Duplicate title?
+                LogUtil.logException("save", e);
                 addGlobalActionError("questionAddEdit.unableToCreate");
             }
         }

@@ -3,7 +3,6 @@ package com.wordpong.app.action.game;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -24,9 +23,9 @@ import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.util.debug.LogUtil;
 
 public class QuestionEditActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(QuestionEditActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_questionEdit.jsp";
 
     private SvcGame _svcGame;
@@ -70,7 +69,7 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
                         }
                     }
                 } catch (WPServiceException e) {
-                    log.warning("unable to get question:" + e.getMessage());
+                    LogUtil.logException("doPostValidationStuff", e);
                 }
             }
         }
@@ -130,12 +129,12 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
                 } else if (question != null) {
                     _svcGame.updateQuestion(question);
                     addGlobalActionMessage("questionEdit.questionsUpdated");
-                    log.info("updated questions:" + question);
                     result = new ForwardResolution(GameActionBean.class);
                 }
             }
         } catch (WPServiceException e) {
             addGlobalActionError("questionEdit.unableToSaveQuestions");
+            LogUtil.logException("save", e);
         }
         return result;
     }

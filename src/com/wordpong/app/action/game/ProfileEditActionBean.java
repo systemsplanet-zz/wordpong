@@ -3,7 +3,6 @@ package com.wordpong.app.action.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -30,10 +29,10 @@ import com.wordpong.app.stripes.AppLocalePicker;
 import com.wordpong.app.stripes.converter.ImageUrlTypeConverter;
 import com.wordpong.app.stripes.converter.LocaleTypeConverter;
 import com.wordpong.util.LocaleDisplay;
+import com.wordpong.util.debug.LogUtil;
 import com.wordpong.util.secure.Encrypt;
 
 public class ProfileEditActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(ProfileEditActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_profileEdit.jsp";
 
     private SvcUser svcUser;
@@ -76,8 +75,8 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
         return new ForwardResolution(GameActionBean.class);
     }
 
-	@After(stages = LifecycleStage.BindingAndValidation)
-	public void doPostValidationStuff() {
+    @After(stages = LifecycleStage.BindingAndValidation)
+    public void doPostValidationStuff() {
         AppActionBeanContext c = getContext();
         if (c != null) {
             if (user == null) {
@@ -107,8 +106,8 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 }
                 loadLocales();
             }
-        }		
-	}
+        }
+    }
 
     @DontValidate
     @DefaultHandler
@@ -145,7 +144,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                 }
             } catch (WPServiceException e) {
                 addGlobalActionError("profileEdit.unableToSaveProfile");
-                log.warning("unable to save user: " + user);
+                LogUtil.logException("save", e);
                 // err msgs are lost on redirects, so forward instead
             }
         }
@@ -163,8 +162,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
                     SvcUserFactory.getSvcUser().findByEmail(email);
                     addGlobalActionError("register.duplicateUser");
                 } catch (WPServiceException e) {
-                    // if not found, then not problem
-                    log.fine("email not found as expected:" + e.getMessage());
+                    LogUtil.logException("validateUser", e);
                 }
             }
         }
@@ -218,7 +216,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
 
     public void setFirstName(String fn) {
         if (fn != null) {
-            fn= fn.trim().toLowerCase();
+            fn = fn.trim().toLowerCase();
         }
         this.firstName = fn;
     }
@@ -229,7 +227,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
 
     public void setLastName(String ln) {
         if (ln != null) {
-            ln= ln.trim().toLowerCase();
+            ln = ln.trim().toLowerCase();
         }
         this.lastName = ln;
     }
@@ -240,7 +238,7 @@ public class ProfileEditActionBean extends BaseActionBean implements ValidationE
 
     public void setPictureUrl(String p) {
         if (p != null) {
-            p= p.trim().toLowerCase();
+            p = p.trim().toLowerCase();
         }
         this.pictureUrl = p;
     }

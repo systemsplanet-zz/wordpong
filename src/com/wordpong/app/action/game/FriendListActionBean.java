@@ -1,7 +1,7 @@
 package com.wordpong.app.action.game;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -18,61 +18,60 @@ import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
-public class FriendListActionBean extends BaseActionBean implements
-		ValidationErrorHandler {
-	private static final Logger log = Logger
-			.getLogger(FriendListActionBean.class.getName());
-	private static final String VIEW = "/WEB-INF/jsp/game/_friendList.jsp";
+public class FriendListActionBean extends BaseActionBean implements ValidationErrorHandler {
+    private static final String VIEW = "/WEB-INF/jsp/game/_friendList.jsp";
 
-	private SvcGame _svcGame;
+    private SvcGame _svcGame;
 
-	private User user;
+    private User user;
 
-	public FriendListActionBean() {
-		_svcGame = SvcGameFactory.getSvcGame();
-	}
+    public FriendListActionBean() {
+        _svcGame = SvcGameFactory.getSvcGame();
+    }
 
-	@DontValidate
-	public Resolution back() {
-		return new ForwardResolution(GameActionBean.class);
-	}
+    @DontValidate
+    public Resolution back() {
+        return new ForwardResolution(GameActionBean.class);
+    }
 
-	@DontValidate
-	public Resolution friendInvite() {
-		return new ForwardResolution(FriendInviteActionBean.class);
-	}
+    @DontValidate
+    public Resolution friendInvite() {
+        return new ForwardResolution(FriendInviteActionBean.class);
+    }
 
-	@DontValidate
-	@DefaultHandler
-	public Resolution view() {
-		return new ForwardResolution(VIEW);
-	}
+    @DontValidate
+    @DefaultHandler
+    public Resolution view() {
+        return new ForwardResolution(VIEW);
+    }
 
-	@HandlesEvent("selectFriend")
-	public Resolution selectFriend() {
-		log.info("selected friend");
-		return new ForwardResolution(VIEW);
-	}
+    @HandlesEvent("selectFriend")
+    public Resolution selectFriend() {
+        return new ForwardResolution(VIEW);
+    }
 
-	@ValidationMethod
-	public void validateUser(ValidationErrors errors) {
-		AppActionBeanContext c = getContext();
-		if (c != null) {
-		}
-	}
+    @ValidationMethod
+    public void validateUser(ValidationErrors errors) {
+        AppActionBeanContext c = getContext();
+        if (c != null) {
+        }
+    }
 
-	// on errors, only reply with the content, not the entire page
-	public Resolution handleValidationErrors(ValidationErrors errors) {
-		return new ForwardResolution(VIEW);
-	}
+    // on errors, only reply with the content, not the entire page
+    public Resolution handleValidationErrors(ValidationErrors errors) {
+        return new ForwardResolution(VIEW);
+    }
 
-	public List<User> getMyFriends() throws WPServiceException {
-		user = getContext().getUserFromSession();
-		long start = System.currentTimeMillis();
-		List<User> result = _svcGame.getMyFriends(user);
-		log.info("getMyFriends elapsedMs:"
-				+ (System.currentTimeMillis() - start));
-		return result;
-	}
+    public List<User> getMyFriends() throws WPServiceException {
+        List<User> result = new ArrayList<User>();
+        try {
+            user = getContext().getUserFromSession();
+            result = _svcGame.getMyFriends(user);
+        } catch (WPServiceException e) {
+            LogUtil.logException("getMyFriends", e);
+        }
+        return result;
+    }
 }

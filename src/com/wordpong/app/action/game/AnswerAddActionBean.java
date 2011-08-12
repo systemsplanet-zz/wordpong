@@ -2,7 +2,6 @@ package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -21,11 +20,10 @@ import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
 public class AnswerAddActionBean extends BaseActionBean implements
 		ValidationErrorHandler {
-	private static final Logger log = Logger
-			.getLogger(AnswerAddActionBean.class.getName());
 	private static final String VIEW = "/WEB-INF/jsp/game/_answerAdd.jsp";
 
 	private SvcGame _svcGame;
@@ -64,10 +62,9 @@ public class AnswerAddActionBean extends BaseActionBean implements
 		List<Question> result = new ArrayList<Question>();
 		try {
 			user = getContext().getUserFromSession();
-			log.info("user:" + user + " svc:" + _svcGame);
 			result = _svcGame.getUnansweredQuestions(user);
 		} catch (WPServiceException e) {
-			log.warning("getQuestionList user:" + user + " err:" + e);
+            LogUtil.logException("getQuestionList", e);
 		}
 		return result;
 	}

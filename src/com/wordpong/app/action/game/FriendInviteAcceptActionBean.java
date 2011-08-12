@@ -1,7 +1,5 @@
 package com.wordpong.app.action.game;
 
-import java.util.logging.Logger;
-
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -22,106 +20,105 @@ import com.wordpong.api.svc.SvcUserFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
-public class FriendInviteAcceptActionBean extends BaseActionBean implements
-		ValidationErrorHandler {
-	private static final Logger log = Logger
-			.getLogger(FriendInviteAcceptActionBean.class.getName());
-	private static final String VIEW = "/WEB-INF/jsp/game/_friendInviteAccept.jsp";
+public class FriendInviteAcceptActionBean extends BaseActionBean implements ValidationErrorHandler {
 
-	private String inviteFriendKeyStringEncrypted;
-	private String inviteFriendKeyString;
-	private InviteFriend inviteFriend;
+    private static final String VIEW = "/WEB-INF/jsp/game/_friendInviteAccept.jsp";
 
-	public FriendInviteAcceptActionBean() {
-	}
+    private String inviteFriendKeyStringEncrypted;
+    private String inviteFriendKeyString;
+    private InviteFriend inviteFriend;
 
-	@After(stages = LifecycleStage.BindingAndValidation)
-	public void doPostValidationStuff() {
-		if (inviteFriendKeyStringEncrypted != null) {
-			inviteFriendKeyString = CryptoUtil
-					.decrypt(inviteFriendKeyStringEncrypted);
-			SvcGame sg = SvcGameFactory.getSvcGame();
-			try {
-				inviteFriend = sg.getInviteFriend(inviteFriendKeyString);
-			} catch (WPServiceException e) {
-			}
-		}
-	}
+    public FriendInviteAcceptActionBean() {
+    }
 
-	@DontValidate
-	public Resolution back() {
-		return new ForwardResolution(FriendListActionBean.class);
-	}
+    @After(stages = LifecycleStage.BindingAndValidation)
+    public void doPostValidationStuff() {
+        if (inviteFriendKeyStringEncrypted != null) {
+            inviteFriendKeyString = CryptoUtil.decrypt(inviteFriendKeyStringEncrypted);
+            SvcGame sg = SvcGameFactory.getSvcGame();
+            try {
+                inviteFriend = sg.getInviteFriend(inviteFriendKeyString);
+            } catch (WPServiceException e) {
+                LogUtil.logException("doPostValidationStuff", e);
+            }
+        }
+    }
 
-	@DontValidate
-	@DefaultHandler
-	public Resolution view() {
-		return new ForwardResolution(VIEW);
-	}
+    @DontValidate
+    public Resolution back() {
+        return new ForwardResolution(FriendListActionBean.class);
+    }
 
-	@HandlesEvent("ignoreInvite")
-	public Resolution ignoreInvite() {
-		Resolution result = new ForwardResolution(VIEW);
-		try {
-			// hide friendinvite from invitee
-			SvcGame sg = SvcGameFactory.getSvcGame();
-			sg.ignoreFriendInvitation(inviteFriendKeyString);
-			addGlobalActionMessage("friendInviteAccept.inviteIgnored");
-			result = new ForwardResolution(GameActionBean.class);
-		} catch (WPServiceException e) {
-			addGlobalActionError("friendInviteAccept.unableToIgnore");
-		}
-		return result;
-	}
+    @DontValidate
+    @DefaultHandler
+    public Resolution view() {
+        return new ForwardResolution(VIEW);
+    }
 
-	@HandlesEvent("acceptInviteConfirm")
-	public Resolution acceptInvite() {
-		Resolution result = new ForwardResolution(GameActionBean.class);
-		AppActionBeanContext c = getContext();
-		if (c != null) {
-			try {
-				User user = c.getUserFromSession();
-				if (user != null) {
-					SvcGame sg = SvcGameFactory.getSvcGame();
-					sg.makeFriends(inviteFriendKeyString); // inviteFriendKey
-					SvcUser su = SvcUserFactory.getSvcUser();
-					// get user with new friend attached
-					user = su.getByKey(user);
-					c.putUserToRequestAndSession(user);
-					addGlobalActionMessage("friendInviteAccept.inviteAccepted");
-				} else {
-					// session expire?
-				}
-			} catch (Exception e) {
-				addGlobalActionError("friendInviteAccept.unableToAccept");
-				log.warning("unable to accept invite");
-			}
-		}
-		// redirect back here
-		return result;
-	}
+    @HandlesEvent("ignoreInvite")
+    public Resolution ignoreInvite() {
+        Resolution result = new ForwardResolution(VIEW);
+        try {
+            // hide friendinvite from invitee
+            SvcGame sg = SvcGameFactory.getSvcGame();
+            sg.ignoreFriendInvitation(inviteFriendKeyString);
+            addGlobalActionMessage("friendInviteAccept.inviteIgnored");
+            result = new ForwardResolution(GameActionBean.class);
+        } catch (WPServiceException e) {
+            addGlobalActionError("friendInviteAccept.unableToIgnore");
+            LogUtil.logException("ignoreInvite", e);
+        }
+        return result;
+    }
 
-	// on errors, only reply with the content, not the entire page
-	public Resolution handleValidationErrors(ValidationErrors errors) {
-		return new ForwardResolution(VIEW);
-	}
+    @HandlesEvent("acceptInviteConfirm")
+    public Resolution acceptInvite() {
+        Resolution result = new ForwardResolution(GameActionBean.class);
+        AppActionBeanContext c = getContext();
+        if (c != null) {
+            try {
+                User user = c.getUserFromSession();
+                if (user != null) {
+                    SvcGame sg = SvcGameFactory.getSvcGame();
+                    sg.makeFriends(inviteFriendKeyString); // inviteFriendKey
+                    SvcUser su = SvcUserFactory.getSvcUser();
+                    // get user with new friend attached
+                    user = su.getByKey(user);
+                    c.putUserToRequestAndSession(user);
+                    addGlobalActionMessage("friendInviteAccept.inviteAccepted");
+                } else {
+                    // session expire?
+                }
+            } catch (Exception e) {
+                addGlobalActionError("friendInviteAccept.unableToAccept");
+                LogUtil.logException("acceptInviteConfirm", e);
+            }
+        }
+        // redirect back here
+        return result;
+    }
 
-	public String getInviteFriendKeyStringEncrypted() {
-		return inviteFriendKeyStringEncrypted;
-	}
+    // on errors, only reply with the content, not the entire page
+    public Resolution handleValidationErrors(ValidationErrors errors) {
+        return new ForwardResolution(VIEW);
+    }
 
-	public void setInviteFriendKeyStringEncrypted(
-			String inviteFriendKeyStringEncrypted) {
-		this.inviteFriendKeyStringEncrypted = inviteFriendKeyStringEncrypted;
-	}
+    public String getInviteFriendKeyStringEncrypted() {
+        return inviteFriendKeyStringEncrypted;
+    }
 
-	public InviteFriend getInviteFriend() {
-		return inviteFriend;
-	}
+    public void setInviteFriendKeyStringEncrypted(String inviteFriendKeyStringEncrypted) {
+        this.inviteFriendKeyStringEncrypted = inviteFriendKeyStringEncrypted;
+    }
 
-	public void setInviteFriend(InviteFriend inviteFriend) {
-		this.inviteFriend = inviteFriend;
-	}
+    public InviteFriend getInviteFriend() {
+        return inviteFriend;
+    }
+
+    public void setInviteFriend(InviteFriend inviteFriend) {
+        this.inviteFriend = inviteFriend;
+    }
 
 }

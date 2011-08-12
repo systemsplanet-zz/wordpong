@@ -2,7 +2,6 @@ package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -23,9 +22,9 @@ import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
 public class NewGameActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(NewGameActionBean.class.getName());
     private static final String SELECT_FRIEND = "/WEB-INF/jsp/game/_newGame.jsp";
     private static final String SELECT_ANSWER = "/WEB-INF/jsp/game/_newGame_Answer.jsp";
     private static final String CONFIRM_GAME = "/WEB-INF/jsp/game/_newGame_Confirm.jsp";
@@ -49,13 +48,11 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
         AppActionBeanContext c = getContext();
         if (user == null) {
             user = c.getUserFromSession();
-            long start = System.currentTimeMillis();
             try {
                 friends = _svcGame.getMyFriends(user);
             } catch (WPServiceException e) {
-                log.warning("getMyFriends err:" + e.getMessage());
+                LogUtil.logException("doPostValidationStuff err", e);
             }
-            log.info("get friends elapsedMs:" + (System.currentTimeMillis() - start));
         }
     }
 
@@ -76,7 +73,7 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
             try {
                 answers = _svcGame.getAnswers(user);
             } catch (WPServiceException e) {
-                log.warning("getting answers user:" + user + " err:" + e.getMessage());
+                LogUtil.logException("view", e);
             }
             if (answers == null || answers.size() == 0) {
                 result = new ForwardResolution(AnswerAddActionBean.class);
@@ -88,12 +85,11 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
     public List<Answer> getAnswers() {
         List<Answer> result = new ArrayList<Answer>();
         user = getContext().getUserFromSession();
-        log.info("user:" + user + " svc:" + _svcGame);
         try {
             // get the list of answers for this user
             result = _svcGame.getAnswers(user);
         } catch (WPServiceException e) {
-            log.warning("getAnswers err:" + e.getMessage());
+            LogUtil.logException("getAnswers", e);
         }
         return result;
     }
@@ -110,7 +106,6 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
 
     @HandlesEvent("selectFriend")
     public Resolution selectFriend() {
-        log.info("selected friend:" + friendKeyStringEncrypted);
         return new ForwardResolution(SELECT_ANSWER);
     }
 
@@ -138,8 +133,8 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
             sg.createGame(g, user);
             addGlobalActionMessage("newGame.gameSent");
         } catch (Exception e) {
+            LogUtil.logException("startGame", e);
             addGlobalActionError("newGame.unableToStartGame");
-            log.warning("unable to start game e:" + e.getMessage());
         }
         // redirect home
         return new ForwardResolution(GameActionBean.class);

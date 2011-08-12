@@ -1,7 +1,7 @@
 package com.wordpong.app.action.game;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.annotation.security.PermitAll;
 
@@ -21,9 +21,9 @@ import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
 public class GameActionBean extends BaseActionBean {
-    private static final Logger log = Logger.getLogger(GameActionBean.class.getName());
     public static final String VIEW = "/WEB-INF/jsp/game/index.jsp";
 
     private SvcGame _svcGame;
@@ -45,7 +45,7 @@ public class GameActionBean extends BaseActionBean {
             user = _svcGame.getUser(user);
             c.putUserToRequestAndSession(user);
         } catch (WPServiceException e) {
-            log.warning("getUser err:" + e.getMessage());
+            LogUtil.logException("authorizeFilter", e);
         }
         return assertAuthenticated();
     }
@@ -69,7 +69,6 @@ public class GameActionBean extends BaseActionBean {
 
     @DontValidate
     public Resolution myTurnSelect() {
-        // TODO
         return new ForwardResolution(ProfileEditActionBean.class);
     }
 
@@ -87,6 +86,7 @@ public class GameActionBean extends BaseActionBean {
     public Resolution answersBtn() {
         return new ForwardResolution(AnswerListActionBean.class);
     }
+
     @DontValidate
     public Resolution questionsBtn() {
         return new ForwardResolution(QuestionListActionBean.class);
@@ -98,20 +98,17 @@ public class GameActionBean extends BaseActionBean {
         return new ForwardResolution(FriendInviteAcceptActionBean.class);
     }
 
-
     @DontValidate
     @HandlesEvent("viewTheirTurnFriendInvite")
     public Resolution viewTheirTurnFriendInvite() {
         return new ForwardResolution(TheirTurnFriendInviteActionBean.class);
     }
-    
-    
+
     @DontValidate
     @HandlesEvent("theirTurnGameCancel")
     public Resolution theirTurnGameCancel() {
         return new ForwardResolution(TheirTurnGameCancelActionBean.class);
     }
-
 
     @DontValidate
     @HandlesEvent("playGame")
@@ -120,27 +117,49 @@ public class GameActionBean extends BaseActionBean {
         return new ForwardResolution(GamePlayActionBean.class);
     }
 
-    public List<InviteFriend> getMyTurnInviteFriends() throws WPServiceException {
-        return _svcGame.getMyTurnInviteFriends(user);
+    public List<InviteFriend> getMyTurnInviteFriends() {
+        List<InviteFriend> result = new ArrayList<InviteFriend>();
+        try {
+            result = _svcGame.getMyTurnInviteFriends(user);
+        } catch (WPServiceException e) {
+            LogUtil.logException("getMyTurnInviteFriends", e);
+        }
+        return result;
     }
 
-
     public List<Game> getMyTurnGames() throws WPServiceException {
-        return _svcGame.getMyTurnGames(user);
+        List<Game> result = new ArrayList<Game>();
+        try {
+            result = _svcGame.getMyTurnGames(user);
+        } catch (WPServiceException e) {
+            LogUtil.logException("getMyTurnInviteFriends", e);
+        }
+        return result;
     }
 
     public List<InviteFriend> getTheirTurnsInviteFriend() throws WPServiceException {
-        user = getContext().getUserFromSession();
-        return _svcGame.getTheirTurnsInviteFriend(user);
+        List<InviteFriend> result = new ArrayList<InviteFriend>();
+        try {
+            user = getContext().getUserFromSession();
+            result = _svcGame.getTheirTurnsInviteFriend(user);
+        } catch (WPServiceException e) {
+            LogUtil.logException("getMyTurnInviteFriends", e);
+        }
+        return result;
     }
-    
+
     public List<Game> getTheirTurnsGame() throws WPServiceException {
-        return _svcGame.getTheirTurnsGame(user);
+        List<Game> result = new ArrayList<Game>();
+        try {
+            result = _svcGame.getTheirTurnsGame(user);
+        } catch (WPServiceException e) {
+            LogUtil.logException("getMyTurnInviteFriends", e);
+        }
+        return result;
     }
-    
+
     public User getUser() {
         return user;
     }
-
 
 }

@@ -2,7 +2,6 @@ package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -22,16 +21,16 @@ import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.servlet.msg.EmailMessage;
 import com.wordpong.app.servlet.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
 public class FriendInviteCancelActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(FriendInviteCancelActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_friendInviteCancel.jsp";
 
     private User user;
 
     @Validate(required = true, converter = EmailTypeConverter.class, minlength = 4, maxlength = 50)
     private String email;
-    private String createdAtString="??";
+    private String createdAtString = "??";
 
     public FriendInviteCancelActionBean() {
     }
@@ -59,6 +58,7 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
                     sg.cancelFriendInvitation(user, email);
                     addGlobalActionError("friendInviteCancel.invitedCancelled");
                 } catch (WPServiceException e) {
+                    LogUtil.logException("cancelInvite", e);
                     addGlobalActionError("friendInviteCancel.unableToCancel");
                 }
             }
@@ -85,7 +85,7 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
                 }
             } catch (Exception e) {
                 addGlobalActionError("friendInvite.unableToInviteFriend");
-                log.warning("unable to invite friend");
+                LogUtil.logException("resendInvite", e);
             }
         }
         // redirect back here
@@ -115,6 +115,5 @@ public class FriendInviteCancelActionBean extends BaseActionBean implements Vali
     public void setCreatedAtString(String createdAtString) {
         this.createdAtString = createdAtString;
     }
-    
-    
+
 }

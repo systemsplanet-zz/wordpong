@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 <s:useActionBean id="bean" beanclass="com.wordpong.app.action.game.FriendInviteActionBean"/>
 <fmt:message var="submitLbl" key="submit" />
-<fmt:message var="backLbl" key="back" />
+<fmt:message var="skipLbl" key="skip" />
 <fmt:message var="emailLbl" key="email" />
 <div data-role="content" style="padding-top:0px; ">
 	<%-- NAVIGATION --%>
@@ -28,6 +28,9 @@
 			
 		<div style="float:right">
 			<input name="invite" id="invite" data-theme="a" class="process" value="${submitLbl}" type="submit" />
+		</div>	
+		<div style="float:left">
+			<input name="back" id="back" data-theme="a" class="process" value="${skipLbl}" type="submit" />
 		</div>	
 	</s:form>   
 </div>

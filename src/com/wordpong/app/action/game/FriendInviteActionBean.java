@@ -2,7 +2,6 @@ package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -22,9 +21,9 @@ import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.servlet.msg.EmailMessage;
 import com.wordpong.app.servlet.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
 public class FriendInviteActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(FriendInviteActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_friendInvite.jsp";
 
     private User user;
@@ -73,7 +72,7 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
                 }
             } catch (Exception e) {
                 addGlobalActionError("friendInvite.unableToInviteFriend");
-                log.warning("unable to invite friend");
+                LogUtil.logException("invite", e);
             }
         }
         return result;
@@ -81,10 +80,6 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
 
     @ValidationMethod
     public void validateUser(ValidationErrors errors) {
-        AppActionBeanContext c = getContext();
-        if (c != null) {
-            // Todo: validate email list
-        }
     }
 
     // on errors, only reply with the content, not the entire page

@@ -2,7 +2,6 @@ package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -23,109 +22,105 @@ import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.util.debug.LogUtil;
 
-public class AnswerEditActionBean extends BaseActionBean implements
-		ValidationErrorHandler {
-	private static final Logger log = Logger
-			.getLogger(AnswerEditActionBean.class.getName());
-	private static final String VIEW = "/WEB-INF/jsp/game/_answerEdit.jsp";
+public class AnswerEditActionBean extends BaseActionBean implements ValidationErrorHandler {
+    private static final String VIEW = "/WEB-INF/jsp/game/_answerEdit.jsp";
 
-	private SvcGame _svcGame;
-	// when the user selects answers to edit these are populated
-	private String answerKeyStringEncrypted;
-	private String questionTitle;
-	private Answer answer;
-	private List<String> answers = new ArrayList<String>();
+    private SvcGame _svcGame;
+    // when the user selects answers to edit these are populated
+    private String answerKeyStringEncrypted;
+    private String questionTitle;
+    private Answer answer;
+    private List<String> answers = new ArrayList<String>();
 
-	private List<String> questions;
-	private int questionsSize = 0;
+    private List<String> questions;
+    private int questionsSize = 0;
 
-	public AnswerEditActionBean() {
-		_svcGame = SvcGameFactory.getSvcGame();
-	}
+    public AnswerEditActionBean() {
+        _svcGame = SvcGameFactory.getSvcGame();
+    }
 
-	@After(stages = LifecycleStage.BindingAndValidation)
-	public void doPostValidationStuff() {
-		if (answerKeyStringEncrypted != null) {
-			String answerKeyString = CryptoUtil.decrypt(answerKeyStringEncrypted);
-			if (answer == null && answerKeyString != null) {
-				try {
-					answer = _svcGame.getAnswer(answerKeyString);
-					if (answer != null) {
-						Question q = _svcGame.getQuestion(answer
-								.getQuestionKeyString());
-						questions = q.getQuestions();
-						if (questions != null) {
-							questionsSize = questions.size();
-						}
-						if (answers.size() == 0) {
-							List<String> as = answer.getAnswers();
-							answers.addAll(as);
-						}
-					}
-				} catch (WPServiceException e) {
-					log.warning("unable to get answer:" + e.getMessage());
-				}
-			}
-		}
-	}
+    @After(stages = LifecycleStage.BindingAndValidation)
+    public void doPostValidationStuff() {
+        if (answerKeyStringEncrypted != null) {
+            String answerKeyString = CryptoUtil.decrypt(answerKeyStringEncrypted);
+            if (answer == null && answerKeyString != null) {
+                try {
+                    answer = _svcGame.getAnswer(answerKeyString);
+                    if (answer != null) {
+                        Question q = _svcGame.getQuestion(answer.getQuestionKeyString());
+                        questions = q.getQuestions();
+                        if (questions != null) {
+                            questionsSize = questions.size();
+                        }
+                        if (answers.size() == 0) {
+                            List<String> as = answer.getAnswers();
+                            answers.addAll(as);
+                        }
+                    }
+                } catch (WPServiceException e) {
+                    LogUtil.logException("doPostValidationStuff", e);
+                }
+            }
+        }
+    }
 
-	@DontValidate
-	public Resolution back() {
-		return new RedirectResolution(AnswerListActionBean.class);
-	}
+    @DontValidate
+    public Resolution back() {
+        return new RedirectResolution(AnswerListActionBean.class);
+    }
 
-	@DontValidate
-	@DefaultHandler
-	public Resolution view() {
-		return new ForwardResolution(VIEW);
-	}
+    @DontValidate
+    @DefaultHandler
+    public Resolution view() {
+        return new ForwardResolution(VIEW);
+    }
 
-	@ValidationMethod
-	public void validateUser(ValidationErrors errors) {
-	}
+    @ValidationMethod
+    public void validateUser(ValidationErrors errors) {
+    }
 
-	// on errors, only reply with the content, not the entire page
-	public Resolution handleValidationErrors(ValidationErrors errors) {
-		return new ForwardResolution(VIEW);
-	}
+    // on errors, only reply with the content, not the entire page
+    public Resolution handleValidationErrors(ValidationErrors errors) {
+        return new ForwardResolution(VIEW);
+    }
 
-	@HandlesEvent("save")
-	public Resolution save() {
-		Resolution result = new ForwardResolution(VIEW);
-		try {
-			if (answer != null) {
-				answer.setAnswers(answers);
-				boolean allAnswered = true;
-				for (int i = 0; i < questionsSize; i++) {
-					if (answers.size() < questionsSize) {
-						allAnswered = false;
-						break;
-					}
-					String a = answers.get(i);
-					if (a == null || a.trim().length() == 0) {
-						allAnswered = false;
-						break;
-					}
-					a = a.trim();
-				}
-				if (allAnswered == false) {
-					addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
-				} else if (answer != null) {
-					_svcGame.saveAnswer(answer);
-					addGlobalActionMessage("answerEdit.answersUpdated");
-					log.info("updated answers:" + answer);
-					result = new ForwardResolution(GameActionBean.class);
-				}
-			}
-		} catch (WPServiceException e) {
-			addGlobalActionError("answerEdit.unableToSaveAnswers");
-		}
-		return result;
-	}
+    @HandlesEvent("save")
+    public Resolution save() {
+        Resolution result = new ForwardResolution(VIEW);
+        try {
+            if (answer != null) {
+                answer.setAnswers(answers);
+                boolean allAnswered = true;
+                for (int i = 0; i < questionsSize; i++) {
+                    if (answers.size() < questionsSize) {
+                        allAnswered = false;
+                        break;
+                    }
+                    String a = answers.get(i);
+                    if (a == null || a.trim().length() == 0) {
+                        allAnswered = false;
+                        break;
+                    }
+                    a = a.trim();
+                }
+                if (allAnswered == false) {
+                    addGlobalActionError("answerAddEdit.pleaseAnswerAllQuestions");
+                } else if (answer != null) {
+                    _svcGame.saveAnswer(answer);
+                    addGlobalActionMessage("answerEdit.answersUpdated");
+                    result = new ForwardResolution(GameActionBean.class);
+                }
+            }
+        } catch (WPServiceException e) {
+            addGlobalActionError("answerEdit.unableToSaveAnswers");
+            LogUtil.logException("save", e);
+        }
+        return result;
+    }
 
-
-	public String getQuestionTitle() {
+    public String getQuestionTitle() {
         return questionTitle;
     }
 
@@ -134,22 +129,22 @@ public class AnswerEditActionBean extends BaseActionBean implements
     }
 
     public String getAnswerKeyStringEncrypted() {
-		return answerKeyStringEncrypted;
-	}
+        return answerKeyStringEncrypted;
+    }
 
-	public void setAnswerKeyStringEncrypted(String a) {
-		this.answerKeyStringEncrypted = a;
-	}
+    public void setAnswerKeyStringEncrypted(String a) {
+        this.answerKeyStringEncrypted = a;
+    }
 
-	public List<String> getAnswers() {
-		return answers;
-	}
+    public List<String> getAnswers() {
+        return answers;
+    }
 
-	public void setAnswers(List<String> answers) {
-		this.answers = answers;
-	}
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
 
-	public List<String> getQuestions() {
-		return questions;
-	}
+    public List<String> getQuestions() {
+        return questions;
+    }
 }

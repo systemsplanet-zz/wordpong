@@ -1,7 +1,5 @@
 package com.wordpong.app.action.game;
 
-import java.util.logging.Logger;
-
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -23,7 +21,6 @@ import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.util.debug.LogUtil;
 
 public class GamePlayActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(GamePlayActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_gamePlay.jsp";
     private static final String SUCCESS = "/WEB-INF/jsp/game/_gamePlaySuccess.jsp";
 
@@ -48,7 +45,7 @@ public class GamePlayActionBean extends BaseActionBean implements ValidationErro
                 String questionKeyString = answer.getQuestionKeyString();
                 question = sg.getQuestion(questionKeyString);
             } catch (WPServiceException e) {
-                log.warning("doPostValidationStuff: err" + e.getMessage());
+                LogUtil.logException("doPostValidationStuff", e);
             }
         }
     }
@@ -66,7 +63,7 @@ public class GamePlayActionBean extends BaseActionBean implements ValidationErro
         try {
             sg.finishGame(gameKeyString);
         } catch (WPServiceException e) {
-            LogUtil.logException("finish game: err:" + e.getMessage(), e);
+            LogUtil.logException("success", e);
         }
         return new ForwardResolution(SUCCESS);
     }

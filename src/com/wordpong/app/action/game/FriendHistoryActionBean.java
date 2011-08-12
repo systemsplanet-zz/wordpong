@@ -2,7 +2,6 @@ package com.wordpong.app.action.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -22,9 +21,9 @@ import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
 public class FriendHistoryActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(FriendHistoryActionBean.class.getName());
     private static final String VIEW = "/WEB-INF/jsp/game/_friendHistory.jsp";
 
     private String friendHistoryKeyStringEncrypted = "?fhke?";
@@ -46,7 +45,6 @@ public class FriendHistoryActionBean extends BaseActionBean implements Validatio
                     friend = _svcGame.getUser(friendKeyString);
                     if (friend != null) {
                         user = getContext().getUserFromSession();
-                        long start = System.currentTimeMillis();
                         theirAnswers = _svcGame.getFriendGames(friend, user);
                         int points = 0;
                         for (Game g : theirAnswers) {
@@ -57,10 +55,9 @@ public class FriendHistoryActionBean extends BaseActionBean implements Validatio
                             points += g.getPoints();
                         }
                         friend.setPoints(points);
-                        log.info("getFriendGames elapsedMs:" + (System.currentTimeMillis() - start));                       
                     }
                 } catch (WPServiceException e) {
-                    log.warning("unable to get friend:" + e.getMessage());
+                    LogUtil.logException("doPostValidationStuff err", e);
                 }
             }
         }
@@ -70,7 +67,6 @@ public class FriendHistoryActionBean extends BaseActionBean implements Validatio
     public Resolution back() {
         return new ForwardResolution(FriendListActionBean.class);
     }
-
 
     @DontValidate
     @DefaultHandler

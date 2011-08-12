@@ -1,7 +1,5 @@
 package com.wordpong.app.action.game;
 
-import java.util.logging.Logger;
-
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -22,11 +20,10 @@ import com.wordpong.api.svc.dao.DaoInviteFriendFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.debug.LogUtil;
 
 public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
 		ValidationErrorHandler {
-	private static final Logger log = Logger
-			.getLogger(TheirTurnFriendInviteActionBean.class.getName());
 	private static final String VIEW = "/WEB-INF/jsp/game/_theirTurnFriendInvite.jsp";
 
 	private String inviteFriendKeyStringEncrypted;
@@ -45,6 +42,7 @@ public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
 			try {
 				inviteFriend = sg.getInviteFriend(inviteFriendKeyString);
 			} catch (WPServiceException e) {
+                LogUtil.logException("doPostValidationStuff", e);
 			}
 		}
 	}
@@ -73,7 +71,7 @@ public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
 				result = new ForwardResolution(GameActionBean.class);
 			} catch (Exception e) {
 				addGlobalActionError("theirTurnFriendInvite.unableToCancelInvite");
-				log.warning("unable to uninvite friend");
+                LogUtil.logException("cancelInvite", e);
 			}
 		}
 		return result;
@@ -81,9 +79,6 @@ public class TheirTurnFriendInviteActionBean extends BaseActionBean implements
 
 	@ValidationMethod
 	public void validateUser(ValidationErrors errors) {
-		AppActionBeanContext c = getContext();
-		if (c != null) {
-		}
 	}
 
 	// on errors, only reply with the content, not the entire page

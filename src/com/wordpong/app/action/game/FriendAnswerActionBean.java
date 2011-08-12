@@ -1,7 +1,5 @@
 package com.wordpong.app.action.game;
 
-import java.util.logging.Logger;
-
 import net.sourceforge.stripes.action.After;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.DontValidate;
@@ -21,9 +19,10 @@ import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.util.debug.LogUtil;
 
 public class FriendAnswerActionBean extends BaseActionBean implements ValidationErrorHandler {
-    private static final Logger log = Logger.getLogger(FriendAnswerActionBean.class.getName());
+
     private static final String VIEW = "/WEB-INF/jsp/game/_friendAnswer.jsp";
 
     private String gameKeyStringEncrypted;
@@ -49,7 +48,7 @@ public class FriendAnswerActionBean extends BaseActionBean implements Validation
                         }
                     }
                 } catch (WPServiceException e) {
-                    log.warning("unable to get answer:" + e.getMessage());
+                    LogUtil.logException("doPostValidationStuff", e);
                 }
             }
         }
