@@ -21,6 +21,7 @@ import com.wordpong.app.action.BaseActionBean;
 import com.wordpong.app.servlet.msg.EmailMessage;
 import com.wordpong.app.servlet.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.Constant;
 import com.wordpong.util.debug.LogUtil;
 
 public class FriendInviteActionBean extends BaseActionBean implements ValidationErrorHandler {
@@ -56,7 +57,7 @@ public class FriendInviteActionBean extends BaseActionBean implements Validation
                 user = c.getUserFromSession();
                 if (user != null) {
                     if (user.getEmail().equalsIgnoreCase(email) == false) {
-                        String url = "https://wordpong.appspot.com/?register=" + email;
+                        String url = Constant.WP_URL + "?register=" + email;
                         String msg = getMsg("friendInvite.email.message", new Object[] { user.getFullName(), url });
                         String sub = getMsg("friendInvite.email.subject", new Object[] { user.getFullName() });
                         List<String> emails = new ArrayList<String>();

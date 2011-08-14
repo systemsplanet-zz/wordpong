@@ -535,7 +535,7 @@ public class SvcGameImpl implements SvcGame {
                     // add the game to the list of active games
                     user.addGame(game);
                     du.save(at, user);
-                    result = true;
+                    result = true;                    
                 } catch (DaoException e) {
                 }
                 return result;

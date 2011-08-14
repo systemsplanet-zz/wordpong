@@ -9,7 +9,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
+//TODO: send email in a task queue
 public class MailUtil {
     private static final Logger log = Logger.getLogger(MailUtil.class.getName());
 

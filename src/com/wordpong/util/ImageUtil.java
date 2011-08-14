@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class ImageUtil {
-    public static final String IMAGE_DEFAULT = "https://wordpong.appspot.com/i/p/u.png";
+    public static final String IMAGE_DEFAULT = Constant.WP_URL + "i/p/u.png";
 
     static public String getPictureUrl(String email) {
         String result = IMAGE_DEFAULT;

@@ -10,6 +10,7 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.util.CryptoUtil;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import net.sourceforge.stripes.validation.ValidationMethod;
@@ -21,7 +22,10 @@ import com.wordpong.api.svc.SvcGame;
 import com.wordpong.api.svc.SvcGameFactory;
 import com.wordpong.api.svc.err.WPServiceException;
 import com.wordpong.app.action.BaseActionBean;
+import com.wordpong.app.servlet.msg.EmailMessage;
+import com.wordpong.app.servlet.msg.MailUtil;
 import com.wordpong.app.stripes.AppActionBeanContext;
+import com.wordpong.util.Constant;
 import com.wordpong.util.debug.LogUtil;
 
 public class NewGameActionBean extends BaseActionBean implements ValidationErrorHandler {
@@ -132,6 +136,13 @@ public class NewGameActionBean extends BaseActionBean implements ValidationError
             g.setInviterUserKeyString(user.getKeyString());
             sg.createGame(g, user);
             addGlobalActionMessage("newGame.gameSent");
+            String friendKeyString = CryptoUtil.decrypt(friendKeyStringEncrypted);
+            User friend = sg.getUser(friendKeyString);
+            String email = friend.getEmail();
+            String msg = getMsg("game.createMessage", new Object[] { user.getFullName(), Constant.WP_URL });
+            String sub = getMsg("game.createSubject", new Object[] { user.getFullName() });
+            MailUtil.sendAdminMail(new EmailMessage(sub, msg, email, friend.getFullName()));
+
         } catch (Exception e) {
             LogUtil.logException("startGame", e);
             addGlobalActionError("newGame.unableToStartGame");
