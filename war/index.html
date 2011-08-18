@@ -18,6 +18,7 @@
 <script>
 $(document).bind("mobileinit", function(){
   $.mobile.loadingMessage =  "WordPonging...";
+  //todo:localize  $.mobile.page.prototype.options.backBtnText =""
 });
 </script>
 <script type="text/javascript" src="/js/jquery.mobile.min.js"></script>
@@ -119,6 +120,9 @@ $(document).ready(function() {
        $('#wp-init-btn').click();
 	}
 });
+window.onbeforeunload = function(){
+   return "Leave WordPong?";
+}
 </script>
 </div>
 </body>

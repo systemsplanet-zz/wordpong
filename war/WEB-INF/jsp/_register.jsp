@@ -15,13 +15,13 @@
 </div>
 
 <div data-role="content" data-theme="a" style="padding-top:0px;" >
+	<s:form  beanclass="com.wordpong.app.action.RegisterActionBean" method="post">	
 	<ul data-role="listview" data-inset="true" data-theme="c"
 		data-dividertheme="b">
 		<li data-role="list-divider">${titleLbl}</li>
 	</ul>
 	<tags:messages/>
 	
-	<s:form  beanclass="com.wordpong.app.action.RegisterActionBean" method="post">	
 		<div data-role="fieldcontain" style="padding:4px;">
 				<s:label for="firstName" class="ui-input-text"/>
 				<s:text name="firstName" tabindex="1"/>
@@ -44,12 +44,15 @@
 			href="/static/privacy.html">${privacyPolicyLbl}</a> <br />
 		</small></p>
 		<s:submit name="process" value="${signUpLbl}" class="process"/>
-	</s:form>
 	<br />
 	<p />
 	<br />
-	<div style="float: left;"><a href="/" rel="external">${loginLbl}</a><br /></div>
+	<div style="float: left;">
+		<sdyn:submit name="login" value="${loginLbl}" class="process ui-btn-left " data-icon='arrow-l'/>
+		<br />
+	</div>
 	<div style="float: right;"><a href="/static/contact.html">${contactUsLbl}</a></div>
+	</s:form>
 </div>
 <%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script>

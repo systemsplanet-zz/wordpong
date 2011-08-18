@@ -70,6 +70,11 @@ public class RegisterActionBean extends BaseActionBean implements ValidationErro
         return new ForwardResolution(VIEW);
     }
 
+    @DontValidate
+    public Resolution login() {
+        return new ForwardResolution(LoginActionBean.class);
+    }
+
     // main form processor
     // if called directly, validation events are fired
     // called to register a new user

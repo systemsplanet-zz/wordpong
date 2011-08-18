@@ -18,7 +18,7 @@ public class ServletUtil {
     public static final String REPLY_HEADER_OK_VAL = "OK";
     public static final String REPLY_HEADER_ERR_KEY = "Stripes-Unavailable";
     public static final String REPLY_HEADER_ERR_VAL = "ERR";
-    
+
     static public boolean isSecure(HttpServletRequest req) {
         return req.getScheme().equals("https");
     }
@@ -78,16 +78,23 @@ public class ServletUtil {
             for (String param : query.split("&")) {
                 String[] pair = param.split("=");
                 String key;
+                String value = null;
                 try {
-                    key = URLDecoder.decode(pair[0], "UTF-8");
-                    String value = URLDecoder.decode(pair[1], "UTF-8");
-                    List<String> values = result.get(key);
-                    if (values == null) {
-                        values = new ArrayList<String>();
-                        result.put(key, values);
+                    if (pair != null && pair.length > 0) {
+                        key = URLDecoder.decode(pair[0], "UTF-8");
+                        if (pair.length > 1) {
+                            value = URLDecoder.decode(pair[1], "UTF-8");
+                        }
+                        if (value == null)
+                            value = "";
+                        List<String> values = result.get(key);
+                        if (values == null) {
+                            values = new ArrayList<String>();
+                            result.put(key, values);
+                        }
+                        values.add(value);
                     }
-                    values.add(value);
-                } catch (UnsupportedEncodingException e) {
+                } catch (Exception e) {
                 }
             }
         }

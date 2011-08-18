@@ -27,6 +27,8 @@ public class Game implements Serializable {
     // questions key
     private Key answersKey;
 
+    private Key questionsKey;
+
     @Attribute(unindexed = true)
     private String questionTitle; // copied from question.Title
 
@@ -133,7 +135,7 @@ public class Game implements Serializable {
     }
 
     public String getAnswersKeyString() {
-        String k = KeyFactory.keyToString(answersKey);
+        String k = answersKey == null ? null : KeyFactory.keyToString(answersKey);
         return k;
     }
 
@@ -156,6 +158,19 @@ public class Game implements Serializable {
     public void setAnswersKeyString(String ks) {
         Key k = KeyFactory.stringToKey(ks);
         answersKey = k;
+    }
+
+    public Key getQuestionsKey() {
+        return questionsKey;
+    }
+
+    public String getQuestionsKeyString() {
+        String k = questionsKey == null ? null : KeyFactory.keyToString(questionsKey);
+        return k;
+    }
+
+    public void setQuestionsKey(Key questionsKey) {
+        this.questionsKey = questionsKey;
     }
 
     public boolean isCompleted() {

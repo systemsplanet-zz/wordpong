@@ -523,6 +523,11 @@ public class SvcGameImpl implements SvcGame {
         long start = System.currentTimeMillis();
         final DaoGame dg = DaoGameFactory.getDaoGame();
         final DaoUser du = DaoUserFactory.getDaoUser();
+        final DaoAnswer da = DaoAnswerFactory.getDaoAnswer();
+        // get the answers
+        Answer a = da.getAnswer(g.getAnswersKeyString());
+        // save the redundant question key for fast lookups
+        g.setQuestionsKey(a.getQuestionKey());
         final String msg = "createGame Game:" + g + " User:" + u;
         Predicate<Atomic> WORK = new Predicate<Atomic>() {
             public boolean apply(Atomic at) {
@@ -535,7 +540,7 @@ public class SvcGameImpl implements SvcGame {
                     // add the game to the list of active games
                     user.addGame(game);
                     du.save(at, user);
-                    result = true;                    
+                    result = true;
                 } catch (DaoException e) {
                 }
                 return result;
@@ -625,6 +630,30 @@ public class SvcGameImpl implements SvcGame {
                     }
                 }
             }
+            // Add any questions that were sent to us in a game
+            // add ones that the user has not already answered
+            DaoGame gq = DaoGameFactory.getDaoGame();
+            List<Game> games = gq.getGamesByInviteeKey(user);
+            if (games != null) {
+                List<String> questionKeyStrings = new ArrayList<String>();
+                for (Game g : games) {
+                    String ks = g.getQuestionsKeyString();
+                    if (ks != null) {
+                        questionKeyStrings.add(ks);
+                    }
+                }
+                if (questionKeyStrings.size() > 0) {
+                    List<Question> receivedQuestions = dq.getByKeyStrings(questionKeyStrings);
+                    for (Question q : receivedQuestions) {
+                        String ks = q.getKeyString();
+                        if (ks != null && m.containsKey(ks) == false) {
+                            result.add(q);
+                        }
+                    }
+                }
+            }
+            Collections.sort(result, Question.TITLE_ORDER);
+
         } catch (DaoException e) {
             throw new WPServiceException("getUnansweredQuestions user: " + user, e);
         } finally {

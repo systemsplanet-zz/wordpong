@@ -79,7 +79,7 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         Key k = put(u);
         return k;
     }
- 
+
     // Get the list of private/public questions for a user
     public List<Question> getMyQuestions(User u) throws DaoException {
         List<Question> result;
@@ -108,7 +108,8 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         return result;
     }
 
-    // get unique, sorted list of public questions plus my public/private questions
+    // get unique, sorted list of public questions plus my public/private
+    // questions
     public List<Question> getQuestions(User u) throws DaoException {
         List<Question> result = new ArrayList<Question>();
         Map<String, Question> m = new HashMap<String, Question>();
@@ -123,7 +124,16 @@ public class DaoQuestionImpl extends DaoBase<Question> implements DaoQuestion {
         for (Map.Entry<String, Question> entry : m.entrySet()) {
             result.add((Question) entry.getValue());
         }
-        Collections.sort(result, Question.TITLE_ORDER);
+        return result;
+    }
+
+    public List<Question> getByKeyStrings(List<String> keyStrings) throws DaoException {
+        List<Key> keys = new ArrayList<Key>();
+        for (String ks : keyStrings) {
+            Key k = KeyFactory.stringToKey(ks);
+            keys.add(k);
+        }
+        List<Question> result = get(keys);
         return result;
     }
 }
