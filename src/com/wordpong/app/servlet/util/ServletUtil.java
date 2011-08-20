@@ -1,6 +1,5 @@
 package com.wordpong.app.servlet.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
