@@ -35,11 +35,11 @@
 	       <input id="questionKeyStringEncrypted" name="questionKeyStringEncrypted" type="hidden" value="${actionBean.questionKeyStringEncrypted}"/>
 	       <input id="questionTitle" name="questionTitle" type="hidden" value="${actionBean.questionTitle}"/>
         </small>         
-        <div style="float:left">
-           <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
-        </div>
         <div style="float:right">
            <input data-theme="a" class="process ui-btn-left "  name="save" value="SAVE" type="submit" /> 
+        </div>
+        <div style="float:left">
+           <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 
         </div>
 	</s:form>	 
 </div>

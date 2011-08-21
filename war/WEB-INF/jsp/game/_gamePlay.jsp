@@ -47,6 +47,7 @@ var i=0;
 var q=new Array(); //questions
 var a=new Array(); //answers
 var qr=new Array(); // random question indexes
+var answered = new Object();
 <c:forEach items="${actionBean.question.questions}" var="i"  varStatus="s">	 	       
 	q[${s.index}]="${i}";			              
 	qr[${s.index}]=${s.index};
@@ -66,6 +67,9 @@ function skip(){
 }
 
 function match(ai){
+if (answered['#item-'+ai]==true) {
+   return;
+}
 var responseIndex = qr[i]
 var response = a[responseIndex]
 var response = response.toLowerCase();
@@ -77,9 +81,10 @@ var question = question.toLowerCase()
    		// no match
    		$('#item-'+ai).fadeOut('fast').fadeIn('fast')
    	} else {
-   		//strike through the answer
-   		  $('#item-'+ai).fadeOut('fast').fadeIn('fast', function() {
-             $('#item-'+ai).css('text-decoration','line-through').css('color','green');
+	    //strike through the answer
+	    answered['#item-'+ai]=true
+	    $('#item-'+ai).fadeOut('fast').fadeIn('fast', function() {
+	        $('#item-'+ai).css('text-decoration','line-through').css('color','green');
 	   		//remove the question from qr
 	   		qr.splice(i, 1);
 	   		if (qr.length==0) {
@@ -87,7 +92,8 @@ var question = question.toLowerCase()
 	   		} else {
 	   	  		 skip();
 	   		}
-          });
+        });
    	}
+
 }
 </script>
