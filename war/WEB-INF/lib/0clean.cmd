@@ -3,7 +3,7 @@ rem del appengine-api-1.0-sdk-1.5.0.jar
 rem del appengine-api-labs-1.5.0.jar
 rem del appengine-jsr107cache-1.5.0.jar 
 
-del appengine-jsr107cache-1.4.3.jar
+del appengine-jsr107cache-1.5.0.jar
 del datanucleus-appengine-1.0.8.final.jar
 del datanucleus-core-1.1.5.jar
 del datanucleus-jpa-1.1.5.jar
