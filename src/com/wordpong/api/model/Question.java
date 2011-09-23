@@ -86,6 +86,10 @@ public class Question implements Serializable {
     // 6 is needs
     @Attribute(unindexed = false)
     private int intimacyLevel;
+    
+    // Link for information relating to the question set
+    @Attribute(unindexed = false)
+    private String questionLink;
 
     // GETTER/SETTERS
 
@@ -208,8 +212,16 @@ public class Question implements Serializable {
     public void setTags(Set<String> tags) {
         this.tags = tags;
     }
+    
+    public String getQuestionLink() {
+		return questionLink;
+	}
 
-    @Override
+	public void setQuestionLink(String questionLink) {
+		this.questionLink = questionLink;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -250,6 +262,7 @@ public class Question implements Serializable {
         setIntimacyLevel(qc.getIntimacy());
         setLocaleString(qc.getLocale());
         setQuestions(qc.getQuestions());
+        setQuestionLink(qc.getQuestionLink());
     }
 
     @Override

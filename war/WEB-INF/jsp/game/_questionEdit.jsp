@@ -4,6 +4,7 @@
 <fmt:message var="enterQuestionsLbl" key="questionEdit.enterQuestions" />
 <fmt:message var="descriptionLbl" key="questionAddEdit.description" />
 <fmt:message var="questionLbl" key="questionAddEdit.question" />
+<fmt:message var="questionLinkDesc" key="questionAddEdit.questionLinkDesc" />
 
 <div data-role="content" style="padding-top:0px;">
 	<%-- NAVIGATION --%>
@@ -39,9 +40,17 @@
 	              <s:label for="questions[${s.index}]" class="ui-input-text">${questionLbl} ${s.index + 1}:</s:label>		              
 	              <sdyn:text name="questions[${s.index}]" id="questions[${s.index}]" tabindex="2" maxlength="100"  class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-a"/>
 	          </div>
-	       </c:forEach>
+	       </c:forEach>	      
 	       <input id="questionKeyStringEncrypted" name="questionKeyStringEncrypted" type="hidden" value="${actionBean.questionKeyStringEncrypted}"/>
 	       <input id="questionTitle" name="questionTitle" type="hidden" value="${actionBean.questionTitle}"/>
+	       <span data-role="fieldcontain">
+				<label for="questionDescription">${descriptionLbl}:</label>	
+				<s:text id="questionDescription" name="questionDescription" tabindex="1"   />
+			</span>
+			<span data-role="fieldcontain">
+				<label for="questionLink">${questionLinkDesc}:</label>
+	        	<s:text name="questionLink" id="questionLink" tabindex="2" maxlength="100"  class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-a"/>
+	        </span>
         </small>         
         <div style="float:left">
            <input data-theme="a" class="process ui-btn-left " data-icon='arrow-l' name="back" value="${backLbl}" type="submit" /> 

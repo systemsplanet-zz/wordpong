@@ -35,6 +35,9 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
 
     @Validate(required = true, maxlength = 100, minlength = 4)
     private String questionDescription;
+    
+    @Validate(required = false, maxlength = 100)
+    private String questionLink;
 
     private Question question;
     private List<String> questions = null;
@@ -65,6 +68,9 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
                             }
                             if (questionDescription == null) {
                                 questionDescription = question.getDescription();
+                            }
+                            if (questionLink == null) {
+                            	questionLink = question.getQuestionLink();
                             }
                         }
                     }
@@ -102,6 +108,7 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
             if (question != null) {
                 question.setDescription(questionDescription);
                 question.setQuestions(questions);
+                question.setQuestionLink(questionLink);
                 Map<String, Boolean> m = new HashMap<String, Boolean>();
                 boolean duplicate = false;
                 boolean allQuestioned = true;
@@ -171,4 +178,11 @@ public class QuestionEditActionBean extends BaseActionBean implements Validation
         return questions;
 
     }
+    public String getQuestionLink() {
+		return questionLink;
+	}
+
+	public void setQuestionLink(String questionLink) {
+		this.questionLink = questionLink;
+	}
 }

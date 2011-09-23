@@ -13,6 +13,7 @@ public class QuestionCreation {
     List<String> questions;
     String title;
     String description;
+    String questionLink;
     int visibility=Question.VISIBILITY_PRIVATE;
     int intimacy=Question.INTIMACY_CLICHES;
     String locale=LocaleDisplay.LOCALE_EN_US;
@@ -68,6 +69,14 @@ public class QuestionCreation {
     public void setLocale(String locale) {
         this.locale = locale;
     }
+    
+    public String getQuestionLink() {
+		return questionLink;
+	}
+
+	public void setQuestionLink(String questionLink) {
+		this.questionLink = questionLink;
+	}
 
     @Override
     public String toString() {
