@@ -36,7 +36,7 @@
     <!--
         Issue 1807: Sessions-enabled app doesn't work when datastore goes down
     -->
-    <sessions-enabled>true</sessions-enabled>
+    <sessions-enabled>true</sessions-enabled>	
 
     <static-error-handlers>
         <handler file="err/app_error.html" />
